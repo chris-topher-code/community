@@ -1,0 +1,2499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChinaVoices - Share Your China Story</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a1a;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-coral: #ff6b5b;
+            --accent-orange: #ff9a5c;
+            --accent-gradient: linear-gradient(135deg, #ff6b5b 0%, #ff9a5c 100%);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --text-muted: rgba(255, 255, 255, 0.4);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo i {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            padding: 8px 14px;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--glass);
+            border-color: var(--accent-coral);
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 107, 91, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(255, 107, 91, 0.4);
+        }
+
+        .hero {
+            min-height: 100vh;
+            padding: 140px 60px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .hero-badge i {
+            color: var(--accent-coral);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 18px 24px 18px 56px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-container input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-container input:focus {
+            border-color: var(--accent-coral);
+            box-shadow: 0 0 30px rgba(255, 107, 91, 0.15);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent-coral);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-orange);
+            bottom: -50px;
+            left: -100px;
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            width: 350px;
+            height: 350px;
+            background: #ff6b5b;
+            top: 40%;
+            left: 30%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 30px) scale(1.02); }
+        }
+
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 20px 60px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        body.logged-in .hero {
+            display: none;
+        }
+        body.logged-in .category-filter {
+            display: flex;
+        }
+
+        .category-filter::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-pill {
+            padding: 10px 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .category-pill:hover {
+            background: var(--accent-coral);
+            color: white;
+            border-color: var(--accent-coral);
+        }
+
+        .category-pill.active {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+        }
+
+        .posts-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .posts-section h2 i {
+            color: var(--accent-coral);
+        }
+
+        .posts-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .post-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 28px;
+            transition: all 0.3s ease;
+        }
+
+        .post-card:hover {
+            border-color: rgba(255, 107, 91, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .post-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--glass-border);
+        }
+
+        .post-author-info {
+            flex: 1;
+        }
+
+        .post-author-name {
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .post-author-country {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .post-time {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .post-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        .post-category.travel {
+            background: rgba(52, 152, 219, 0.15);
+            color: #3498db;
+        }
+
+        .post-category.study {
+            background: rgba(155, 89, 182, 0.15);
+            color: #9b59b6;
+        }
+
+        .post-category.work {
+            background: rgba(230, 126, 34, 0.15);
+            color: #e67e22;
+        }
+
+        .post-category.entertainment {
+            background: rgba(255, 99, 132, 0.15);
+            color: #ff6384;
+        }
+
+        .post-category.food {
+            background: rgba(255, 159, 64, 0.15);
+            color: #ff9f40;
+        }
+
+        .post-category.life {
+            background: rgba(75, 192, 192, 0.15);
+            color: #4bc0c0;
+        }
+
+        .post-category.business {
+            background: rgba(54, 162, 235, 0.15);
+            color: #36a2eb;
+        }
+
+        .post-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .post-tag {
+            padding: 6px 14px;
+            background: rgba(255, 107, 91, 0.1);
+            border: 1px solid rgba(255, 107, 91, 0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--accent-coral);
+        }
+
+        .post-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .action-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .action-btn.liked {
+            color: var(--accent-coral);
+        }
+
+        .action-btn.liked i {
+            animation: heartBeat 0.3s ease;
+        }
+
+        .action-btn.translated {
+            color: #4bc0c0;
+        }
+
+        .action-btn.translated i::before {
+            content: '\f00c';
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-card h3 i {
+            color: var(--accent-coral);
+        }
+
+        .trending-list {
+            list-style: none;
+        }
+
+        .trending-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+
+        .trending-item:hover {
+            color: var(--accent-coral);
+        }
+
+        .trending-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-coral);
+            opacity: 0.6;
+            min-width: 30px;
+        }
+
+        .trending-info {
+            flex: 1;
+        }
+
+        .trending-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .trending-posts {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .community-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .community-stat {
+            text-align: center;
+            padding: 16px;
+            background: rgba(255, 107, 91, 0.05);
+            border-radius: 12px;
+        }
+
+        .community-stat i {
+            font-size: 1.5rem;
+            color: var(--accent-coral);
+            margin-bottom: 8px;
+        }
+
+        .community-stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .community-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-dark);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: var(--accent-coral);
+            border-color: var(--accent-coral);
+        }
+
+        .modal-header {
+            padding: 40px 40px 20px;
+            text-align: center;
+        }
+
+        .modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .modal-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .modal-tabs {
+            display: flex;
+            padding: 0 40px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .modal-tab {
+            flex: 1;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .modal-tab.active {
+            color: var(--accent-coral);
+            border-bottom-color: var(--accent-coral);
+        }
+
+        .modal-body {
+            padding: 30px 40px 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--accent-coral);
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ffffff60' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        .form-group select option {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        .identity-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .identity-card {
+            padding: 16px 12px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .identity-card:hover {
+            border-color: var(--accent-coral);
+        }
+
+        .identity-card.selected {
+            background: rgba(255, 107, 91, 0.1);
+            border-color: var(--accent-coral);
+        }
+
+        .identity-card i {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .identity-card.selected i {
+            color: var(--accent-coral);
+        }
+
+        .identity-card span {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 16px;
+            margin-top: 10px;
+        }
+
+        .composer-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 16px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .composer-textarea:focus {
+            border-color: var(--accent-coral);
+        }
+
+        .composer-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            padding: 16px 24px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 10px 40px rgba(255, 107, 91, 0.4);
+            animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards;
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        .post-card.expanded {
+            border-color: rgba(255, 107, 91, 0.4);
+        }
+
+        .comment-section {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0;
+            margin-top: 0;
+        }
+
+        .post-card.expanded .comment-section {
+            max-height: 500px;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .comment {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .comment + .comment {
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .comment-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .comment-content {
+            flex: 1;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comment-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .footer {
+            background: var(--glass);
+            border-top: 1px solid var(--glass-border);
+            padding: 60px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-coral);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent-coral);
+            border-color: var(--accent-coral);
+            color: white;
+        }
+
+        .explore-section {
+            display: none;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            min-height: calc(100vh - 70px);
+        }
+
+        .explore-section.active {
+            display: block;
+        }
+
+        .cities-hero-banner {
+            background: linear-gradient(135deg, rgba(255,107,91,0.15), rgba(255,154,92,0.08));
+            border-radius: 28px;
+            padding: 80px 60px;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cities-hero-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+        }
+
+        .cities-hero-blob-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-coral);
+            top: -150px;
+            right: -100px;
+        }
+
+        .cities-hero-blob-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-orange);
+            bottom: -100px;
+            left: -50px;
+        }
+
+        .cities-hero-blob-3 {
+            width: 250px;
+            height: 250px;
+            background: #ff6b5b;
+            top: 50%;
+            left: 30%;
+        }
+
+        .cities-hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .cities-hero-icon {
+            font-size: 5rem;
+            margin-bottom: 24px;
+        }
+
+        .cities-hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cities-hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+        }
+
+        .explore-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .explore-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .explore-header h2 i {
+            color: var(--accent-coral);
+        }
+
+        .explore-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .city-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .city-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.15;
+            transition: opacity 0.3s ease;
+        }
+
+        .city-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 107, 91, 0.3);
+        }
+
+        .city-card:hover::before {
+            opacity: 0.25;
+        }
+
+        .city-card-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .city-card-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .city-card-english {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .city-card-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .city-card-count i {
+            color: var(--accent-coral);
+        }
+
+        .city-card[data-city="beijing"]::before { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .city-card[data-city="shanghai"]::before { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .city-card[data-city="guangzhou"]::before { background: linear-gradient(135deg, #27ae60, #1e8449); }
+        .city-card[data-city="shenzhen"]::before { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .city-card[data-city="chengdu"]::before { background: linear-gradient(135deg, #e67e22, #d35400); }
+        .city-card[data-city="hangzhou"]::before { background: linear-gradient(135deg, #1abc9c, #16a085); }
+        .city-card[data-city="xian"]::before { background: linear-gradient(135deg, #f39c12, #d68910); }
+        .city-card[data-city="suzhou"]::before { background: linear-gradient(135deg, #34495e, #2c3e50); }
+        .city-card[data-city="wuhan"]::before { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .city-card[data-city="chongqing"]::before { background: linear-gradient(135deg, #2980b9, #1a5276); }
+        .city-card[data-city="nanjing"]::before { background: linear-gradient(135deg, #8e44ad, #6c3483); }
+        .city-card[data-city="tianjin"]::before { background: linear-gradient(135deg, #16a085, #117a65); }
+
+        .city-posts-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .city-posts-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .city-posts-container .posts-grid {
+            gap: 20px;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            background: var(--accent-coral);
+            border-color: var(--accent-coral);
+        }
+
+        .city-posts-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+        }
+
+        .city-posts-header h2 span {
+            color: var(--accent-coral);
+        }
+
+        .city-hero-banner {
+            background: linear-gradient(135deg, rgba(255,107,91,0.2), rgba(255,154,92,0.1));
+            border-radius: 24px;
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .city-hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,107,91,0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        .city-hero-banner .city-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+        .city-hero-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .city-hero-banner .city-english {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .city-hero-banner .city-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        .city-hero-banner .city-stat {
+            text-align: center;
+        }
+        .city-hero-banner .city-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-coral);
+        }
+        .city-hero-banner .city-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .main-container {
+                padding: 20px;
+            }
+
+            .category-filter {
+                display: flex;
+                justify-content: flex-start;
+                padding: 16px 20px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .footer {
+                padding: 40px 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .modal {
+                max-height: 85vh;
+            }
+
+            .modal-header,
+            .modal-body {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .identity-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .explore-section {
+                padding: 20px;
+            }
+
+            .explore-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .cities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .city-posts-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .city-posts-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .city-posts-container {
+                padding: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">
+            <i class="fas fa-comments"></i>
+            ChinaVoices
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#" class="active">Stories</a></li>
+            <li><a href="#">Explore</a></li>
+            <li><a href="#">New Post</a></li>
+            <li><a href="#">Topics</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="btn btn-outline" id="loginBtn">Sign In</button>
+            <button class="btn btn-primary" id="registerBtn">Join Now</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-sparkles"></i>
+                Welcome to the foreign community in China
+            </div>
+            <h1>Share Your <span>China Story</span></h1>
+            <p>Connect with fellow foreigners, share experiences, ask questions, and discover the real China through authentic voices from around the world.</p>
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search stories, topics, or people...">
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">12,847</div>
+                    <div class="stat-label">Community Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8,234</div>
+                    <div class="stat-label">Stories Shared</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Cities Covered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="category-filter">
+        <div class="category-pill active" data-category="all">全部 (All)</div>
+        <div class="category-pill" data-category="travel">🧳 旅游 Travel</div>
+        <div class="category-pill" data-category="study">🎓 学习 Study</div>
+        <div class="category-pill" data-category="work">👷 工作 Work</div>
+        <div class="category-pill" data-category="entertainment">🎭 娱乐 Entertainment</div>
+        <div class="category-pill" data-category="food">🍜 美食 Food</div>
+        <div class="category-pill" data-category="life">🏙️ 生活 Life</div>
+        <div class="category-pill" data-category="business">💼 商务 Business</div>
+    </div>
+
+    <section class="explore-section" id="exploreSection">
+        <div id="citiesView">
+            <div class="cities-hero-banner">
+                <div class="cities-hero-blob cities-hero-blob-1"></div>
+                <div class="cities-hero-blob cities-hero-blob-2"></div>
+                <div class="cities-hero-blob cities-hero-blob-3"></div>
+                <div class="cities-hero-content">
+                    <div class="cities-hero-icon">🌏</div>
+                    <h1 class="cities-hero-title">Explore Cities</h1>
+                    <p class="cities-hero-subtitle">Discover authentic stories from every corner of China</p>
+                </div>
+            </div>
+            <div class="cities-grid" id="citiesGrid"></div>
+        </div>
+        <div id="cityPostsView" style="display: none;">
+            <div class="city-hero-banner" id="cityHeroBanner">
+                <!-- Will be populated by JS -->
+            </div>
+            <div class="city-posts-container">
+                <div class="city-posts-header">
+                    <button class="back-btn" onclick="backToCities()">
+                        <i class="fas fa-arrow-left"></i> Back to Cities
+                    </button>
+                    <h2 id="cityPostsTitle"></h2>
+                </div>
+                <div class="posts-grid" id="cityPostsGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-container" id="mainContainer">
+        <section class="posts-section">
+            <h2><i class="fas fa-fire"></i> Community Stories</h2>
+            <div class="posts-grid" id="postsGrid">
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3><i class="fas fa-chart-line"></i> Trending Topics</h3>
+                <ul class="trending-list">
+                    <li class="trending-item">
+                        <span class="trending-number">1</span>
+                        <div class="trending-info">
+                            <div class="trending-title">Best districts in Shanghai</div>
+                            <div class="trending-posts">324 posts</div>
+                        </div>
+                    </li>
+                    <li class="trending-item">
+                        <span class="trending-number">2</span>
+                        <div class="trending-info">
+                            <div class="trending-title">Visa policy updates 2026</div>
+                            <div class="trending-posts">289 posts</div>
+                        </div>
+                    </li>
+                    <li class="trending-item">
+                        <span class="trending-number">3</span>
+                        <div class="trending-info">
+                            <div class="trending-title">Chinese learning resources</div>
+                            <div class="trending-posts">256 posts</div>
+                        </div>
+                    </li>
+                    <li class="trending-item">
+                        <span class="trending-number">4</span>
+                        <div class="trending-info">
+                            <div class="trending-title">Affordable healthcare tips</div>
+                            <div class="trending-posts">198 posts</div>
+                        </div>
+                    </li>
+                    <li class="trending-item">
+                        <span class="trending-number">5</span>
+                        <div class="trending-info">
+                            <div class="trending-title">Remote work in China</div>
+                            <div class="trending-posts">167 posts</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-card">
+                <h3><i class="fas fa-globe"></i> Community Stats</h3>
+                <div class="community-stats">
+                    <div class="community-stat">
+                        <i class="fas fa-users"></i>
+                        <div class="community-stat-value">12.8K</div>
+                        <div class="community-stat-label">Members</div>
+                    </div>
+                    <div class="community-stat">
+                        <i class="fas fa-comments"></i>
+                        <div class="community-stat-value">45.2K</div>
+                        <div class="community-stat-label">Comments</div>
+                    </div>
+                    <div class="community-stat">
+                        <i class="fas fa-share"></i>
+                        <div class="community-stat-value">8.1K</div>
+                        <div class="community-stat-label">Shares</div>
+                    </div>
+                    <div class="community-stat">
+                        <i class="fas fa-flag"></i>
+                        <div class="community-stat-value">89</div>
+                        <div class="community-stat-label">Countries</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h3><i class="fas fa-bolt"></i> Quick Links</h3>
+                <ul class="trending-list">
+                    <li class="trending-item">
+                        <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
+                        <div class="trending-info">
+                            <div class="trending-title">Newcomer Guide</div>
+                            <div class="trending-posts">Essential tips for China</div>
+                        </div>
+                    </li>
+                    <li class="trending-item">
+                        <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
+                        <div class="trending-info">
+                            <div class="trending-title">Events Near You</div>
+                            <div class="trending-posts">Meetups & gatherings</div>
+                        </div>
+                    </li>
+                    <li class="trending-item">
+                        <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
+                        <div class="trending-info">
+                            <div class="trending-title">Job Board</div>
+                            <div class="trending-posts">Opportunities for foreigners</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>ChinaVoices</h3>
+                <p>A vibrant community connecting foreigners across China. Share your experiences, make friends, and discover the real China together.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="#">Stories</a></li>
+                    <li><a href="#">Members</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Groups</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Newcomer Guide</a></li>
+                    <li><a href="#">Visa Information</a></li>
+                    <li><a href="#">Healthcare</a></li>
+                    <li><a href="#">Language Tips</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 ChinaVoices. All rights reserved.</span>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="authModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 id="modalTitle">Welcome Back</h2>
+                <p id="modalSubtitle">Log in to continue your China journey</p>
+            </div>
+            <div class="modal-tabs">
+                <div class="modal-tab active" data-tab="login">Log In</div>
+                <div class="modal-tab" data-tab="register">Register</div>
+            </div>
+            <div class="modal-body">
+                <form id="authForm">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="emailInput" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="passwordInput" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                        <label>Confirm Password</label>
+                        <input type="password" placeholder="Confirm your password">
+                    </div>
+                    <div class="form-group" id="countryGroup" style="display: none;">
+                        <label>Country of Origin</label>
+                        <select id="countrySelect">
+                            <option value="">Select your country...</option>
+                            <option value="US">United States</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="CA">Canada</option>
+                            <option value="AU">Australia</option>
+                            <option value="DE">Germany</option>
+                            <option value="FR">France</option>
+                            <option value="ES">Spain</option>
+                            <option value="IT">Italy</option>
+                            <option value="NL">Netherlands</option>
+                            <option value="BE">Belgium</option>
+                            <option value="CH">Switzerland</option>
+                            <option value="AT">Austria</option>
+                            <option value="SE">Sweden</option>
+                            <option value="NO">Norway</option>
+                            <option value="DK">Denmark</option>
+                            <option value="FI">Finland</option>
+                            <option value="PL">Poland</option>
+                            <option value="CZ">Czech Republic</option>
+                            <option value="HU">Hungary</option>
+                            <option value="RO">Romania</option>
+                            <option value="RU">Russia</option>
+                            <option value="UA">Ukraine</option>
+                            <option value="TR">Turkey</option>
+                            <option value="JP">Japan</option>
+                            <option value="KR">South Korea</option>
+                            <option value="IN">India</option>
+                            <option value="SG">Singapore</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="TH">Thailand</option>
+                            <option value="VN">Vietnam</option>
+                            <option value="PH">Philippines</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="BR">Brazil</option>
+                            <option value="MX">Mexico</option>
+                            <option value="AR">Argentina</option>
+                            <option value="CL">Chile</option>
+                            <option value="CO">Colombia</option>
+                            <option value="ZA">South Africa</option>
+                            <option value="NG">Nigeria</option>
+                            <option value="EG">Egypt</option>
+                            <option value="AE">United Arab Emirates</option>
+                            <option value="SA">Saudi Arabia</option>
+                            <option value="IL">Israel</option>
+                            <option value="NZ">New Zealand</option>
+                            <option value="IE">Ireland</option>
+                            <option value="PT">Portugal</option>
+                            <option value="GR">Greece</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="identityGroup" style="display: none;">
+                        <label>What best describes you?</label>
+                        <div class="identity-options">
+                            <div class="identity-card" data-identity="student">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Student</span>
+                            </div>
+                            <div class="identity-card" data-identity="worker">
+                                <i class="fas fa-briefcase"></i>
+                                <span>Worker</span>
+                            </div>
+                            <div class="identity-card" data-identity="tourist">
+                                <i class="fas fa-camera"></i>
+                                <span>Tourist</span>
+                            </div>
+                            <div class="identity-card" data-identity="business">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Business</span>
+                            </div>
+                            <div class="identity-card" data-identity="researcher">
+                                <i class="fas fa-microscope"></i>
+                                <span>Researcher</span>
+                            </div>
+                            <div class="identity-card" data-identity="other">
+                                <i class="fas fa-ellipsis-h"></i>
+                                <span>Other</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary modal-btn" id="submitBtn">Log In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="newPostModal">
+        <div class="modal">
+            <button class="modal-close" id="newPostModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2>Share Your Story</h2>
+                <p>Tell the community about your experience in China</p>
+            </div>
+            <div class="modal-body">
+                <form id="newPostForm">
+                    <div class="form-group">
+                        <textarea class="composer-textarea" id="postContent" placeholder="Share your story..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary modal-btn">Post</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        const categories = {
+            travel: { label: '🧳 旅游 Travel', class: 'travel' },
+            study: { label: '🎓 学习 Study', class: 'study' },
+            work: { label: '👷 工作 Work', class: 'work' },
+            entertainment: { label: '🎭 娱乐 Entertainment', class: 'entertainment' },
+            food: { label: '🍜 美食 Food', class: 'food' },
+            life: { label: '🏙️ 生活 Life', class: 'life' },
+            business: { label: '💼 商务 Business', class: 'business' }
+        };
+
+        const cities = [
+            { id: 'beijing', name: '北京', english: 'Beijing', icon: '🏯' },
+            { id: 'shanghai', name: '上海', english: 'Shanghai', icon: '🌆' },
+            { id: 'guangzhou', name: '广州', english: 'Guangzhou', icon: '🏙️' },
+            { id: 'shenzhen', name: '深圳', english: 'Shenzhen', icon: '🚀' },
+            { id: 'chengdu', name: '成都', english: 'Chengdu', icon: '🐼' },
+            { id: 'hangzhou', name: '杭州', english: 'Hangzhou', icon: '🏝️' },
+            { id: 'xian', name: '西安', english: "Xi'an", icon: '🏺' },
+            { id: 'suzhou', name: '苏州', english: 'Suzhou', icon: '🌸' },
+            { id: 'wuhan', name: '武汉', english: 'Wuhan', icon: '🌉' },
+            { id: 'chongqing', name: '重庆', english: 'Chongqing', icon: '🌶️' },
+            { id: 'nanjing', name: '南京', english: 'Nanjing', icon: '🦚' },
+            { id: 'tianjin', name: '天津', english: 'Tianjin', icon: '⚓' }
+        ];
+
+        const postsData = [
+            {
+                id: 1,
+                author: "Yuki Tanaka",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Yuki",
+                country: "Japan",
+                countryCode: "JP",
+                time: "2 hours ago",
+                content: "Just discovered the most amazing street food stall in Chengdu! The owner has been making the same recipe for 40 years. Sometimes the best experiences in China are the ones you stumble upon randomly. Has anyone else found hidden gems like this?",
+                tags: ["Food", "Chengdu", "Street Food"],
+                category: "study",
+                city: "chengdu",
+                likes: 234,
+                comments: 45,
+                shares: 12,
+                liked: false,
+                translated: false,
+                translation: null
+            },
+            {
+                id: 2,
+                author: "Mike Johnson",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike",
+                country: "United States",
+                countryCode: "US",
+                time: "4 hours ago",
+                content: "Working remotely from Shanghai for 6 months now. The coworking scene here is incredible! Met so many interesting people from different industries. Anyone else doing remote work in China? Let's connect!",
+                tags: ["Remote Work", "Shanghai", "Coworking"],
+                category: "food",
+                city: "shanghai",
+                likes: 189,
+                comments: 67,
+                shares: 28,
+                liked: false,
+                translated: false,
+                translation: null
+            },
+            {
+                id: 3,
+                author: "Chidi Okafor",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Chidi",
+                country: "Nigeria",
+                countryCode: "NG",
+                time: "6 hours ago",
+                content: "Finally got my residence permit renewed after some stressful weeks! Pro tip: start the renewal process at least 2 months before expiration. The immigration office in Beijing has gotten much more efficient though.",
+                tags: ["Visa", "Beijing", "Residence Permit"],
+                category: "work",
+                city: "beijing",
+                likes: 312,
+                comments: 89,
+                shares: 45,
+                liked: false,
+                translated: false,
+                translation: null
+            },
+            {
+                id: 4,
+                author: "Marie Dubois",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marie",
+                country: "France",
+                countryCode: "FR",
+                time: "8 hours ago",
+                content: "The HSR between Beijing and Shanghai never ceases to amaze me. 1,318 km in just 4.5 hours with impeccable service. As someone who grew up with French trains, this feels like the future!",
+                tags: ["Travel", "HSR", "Transportation"],
+                category: "travel",
+                city: "beijing",
+                likes: 456,
+                comments: 78,
+                shares: 156,
+                liked: false,
+                translated: false,
+                translation: null
+            },
+            {
+                id: 5,
+                author: "Jimin Park",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jimin",
+                country: "South Korea",
+                countryCode: "KR",
+                time: "10 hours ago",
+                content: "Just completed my first semester at Peking University! The campus is beautiful and the professors are world-class. Learning Mandarin has been challenging but incredibly rewarding. Any other international students here?",
+                tags: ["University", "Beijing", "Student Life"],
+                category: "study",
+                city: "beijing",
+                likes: 278,
+                comments: 112,
+                shares: 34,
+                liked: false,
+                translated: false,
+                translation: null
+            },
+            {
+                id: 6,
+                author: "Lucas Silva",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lucas",
+                country: "Brazil",
+                countryCode: "BR",
+                time: "12 hours ago",
+                content: "Photographer's paradise! The karst landscape around Guilin is unlike anywhere else on Earth. Spent a week there and took over 2,000 photos. The morning mist over the Li River is pure magic.",
+                tags: ["Photography", "Guilin", "Travel"],
+                category: "travel",
+                city: "guangzhou",
+                likes: 567,
+                comments: 134,
+                shares: 89,
+                liked: false,
+                translated: false,
+                translation: null
+            },
+            {
+                id: 7,
+                author: "James Wright",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+                country: "United Kingdom",
+                countryCode: "UK",
+                time: "14 hours ago",
+                content: "Just launched my tech startup in Guangzhou! The ecosystem here is incredibly supportive for entrepreneurs. Already secured our first round of funding. China is truly the land of opportunity for those willing to take the leap.",
+                tags: ["Startup", "Guangzhou", "Business"],
+                category: "business",
+                city: "guangzhou",
+                likes: 423,
+                comments: 98,
+                shares: 67,
+                liked: false,
+                translated: false,
+                translation: null
+            },
+            {
+                id: 8,
+                author: "Priya Sharma",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
+                country: "India",
+                countryCode: "IN",
+                time: "16 hours ago",
+                content: "Cultural shock of the week: Got a marriage proposal from my Chinese friend's parents. Apparently I'm 'of good child-bearing age' and should consider settling down. Dating culture is quite different here!",
+                tags: ["Culture", "Dating", "Humour"],
+                category: "study",
+                city: "shanghai",
+                likes: 892,
+                comments: 267,
+                shares: 134,
+                liked: false,
+                translated: false,
+                translation: null
+            },
+            {
+                id: 9,
+                author: "Hans Mueller",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hans",
+                country: "Germany",
+                countryCode: "DE",
+                time: "18 hours ago",
+                content: "Quick review: The healthcare system in Shenzhen is excellent! Got a comprehensive checkup at a private clinic for a fraction of what it would cost in Europe. Staff spoke perfect English too.",
+                tags: ["Healthcare", "Shenzhen", "Review"],
+                category: "life",
+                city: "shenzhen",
+                likes: 198,
+                comments: 56,
+                shares: 23,
+                liked: false,
+                translated: false,
+                translation: null
+            },
+            {
+                id: 10,
+                author: "Somchai Rattana",
+                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Somchai",
+                country: "Thailand",
+                countryCode: "TH",
+                time: "20 hours ago",
+                content: "The e-commerce infrastructure in China is 10 years ahead of anywhere else. Same-day delivery, super apps for everything, and cashless payments everywhere. Going back home will be such a culture shock!",
+                tags: ["Technology", "E-commerce", "Lifestyle"],
+                category: "life",
+                city: "hangzhou",
+                likes: 634,
+                comments: 145,
+                shares: 98,
+                liked: false,
+                translated: false,
+                translation: null
+            }
+        ];
+
+        const frenchTranslations = {
+            1: "J'ai découvert le plus incroyable stand de nourriture de rue à Chengdu ! Le propriétaire prépare la même recette depuis 40 ans. Parfois, les meilleures expériences en Chine sont celles que l'on découvre par hasard. Quelqu'un d'autre a-t-il trouvé des perles rares comme celle-ci ?",
+            2: "Je travaille à distance depuis Shanghai depuis 6 mois. La scène des espaces de coworking est incroyable ! J'ai rencontré tellement de personnes intéressantes de différents secteurs. Quelqu'un d'autre travaille-t-il à distance en Chine ? Connectons-nous !",
+            3: "J'ai enfin renouvelé mon permis de séjour après quelques semaines stressantes ! Conseil : commencez le renouvellement au moins 2 mois avant l'expiration. Le bureau de l'immigration à Beijing est devenu beaucoup plus efficace.",
+            4: "Le TGV entre Beijing et Shanghai ne cesse de m'émerveiller. 1318 km en seulement 4,5 heures avec un service impeccable. Pour quelqu'un qui a grandi avec les trains français, cela ressemble à l'avenir !",
+            5: "Mon premier semestre à l'Université de Péking est terminé ! Le campus est magnifique et les professeurs sont de classe mondiale. Apprendre le mandarin a été difficile mais incroyablement gratifiant. D'autres étudiants internationaux ici ?",
+            6: "Paradis des photographes ! Le paysage karstique autour de Guilin est unlike anywhere else on Earth. J'ai passé une semaine là-bas et pris plus de 2000 photos. La brume matinale sur la rivière Li est pure magie.",
+            7: "Je viens de lancer ma startup technologique à Guangzhou ! L'écosystème ici est incroyablement favorable aux entrepreneurs. J'ai déjà sécurisé notre premier tour de financement. La Chine est vraiment le pays des opportunités pour ceux qui sont prêts à sauter le pas.",
+            8: "Choc culturel de la semaine : J'ai reçu une proposition de mariage des parents de mon ami chinois. Apparemment, je suis 'd'âge approprié pour avoir des enfants' et je devrais envisager de m'installer. La culture des rendez-vous est assez différente ici !",
+            9: "Critique rapide : Le système de santé à Shenzhen est excellent ! J'ai passé un bilan complet dans une clinique privée pour une fraction de ce que cela coûterait en Europe. Le personnel parlait aussi parfaitement anglais.",
+            10: "L'infrastructure e-commerce en Chine est en avance de 10 ans sur partout ailleurs. Livraison le jour même, super-apps pour tout, et paiements sans contact partout. Retourner chez soi sera un tel choc culturel !"
+        };
+
+        let currentCategory = 'all';
+        let isLoggedIn = false;
+        let exploreActive = false;
+        let currentCityFilter = null;
+
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function getFlagEmoji(countryCode) {
+            const codePoints = countryCode
+                .toUpperCase()
+                .split('')
+                .map(char => 127397 + char.charCodeAt(0));
+            return String.fromCodePoint(...codePoints);
+        }
+
+        function toggleLike(postId) {
+            const post = postsData.find(p => p.id === postId);
+            if (post) {
+                post.liked = !post.liked;
+                post.likes += post.liked ? 1 : -1;
+                if (currentCityFilter) {
+                    renderCityPosts(currentCityFilter);
+                } else {
+                    renderPosts();
+                }
+            }
+        }
+
+        function translatePost(postId, lang) {
+            const post = postsData.find(p => p.id === postId);
+            if (!post) return;
+
+            if (post.translated && post.translation) {
+                post.content = post.translation;
+                post.translation = null;
+                post.translated = false;
+            } else {
+                showToast("Translating to French... 🔄");
+                const originalContent = post.content;
+                setTimeout(() => {
+                    post.translation = originalContent;
+                    post.content = frenchTranslations[postId] || originalContent;
+                    post.translated = true;
+                    if (currentCityFilter) {
+                        renderCityPosts(currentCityFilter);
+                    } else {
+                        renderPosts();
+                    }
+                }, 1000);
+                return;
+            }
+
+            if (currentCityFilter) {
+                renderCityPosts(currentCityFilter);
+            } else {
+                renderPosts();
+            }
+        }
+
+        function getPostHTML(post) {
+            const cat = categories[post.category];
+            return `
+            <article class="post-card" data-post-id="${post.id}" onclick="togglePostExpand(${post.id}, event)">
+                <div class="post-header">
+                    <img src="${post.avatar}" alt="${post.author}" class="post-avatar">
+                    <div class="post-author-info">
+                        <div class="post-author-name">
+                            ${post.author}
+                            <span class="post-author-country">
+                                <span class="flag-icon">${getFlagEmoji(post.countryCode)}</span>
+                                ${post.country}
+                            </span>
+                        </div>
+                        <div class="post-time">${post.time}</div>
+                    </div>
+                    <span class="post-category ${cat.class}">${cat.label.split(' ')[0]} ${cat.label.split(' ')[1]}</span>
+                </div>
+                <p class="post-content">${post.content}</p>
+                <div class="post-tags">
+                    ${post.tags.map(tag => `<span class="post-tag">${tag}</span>`).join('')}
+                </div>
+                <div class="post-actions" onclick="event.stopPropagation()">
+                    <button class="action-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
+                        <i class="${post.liked ? 'fas' : 'far'} fa-heart"></i>
+                        <span>${post.likes}</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="far fa-comment"></i>
+                        <span>${post.comments}</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="far fa-share-square"></i>
+                        <span>${post.shares}</span>
+                    </button>
+                    <button class="action-btn translate-btn ${post.translated ? 'translated' : ''}" onclick="translatePost(${post.id}, 'fr')">
+                        <i class="fas fa-language"></i>
+                        <span>${post.translated ? 'Translated' : 'Translate'}</span>
+                    </button>
+                </div>
+                <div class="comment-section">
+                    <div class="comment">
+                        <div class="comment-avatar">👩</div>
+                        <div class="comment-content">
+                            <div class="comment-author">Sarah M. <span>🇬🇧</span></div>
+                            <div class="comment-text">Great post! I had a similar experience.</div>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <div class="comment-avatar">👨</div>
+                        <div class="comment-content">
+                            <div class="comment-author">Alex K. <span>🇨🇦</span></div>
+                            <div class="comment-text">Thanks for sharing! Very helpful.</div>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <div class="comment-avatar">👨</div>
+                        <div class="comment-content">
+                            <div class="comment-author">Marco R. <span>🇮🇹</span></div>
+                            <div class="comment-text">I totally agree! 🇨🇳</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            `;
+        }
+
+        function renderPosts() {
+            const postsGrid = document.getElementById('postsGrid');
+            if (!postsGrid) return;
+            
+            const filteredPosts = currentCategory === 'all'
+                ? postsData
+                : postsData.filter(post => post.category === currentCategory);
+
+            postsGrid.innerHTML = filteredPosts.map(post => getPostHTML(post)).join('');
+        }
+
+        function getCityPostCount(cityId) {
+            return postsData.filter(post => post.city === cityId).length;
+        }
+
+        function renderCitiesGrid() {
+            const citiesGrid = document.getElementById('citiesGrid');
+            if (!citiesGrid) return;
+
+            citiesGrid.innerHTML = cities.map(city => {
+                const count = getCityPostCount(city.id);
+                return `
+                <div class="city-card" data-city="${city.id}" onclick="selectCity('${city.id}')">
+                    <div class="city-card-icon">${city.icon}</div>
+                    <div class="city-card-name">${city.name}</div>
+                    <div class="city-card-english">${city.english}</div>
+                    <div class="city-card-count">
+                        <i class="fas fa-comment"></i>
+                        ${count} posts
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function selectCity(cityId) {
+            const city = cities.find(c => c.id === cityId);
+            if (!city) return;
+
+            currentCityFilter = cityId;
+
+            document.getElementById('citiesView').style.display = 'none';
+            document.getElementById('cityPostsView').style.display = 'block';
+            document.getElementById('cityPostsTitle').innerHTML = `Posts in <span>${city.name} (${city.english})</span>`;
+
+            document.getElementById('cityHeroBanner').innerHTML = `
+                <div class="city-icon">${city.icon}</div>
+                <h2>${city.name}</h2>
+                <div class="city-english">${city.english}</div>
+                <div class="city-stats">
+                    <div class="city-stat">
+                        <div class="city-stat-number">${postsData.filter(p => p.city === cityId).length}</div>
+                        <div class="city-stat-label">Stories</div>
+                    </div>
+                    <div class="city-stat">
+                        <div class="city-stat-number">${Math.floor(Math.random() * 50 + 10)}</div>
+                        <div class="city-stat-label">Topics</div>
+                    </div>
+                </div>
+            `;
+
+            renderCityPosts(cityId);
+        }
+
+        function renderCityPosts(cityId) {
+            const cityPostsGrid = document.getElementById('cityPostsGrid');
+            if (!cityPostsGrid) return;
+
+            const filteredPosts = postsData.filter(post => post.city === cityId);
+            cityPostsGrid.innerHTML = filteredPosts.map(post => getPostHTML(post)).join('');
+        }
+
+        function backToCities() {
+            currentCityFilter = null;
+            document.getElementById('citiesView').style.display = 'block';
+            document.getElementById('cityPostsView').style.display = 'none';
+        }
+
+        function toggleExplore(show) {
+            const exploreSection = document.getElementById('exploreSection');
+            const mainContainer = document.getElementById('mainContainer');
+            const categoryFilter = document.querySelector('.category-filter');
+            const hero = document.querySelector('.hero');
+
+            if (show) {
+                exploreSection.classList.add('active');
+                mainContainer.style.display = 'none';
+                categoryFilter.style.display = 'none';
+                if (!isLoggedIn) {
+                    hero.style.display = 'none';
+                }
+                renderCitiesGrid();
+            } else {
+                exploreSection.classList.remove('active');
+                mainContainer.style.display = 'grid';
+                categoryFilter.style.display = 'flex';
+                if (!isLoggedIn) {
+                    hero.style.display = 'block';
+                }
+                backToCities();
+            }
+            exploreActive = show;
+        }
+
+        let expandedPostId = null;
+
+        function togglePostExpand(postId, event) {
+            if (event.target.closest('.post-actions')) return;
+            const cards = document.querySelectorAll('.post-card');
+            cards.forEach(card => {
+                if (parseInt(card.dataset.postId) === postId) {
+                    if (expandedPostId === postId) {
+                        card.classList.remove('expanded');
+                        expandedPostId = null;
+                    } else {
+                        card.classList.add('expanded');
+                        expandedPostId = postId;
+                    }
+                } else {
+                    card.classList.remove('expanded');
+                }
+            });
+        }
+
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const authModal = document.getElementById('authModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalTabs = document.querySelectorAll('.modal-tab');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const submitBtn = document.getElementById('submitBtn');
+        const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+        const countryGroup = document.getElementById('countryGroup');
+        const identityGroup = document.getElementById('identityGroup');
+        const identityCards = document.querySelectorAll('.identity-card');
+        const newPostModal = document.getElementById('newPostModal');
+        const newPostModalClose = document.getElementById('newPostModalClose');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        let currentTab = 'login';
+
+        function openModal(tab) {
+            currentTab = tab;
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            modalTabs.forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+
+            if (tab === 'login') {
+                modalTitle.textContent = 'Welcome Back';
+                modalSubtitle.textContent = 'Log in to continue your China journey';
+                submitBtn.textContent = 'Log In';
+                confirmPasswordGroup.style.display = 'none';
+                countryGroup.style.display = 'none';
+                identityGroup.style.display = 'none';
+            } else {
+                modalTitle.textContent = 'Join Our Community';
+                modalSubtitle.textContent = 'Create an account to start sharing your story';
+                submitBtn.textContent = 'Create Account';
+                confirmPasswordGroup.style.display = 'block';
+                countryGroup.style.display = 'block';
+                identityGroup.style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            authModal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('emailInput').value = '';
+            document.getElementById('passwordInput').value = '';
+        }
+
+        function openNewPostModal() {
+            newPostModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNewPostModal() {
+            newPostModal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('postContent').value = '';
+        }
+
+        loginBtn.addEventListener('click', () => openModal('login'));
+        registerBtn.addEventListener('click', () => openModal('register'));
+        modalClose.addEventListener('click', closeModal);
+
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) closeModal();
+        });
+
+        modalTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                openModal(tab.dataset.tab);
+            });
+        });
+
+        identityCards.forEach(card => {
+            card.addEventListener('click', () => {
+                identityCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+            });
+        });
+
+        document.getElementById('authForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+
+            if (email && password) {
+                isLoggedIn = true;
+                document.body.classList.add('logged-in');
+                closeModal();
+                showToast('Welcome back, Guest! 🎉');
+                renderPosts();
+            }
+        });
+
+        newPostModalClose.addEventListener('click', closeNewPostModal);
+
+        newPostModal.addEventListener('click', (e) => {
+            if (e.target === newPostModal) closeNewPostModal();
+        });
+
+        document.getElementById('newPostForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const content = document.getElementById('postContent').value;
+            if (content.trim()) {
+                closeNewPostModal();
+                showToast('Post shared successfully! 🎉');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                const linkText = link.textContent.trim();
+                if (linkText === 'Stories' || linkText === 'Home') {
+                    currentCategory = 'all';
+                    categoryPills.forEach(p => p.classList.remove('active'));
+                    document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+                    toggleExplore(false);
+                    renderPosts();
+                } else if (linkText === 'Explore') {
+                    toggleExplore(true);
+                } else if (linkText === 'New Post') {
+                    openNewPostModal();
+                }
+            });
+        });
+
+        const categoryPills = document.querySelectorAll('.category-pill');
+        categoryPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                categoryPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                currentCategory = pill.dataset.category;
+                renderPosts();
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (authModal.classList.contains('active')) closeModal();
+                if (newPostModal.classList.contains('active')) closeNewPostModal();
+            }
+        });
+
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > 50) {
+                navbar.style.background = 'rgba(10, 10, 26, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 26, 0.8)';
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        const searchInput = document.querySelector('.search-container input');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.style.transform = 'scale(1.02)';
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.style.transform = 'scale(1)';
+        });
+
+        renderPosts();
+
+        const categoryMapping = {
+            'Best districts in Shanghai': 'travel',
+            'Visa policy updates 2026': 'work',
+            'Chinese learning resources': 'study',
+            'Affordable healthcare tips': 'life',
+            'Remote work in China': 'work'
+        };
+
+        const trendingListItems = document.querySelectorAll('.trending-list .trending-item');
+        trendingListItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const title = item.querySelector('.trending-title').textContent;
+                showToast(`Showing: ${title} 🔍`);
+                const category = categoryMapping[title];
+                if (category) {
+                    currentCategory = category;
+                    categoryPills.forEach(p => p.classList.remove('active'));
+                    const matchingPill = document.querySelector(`.category-pill[data-category="${category}"]`);
+                    if (matchingPill) matchingPill.classList.add('active');
+                    renderPosts();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
