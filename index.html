@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -75,6 +76,7 @@
             display: flex;
             gap: 8px;
             list-style: none;
+            position: relative;
         }
 
         .nav-links li {
@@ -101,8 +103,81 @@
 
         .nav-actions {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
+        }
+
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .lang-btn {
+            padding: 7px 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .lang-btn.active {
+            background: var(--accent-gradient);
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .profile-btn {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            border-color: var(--accent-coral);
+            color: var(--text-primary);
+        }
+
+        .profile-btn img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+
+        body.logged-in .profile-btn {
+            display: flex;
+        }
+
+        body.logged-in #loginBtn,
+        body.logged-in #registerBtn {
+            display: none;
+        }
+
+        body:not(.logged-in) #signOutBtn,
+        body:not(.logged-in) .profile-btn {
+            display: none;
         }
 
         .btn {
@@ -894,6 +969,333 @@
             }
         }
 
+        .toast-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            padding: 16px 24px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            font-weight: 500;
+            color: white;
+            box-shadow: 0 10px 40px rgba(255, 107, 91, 0.4);
+            animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1), toastOut 0.4s cubic-bezier(0.7, 0, 0.84, 0) 2.6s forwards;
+            position: relative;
+            overflow: hidden;
+            pointer-events: auto;
+        }
+
+        .toast::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.5);
+            animation: toastProgress 3s linear;
+            border-radius: 0 0 12px 12px;
+        }
+
+        @keyframes toastProgress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+                filter: blur(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+                filter: blur(4px);
+            }
+        }
+
+        /* ===== Page transitions ===== */
+        .page-transition {
+            animation: pageIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Staggered card entrance ===== */
+        .post-card, .city-card, .topic-card {
+            opacity: 0;
+            animation: cardEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ===== Navbar shrink on scroll ===== */
+        .navbar {
+            transition: height 0.4s ease, padding 0.4s ease, background 0.4s ease;
+        }
+
+        .navbar.shrink {
+            height: 56px;
+        }
+
+        .nav-indicator {
+            position: absolute;
+            bottom: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+            transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        /* ===== 3D tilt on cards ===== */
+        .post-card, .city-card, .topic-card, .sidebar-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            will-change: transform;
+        }
+
+        .post-card:hover, .city-card:hover, .topic-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* ===== Cursor spotlight glow ===== */
+        .spotlight-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spotlight-card::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 107, 91, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .spotlight-card:hover::after {
+            opacity: 1;
+        }
+
+        .spotlight-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== Ripple effect ===== */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(0);
+            animation: rippleAnim 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleAnim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* ===== Scroll reveal ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== Hero parallax blobs ===== */
+        .blob {
+            transition: transform 0.3s ease-out;
+            will-change: transform;
+        }
+
+        /* ===== Counter animation ===== */
+        .stat-number[data-target] {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ===== Magnetic button ===== */
+        .btn {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ===== Smooth page visibility ===== */
+        .explore-section, .page-section {
+            animation: pageIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ===== Tag hover micro-interaction ===== */
+        .post-tag {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .post-tag:hover {
+            background: rgba(255, 107, 91, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 91, 0.2);
+        }
+
+        /* ===== Action button hover polish ===== */
+        .action-btn {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 8px;
+            padding: 6px 10px;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .action-btn:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        /* ===== Smooth expand toggle ===== */
+        .expand-toggle {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .expand-toggle:hover {
+            background: rgba(255, 107, 91, 0.08);
+        }
+
+        /* ===== Category pill polish ===== */
+        .category-pill {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-pill:active {
+            transform: scale(0.95);
+        }
+
+        /* ===== Welcome banner entrance ===== */
+        .welcome-inner {
+            animation: welcomeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes welcomeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ===== Loading shimmer for empty states ===== */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Skeleton loading */
+        .skeleton {
+            background: linear-gradient(90deg, var(--glass) 25%, rgba(255,255,255,0.06) 50%, var(--glass) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 12px;
+        }
+
+        .skeleton-card {
+            height: 200px;
+            margin-bottom: 24px;
+            border-radius: 20px;
+        }
+
+        /* Smooth overscroll */
+        html {
+            overscroll-behavior: smooth;
+        }
+
+        /* Avatar image reveal */
+        .post-avatar, .profile-avatar-lg, .profile-btn img {
+            background: var(--glass);
+            animation: avatarFadeIn 0.5s ease;
+        }
+
+        @keyframes avatarFadeIn {
+            from { opacity: 0; filter: blur(6px); transform: scale(0.9); }
+            to { opacity: 1; filter: blur(0); transform: scale(1); }
+        }
+
+        /* ===== Image loading ===== */
+        .post-avatar {
+            transition: opacity 0.3s ease;
+        }
+
+        .post-avatar[src=""] {
+            opacity: 0;
+        }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
         .post-card.expanded {
             border-color: rgba(255, 107, 91, 0.4);
         }
@@ -1344,6 +1746,1115 @@
             50% { transform: scale(1.1); opacity: 0.8; }
         }
 
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: var(--accent-coral);
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 0.95rem;
+        }
+
+        .welcome-banner {
+            display: none;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px 0;
+        }
+
+        body.logged-in .welcome-banner {
+            display: block;
+        }
+
+        .welcome-inner {
+            background: linear-gradient(135deg, rgba(255,107,91,0.12), rgba(255,154,92,0.06));
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-inner::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent-coral);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            top: -100px;
+            right: -50px;
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-greeting {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .welcome-sub {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 28px;
+        }
+
+        .welcome-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .welcome-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .welcome-action-btn:hover {
+            border-color: var(--accent-coral);
+            background: rgba(255, 107, 91, 0.1);
+        }
+
+        .welcome-action-btn i {
+            color: var(--accent-coral);
+            font-size: 1.1rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--accent-coral);
+            border-color: var(--accent-coral);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 26, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 20px;
+            z-index: 999;
+            transform: translateY(-10px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+            flex-direction: column;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 14px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-nav a:hover, .mobile-nav a.active {
+            color: var(--text-primary);
+            background: var(--glass);
+        }
+
+        .category-scroll-hint {
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .category-scroll-hint::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 40px;
+                background: linear-gradient(to right, transparent, var(--bg-dark));
+                pointer-events: none;
+            }
+        }
+
+        .comment-input-row {
+            display: flex;
+            gap: 10px;
+            padding-top: 14px;
+            margin-top: 6px;
+        }
+
+        .comment-input-row input {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .comment-input-row input:focus {
+            border-color: var(--accent-coral);
+        }
+
+        .comment-input-row input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .comment-input-row button {
+            padding: 10px 18px;
+            background: var(--accent-gradient);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .comment-input-row button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 107, 91, 0.3);
+        }
+
+        .share-dropdown {
+            position: relative;
+        }
+
+        .share-menu {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-dark);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 8px;
+            min-width: 160px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            z-index: 100;
+            margin-bottom: 8px;
+        }
+
+        .share-menu.active {
+            display: block;
+            animation: slideUp 0.2s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(6px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        .share-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .share-menu-item:hover {
+            background: var(--glass);
+            color: var(--text-primary);
+        }
+
+        .expand-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: none;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            margin-top: 12px;
+        }
+
+        .expand-toggle:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-coral);
+        }
+
+        .expand-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .post-card.expanded .expand-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .page-section {
+            display: none;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            min-height: calc(100vh - 70px);
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .page-hero {
+            background: linear-gradient(135deg, rgba(255,107,91,0.12), rgba(255,154,92,0.06));
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 12px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-hero p {
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .topic-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .topic-card:hover {
+            border-color: rgba(255, 107, 91, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .topic-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .topic-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .topic-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .topic-card-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+            padding: 5px 12px;
+            background: rgba(255, 107, 91, 0.1);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--accent-coral);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .about-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px;
+        }
+
+        .about-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-card h3 i {
+            color: var(--accent-coral);
+        }
+
+        .about-card p, .about-card li {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .about-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .about-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-card li:last-child {
+            border-bottom: none;
+        }
+
+        .about-card li i {
+            color: var(--accent-coral);
+            font-size: 0.9rem;
+        }
+
+        .about-stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .about-stat {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 107, 91, 0.05);
+            border-radius: 14px;
+        }
+
+        .about-stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-coral);
+        }
+
+        .about-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== New Post Page ===== */
+        .new-post-page {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            min-height: calc(100vh - 70px);
+        }
+
+        .new-post-page.active {
+            display: block;
+            animation: pageIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .new-post-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+        }
+
+        .new-post-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .new-post-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--glass-border);
+        }
+
+        .new-post-header-info {
+            flex: 1;
+        }
+
+        .new-post-header-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+        }
+
+        .new-post-header-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .new-post-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            resize: vertical;
+            line-height: 1.7;
+            transition: border-color 0.3s ease;
+        }
+
+        .new-post-textarea:focus {
+            border-color: var(--accent-coral);
+        }
+
+        .new-post-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .new-post-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 24px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .new-post-options {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .new-post-select {
+            padding: 10px 16px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ffffff60' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+            transition: border-color 0.3s ease;
+        }
+
+        .new-post-select:focus {
+            border-color: var(--accent-coral);
+        }
+
+        .new-post-select option {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+        }
+
+        .new-post-img-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .new-post-img-btn:hover {
+            border-color: var(--accent-coral);
+            color: var(--text-primary);
+        }
+
+        .new-post-img-btn i {
+            color: var(--accent-coral);
+        }
+
+        .new-post-submit {
+            padding: 12px 32px;
+        }
+
+        .new-post-preview {
+            margin-top: 16px;
+            display: none;
+            position: relative;
+        }
+
+        .new-post-preview img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .new-post-preview .remove-img {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--glass-border);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .new-post-preview .remove-img:hover {
+            background: var(--accent-coral);
+        }
+
+        .char-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .char-count.warning {
+            color: var(--accent-orange);
+        }
+
+        .char-count.danger {
+            color: #e74c3c;
+        }
+
+        /* ===== Enhanced Mobile ===== */
+        @media (max-width: 768px) {
+            .post-card {
+                padding: 20px;
+            }
+            .post-header {
+                flex-wrap: wrap;
+            }
+            .post-category {
+                margin-left: 0;
+                margin-top: 8px;
+            }
+            .post-actions {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+            .action-btn {
+                font-size: 0.8rem;
+                gap: 5px;
+            }
+            .share-menu {
+                left: 0;
+                right: auto;
+                transform: none;
+            }
+            .welcome-banner {
+                padding: 20px 16px 0;
+            }
+            .welcome-inner {
+                padding: 24px 20px;
+            }
+            .welcome-greeting {
+                font-size: 1.3rem;
+            }
+            .welcome-sub {
+                font-size: 0.9rem;
+            }
+            .welcome-actions {
+                gap: 10px;
+            }
+            .welcome-action-btn {
+                padding: 12px 18px;
+                font-size: 0.85rem;
+            }
+            .hero {
+                padding: 100px 20px 60px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .search-container input {
+                padding: 14px 20px 14px 48px;
+                font-size: 0.9rem;
+            }
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            .sidebar {
+                position: static;
+            }
+            .main-container {
+                padding: 20px 16px;
+            }
+            .navbar {
+                padding: 0 16px;
+            }
+            .nav-actions {
+                gap: 8px;
+            }
+            .profile-btn span {
+                display: none;
+            }
+            .profile-btn img {
+                width: 28px;
+                height: 28px;
+            }
+            #signOutBtn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            .comment-input-row {
+                flex-direction: column;
+            }
+            .comment-input-row input {
+                width: 100%;
+            }
+            .comment-input-row button {
+                width: 100%;
+                text-align: center;
+            }
+            .post-tags {
+                gap: 6px;
+            }
+            .post-tag {
+                padding: 4px 10px;
+                font-size: 0.75rem;
+            }
+            .trending-item {
+                padding: 10px 0;
+            }
+            .community-stats {
+                gap: 10px;
+            }
+            .community-stat {
+                padding: 12px;
+            }
+            .community-stat-value {
+                font-size: 1.1rem;
+            }
+            .page-hero {
+                padding: 40px 20px;
+            }
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+            .page-section {
+                padding: 20px 16px;
+            }
+            .explore-section {
+                padding: 20px 16px;
+            }
+            .cities-hero-banner {
+                padding: 40px 20px;
+            }
+            .cities-hero-title {
+                font-size: 2rem;
+            }
+            .cities-hero-subtitle {
+                font-size: 1rem;
+            }
+            .cities-hero-icon {
+                font-size: 3rem;
+            }
+            .profile-header-card {
+                padding: 24px 20px;
+            }
+            .profile-avatar-lg {
+                width: 60px;
+                height: 60px;
+            }
+            .profile-name {
+                font-size: 1.3rem;
+            }
+            .footer {
+                padding: 40px 16px;
+            }
+            .footer-content {
+                gap: 24px;
+            }
+        }
+
+        /* ===== Profile Page ===== */
+        .profile-page {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            min-height: calc(100vh - 70px);
+        }
+
+        .profile-page.active {
+            display: block;
+            animation: pageIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .profile-header-card {
+            background: linear-gradient(135deg, rgba(255,107,91,0.12), rgba(255,154,92,0.06));
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 48px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-header-card::before {
+            content: '';
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: var(--accent-coral);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.12;
+            top: -80px;
+            right: -40px;
+        }
+
+        .profile-avatar-lg {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid var(--glass-border);
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-info {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .profile-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .profile-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .profile-meta i {
+            color: var(--accent-coral);
+            font-size: 0.85rem;
+        }
+
+        .profile-stats-row {
+            display: flex;
+            gap: 24px;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-num {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-coral);
+        }
+
+        .profile-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .profile-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-section-title i {
+            color: var(--accent-coral);
+        }
+
+        .profile-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 4px;
+        }
+
+        .profile-tab {
+            flex: 1;
+            padding: 12px 16px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .profile-tab.active {
+            background: var(--accent-gradient);
+            color: white;
+        }
+
+        .profile-tab:hover:not(.active) {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .edit-form {
+            display: none;
+        }
+
+        .edit-form.active {
+            display: block;
+            animation: pageIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .my-posts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .my-post-mini {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .my-post-mini:hover {
+            border-color: rgba(255, 107, 91, 0.3);
+            transform: translateX(4px);
+        }
+
+        .my-post-mini-cat {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .my-post-mini-content {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .my-post-mini-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .my-post-mini-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .my-post-mini-actions button {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            transition: all 0.25s ease;
+        }
+
+        .my-post-mini-actions button:hover {
+            color: var(--accent-coral);
+            border-color: var(--accent-coral);
+        }
+
+        .my-post-mini-actions button.delete-btn:hover {
+            color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        .empty-profile {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-profile i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: var(--accent-coral);
+            opacity: 0.4;
+        }
+
+        .empty-profile h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .profile-header-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 32px 24px;
+            }
+
+            .profile-meta {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .profile-stats-row {
+                justify-content: center;
+            }
+
+            .profile-page {
+                padding: 20px;
+            }
+
+            .lang-switch {
+                display: flex;
+            }
+        }
+
         @media (max-width: 1024px) {
             .main-container {
                 grid-template-columns: 1fr;
@@ -1436,6 +2947,65 @@
             .city-posts-container {
                 padding: 10px 0;
             }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .welcome-banner {
+                padding: 20px 20px 0;
+            }
+
+            .welcome-inner {
+                padding: 28px;
+            }
+
+            .welcome-greeting {
+                font-size: 1.5rem;
+            }
+
+            .welcome-actions {
+                flex-direction: column;
+            }
+
+            .welcome-action-btn {
+                justify-content: center;
+            }
+
+            .page-section {
+                padding: 20px;
+            }
+
+            .page-hero {
+                padding: 40px 24px;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            .share-menu {
+                left: auto;
+                right: 0;
+                transform: none;
+            }
+
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateY(6px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
         }
     </style>
 </head>
@@ -1446,18 +3016,66 @@
             ChinaVoices
         </div>
         <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#" class="active">Stories</a></li>
-            <li><a href="#">Explore</a></li>
-            <li><a href="#">New Post</a></li>
-            <li><a href="#">Topics</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="#" data-nav="home" data-i18n="home">Home</a></li>
+            <li><a href="#" class="active" data-nav="home" data-i18n="stories">Stories</a></li>
+            <li><a href="#" data-nav="explore" data-i18n="explore">Explore</a></li>
+            <li><a href="#" data-nav="newpost" data-i18n="newPost">New Post</a></li>
+            <li><a href="#" data-nav="topics" data-i18n="topics">Topics</a></li>
+            <li><a href="#" data-nav="about" data-i18n="about">About</a></li>
+            <div class="nav-indicator" id="navIndicator"></div>
         </ul>
         <div class="nav-actions">
-            <button class="btn btn-outline" id="loginBtn">Sign In</button>
-            <button class="btn btn-primary" id="registerBtn">Join Now</button>
+            <div class="lang-switch">
+                <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+            </div>
+                <button class="btn btn-outline" id="loginBtn" data-i18n="signIn">Sign In</button>
+                <button class="btn btn-primary" id="registerBtn" data-i18n="joinNow">Join Now</button>
+            <button class="profile-btn" id="profileBtn" onclick="navigateTo('profile')">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile">
+                <span data-i18n="profile">Profile</span>
+            </button>
+            <button class="btn btn-outline" id="signOutBtn" onclick="handleLogout()" data-i18n="logOut">Sign Out</button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
         </div>
     </nav>
+
+    <div class="mobile-nav" id="mobileNav">
+        <div style="display:flex; justify-content:center; padding: 8px 0 4px;">
+            <div class="lang-switch">
+                <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+            </div>
+        </div>
+        <a href="#" class="active" data-nav="home" data-i18n="home">Home</a>
+        <a href="#" data-nav="home" data-i18n="stories">Stories</a>
+        <a href="#" data-nav="explore" data-i18n="explore">Explore</a>
+        <a href="#" data-nav="newpost" data-i18n="newPost">New Post</a>
+        <a href="#" data-nav="topics" data-i18n="topics">Topics</a>
+        <a href="#" data-nav="about" data-i18n="about">About</a>
+        <a href="#" data-nav="profile" data-i18n="profile" style="display:none" id="mobileProfileLink">Profile</a>
+        <a href="#" data-nav="signout" data-i18n="logOut" style="display:none" id="mobileSignOutLink" onclick="handleLogout(); return false;">Sign Out</a>
+    </div>
+
+    <div class="welcome-banner" id="welcomeBanner">
+        <div class="welcome-inner">
+            <div class="welcome-content">
+                <div class="welcome-greeting" data-i18n="welcomeBack">Welcome back, Guest! 👋</div>
+                <div class="welcome-sub" data-i18n="readyToShare">Ready to share your next China story?</div>
+                <div class="welcome-actions">
+                    <button class="welcome-action-btn" onclick="openNewPostModal()">
+                        <i class="fas fa-pen"></i> <span data-i18n="shareAStory">Share a Story</span>
+                    </button>
+                    <button class="welcome-action-btn" onclick="navigateTo('explore')">
+                        <i class="fas fa-compass"></i> <span data-i18n="exploreCities">Explore Cities</span>
+                    </button>
+                    <button class="welcome-action-btn" onclick="navigateTo('topics')">
+                        <i class="fas fa-hashtag"></i> <span data-i18n="browseTopics">Browse Topics</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section class="hero">
         <div class="blob blob-1"></div>
@@ -1472,7 +3090,7 @@
             <p>Connect with fellow foreigners, share experiences, ask questions, and discover the real China through authentic voices from around the world.</p>
             <div class="search-container">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search stories, topics, or people...">
+                <input type="text" data-i18n-placeholder="searchPlaceholder" placeholder="Search stories, topics, or people...">
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
@@ -1491,7 +3109,7 @@
         </div>
     </section>
 
-    <div class="category-filter">
+    <div class="category-filter category-scroll-hint">
         <div class="category-pill active" data-category="all">全部 (All)</div>
         <div class="category-pill" data-category="travel">🧳 旅游 Travel</div>
         <div class="category-pill" data-category="study">🎓 学习 Study</div>
@@ -1533,15 +3151,15 @@
     </section>
 
     <main class="main-container" id="mainContainer">
-        <section class="posts-section">
-            <h2><i class="fas fa-fire"></i> Community Stories</h2>
+        <section class="posts-section" id="postsSection">
+            <h2><i class="fas fa-fire"></i> <span data-i18n="communityStories">Community Stories</span></h2>
             <div class="posts-grid" id="postsGrid">
             </div>
         </section>
 
         <aside class="sidebar">
             <div class="sidebar-card">
-                <h3><i class="fas fa-chart-line"></i> Trending Topics</h3>
+                <h3><i class="fas fa-chart-line"></i> <span data-i18n="trendingTopics">Trending Topics</span></h3>
                 <ul class="trending-list">
                     <li class="trending-item">
                         <span class="trending-number">1</span>
@@ -1582,53 +3200,53 @@
             </div>
 
             <div class="sidebar-card">
-                <h3><i class="fas fa-globe"></i> Community Stats</h3>
+                <h3><i class="fas fa-globe"></i> <span data-i18n="communityStats">Community Stats</span></h3>
                 <div class="community-stats">
                     <div class="community-stat">
                         <i class="fas fa-users"></i>
-                        <div class="community-stat-value">12.8K</div>
-                        <div class="community-stat-label">Members</div>
+                        <div class="community-stat-value" data-target="12800" data-suffix="">0</div>
+                        <div class="community-stat-label" data-i18n="members">Members</div>
                     </div>
                     <div class="community-stat">
                         <i class="fas fa-comments"></i>
-                        <div class="community-stat-value">45.2K</div>
-                        <div class="community-stat-label">Comments</div>
+                        <div class="community-stat-value" data-target="45200" data-suffix="">0</div>
+                        <div class="community-stat-label" data-i18n="comments">Comments</div>
                     </div>
                     <div class="community-stat">
                         <i class="fas fa-share"></i>
-                        <div class="community-stat-value">8.1K</div>
-                        <div class="community-stat-label">Shares</div>
+                        <div class="community-stat-value" data-target="8100" data-suffix="">0</div>
+                        <div class="community-stat-label" data-i18n="shares">Shares</div>
                     </div>
                     <div class="community-stat">
                         <i class="fas fa-flag"></i>
-                        <div class="community-stat-value">89</div>
-                        <div class="community-stat-label">Countries</div>
+                        <div class="community-stat-value" data-target="89" data-suffix="">0</div>
+                        <div class="community-stat-label" data-i18n="countries">Countries</div>
                     </div>
                 </div>
             </div>
 
             <div class="sidebar-card">
-                <h3><i class="fas fa-bolt"></i> Quick Links</h3>
+                <h3><i class="fas fa-bolt"></i> <span data-i18n="quickLinks">Quick Links</span></h3>
                 <ul class="trending-list">
-                    <li class="trending-item">
+                    <li class="trending-item" onclick="navigateTo('about')">
                         <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
                         <div class="trending-info">
-                            <div class="trending-title">Newcomer Guide</div>
-                            <div class="trending-posts">Essential tips for China</div>
+                            <div class="trending-title" data-i18n="newcomerGuide">Newcomer Guide</div>
+                            <div class="trending-posts" data-i18n="essentialTips">Essential tips for China</div>
                         </div>
                     </li>
-                    <li class="trending-item">
+                    <li class="trending-item" onclick="navigateTo('explore')">
                         <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
                         <div class="trending-info">
-                            <div class="trending-title">Events Near You</div>
-                            <div class="trending-posts">Meetups & gatherings</div>
+                            <div class="trending-title" data-i18n="exploreCities">Explore Cities</div>
+                            <div class="trending-posts" data-i18n="discoverStories">Discover stories by city</div>
                         </div>
                     </li>
-                    <li class="trending-item">
+                    <li class="trending-item" onclick="navigateTo('topics')">
                         <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
                         <div class="trending-info">
-                            <div class="trending-title">Job Board</div>
-                            <div class="trending-posts">Opportunities for foreigners</div>
+                            <div class="trending-title" data-i18n="browseTopicsLink">Browse Topics</div>
+                            <div class="trending-posts" data-i18n="allTopics">All topic categories</div>
                         </div>
                     </li>
                 </ul>
@@ -1643,30 +3261,30 @@
                 <p>A vibrant community connecting foreigners across China. Share your experiences, make friends, and discover the real China together.</p>
             </div>
             <div class="footer-links">
-                <h4>Community</h4>
+                <h4 data-i18n="community">Community</h4>
                 <ul>
-                    <li><a href="#">Stories</a></li>
-                    <li><a href="#">Members</a></li>
-                    <li><a href="#">Events</a></li>
-                    <li><a href="#">Groups</a></li>
+                    <li><a href="#" onclick="handleNavClick('Stories'); return false;">Stories</a></li>
+                    <li><a href="#" onclick="navigateTo('explore'); return false;">Explore Cities</a></li>
+                    <li><a href="#" onclick="navigateTo('topics'); return false;">Topics</a></li>
+                    <li><a href="#" onclick="openNewPostModal(); return false;">New Post</a></li>
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Resources</h4>
+                <h4 data-i18n="resources">Resources</h4>
                 <ul>
-                    <li><a href="#">Newcomer Guide</a></li>
-                    <li><a href="#">Visa Information</a></li>
-                    <li><a href="#">Healthcare</a></li>
-                    <li><a href="#">Language Tips</a></li>
+                    <li><a href="#" onclick="navigateTo('about'); return false;">Newcomer Guide</a></li>
+                    <li><a href="#" onclick="filterByTopic('work'); return false;">Visa Information</a></li>
+                    <li><a href="#" onclick="filterByTopic('life'); return false;">Healthcare</a></li>
+                    <li><a href="#" onclick="navigateTo('topics'); return false;">Language Tips</a></li>
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Company</h4>
+                <h4 data-i18n="company">Company</h4>
                 <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#" onclick="navigateTo('about'); return false;" data-i18n="aboutUs">About Us</a></li>
+                    <li><a href="#" onclick="navigateTo('about'); return false;" data-i18n="contact">Contact</a></li>
+                    <li><a href="#" onclick="return false;">Privacy Policy</a></li>
+                    <li><a href="#" onclick="return false;">Terms of Service</a></li>
                 </ul>
             </div>
         </div>
@@ -1681,6 +3299,214 @@
         </div>
     </footer>
 
+    <section class="page-section" id="topicsPage">
+        <div class="page-hero" id="topicsHero">
+            <h1>Topics</h1>
+            <p>Explore conversations organized by what matters to you</p>
+        </div>
+        <div class="topics-grid">
+            <div class="topic-card spotlight-card" onclick="filterByTopic('study')">
+                <div class="topic-card-icon">🎓</div>
+                <h3>Student Life</h3>
+                <p>Share university experiences, study tips, and connect with fellow international students across China.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,234 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('work')">
+                <div class="topic-card-icon">👷</div>
+                <h3>Working in China</h3>
+                <p>Career opportunities, work culture insights, visa processes, and professional networking.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 987 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('travel')">
+                <div class="topic-card-icon">🧳</div>
+                <h3>Travel & Adventure</h3>
+                <p>Hidden gems, travel itineraries, photography spots, and must-visit destinations across China.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 2,156 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('food')">
+                <div class="topic-card-icon">🍜</div>
+                <h3>Food & Dining</h3>
+                <p>Restaurant reviews, street food discoveries, cooking tips, and regional cuisine exploration.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,891 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('life')">
+                <div class="topic-card-icon">🏙️</div>
+                <h3>Daily Life</h3>
+                <p>Healthcare, housing, transportation, and everyday life hacks for foreigners in China.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,567 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('entertainment')">
+                <div class="topic-card-icon">🎭</div>
+                <h3>Entertainment</h3>
+                <p>Movies, music, nightlife, festivals, and fun activities to enjoy in your city.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 743 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('business')">
+                <div class="topic-card-icon">💼</div>
+                <h3>Business & Entrepreneurship</h3>
+                <p>Startups, business culture, networking events, and opportunities in China's dynamic market.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 456 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('language')">
+                <div class="topic-card-icon">🗣️</div>
+                <h3>Language Learning</h3>
+                <p>Mandarin tips, language exchange partners, resources, and practice opportunities.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,023 posts</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="aboutPage">
+        <div class="page-hero" id="aboutHero">
+            <h1>About ChinaVoices</h1>
+            <p>Connecting foreigners across China through authentic stories and shared experiences</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-card">
+                <h3><i class="fas fa-heart"></i> Our Mission</h3>
+                <p>ChinaVoices is a vibrant community platform designed to connect foreigners living, working, studying, and traveling across China. We believe in the power of authentic storytelling to bridge cultures, foster understanding, and create lasting connections.</p>
+                <p style="margin-top: 12px;">Founded in 2024, we've grown into a thriving community spanning 156 cities with members from over 89 countries.</p>
+            </div>
+            <div class="about-card">
+                <h3><i class="fas fa-star"></i> What We Offer</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> Share your China experiences and stories</li>
+                    <li><i class="fas fa-check"></i> Connect with foreigners in your city</li>
+                    <li><i class="fas fa-check"></i> Discover local tips and hidden gems</li>
+                    <li><i class="fas fa-check"></i> Get answers to your China questions</li>
+                    <li><i class="fas fa-check"></i> Join topic-based discussions</li>
+                    <li><i class="fas fa-check"></i> Access curated resources and guides</li>
+                </ul>
+            </div>
+            <div class="about-card">
+                <h3><i class="fas fa-users"></i> Community Guidelines</h3>
+                <ul>
+                    <li><i class="fas fa-hand-holding-heart"></i> Be respectful and inclusive</li>
+                    <li><i class="fas fa-shield-alt"></i> Share authentic experiences</li>
+                    <li><i class="fas fa-lock"></i> Protect privacy and personal info</li>
+                    <li><i class="fas fa-ban"></i> No spam or self-promotion</li>
+                    <li><i class="fas fa-flag"></i> Report inappropriate content</li>
+                    <li><i class="fas fa-lightbulb"></i> Help newcomers feel welcome</li>
+                </ul>
+            </div>
+            <div class="about-card">
+                <h3><i class="fas fa-envelope"></i> Get Involved</h3>
+                <p>Want to contribute to ChinaVoices? We're always looking for community ambassadors, content creators, and volunteers to help grow our platform.</p>
+                <div class="about-stats-row">
+                    <div class="about-stat">
+                        <div class="about-stat-num">12.8K</div>
+                        <div class="about-stat-label">Members</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-num">8.2K</div>
+                        <div class="about-stat-label">Stories</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-num">89</div>
+                        <div class="about-stat-label">Countries</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="profile-page" id="profilePage">
+        <div class="profile-header-card">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile" class="profile-avatar-lg" id="profileAvatar">
+            <div class="profile-info">
+                <div class="profile-name" id="profileDisplayName">Guest User</div>
+                <div class="profile-meta">
+                    <span><i class="fas fa-globe"></i> <span id="profileCountry">Unknown</span></span>
+                    <span><i class="fas fa-user-tag"></i> <span id="profileIdentity">Member</span></span>
+                    <span><i class="fas fa-calendar"></i> <span data-i18n="joinedRecently">Joined recently</span></span>
+                </div>
+                <div class="profile-stats-row">
+                    <div class="profile-stat">
+                        <div class="profile-stat-num" id="profilePostsCount">0</div>
+                        <div class="profile-stat-label" data-i18n="posts">Posts</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-num" id="profileLikesCount">0</div>
+                        <div class="profile-stat-label" data-i18n="likesReceived">Likes Received</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-num" id="profileCommentsCount">0</div>
+                        <div class="profile-stat-label" data-i18n="commentsMade">Comments</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <button class="profile-tab active" data-ptab="myposts" onclick="switchProfileTab('myposts')">
+                <i class="fas fa-file-alt"></i> <span data-i18n="myPosts">My Posts</span>
+            </button>
+            <button class="profile-tab" data-ptab="edit" onclick="switchProfileTab('edit')">
+                <i class="fas fa-cog"></i> <span data-i18n="editProfile">Edit Profile</span>
+            </button>
+            <button class="profile-tab" data-ptab="settings" onclick="switchProfileTab('settings')">
+                <i class="fas fa-sliders-h"></i> <span data-i18n="settings">Settings</span>
+            </button>
+        </div>
+
+        <div id="profileTabMyposts" class="profile-tab-content">
+            <div class="my-posts-list" id="myPostsList">
+                <div class="empty-profile">
+                    <i class="fas fa-pen-nib"></i>
+                    <h3 data-i18n="noPostsYet">No posts yet</h3>
+                    <p data-i18n="startSharing">Start sharing your China story!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="profileTabEdit" class="profile-tab-content edit-form">
+            <h3 class="profile-section-title"><i class="fas fa-user-edit"></i> <span data-i18n="editProfile">Edit Profile</span></h3>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label data-i18n="displayName">Display Name</label>
+                    <input type="text" id="editName" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="countryOrigin">Country of Origin</label>
+                    <select id="editCountry">
+                        <option value="">Select your country...</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                        <option value="AU">Australia</option>
+                        <option value="DE">Germany</option>
+                        <option value="FR">France</option>
+                        <option value="JP">Japan</option>
+                        <option value="KR">South Korea</option>
+                        <option value="IN">India</option>
+                        <option value="BR">Brazil</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="bio">Bio</label>
+                    <textarea class="composer-textarea" id="editBio" placeholder="Tell us about yourself..." style="min-height: 80px;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;" data-i18n="saveChanges">Save Changes</button>
+            </form>
+        </div>
+
+        <div id="profileTabSettings" class="profile-tab-content edit-form">
+            <h3 class="profile-section-title"><i class="fas fa-shield-alt"></i> <span data-i18n="accountSettings">Account Settings</span></h3>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px;" onclick="showToast(t('passwordChanged'))">
+                    <i class="fas fa-key"></i> <span data-i18n="changePassword">Change Password</span>
+                </button>
+                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="logOut">Log Out</span>
+                </button>
+                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="showToast(t('accountDeleted'))">
+                    <i class="fas fa-trash-alt"></i> <span data-i18n="deleteAccount">Delete Account</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
     <div class="modal-overlay" id="authModal">
         <div class="modal">
             <button class="modal-close" id="modalClose">
@@ -1691,27 +3517,27 @@
                 <p id="modalSubtitle">Log in to continue your China journey</p>
             </div>
             <div class="modal-tabs">
-                <div class="modal-tab active" data-tab="login">Log In</div>
-                <div class="modal-tab" data-tab="register">Register</div>
+                <div class="modal-tab active" data-tab="login" data-i18n="logIn">Log In</div>
+                <div class="modal-tab" data-tab="register" data-i18n="createAccount">Register</div>
             </div>
             <div class="modal-body">
                 <form id="authForm">
                     <div class="form-group">
-                        <label>Email Address</label>
+                        <label data-i18n="emailAddress">Email Address</label>
                         <input type="email" id="emailInput" placeholder="you@example.com" required>
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
+                        <label data-i18n="password">Password</label>
                         <input type="password" id="passwordInput" placeholder="Enter your password" required>
                     </div>
                     <div class="form-group" id="confirmPasswordGroup" style="display: none;">
-                        <label>Confirm Password</label>
+                        <label data-i18n="confirmPassword">Confirm Password</label>
                         <input type="password" placeholder="Confirm your password">
                     </div>
                     <div class="form-group" id="countryGroup" style="display: none;">
-                        <label>Country of Origin</label>
+                        <label data-i18n="countryOrigin">Country of Origin</label>
                         <select id="countrySelect">
-                            <option value="">Select your country...</option>
+                            <option value="" data-i18n="selectCountry">Select your country...</option>
                             <option value="US">United States</option>
                             <option value="UK">United Kingdom</option>
                             <option value="CA">Canada</option>
@@ -1763,31 +3589,31 @@
                         </select>
                     </div>
                     <div class="form-group" id="identityGroup" style="display: none;">
-                        <label>What best describes you?</label>
+                        <label data-i18n="whatDescribes">What best describes you?</label>
                         <div class="identity-options">
                             <div class="identity-card" data-identity="student">
                                 <i class="fas fa-graduation-cap"></i>
-                                <span>Student</span>
+                                <span data-i18n="student">Student</span>
                             </div>
                             <div class="identity-card" data-identity="worker">
                                 <i class="fas fa-briefcase"></i>
-                                <span>Worker</span>
+                                <span data-i18n="worker">Worker</span>
                             </div>
                             <div class="identity-card" data-identity="tourist">
                                 <i class="fas fa-camera"></i>
-                                <span>Tourist</span>
+                                <span data-i18n="tourist">Tourist</span>
                             </div>
                             <div class="identity-card" data-identity="business">
                                 <i class="fas fa-chart-line"></i>
-                                <span>Business</span>
+                                <span data-i18n="business">Business</span>
                             </div>
                             <div class="identity-card" data-identity="researcher">
                                 <i class="fas fa-microscope"></i>
-                                <span>Researcher</span>
+                                <span data-i18n="researcher">Researcher</span>
                             </div>
                             <div class="identity-card" data-identity="other">
                                 <i class="fas fa-ellipsis-h"></i>
-                                <span>Other</span>
+                                <span data-i18n="other">Other</span>
                             </div>
                         </div>
                     </div>
@@ -1797,29 +3623,330 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="newPostModal">
-        <div class="modal">
-            <button class="modal-close" id="newPostModalClose">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h2>Share Your Story</h2>
-                <p>Tell the community about your experience in China</p>
+    <section class="new-post-page" id="newPostPage">
+        <div class="new-post-card">
+            <div class="new-post-header">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Avatar" id="newPostAvatar">
+                <div class="new-post-header-info">
+                    <h3 data-i18n="shareYourStory">Share Your Story</h3>
+                    <p data-i18n="tellCommunity">Tell the community about your experience in China</p>
+                </div>
+                <button class="back-btn" onclick="navigateTo('home')" style="margin-left:auto;">
+                    <i class="fas fa-arrow-left"></i> <span data-i18n="backToCities">Back</span>
+                </button>
             </div>
-            <div class="modal-body">
-                <form id="newPostForm">
-                    <div class="form-group">
-                        <textarea class="composer-textarea" id="postContent" placeholder="Share your story..." required></textarea>
+            <form id="newPostForm">
+                <textarea class="new-post-textarea" id="postContent" data-i18n-placeholder="postPlaceholder" placeholder="Share your story..." required maxlength="5000" oninput="updateCharCount(this)"></textarea>
+                <div class="char-count" id="charCount">0 / 5000</div>
+                <div class="new-post-preview" id="imagePreview">
+                    <img src="" alt="Preview" id="previewImg">
+                    <button type="button" class="remove-img" onclick="removeImage()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="new-post-bottom">
+                    <div class="new-post-options">
+                        <select class="new-post-select" id="postCategory">
+                            <option value="travel">🧳 Travel</option>
+                            <option value="study">🎓 Study</option>
+                            <option value="work">👷 Work</option>
+                            <option value="entertainment">🎭 Entertainment</option>
+                            <option value="food">🍜 Food</option>
+                            <option value="life">🏙️ Life</option>
+                            <option value="business">💼 Business</option>
+                        </select>
+                        <select class="new-post-select" id="postCity">
+                            <option value="unknown">📍 Select city...</option>
+                            <option value="beijing">🏯 Beijing</option>
+                            <option value="shanghai">🌆 Shanghai</option>
+                            <option value="guangzhou">🏙️ Guangzhou</option>
+                            <option value="shenzhen">🚀 Shenzhen</option>
+                            <option value="chengdu">🐼 Chengdu</option>
+                            <option value="hangzhou">🏝️ Hangzhou</option>
+                            <option value="xian">🏺 Xi'an</option>
+                            <option value="suzhou">🌸 Suzhou</option>
+                            <option value="wuhan">🌉 Wuhan</option>
+                            <option value="chongqing">🌶️ Chongqing</option>
+                            <option value="nanjing">🦚 Nanjing</option>
+                            <option value="tianjin">⚓ Tianjin</option>
+                        </select>
+                        <label class="new-post-img-btn" for="imageUpload">
+                            <i class="fas fa-image"></i> <span data-i18n="addPhoto">Add Photo</span>
+                        </label>
+                        <input type="file" id="imageUpload" accept="image/*" style="display:none" onchange="previewImage(this)">
                     </div>
-                    <button type="submit" class="btn btn-primary modal-btn">Post</button>
-                </form>
-            </div>
+                    <button type="submit" class="btn btn-primary new-post-submit" data-i18n="postBtn">Post</button>
+                </div>
+            </form>
         </div>
-    </div>
+    </section>
 
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
+        /* ===== i18n System ===== */
+        const i18n = {
+            en: {
+                home: 'Home', stories: 'Stories', explore: 'Explore', newPost: 'New Post',
+                topics: 'Topics', about: 'About', profile: 'Profile',
+                signIn: 'Sign In', joinNow: 'Join Now',
+                welcomeBack: 'Welcome back, Guest!', readyToShare: 'Ready to share your next China story?',
+                shareAStory: 'Share a Story', exploreCities: 'Explore Cities', browseTopics: 'Browse Topics',
+                communityStories: 'Community Stories', showComments: 'Show Comments', hideComments: 'Hide Comments',
+                translate: 'Translate', translated: 'Translated', copyLink: 'Copy Link',
+                writeComment: 'Write a comment...', send: 'Send', noStories: 'No stories found',
+                tryDifferent: 'Try a different search term', noPostsCategory: 'No posts in this category yet',
+                postShared: 'Post shared successfully!', commentPosted: 'Comment posted!',
+                linkCopied: 'Link copied to clipboard!', wechatShare: 'WeChat share: long press to copy link',
+                translating: 'Translating to French...', searching: 'Searching for',
+                trendingTopics: 'Trending Topics', communityStats: 'Community Stats',
+                quickLinks: 'Quick Links', members: 'Members', comments: 'Comments',
+                shares: 'Shares', countries: 'Countries', exploreCitiesTitle: 'Explore Cities',
+                discoverStories: 'Discover authentic stories from every corner of China',
+                posts: 'posts', backToCities: 'Back to Cities', storiesLabel: 'Stories',
+                topicsTitle: 'Topics', topicsSubtitle: 'Explore conversations organized by what matters to you',
+                aboutTitle: 'About ChinaVoices', aboutSubtitle: 'Connecting foreigners across China through authentic stories and shared experiences',
+                ourMission: 'Our Mission', whatWeOffer: 'What We Offer', communityGuidelines: 'Community Guidelines',
+                getInvolved: 'Get Involved', shareExperience: 'Share your China experiences and stories',
+                connectForeigners: 'Connect with foreigners in your city', discoverTips: 'Discover local tips and hidden gems',
+                getAnswers: 'Get answers to your China questions', joinDiscussions: 'Join topic-based discussions',
+                accessResources: 'Access curated resources and guides', respectful: 'Be respectful and inclusive',
+                authentic: 'Share authentic experiences', protectPrivacy: 'Protect privacy and personal info',
+                noSpam: 'No spam or self-promotion', reportContent: 'Report inappropriate content',
+                helpNewcomers: 'Help newcomers feel welcome',
+                myPosts: 'My Posts', editProfile: 'Edit Profile', settings: 'Settings',
+                noPostsYet: 'No posts yet', startSharing: 'Start sharing your China story!',
+                displayName: 'Display Name', countryOrigin: 'Country of Origin', bio: 'Bio',
+                saveChanges: 'Save Changes', accountSettings: 'Account Settings',
+                changePassword: 'Change Password', logOut: 'Log Out', deleteAccount: 'Delete Account',
+                passwordChanged: 'Password change is not available in demo mode',
+                accountDeleted: 'Account deletion is not available in demo mode',
+                joinedRecently: 'Joined recently', likesReceived: 'Likes Received', commentsMade: 'Comments',
+                welcomeGuest: 'Welcome back, Guest!', postCategory: 'Category',
+                shareYourStory: 'Share Your Story', tellCommunity: 'Tell the community about your experience in China',
+                postPlaceholder: 'Share your story...', postBtn: 'Post',
+                welcomeBackTitle: 'Welcome Back', loginSubtitle: 'Log in to continue your China journey',
+                logIn: 'Log In', joinCommunity: 'Join Our Community',
+                registerSubtitle: 'Create an account to start sharing your story',
+                createAccount: 'Create Account', emailAddress: 'Email Address',
+                password: 'Password', confirmPassword: 'Confirm Password',
+                selectCountry: 'Select your country...', whatDescribes: 'What best describes you?',
+                student: 'Student', worker: 'Worker', tourist: 'Tourist',
+                business: 'Business', researcher: 'Researcher', other: 'Other',
+                newcomerGuide: 'Newcomer Guide', essentialTips: 'Essential tips for China',
+                allTopics: 'All topic categories', browseTopicsLink: 'Browse Topics',
+                aboutUs: 'About Us', contact: 'Contact', privacyPolicy: 'Privacy Policy',
+                termsOfService: 'Terms of Service', community: 'Community', resources: 'Resources',
+                company: 'Company', storiesLink: 'Stories', exploreCitiesLink: 'Explore Cities',
+                topicsLink: 'Topics', newPostLink: 'New Post', visaInfo: 'Visa Information',
+                healthcare: 'Healthcare', languageTips: 'Language Tips',
+                allCategory: '全部 (All)', travelCat: '🧳 旅游 Travel', studyCat: '🎓 学习 Study',
+                workCat: '👷 工作 Work', entertainmentCat: '🎭 娱乐 Entertainment',
+                foodCat: '🍜 美食 Food', lifeCat: '🏙️ 生活 Life', businessCat: '💼 商务 Business',
+                postsIn: 'Posts in', searchPlaceholder: 'Search stories, topics, or people...',
+                addPhoto: 'Add Photo', selectCity: 'Select city...', back: 'Back'
+            },
+            fr: {
+                home: 'Accueil', stories: 'Récits', explore: 'Explorer', newPost: 'Nouveau Post',
+                topics: 'Sujets', about: 'À propos', profile: 'Profil',
+                signIn: 'Se connecter', joinNow: "S'inscrire",
+                welcomeBack: 'Bienvenue, Invité !', readyToShare: 'Prêt à partager votre prochaine histoire de Chine ?',
+                shareAStory: 'Partager une histoire', exploreCities: 'Explorer les villes', browseTopics: 'Parcourir les sujets',
+                communityStories: 'Récits de la communauté', showComments: 'Afficher les commentaires', hideComments: 'Masquer les commentaires',
+                translate: 'Traduire', translated: 'Traduit', copyLink: 'Copier le lien',
+                writeComment: 'Écrire un commentaire...', send: 'Envoyer', noStories: 'Aucun récit trouvé',
+                tryDifferent: 'Essayez un autre terme de recherche', noPostsCategory: 'Aucun post dans cette catégorie',
+                postShared: 'Post partagé avec succès !', commentPosted: 'Commentaire publié !',
+                linkCopied: 'Lien copié dans le presse-papiers !', wechatShare: 'Partage WeChat : appuyez longuement pour copier le lien',
+                translating: 'Traduction en cours...', searching: 'Recherche de',
+                trendingTopics: 'Sujets tendance', communityStats: 'Statistiques de la communauté',
+                quickLinks: 'Liens rapides', members: 'Membres', comments: 'Commentaires',
+                shares: 'Partages', countries: 'Pays', exploreCitiesTitle: 'Explorer les villes',
+                discoverStories: 'Découvrez des récits authentiques de chaque coin de Chine',
+                posts: 'publications', backToCities: 'Retour aux villes', storiesLabel: 'Récits',
+                topicsTitle: 'Sujets', topicsSubtitle: 'Explorez les conversations organisées par ce qui vous intéresse',
+                aboutTitle: 'À propos de ChinaVoices', aboutSubtitle: 'Connecter les étrangers à travers la Chine grâce à des récits authentiques',
+                ourMission: 'Notre mission', whatWeOffer: 'Ce que nous offrons', communityGuidelines: 'Règles de la communauté',
+                getInvolved: 'Participez', shareExperience: 'Partagez vos expériences en Chine',
+                connectForeigners: 'Connectez-vous avec des étrangers dans votre ville', discoverTips: 'Découvrez des conseils locaux et des trésors cachés',
+                getAnswers: 'Obtenez des réponses à vos questions sur la Chine', joinDiscussions: 'Rejoignez des discussions par sujet',
+                accessResources: 'Accédez à des ressources et guides sélectionnés', respectful: 'Soyez respectueux et inclusif',
+                authentic: 'Partagez des expériences authentiques', protectPrivacy: 'Protégez la vie privée et les informations personnelles',
+                noSpam: 'Pas de spam ni d\'autopromotion', reportContent: 'Signalez le contenu inapproprié',
+                helpNewcomers: 'Aidez les nouveaux arrivants à se sentir les bienvenus',
+                myPosts: 'Mes posts', editProfile: 'Modifier le profil', settings: 'Paramètres',
+                noPostsYet: 'Pas encore de posts', startSharing: 'Commencez à partager votre histoire de Chine !',
+                displayName: 'Nom d\'affichage', countryOrigin: 'Pays d\'origine', bio: 'Bio',
+                saveChanges: 'Enregistrer les modifications', accountSettings: 'Paramètres du compte',
+                changePassword: 'Changer le mot de passe', logOut: 'Se déconnecter', deleteAccount: 'Supprimer le compte',
+                passwordChanged: 'Le changement de mot de passe n\'est pas disponible en mode démo',
+                accountDeleted: 'La suppression de compte n\'est pas disponible en mode démo',
+                joinedRecently: 'Inscrit récemment', likesReceived: 'J\'aime reçus', commentsMade: 'Commentaires',
+                welcomeGuest: 'Bienvenue, Invité !', postCategory: 'Catégorie',
+                shareYourStory: 'Partagez votre histoire', tellCommunity: 'Racontez votre expérience en Chine',
+                postPlaceholder: 'Partagez votre histoire...', postBtn: 'Publier',
+                welcomeBackTitle: 'Bon retour', loginSubtitle: 'Connectez-vous pour continuer votre aventure en Chine',
+                logIn: 'Se connecter', joinCommunity: 'Rejoignez notre communauté',
+                registerSubtitle: 'Créez un compte pour commencer à partager',
+                createAccount: 'Créer un compte', emailAddress: 'Adresse e-mail',
+                password: 'Mot de passe', confirmPassword: 'Confirmer le mot de passe',
+                selectCountry: 'Sélectionnez votre pays...', whatDescribes: 'Qui êtes-vous ?',
+                student: 'Étudiant', worker: 'Travailleur', tourist: 'Touriste',
+                business: 'Entrepreneur', researcher: 'Chercheur', other: 'Autre',
+                newcomerGuide: 'Guide du nouveau venu', essentialTips: 'Conseils essentiels pour la Chine',
+                allTopics: 'Toutes les catégories de sujets', browseTopicsLink: 'Parcourir les sujets',
+                aboutUs: 'À propos', contact: 'Contact', privacyPolicy: 'Politique de confidentialité',
+                termsOfService: 'Conditions d\'utilisation', community: 'Communauté', resources: 'Ressources',
+                company: 'Entreprise', storiesLink: 'Récits', exploreCitiesLink: 'Explorer les villes',
+                topicsLink: 'Sujets', newPostLink: 'Nouveau post', visaInfo: 'Informations visa',
+                healthcare: 'Santé', languageTips: 'Conseils linguistiques',
+                allCategory: '全部 (Tous)', travelCat: '🧳 Voyage', studyCat: '🎓 Études',
+                workCat: '👷 Travail', entertainmentCat: '🎭 Divertissement',
+                foodCat: '🍜 Gastronomie', lifeCat: '🏙️ Vie quotidienne', businessCat: '💼 Affaires',
+                postsIn: 'Posts à', searchPlaceholder: 'Rechercher des récits, sujets ou personnes...',
+                addPhoto: 'Ajouter une photo', selectCity: 'Choisir une ville...', back: 'Retour'
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function t(key) {
+            return i18n[currentLang][key] || i18n['en'][key] || key;
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.lang === lang);
+            });
+            applyTranslations();
+        }
+
+        function applyTranslations() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                const translated = t(key);
+                if (translated) el.textContent = translated;
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                el.placeholder = t(el.dataset.i18nPlaceholder);
+            });
+            const catAll = document.querySelector('.category-pill[data-category="all"]');
+            if (catAll) catAll.textContent = t('allCategory');
+            const catPills = document.querySelectorAll('.category-pill[data-category]');
+            catPills.forEach(pill => {
+                const cat = pill.dataset.category;
+                const key = cat + 'Cat';
+                if (i18n[currentLang][key]) pill.textContent = i18n[currentLang][key];
+            });
+            document.documentElement.lang = currentLang;
+        }
+
+        /* ===== User State ===== */
+
+        async function handleLogout() {
+            await supabaseClient.auth.signOut();
+            isLoggedIn = false;
+            currentUser = null;
+            userLikes.clear();
+            document.body.classList.remove('logged-in');
+            document.getElementById('mobileProfileLink').style.display = 'none';
+            document.getElementById('mobileSignOutLink').style.display = 'none';
+            navigateTo('home');
+            showToast(currentLang === 'fr' ? 'Déconnecté avec succès' : 'Logged out successfully');
+            await loadPosts();
+        }
+
+        /* ===== Profile Page ===== */
+        function switchProfileTab(tab) {
+            document.querySelectorAll('.profile-tab').forEach(t => t.classList.toggle('active', t.dataset.ptab === tab));
+            document.querySelectorAll('.profile-tab-content').forEach(c => {
+                c.classList.remove('active');
+                c.style.display = 'none';
+            });
+            const target = document.getElementById('profileTab' + tab.charAt(0).toUpperCase() + tab.slice(1));
+            if (target) {
+                target.style.display = 'block';
+                target.classList.add('active');
+            }
+        }
+
+        function renderMyPosts() {
+            const list = document.getElementById('myPostsList');
+            if (!list) return;
+            const myPosts = currentUser ? postsData.filter(p => p.user_id === currentUser.id) : [];
+            if (myPosts.length === 0) {
+                list.innerHTML = `<div class="empty-profile"><i class="fas fa-pen-nib"></i><h3>${t('noPostsYet')}</h3><p>${t('startSharing')}</p></div>`;
+                return;
+            }
+            list.innerHTML = myPosts.map(post => {
+                const cat = categories[post.category];
+                return `
+                <div class="my-post-mini" onclick="navigateTo('home'); setTimeout(() => togglePostExpand(${post.id}), 200);">
+                    <span class="my-post-mini-cat post-category ${cat.class}">${cat.label.split(' ')[0]}</span>
+                    <span class="my-post-mini-content">${post.content.substring(0, 80)}...</span>
+                    <span class="my-post-mini-time">${post.time}</span>
+                    <div class="my-post-mini-actions">
+                        <button onclick="event.stopPropagation(); deletePost(${post.id})" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function updateProfileStats() {
+            if (!currentUser) return;
+            const myPosts = postsData.filter(p => p.user_id === currentUser.id);
+            const totalLikes = myPosts.reduce((sum, p) => sum + p.likes, 0);
+            const totalComments = myPosts.reduce((sum, p) => sum + p.comments, 0);
+            document.getElementById('profilePostsCount').textContent = myPosts.length;
+            document.getElementById('profileLikesCount').textContent = totalLikes;
+            document.getElementById('profileCommentsCount').textContent = totalComments;
+        }
+
+        function loadProfile() {
+            if (!currentUser) return;
+            document.getElementById('profileDisplayName').textContent = currentUser.name || 'Guest User';
+            document.getElementById('profileCountry').textContent = currentUser.country || 'Unknown';
+            document.getElementById('profileIdentity').textContent = currentUser.identity || 'Member';
+            document.getElementById('profileAvatar').src = currentUser.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
+            document.getElementById('editName').value = currentUser.name || '';
+            document.getElementById('editCountry').value = currentUser.country_code || '';
+            document.getElementById('editBio').value = currentUser.bio || '';
+            updateProfileStats();
+            renderMyPosts();
+        }
+
+        async function deletePost(postId) {
+            const msg = currentLang === 'fr' ? 'Supprimer ce post ?' : 'Delete this post?';
+            if (!confirm(msg)) return;
+            const { error } = await supabaseClient.from('posts').delete().eq('id', postId);
+            if (error) { showToast('Error deleting'); return; }
+            await loadPosts();
+            renderMyPosts();
+            updateProfileStats();
+            showToast(currentLang === 'fr' ? 'Post supprimé' : 'Post deleted');
+        }
+
+
+        document.getElementById('editProfileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser) return;
+            const name = document.getElementById('editName').value || currentUser.name;
+            const country = document.getElementById('editCountry').value || currentUser.country_code;
+            const bio = document.getElementById('editBio').value;
+            const avatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}`;
+            const { error } = await supabaseClient.from('profiles').update({
+                name, country_code: country, country, bio, avatar_url: avatarUrl
+            }).eq('id', currentUser.id);
+            if (error) { showToast('Error updating profile'); return; }
+            currentUser.name = name;
+            currentUser.country = country;
+            currentUser.bio = bio;
+            currentUser.avatar_url = avatarUrl;
+            document.getElementById('profileBtn').querySelector('img').src = avatarUrl;
+            loadProfile();
+            showToast(currentLang === 'fr' ? 'Profil mis à jour !' : 'Profile updated!');
+        });
+
         const categories = {
             travel: { label: '🧳 旅游 Travel', class: 'travel' },
             study: { label: '🎓 学习 Study', class: 'study' },
@@ -1845,206 +3972,82 @@
             { id: 'tianjin', name: '天津', english: 'Tianjin', icon: '⚓' }
         ];
 
-        const postsData = [
-            {
-                id: 1,
-                author: "Yuki Tanaka",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Yuki",
-                country: "Japan",
-                countryCode: "JP",
-                time: "2 hours ago",
-                content: "Just discovered the most amazing street food stall in Chengdu! The owner has been making the same recipe for 40 years. Sometimes the best experiences in China are the ones you stumble upon randomly. Has anyone else found hidden gems like this?",
-                tags: ["Food", "Chengdu", "Street Food"],
-                category: "study",
-                city: "chengdu",
-                likes: 234,
-                comments: 45,
-                shares: 12,
-                liked: false,
-                translated: false,
-                translation: null
-            },
-            {
-                id: 2,
-                author: "Mike Johnson",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike",
-                country: "United States",
-                countryCode: "US",
-                time: "4 hours ago",
-                content: "Working remotely from Shanghai for 6 months now. The coworking scene here is incredible! Met so many interesting people from different industries. Anyone else doing remote work in China? Let's connect!",
-                tags: ["Remote Work", "Shanghai", "Coworking"],
-                category: "food",
-                city: "shanghai",
-                likes: 189,
-                comments: 67,
-                shares: 28,
-                liked: false,
-                translated: false,
-                translation: null
-            },
-            {
-                id: 3,
-                author: "Chidi Okafor",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Chidi",
-                country: "Nigeria",
-                countryCode: "NG",
-                time: "6 hours ago",
-                content: "Finally got my residence permit renewed after some stressful weeks! Pro tip: start the renewal process at least 2 months before expiration. The immigration office in Beijing has gotten much more efficient though.",
-                tags: ["Visa", "Beijing", "Residence Permit"],
-                category: "work",
-                city: "beijing",
-                likes: 312,
-                comments: 89,
-                shares: 45,
-                liked: false,
-                translated: false,
-                translation: null
-            },
-            {
-                id: 4,
-                author: "Marie Dubois",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marie",
-                country: "France",
-                countryCode: "FR",
-                time: "8 hours ago",
-                content: "The HSR between Beijing and Shanghai never ceases to amaze me. 1,318 km in just 4.5 hours with impeccable service. As someone who grew up with French trains, this feels like the future!",
-                tags: ["Travel", "HSR", "Transportation"],
-                category: "travel",
-                city: "beijing",
-                likes: 456,
-                comments: 78,
-                shares: 156,
-                liked: false,
-                translated: false,
-                translation: null
-            },
-            {
-                id: 5,
-                author: "Jimin Park",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jimin",
-                country: "South Korea",
-                countryCode: "KR",
-                time: "10 hours ago",
-                content: "Just completed my first semester at Peking University! The campus is beautiful and the professors are world-class. Learning Mandarin has been challenging but incredibly rewarding. Any other international students here?",
-                tags: ["University", "Beijing", "Student Life"],
-                category: "study",
-                city: "beijing",
-                likes: 278,
-                comments: 112,
-                shares: 34,
-                liked: false,
-                translated: false,
-                translation: null
-            },
-            {
-                id: 6,
-                author: "Lucas Silva",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lucas",
-                country: "Brazil",
-                countryCode: "BR",
-                time: "12 hours ago",
-                content: "Photographer's paradise! The karst landscape around Guilin is unlike anywhere else on Earth. Spent a week there and took over 2,000 photos. The morning mist over the Li River is pure magic.",
-                tags: ["Photography", "Guilin", "Travel"],
-                category: "travel",
-                city: "guangzhou",
-                likes: 567,
-                comments: 134,
-                shares: 89,
-                liked: false,
-                translated: false,
-                translation: null
-            },
-            {
-                id: 7,
-                author: "James Wright",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
-                country: "United Kingdom",
-                countryCode: "UK",
-                time: "14 hours ago",
-                content: "Just launched my tech startup in Guangzhou! The ecosystem here is incredibly supportive for entrepreneurs. Already secured our first round of funding. China is truly the land of opportunity for those willing to take the leap.",
-                tags: ["Startup", "Guangzhou", "Business"],
-                category: "business",
-                city: "guangzhou",
-                likes: 423,
-                comments: 98,
-                shares: 67,
-                liked: false,
-                translated: false,
-                translation: null
-            },
-            {
-                id: 8,
-                author: "Priya Sharma",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
-                country: "India",
-                countryCode: "IN",
-                time: "16 hours ago",
-                content: "Cultural shock of the week: Got a marriage proposal from my Chinese friend's parents. Apparently I'm 'of good child-bearing age' and should consider settling down. Dating culture is quite different here!",
-                tags: ["Culture", "Dating", "Humour"],
-                category: "study",
-                city: "shanghai",
-                likes: 892,
-                comments: 267,
-                shares: 134,
-                liked: false,
-                translated: false,
-                translation: null
-            },
-            {
-                id: 9,
-                author: "Hans Mueller",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hans",
-                country: "Germany",
-                countryCode: "DE",
-                time: "18 hours ago",
-                content: "Quick review: The healthcare system in Shenzhen is excellent! Got a comprehensive checkup at a private clinic for a fraction of what it would cost in Europe. Staff spoke perfect English too.",
-                tags: ["Healthcare", "Shenzhen", "Review"],
-                category: "life",
-                city: "shenzhen",
-                likes: 198,
-                comments: 56,
-                shares: 23,
-                liked: false,
-                translated: false,
-                translation: null
-            },
-            {
-                id: 10,
-                author: "Somchai Rattana",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Somchai",
-                country: "Thailand",
-                countryCode: "TH",
-                time: "20 hours ago",
-                content: "The e-commerce infrastructure in China is 10 years ahead of anywhere else. Same-day delivery, super apps for everything, and cashless payments everywhere. Going back home will be such a culture shock!",
-                tags: ["Technology", "E-commerce", "Lifestyle"],
-                category: "life",
-                city: "hangzhou",
-                likes: 634,
-                comments: 145,
-                shares: 98,
-                liked: false,
-                translated: false,
-                translation: null
-            }
-        ];
-
-        const frenchTranslations = {
-            1: "J'ai découvert le plus incroyable stand de nourriture de rue à Chengdu ! Le propriétaire prépare la même recette depuis 40 ans. Parfois, les meilleures expériences en Chine sont celles que l'on découvre par hasard. Quelqu'un d'autre a-t-il trouvé des perles rares comme celle-ci ?",
-            2: "Je travaille à distance depuis Shanghai depuis 6 mois. La scène des espaces de coworking est incroyable ! J'ai rencontré tellement de personnes intéressantes de différents secteurs. Quelqu'un d'autre travaille-t-il à distance en Chine ? Connectons-nous !",
-            3: "J'ai enfin renouvelé mon permis de séjour après quelques semaines stressantes ! Conseil : commencez le renouvellement au moins 2 mois avant l'expiration. Le bureau de l'immigration à Beijing est devenu beaucoup plus efficace.",
-            4: "Le TGV entre Beijing et Shanghai ne cesse de m'émerveiller. 1318 km en seulement 4,5 heures avec un service impeccable. Pour quelqu'un qui a grandi avec les trains français, cela ressemble à l'avenir !",
-            5: "Mon premier semestre à l'Université de Péking est terminé ! Le campus est magnifique et les professeurs sont de classe mondiale. Apprendre le mandarin a été difficile mais incroyablement gratifiant. D'autres étudiants internationaux ici ?",
-            6: "Paradis des photographes ! Le paysage karstique autour de Guilin est unlike anywhere else on Earth. J'ai passé une semaine là-bas et pris plus de 2000 photos. La brume matinale sur la rivière Li est pure magie.",
-            7: "Je viens de lancer ma startup technologique à Guangzhou ! L'écosystème ici est incroyablement favorable aux entrepreneurs. J'ai déjà sécurisé notre premier tour de financement. La Chine est vraiment le pays des opportunités pour ceux qui sont prêts à sauter le pas.",
-            8: "Choc culturel de la semaine : J'ai reçu une proposition de mariage des parents de mon ami chinois. Apparemment, je suis 'd'âge approprié pour avoir des enfants' et je devrais envisager de m'installer. La culture des rendez-vous est assez différente ici !",
-            9: "Critique rapide : Le système de santé à Shenzhen est excellent ! J'ai passé un bilan complet dans une clinique privée pour une fraction de ce que cela coûterait en Europe. Le personnel parlait aussi parfaitement anglais.",
-            10: "L'infrastructure e-commerce en Chine est en avance de 10 ans sur partout ailleurs. Livraison le jour même, super-apps pour tout, et paiements sans contact partout. Retourner chez soi sera un tel choc culturel !"
-        };
+        /* ===== Supabase Connection ===== */
+        const SUPABASE_URL = 'https://ewepgcoayckdznpxwdfq.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_QMiUjV4HukLdaKGmlbyXXg_BCv4qNhk';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentCategory = 'all';
         let isLoggedIn = false;
         let exploreActive = false;
         let currentCityFilter = null;
+        let searchQuery = '';
+        let currentUser = null;
+        let postsData = [];
+        let userLikes = new Set();
+
+        /* ===== Data Loading ===== */
+        async function loadPosts() {
+            const { data, error } = await supabaseClient
+                .from('posts')
+                .select('*, profiles(name, avatar_url, country, country_code)')
+                .order('created_at', { ascending: false });
+            if (error) { console.error('loadPosts error:', error); return; }
+            postsData = (data || []).map(p => ({
+                id: p.id,
+                author: p.profiles?.name || 'Guest',
+                avatar: p.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest',
+                country: p.profiles?.country || 'Unknown',
+                countryCode: p.profiles?.country_code || 'UN',
+                time: getTimeAgo(p.created_at),
+                createdAt: new Date(p.created_at).getTime(),
+                content: p.content,
+                tags: [],
+                category: p.category || 'life',
+                city: p.city || 'unknown',
+                likes: 0,
+                comments: 0,
+                shares: 0,
+                liked: false,
+                user_id: p.user_id
+            }));
+            await loadLikes();
+            await loadCommentCounts();
+            renderPosts();
+        }
+
+        async function loadLikes() {
+            const { data } = await supabaseClient.from('likes').select('post_id, user_id');
+            if (!data) return;
+            const likeCountMap = {};
+            data.forEach(l => {
+                likeCountMap[l.post_id] = (likeCountMap[l.post_id] || 0) + 1;
+                if (currentUser && l.user_id === currentUser.id) userLikes.add(l.post_id);
+            });
+            postsData.forEach(p => {
+                p.likes = likeCountMap[p.id] || 0;
+                p.liked = userLikes.has(p.id);
+            });
+        }
+
+        async function loadCommentCounts() {
+            const { data } = await supabaseClient.from('comments').select('post_id');
+            if (!data) return;
+            const countMap = {};
+            data.forEach(c => { countMap[c.post_id] = (countMap[c.post_id] || 0) + 1; });
+            postsData.forEach(p => { p.comments = countMap[p.id] || 0; });
+        }
+
+        function getTimeAgo(dateStr) {
+            const diff = Date.now() - new Date(dateStr).getTime();
+            const mins = Math.floor(diff / 60000);
+            if (mins < 1) return currentLang === 'fr' ? "À l'instant" : "Just now";
+            if (mins < 60) return `${mins}m ago`;
+            const hrs = Math.floor(mins / 60);
+            if (hrs < 24) return `${hrs}h ago`;
+            const days = Math.floor(hrs / 24);
+            return `${days}d ago`;
+        }
 
         function showToast(message) {
             const container = document.getElementById('toastContainer');
@@ -2065,54 +4068,32 @@
             return String.fromCodePoint(...codePoints);
         }
 
-        function toggleLike(postId) {
-            const post = postsData.find(p => p.id === postId);
-            if (post) {
-                post.liked = !post.liked;
-                post.likes += post.liked ? 1 : -1;
-                if (currentCityFilter) {
-                    renderCityPosts(currentCityFilter);
-                } else {
-                    renderPosts();
-                }
+        async function toggleLike(postId) {
+            if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour aimer' : 'Please sign in to like'); return; }
+            const liked = userLikes.has(postId);
+            if (liked) {
+                await supabaseClient.from('likes').delete().eq('post_id', postId).eq('user_id', currentUser.id);
+                userLikes.delete(postId);
+            } else {
+                await supabaseClient.from('likes').insert({ post_id: postId, user_id: currentUser.id });
+                userLikes.add(postId);
             }
+            const post = postsData.find(p => p.id === postId);
+            if (post) { post.liked = !liked; post.likes += liked ? -1 : 1; }
+            if (currentCityFilter) renderCityPosts(currentCityFilter);
+            else renderPosts();
         }
 
         function translatePost(postId, lang) {
-            const post = postsData.find(p => p.id === postId);
-            if (!post) return;
-
-            if (post.translated && post.translation) {
-                post.content = post.translation;
-                post.translation = null;
-                post.translated = false;
-            } else {
-                showToast("Translating to French... 🔄");
-                const originalContent = post.content;
-                setTimeout(() => {
-                    post.translation = originalContent;
-                    post.content = frenchTranslations[postId] || originalContent;
-                    post.translated = true;
-                    if (currentCityFilter) {
-                        renderCityPosts(currentCityFilter);
-                    } else {
-                        renderPosts();
-                    }
-                }, 1000);
-                return;
-            }
-
-            if (currentCityFilter) {
-                renderCityPosts(currentCityFilter);
-            } else {
-                renderPosts();
-            }
+            showToast(currentLang === 'fr' ? 'Traduction bientôt disponible' : 'Translation coming soon');
         }
 
-        function getPostHTML(post) {
+        function getPostHTML(post, idx) {
             const cat = categories[post.category];
+            const isExpanded = expandedPostId === post.id;
+            const delay = idx !== undefined ? `animation-delay: ${idx * 0.08}s` : '';
             return `
-            <article class="post-card" data-post-id="${post.id}" onclick="togglePostExpand(${post.id}, event)">
+            <article class="post-card spotlight-card ${isExpanded ? 'expanded' : ''}" data-post-id="${post.id}" style="${delay}">
                 <div class="post-header">
                     <img src="${post.avatar}" alt="${post.author}" class="post-avatar">
                     <div class="post-author-info">
@@ -2131,45 +4112,44 @@
                 <div class="post-tags">
                     ${post.tags.map(tag => `<span class="post-tag">${tag}</span>`).join('')}
                 </div>
-                <div class="post-actions" onclick="event.stopPropagation()">
+                <div class="post-actions">
                     <button class="action-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
                         <i class="${post.liked ? 'fas' : 'far'} fa-heart"></i>
                         <span>${post.likes}</span>
                     </button>
-                    <button class="action-btn">
+                    <button class="action-btn" onclick="togglePostExpand(${post.id}); setTimeout(() => { const inp = document.querySelector('.post-card[data-post-id=&quot;${post.id}&quot;] .comment-input-row input'); if(inp) inp.focus(); }, 100);">
                         <i class="far fa-comment"></i>
                         <span>${post.comments}</span>
                     </button>
-                    <button class="action-btn">
-                        <i class="far fa-share-square"></i>
-                        <span>${post.shares}</span>
-                    </button>
-                    <button class="action-btn translate-btn ${post.translated ? 'translated' : ''}" onclick="translatePost(${post.id}, 'fr')">
+                    <div class="share-dropdown">
+                        <button class="action-btn" onclick="toggleShareMenu(${post.id})">
+                            <i class="far fa-share-square"></i>
+                            <span>${post.shares}</span>
+                        </button>
+                        <div class="share-menu" id="shareMenu${post.id}">
+                            <button class="share-menu-item" onclick="copyPostLink(${post.id})">
+                                <i class="fas fa-link"></i> ${t('copyLink')}
+                            </button>
+                            <button class="share-menu-item" onclick="shareToTwitter(${post.id})">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </button>
+                            <button class="share-menu-item" onclick="shareToWeChat(${post.id})">
+                                <i class="fab fa-weixin"></i> WeChat
+                            </button>
+                        </div>
+                    </div>
+                    <button class="action-btn translate-btn" onclick="translatePost(${post.id})">
                         <i class="fas fa-language"></i>
-                        <span>${post.translated ? 'Translated' : 'Translate'}</span>
+                        <span>${t('translate')}</span>
                     </button>
                 </div>
+                <button class="expand-toggle" onclick="togglePostExpand(${post.id})">
+                    <i class="fas fa-chevron-down"></i>
+                    <span>${isExpanded ? t('hideComments') : t('showComments')}</span>
+                </button>
                 <div class="comment-section">
-                    <div class="comment">
-                        <div class="comment-avatar">👩</div>
-                        <div class="comment-content">
-                            <div class="comment-author">Sarah M. <span>🇬🇧</span></div>
-                            <div class="comment-text">Great post! I had a similar experience.</div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-avatar">👨</div>
-                        <div class="comment-content">
-                            <div class="comment-author">Alex K. <span>🇨🇦</span></div>
-                            <div class="comment-text">Thanks for sharing! Very helpful.</div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-avatar">👨</div>
-                        <div class="comment-content">
-                            <div class="comment-author">Marco R. <span>🇮🇹</span></div>
-                            <div class="comment-text">I totally agree! 🇨🇳</div>
-                        </div>
+                    <div class="comments-list" id="comments-${post.id}">
+                        ${isExpanded ? '<div style="text-align:center;padding:10px;color:var(--text-muted)">Loading comments...</div>' : ''}
                     </div>
                 </div>
             </article>
@@ -2180,11 +4160,34 @@
             const postsGrid = document.getElementById('postsGrid');
             if (!postsGrid) return;
             
-            const filteredPosts = currentCategory === 'all'
-                ? postsData
+            let filteredPosts = currentCategory === 'all'
+                ? [...postsData]
                 : postsData.filter(post => post.category === currentCategory);
 
-            postsGrid.innerHTML = filteredPosts.map(post => getPostHTML(post)).join('');
+            if (searchQuery.trim()) {
+                const q = searchQuery.toLowerCase().trim();
+                filteredPosts = filteredPosts.filter(post =>
+                    post.content.toLowerCase().includes(q) ||
+                    post.author.toLowerCase().includes(q) ||
+                    post.tags.some(tag => tag.toLowerCase().includes(q)) ||
+                    post.city.toLowerCase().includes(q) ||
+                    post.country.toLowerCase().includes(q)
+                );
+            }
+
+            filteredPosts.sort((a, b) => b.createdAt - a.createdAt);
+
+            if (filteredPosts.length === 0) {
+                postsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h3>${t('noStories')}</h3>
+                        <p>${searchQuery.trim() ? t('tryDifferent') : t('noPostsCategory')}</p>
+                    </div>`;
+                return;
+            }
+
+            postsGrid.innerHTML = filteredPosts.map((post, i) => getPostHTML(post, i)).join('');
         }
 
         function getCityPostCount(cityId) {
@@ -2198,7 +4201,7 @@
             citiesGrid.innerHTML = cities.map(city => {
                 const count = getCityPostCount(city.id);
                 return `
-                <div class="city-card" data-city="${city.id}" onclick="selectCity('${city.id}')">
+                <div class="city-card spotlight-card" data-city="${city.id}" onclick="selectCity('${city.id}')">
                     <div class="city-card-icon">${city.icon}</div>
                     <div class="city-card-name">${city.name}</div>
                     <div class="city-card-english">${city.english}</div>
@@ -2245,7 +4248,7 @@
             if (!cityPostsGrid) return;
 
             const filteredPosts = postsData.filter(post => post.city === cityId);
-            cityPostsGrid.innerHTML = filteredPosts.map(post => getPostHTML(post)).join('');
+            cityPostsGrid.innerHTML = filteredPosts.map((post, i) => getPostHTML(post, i)).join('');
         }
 
         function backToCities() {
@@ -2260,21 +4263,21 @@
             const categoryFilter = document.querySelector('.category-filter');
             const hero = document.querySelector('.hero');
 
+            document.getElementById('topicsPage').classList.remove('active');
+            document.getElementById('aboutPage').classList.remove('active');
+
             if (show) {
-                exploreSection.classList.add('active');
+                exploreSection.classList.add('active', 'page-transition');
                 mainContainer.style.display = 'none';
                 categoryFilter.style.display = 'none';
-                if (!isLoggedIn) {
-                    hero.style.display = 'none';
-                }
+                hero.style.display = 'none';
                 renderCitiesGrid();
             } else {
                 exploreSection.classList.remove('active');
                 mainContainer.style.display = 'grid';
                 categoryFilter.style.display = 'flex';
-                if (!isLoggedIn) {
-                    hero.style.display = 'block';
-                }
+                if (!isLoggedIn) hero.style.display = 'block';
+                else hero.style.display = 'none';
                 backToCities();
             }
             exploreActive = show;
@@ -2282,23 +4285,235 @@
 
         let expandedPostId = null;
 
-        function togglePostExpand(postId, event) {
-            if (event.target.closest('.post-actions')) return;
-            const cards = document.querySelectorAll('.post-card');
-            cards.forEach(card => {
-                if (parseInt(card.dataset.postId) === postId) {
-                    if (expandedPostId === postId) {
-                        card.classList.remove('expanded');
-                        expandedPostId = null;
-                    } else {
-                        card.classList.add('expanded');
-                        expandedPostId = postId;
-                    }
-                } else {
-                    card.classList.remove('expanded');
-                }
+        function togglePostExpand(postId) {
+            if (expandedPostId === postId) {
+                expandedPostId = null;
+            } else {
+                expandedPostId = postId;
+            }
+            if (currentCityFilter) {
+                renderCityPosts(currentCityFilter);
+            } else {
+                renderPosts();
+            }
+            if (expandedPostId === postId) {
+                setTimeout(() => loadCommentsIntoPost(postId), 100);
+            }
+        }
+
+        async function loadCommentsIntoPost(postId) {
+            const container = document.getElementById(`comments-${postId}`);
+            if (!container) return;
+            const comments = await loadCommentsForPost(postId);
+            if (comments.length === 0) {
+                container.innerHTML = `<div style="text-align:center;padding:12px;color:var(--text-muted);font-size:0.85rem">${currentLang === 'fr' ? 'Pas encore de commentaires' : 'No comments yet'}</div>`;
+            } else {
+                container.innerHTML = comments.map(c => `
+                    <div class="comment">
+                        <div class="comment-avatar"><img src="${c.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest'}" style="width:36px;height:36px;border-radius:50%;object-fit:cover"></div>
+                        <div class="comment-content">
+                            <div class="comment-author">${c.profiles?.name || 'Guest'} <span>${getFlagEmoji(c.profiles?.country_code || 'UN')}</span></div>
+                            <div class="comment-text">${c.content}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            container.innerHTML += `
+                <div class="comment-input-row">
+                    <input type="text" placeholder="${t('writeComment')}" onkeydown="if(event.key==='Enter') addComment(${postId}, this)">
+                    <button onclick="addComment(${postId}, this.previousElementSibling)">${t('send')}</button>
+                </div>`;
+        }
+
+        function toggleShareMenu(postId) {
+            const menu = document.getElementById(`shareMenu${postId}`);
+            document.querySelectorAll('.share-menu').forEach(m => {
+                if (m !== menu) m.classList.remove('active');
+            });
+            menu.classList.toggle('active');
+        }
+
+        function copyPostLink(postId) {
+            const url = window.location.href.split('#')[0] + '#post-' + postId;
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('Link copied to clipboard! 📋');
+            }).catch(() => {
+                showToast('Link copied! 📋');
+            });
+            document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
+        }
+
+        function shareToTwitter(postId) {
+            const post = postsData.find(p => p.id === postId);
+            if (post) {
+                const text = encodeURIComponent(post.content.substring(0, 100) + '...');
+                window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+            }
+            document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
+        }
+
+        function shareToWeChat(postId) {
+            showToast(t('wechatShare') + ' 📱');
+            copyPostLink(postId);
+        }
+
+        async function addComment(postId, inputEl) {
+            const text = inputEl.value.trim();
+            if (!text) return;
+            if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour commenter' : 'Please sign in to comment'); return; }
+            const { error } = await supabaseClient.from('comments').insert({ post_id: postId, user_id: currentUser.id, content: text });
+            if (error) { showToast('Error posting comment'); return; }
+            inputEl.value = '';
+            showToast(t('commentPosted') + ' 💬');
+            await loadPosts();
+        }
+
+        async function loadCommentsForPost(postId) {
+            const { data } = await supabaseClient
+                .from('comments')
+                .select('*, profiles(name, avatar_url, country_code)')
+                .eq('post_id', postId)
+                .order('created_at', { ascending: true });
+            return data || [];
+        }
+
+        function highlightNavLink(pageName) {
+            const allLinks = document.querySelectorAll('.nav-links a[data-nav], #mobileNav a[data-nav]');
+            allLinks.forEach(l => l.classList.remove('active'));
+            allLinks.forEach(l => {
+                if (pageName === 'home' && (l.dataset.nav === 'home')) l.classList.add('active');
+                else if (l.dataset.nav === pageName) l.classList.add('active');
             });
         }
+
+        function navigateTo(page) {
+            ['topicsPage', 'aboutPage', 'profilePage', 'newPostPage'].forEach(p => {
+                const el = document.getElementById(p);
+                if (el) el.classList.remove('active');
+            });
+
+            const mainContainer = document.getElementById('mainContainer');
+            const categoryFilter = document.querySelector('.category-filter');
+            const hero = document.querySelector('.hero');
+
+            if (page === 'explore') {
+                toggleExplore(true);
+                highlightNavLink('explore');
+                closeMobileNav();
+                return;
+            }
+
+            toggleExplore(false);
+
+            if (page === 'topics') {
+                const topicsEl = document.getElementById('topicsPage');
+                topicsEl.classList.add('active', 'page-transition');
+                mainContainer.style.display = 'none';
+                categoryFilter.style.display = 'none';
+                hero.style.display = 'none';
+                setTimeout(() => {
+                    const el = document.getElementById('topicsHero');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+            } else if (page === 'about') {
+                const aboutEl = document.getElementById('aboutPage');
+                aboutEl.classList.add('active', 'page-transition');
+                mainContainer.style.display = 'none';
+                categoryFilter.style.display = 'none';
+                hero.style.display = 'none';
+                setTimeout(() => {
+                    const el = document.getElementById('aboutHero');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+            } else if (page === 'profile') {
+                const profileEl = document.getElementById('profilePage');
+                profileEl.classList.add('active', 'page-transition');
+                mainContainer.style.display = 'none';
+                categoryFilter.style.display = 'none';
+                hero.style.display = 'none';
+                loadProfile();
+                switchProfileTab('myposts');
+                setTimeout(() => {
+                    profileEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+            } else if (page === 'newpost') {
+                const newPostEl = document.getElementById('newPostPage');
+                newPostEl.classList.add('active', 'page-transition');
+                mainContainer.style.display = 'none';
+                categoryFilter.style.display = 'none';
+                hero.style.display = 'none';
+                if (currentUser) {
+                    document.getElementById('newPostAvatar').src = currentUser.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
+                }
+                setTimeout(() => {
+                    newPostEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('postContent').focus();
+                }, 50);
+            } else {
+                mainContainer.style.display = 'grid';
+                mainContainer.classList.add('page-transition');
+                categoryFilter.style.display = 'flex';
+                if (isLoggedIn) hero.style.display = 'none';
+                else hero.style.display = 'block';
+                if (page === 'home') {
+                    setTimeout(() => {
+                        const el = document.getElementById('postsSection');
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 50);
+                }
+            }
+
+            highlightNavLink(page);
+            closeMobileNav();
+        }
+
+        function filterByTopic(category) {
+            navigateTo('home');
+            currentCategory = category;
+            categoryPills.forEach(p => p.classList.remove('active'));
+            const matchingPill = document.querySelector(`.category-pill[data-category="${category}"]`);
+            if (matchingPill) {
+                matchingPill.classList.add('active');
+            } else {
+                document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+                currentCategory = 'all';
+                showToast(`Browsing "${category}" topic 🔍`);
+            }
+            renderPosts();
+        }
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+
+        function toggleMobileNav() {
+            mobileNav.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileNav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        function closeMobileNav() {
+            mobileNav.classList.remove('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileNav);
+
+        document.addEventListener('click', (e) => {
+            if (!mobileNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                closeMobileNav();
+            }
+            if (!e.target.closest('.share-dropdown')) {
+                document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
+            }
+        });
 
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
@@ -2312,9 +4527,6 @@
         const countryGroup = document.getElementById('countryGroup');
         const identityGroup = document.getElementById('identityGroup');
         const identityCards = document.querySelectorAll('.identity-card');
-        const newPostModal = document.getElementById('newPostModal');
-        const newPostModalClose = document.getElementById('newPostModalClose');
-        const navLinks = document.querySelectorAll('.nav-links a');
 
         let currentTab = 'login';
 
@@ -2327,16 +4539,16 @@
             document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
 
             if (tab === 'login') {
-                modalTitle.textContent = 'Welcome Back';
-                modalSubtitle.textContent = 'Log in to continue your China journey';
-                submitBtn.textContent = 'Log In';
+                modalTitle.textContent = t('welcomeBackTitle');
+                modalSubtitle.textContent = t('loginSubtitle');
+                submitBtn.textContent = t('logIn');
                 confirmPasswordGroup.style.display = 'none';
                 countryGroup.style.display = 'none';
                 identityGroup.style.display = 'none';
             } else {
-                modalTitle.textContent = 'Join Our Community';
-                modalSubtitle.textContent = 'Create an account to start sharing your story';
-                submitBtn.textContent = 'Create Account';
+                modalTitle.textContent = t('joinCommunity');
+                modalSubtitle.textContent = t('registerSubtitle');
+                submitBtn.textContent = t('createAccount');
                 confirmPasswordGroup.style.display = 'block';
                 countryGroup.style.display = 'block';
                 identityGroup.style.display = 'block';
@@ -2351,14 +4563,47 @@
         }
 
         function openNewPostModal() {
-            newPostModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); return; }
+            navigateTo('newpost');
         }
 
         function closeNewPostModal() {
-            newPostModal.classList.remove('active');
-            document.body.style.overflow = '';
+            navigateTo('home');
             document.getElementById('postContent').value = '';
+            removeImage();
+            updateCharCount(document.getElementById('postContent'));
+        }
+
+        function updateCharCount(textarea) {
+            const count = textarea.value.length;
+            const el = document.getElementById('charCount');
+            if (!el) return;
+            el.textContent = `${count} / 5000`;
+            el.className = 'char-count' + (count > 4500 ? (count > 4900 ? ' danger' : ' warning') : '');
+        }
+
+        let selectedImageFile = null;
+
+        function previewImage(input) {
+            const file = input.files[0];
+            if (!file) return;
+            if (file.size > 5 * 1024 * 1024) { showToast('Image too large (max 5MB)'); return; }
+            selectedImageFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById('imagePreview');
+                document.getElementById('previewImg').src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeImage() {
+            selectedImageFile = null;
+            const preview = document.getElementById('imagePreview');
+            if (preview) { preview.style.display = 'none'; document.getElementById('previewImg').src = ''; }
+            const upload = document.getElementById('imageUpload');
+            if (upload) upload.value = '';
         }
 
         loginBtn.addEventListener('click', () => openModal('login'));
@@ -2382,52 +4627,110 @@
             });
         });
 
-        document.getElementById('authForm').addEventListener('submit', (e) => {
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('emailInput').value;
             const password = document.getElementById('passwordInput').value;
 
-            if (email && password) {
+            if (!email || !password) return;
+
+            if (currentTab === 'register') {
+                const countrySelect = document.getElementById('countrySelect');
+                const selectedIdentity = document.querySelector('.identity-card.selected');
+                const name = email.split('@')[0];
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email, password,
+                    options: { data: { name, country: countrySelect?.value || 'UN', identity: selectedIdentity?.querySelector('span')?.textContent || 'Member' } }
+                });
+                if (error) { showToast(error.message); return; }
+                showToast(t('welcomeGuest') + ' 🎉');
+            } else {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                if (error) { showToast(error.message); return; }
+                showToast(t('welcomeGuest') + ' 🎉');
+            }
+            closeModal();
+            await checkSession();
+        });
+
+        async function checkSession() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
                 isLoggedIn = true;
+                const { data: { user } } = await supabaseClient.auth.getUser();
+                const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', user.id).single();
+                currentUser = profile || { id: user.id, name: user.user_metadata?.name || user.email.split('@')[0], avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest', country: 'Unknown', country_code: 'UN', identity: 'Member' };
                 document.body.classList.add('logged-in');
-                closeModal();
-                showToast('Welcome back, Guest! 🎉');
-                renderPosts();
+                document.getElementById('profileBtn').querySelector('img').src = currentUser.avatar_url;
+                document.getElementById('mobileProfileLink').style.display = 'block';
+                document.getElementById('mobileSignOutLink').style.display = 'block';
+            } else {
+                isLoggedIn = false;
+                currentUser = null;
+                document.body.classList.remove('logged-in');
+                document.getElementById('mobileProfileLink').style.display = 'none';
+                document.getElementById('mobileSignOutLink').style.display = 'none';
             }
+            await loadPosts();
+            applyTranslations();
+        }
+
+        checkSession();
+
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            checkSession();
         });
 
-        newPostModalClose.addEventListener('click', closeNewPostModal);
-
-        newPostModal.addEventListener('click', (e) => {
-            if (e.target === newPostModal) closeNewPostModal();
-        });
-
-        document.getElementById('newPostForm').addEventListener('submit', (e) => {
+        document.getElementById('newPostForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const content = document.getElementById('postContent').value;
-            if (content.trim()) {
-                closeNewPostModal();
-                showToast('Post shared successfully! 🎉');
-            }
+            const content = document.getElementById('postContent').value.trim();
+            const category = document.getElementById('postCategory').value;
+            const city = document.getElementById('postCity')?.value || 'unknown';
+            if (!content) return;
+            if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); return; }
+            const { error } = await supabaseClient.from('posts').insert({
+                user_id: currentUser.id,
+                content,
+                category,
+                city
+            });
+            if (error) { showToast('Error posting'); return; }
+            document.getElementById('postContent').value = '';
+            removeImage();
+            navigateTo('home');
+            await loadPosts();
+            showToast(t('postShared') + ' 🎉');
         });
 
-        navLinks.forEach(link => {
+        function handleNavClick(navTarget) {
+            if (navTarget === 'home') {
+                currentCategory = 'all';
+                categoryPills.forEach(p => p.classList.remove('active'));
+                document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+                navigateTo('home');
+                renderPosts();
+            } else if (navTarget === 'explore') {
+                navigateTo('explore');
+            } else if (navTarget === 'newpost') {
+                currentCategory = 'all';
+                categoryPills.forEach(p => p.classList.remove('active'));
+                document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+                navigateTo('home');
+                renderPosts();
+            } else if (navTarget === 'topics') {
+                navigateTo('topics');
+            } else if (navTarget === 'about') {
+                navigateTo('about');
+            } else if (navTarget === 'profile') {
+                navigateTo('profile');
+            }
+        }
+
+        const allNavLinks = document.querySelectorAll('.nav-links a[data-nav], #mobileNav a[data-nav]');
+        allNavLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                navLinks.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-                const linkText = link.textContent.trim();
-                if (linkText === 'Stories' || linkText === 'Home') {
-                    currentCategory = 'all';
-                    categoryPills.forEach(p => p.classList.remove('active'));
-                    document.querySelector('.category-pill[data-category="all"]').classList.add('active');
-                    toggleExplore(false);
-                    renderPosts();
-                } else if (linkText === 'Explore') {
-                    toggleExplore(true);
-                } else if (linkText === 'New Post') {
-                    openNewPostModal();
-                }
+                handleNavClick(link.dataset.nav);
             });
         });
 
@@ -2444,7 +4747,8 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (authModal.classList.contains('active')) closeModal();
-                if (newPostModal.classList.contains('active')) closeNewPostModal();
+                const npPage = document.getElementById('newPostPage');
+                if (npPage && npPage.classList.contains('active')) closeNewPostModal();
             }
         });
 
@@ -2468,8 +4772,21 @@
         searchInput.addEventListener('blur', () => {
             searchInput.parentElement.style.transform = 'scale(1)';
         });
-
-        renderPosts();
+        searchInput.addEventListener('input', () => {
+            searchQuery = searchInput.value;
+            renderPosts();
+        });
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                searchQuery = searchInput.value;
+                navigateTo('home');
+                renderPosts();
+                if (searchQuery.trim()) {
+                    showToast(`Searching for "${searchQuery}" 🔍`);
+                }
+            }
+        });
 
         const categoryMapping = {
             'Best districts in Shanghai': 'travel',
@@ -2482,10 +4799,13 @@
         const trendingListItems = document.querySelectorAll('.trending-list .trending-item');
         trendingListItems.forEach(item => {
             item.addEventListener('click', () => {
+                const number = item.querySelector('.trending-number');
+                if (!number) return;
                 const title = item.querySelector('.trending-title').textContent;
-                showToast(`Showing: ${title} 🔍`);
                 const category = categoryMapping[title];
                 if (category) {
+                    navigateTo('home');
+                    showToast(`Showing: ${title} 🔍`);
                     currentCategory = category;
                     categoryPills.forEach(p => p.classList.remove('active'));
                     const matchingPill = document.querySelector(`.category-pill[data-category="${category}"]`);
@@ -2494,6 +4814,315 @@
                 }
             });
         });
+
+        /* ===== Micro-interactions ===== */
+
+        // 1. Navbar shrink on scroll
+        const navbarEl = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbarEl.classList.add('shrink');
+            } else {
+                navbarEl.classList.remove('shrink');
+            }
+        }, { passive: true });
+
+        // 2. Nav sliding indicator
+        function updateNavIndicator() {
+            const activeLink = document.querySelector('.nav-links a.active');
+            const indicator = document.getElementById('navIndicator');
+            if (activeLink && indicator) {
+                indicator.style.left = activeLink.parentElement.offsetLeft + 'px';
+                indicator.style.width = activeLink.offsetWidth + 'px';
+            }
+        }
+        setTimeout(updateNavIndicator, 100);
+        const origHighlightNavLink = highlightNavLink;
+        highlightNavLink = function(page) {
+            origHighlightNavLink(page);
+            setTimeout(updateNavIndicator, 50);
+        };
+
+        // 3. Hero parallax blobs follow mouse
+        const heroEl = document.querySelector('.hero');
+        if (heroEl) {
+            heroEl.addEventListener('mousemove', (e) => {
+                const rect = heroEl.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                const blobs = heroEl.querySelectorAll('.blob');
+                blobs.forEach((blob, i) => {
+                    const speed = (i + 1) * 15;
+                    blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+                });
+            });
+        }
+
+        // 4. Cursor spotlight glow on cards
+        document.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.spotlight-card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mx', x + 'px');
+                card.style.setProperty('--my', y + 'px');
+                if (card.querySelector('::after') !== null) {
+                    // CSS handles it via custom property
+                }
+            });
+        });
+        // Inject CSS for spotlight custom property
+        const spotlightStyle = document.createElement('style');
+        spotlightStyle.textContent = `.spotlight-card::after { left: var(--mx, 50%); top: var(--my, 50%); }`;
+        document.head.appendChild(spotlightStyle);
+
+        // 5. Stat counter animation
+        function animateCounters() {
+            document.querySelectorAll('[data-target]').forEach(el => {
+                const target = parseInt(el.dataset.target);
+                const duration = 2000;
+                const start = performance.now();
+                function tick(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.floor(target * eased);
+                    if (target >= 10000) {
+                        el.textContent = (current / 1000).toFixed(1) + 'K';
+                    } else {
+                        el.textContent = current.toLocaleString();
+                    }
+                    if (progress < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+            });
+        }
+
+        // Add data-target to hero stats
+        const statNumbers = document.querySelectorAll('.hero .stat-number');
+        if (statNumbers.length >= 3) {
+            statNumbers[0].dataset.target = '12847';
+            statNumbers[1].dataset.target = '8234';
+            statNumbers[2].dataset.target = '156';
+            setTimeout(animateCounters, 500);
+        }
+
+        // 6. Ripple effect on buttons
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.btn, .category-pill, .action-btn');
+            if (!btn) return;
+            const rect = btn.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple-effect';
+            const size = Math.max(rect.width, rect.height) * 2;
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            btn.style.position = 'relative';
+            btn.style.overflow = 'hidden';
+            btn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+
+        // 7. Scroll reveal for sidebar elements
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        function observeReveals() {
+            document.querySelectorAll('.sidebar-card, .footer-content > *').forEach(el => {
+                if (!el.classList.contains('reveal')) {
+                    el.classList.add('reveal');
+                    revealObserver.observe(el);
+                }
+            });
+        }
+        observeReveals();
+
+        // 8. Re-observe after dynamic renders
+        const origRenderPosts = renderPosts;
+        renderPosts = function() {
+            origRenderPosts();
+            setTimeout(observeReveals, 100);
+        };
+
+        // 9. Scroll-to-top button
+        const scrollTopBtn = document.createElement('button');
+        scrollTopBtn.id = 'scrollTopBtn';
+        scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        scrollTopBtn.style.cssText = `
+            position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px;
+            border-radius: 50%; background: var(--accent-gradient); border: none; color: white;
+            font-size: 1.1rem; cursor: pointer; z-index: 900; opacity: 0; pointer-events: none;
+            transform: translateY(20px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 20px rgba(255, 107, 91, 0.3); display: flex; align-items: center;
+            justify-content: center;
+        `;
+        document.body.appendChild(scrollTopBtn);
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.style.opacity = '1';
+                scrollTopBtn.style.pointerEvents = 'auto';
+                scrollTopBtn.style.transform = 'translateY(0)';
+            } else {
+                scrollTopBtn.style.opacity = '0';
+                scrollTopBtn.style.pointerEvents = 'none';
+                scrollTopBtn.style.transform = 'translateY(20px)';
+            }
+        }, { passive: true });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        scrollTopBtn.addEventListener('mouseenter', () => {
+            scrollTopBtn.style.transform = 'translateY(-3px)';
+            scrollTopBtn.style.boxShadow = '0 8px 30px rgba(255, 107, 91, 0.5)';
+        });
+        scrollTopBtn.addEventListener('mouseleave', () => {
+            scrollTopBtn.style.transform = 'translateY(0)';
+            scrollTopBtn.style.boxShadow = '0 4px 20px rgba(255, 107, 91, 0.3)';
+        });
+
+        // 10. Particle explosion on like
+        function createParticles(x, y, container) {
+            const colors = ['#ff6b5b', '#ff9a5c', '#ffcc5c', '#ff6b6b', '#ffa07a'];
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                const size = Math.random() * 8 + 4;
+                const angle = (Math.PI * 2 * i) / 12;
+                const velocity = Math.random() * 40 + 30;
+                const dx = Math.cos(angle) * velocity;
+                const dy = Math.sin(angle) * velocity;
+                particle.style.cssText = `
+                    position: absolute; left: ${x}px; top: ${y}px;
+                    width: ${size}px; height: ${size}px; border-radius: 50%;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    pointer-events: none; z-index: 100;
+                    animation: particleBurst 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    --dx: ${dx}px; --dy: ${dy}px;
+                `;
+                container.appendChild(particle);
+                setTimeout(() => particle.remove(), 700);
+            }
+        }
+
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = `
+            @keyframes particleBurst {
+                0% { transform: translate(0, 0) scale(1); opacity: 1; }
+                100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(particleStyle);
+
+        // Override toggleLike to add particles
+        const origToggleLike = toggleLike;
+        toggleLike = function(postId) {
+            const btn = document.querySelector(`.post-card[data-post-id="${postId}"] .action-btn`);
+            if (btn && !btn.classList.contains('liked')) {
+                const rect = btn.getBoundingClientRect();
+                createParticles(rect.width / 2, rect.height / 2, btn);
+            }
+            origToggleLike(postId);
+        };
+
+        // 11. Typing animation for hero title
+        function animateHeroTitle() {
+            const heroH1 = document.querySelector('.hero h1');
+            if (!heroH1) return;
+            const originalHTML = heroH1.innerHTML;
+            const textBefore = 'Share Your ';
+            const textHighlight = 'China Story';
+            heroH1.innerHTML = `${textBefore}<span id="typingSpan"></span><span class="typing-cursor">|</span>`;
+
+            const typingStyle = document.createElement('style');
+            typingStyle.textContent = `
+                .typing-cursor {
+                    color: var(--accent-coral);
+                    animation: cursorBlink 0.8s step-end infinite;
+                    font-weight: 300;
+                }
+                @keyframes cursorBlink {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0; }
+                }
+            `;
+            document.head.appendChild(typingStyle);
+
+            const span = document.getElementById('typingSpan');
+            span.style.background = 'var(--accent-gradient)';
+            span.style.webkitBackgroundClip = 'text';
+            span.style.webkitTextFillColor = 'transparent';
+            span.style.backgroundClip = 'text';
+
+            let i = 0;
+            function typeNext() {
+                if (i < textHighlight.length) {
+                    span.textContent += textHighlight[i];
+                    i++;
+                    setTimeout(typeNext, 80 + Math.random() * 60);
+                } else {
+                    setTimeout(() => {
+                        heroH1.innerHTML = originalHTML;
+                    }, 1500);
+                }
+            }
+            setTimeout(typeNext, 800);
+        }
+        animateHeroTitle();
+
+        // 12. Magnetic hover on primary buttons
+        document.querySelectorAll('.btn-primary, .welcome-action-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // 13. Glowing border on post card hover
+        document.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.post-card:hover').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--glow-x', x + 'px');
+                card.style.setProperty('--glow-y', y + 'px');
+            });
+        });
+
+        const glowStyle = document.createElement('style');
+        glowStyle.textContent = `
+            .post-card::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                border-radius: 20px;
+                padding: 1px;
+                background: radial-gradient(200px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+                    rgba(255, 107, 91, 0.3) 0%, transparent 100%);
+                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .post-card { position: relative; }
+            .post-card:hover::before { opacity: 1; }
+        `;
+        document.head.appendChild(glowStyle);
     </script>
 </body>
 </html>
