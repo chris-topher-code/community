@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ChinaVoices - Share Your China Story</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -589,6 +589,10 @@
             border: none;
             font-size: 0.9rem;
             font-family: 'Inter', sans-serif;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 8px 10px;
+            justify-content: center;
         }
 
         .action-btn:hover {
@@ -655,6 +659,7 @@
             border-bottom: 1px solid var(--glass-border);
             cursor: pointer;
             transition: all 0.3s ease;
+            min-height: 44px;
         }
 
         .trending-item:last-child {
@@ -832,7 +837,7 @@
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             color: var(--text-primary);
-            font-size: 1rem;
+            font-size: 16px;
             font-family: 'Inter', sans-serif;
             outline: none;
             transition: all 0.3s ease;
@@ -911,7 +916,7 @@
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             color: var(--text-primary);
-            font-size: 1rem;
+            font-size: 16px;
             font-family: 'Inter', sans-serif;
             outline: none;
             resize: vertical;
@@ -1841,6 +1846,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: 'Inter', sans-serif;
+            min-height: 48px;
         }
 
         .welcome-action-btn:hover {
@@ -1930,6 +1936,22 @@
             }
         }
 
+        @media (max-width: 768px) {
+            .mobile-nav a {
+                display: block;
+                padding: 14px 16px;
+                color: var(--text-secondary);
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 1rem;
+                border-radius: 10px;
+                transition: all 0.2s ease;
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+            }
+        }
+
         .comment-input-row {
             display: flex;
             gap: 10px;
@@ -1939,15 +1961,16 @@
 
         .comment-input-row input {
             flex: 1;
-            padding: 10px 14px;
+            padding: 12px 16px;
             background: var(--glass);
             border: 1px solid var(--glass-border);
             border-radius: 10px;
             color: var(--text-primary);
-            font-size: 0.9rem;
+            font-size: 16px;
             font-family: 'Inter', sans-serif;
             outline: none;
             transition: border-color 0.3s ease;
+            min-height: 44px;
         }
 
         .comment-input-row input:focus {
@@ -1959,17 +1982,19 @@
         }
 
         .comment-input-row button {
-            padding: 10px 18px;
+            padding: 12px 20px;
             background: var(--accent-gradient);
             border: none;
             border-radius: 10px;
             color: white;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
             transition: all 0.3s ease;
             white-space: nowrap;
+            min-height: 44px;
+            min-width: 80px;
         }
 
         .comment-input-row button:hover {
@@ -2021,6 +2046,7 @@
             background: none;
             width: 100%;
             font-family: 'Inter', sans-serif;
+            min-height: 44px;
         }
 
         .share-menu-item:hover {
@@ -2032,7 +2058,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 6px 12px;
+            padding: 8px 14px;
             background: none;
             border: 1px solid var(--glass-border);
             border-radius: 8px;
@@ -2042,6 +2068,7 @@
             transition: all 0.3s ease;
             font-family: 'Inter', sans-serif;
             margin-top: 12px;
+            min-height: 44px;
         }
 
         .expand-toggle:hover {
@@ -2286,7 +2313,7 @@
             border: 1px solid var(--glass-border);
             border-radius: 16px;
             color: var(--text-primary);
-            font-size: 1.05rem;
+            font-size: 16px;
             font-family: 'Inter', sans-serif;
             outline: none;
             resize: vertical;
@@ -2425,6 +2452,7 @@
         @media (max-width: 768px) {
             .post-card {
                 padding: 20px;
+                margin-bottom: 16px;
             }
             .post-header {
                 flex-wrap: wrap;
@@ -2438,7 +2466,7 @@
                 gap: 12px;
             }
             .action-btn {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
                 gap: 5px;
             }
             .share-menu {
@@ -2476,7 +2504,7 @@
             }
             .search-container input {
                 padding: 14px 20px 14px 48px;
-                font-size: 0.9rem;
+                font-size: 16px;
             }
             .stat-number {
                 font-size: 1.8rem;
@@ -2486,6 +2514,7 @@
             }
             .main-container {
                 padding: 20px 16px;
+                gap: 24px;
             }
             .navbar {
                 padding: 0 16px;
@@ -2572,6 +2601,23 @@
             }
             .footer-content {
                 gap: 24px;
+            }
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+            .new-post-textarea {
+                font-size: 16px !important;
+            }
+            .composer-textarea {
+                font-size: 16px !important;
+            }
+            .form-group input,
+            .form-group select {
+                font-size: 16px !important;
+                min-height: 48px;
+            }
+            .modal-input {
+                font-size: 16px !important;
             }
         }
 
@@ -2703,7 +2749,7 @@
 
         .profile-tab {
             flex: 1;
-            padding: 12px 16px;
+            padding: 14px 16px;
             text-align: center;
             border-radius: 10px;
             cursor: pointer;
@@ -2714,6 +2760,7 @@
             border: none;
             background: transparent;
             font-family: 'Inter', sans-serif;
+            min-height: 48px;
         }
 
         .profile-tab.active {
@@ -2950,6 +2997,8 @@
 
             .mobile-menu-btn {
                 display: flex;
+                min-width: 44px;
+                min-height: 44px;
             }
 
             .welcome-banner {
@@ -2970,6 +3019,7 @@
 
             .welcome-action-btn {
                 justify-content: center;
+                min-height: 48px;
             }
 
             .page-section {
@@ -3006,6 +3056,481 @@
                 from { opacity: 0; transform: translateY(6px); }
                 to { opacity: 1; transform: translateY(0); }
             }
+
+            .new-post-page {
+                padding: 20px 16px 40px;
+            }
+
+            .new-post-card {
+                padding: 24px 20px;
+            }
+
+            .new-post-select {
+                min-height: 44px;
+                font-size: 16px;
+            }
+
+            .new-post-submit {
+                min-height: 48px;
+                width: 100%;
+            }
+
+            .expand-toggle {
+                min-height: 44px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .comment-section {
+                padding: 12px 0;
+            }
+
+            .share-menu-item {
+                padding: 14px 16px;
+                min-height: 44px;
+            }
+
+            .trending-item {
+                padding: 14px 0;
+                min-height: 44px;
+            }
+        }
+
+        /* ===== Extra Small Mobile (≤375px) ===== */
+        @media (max-width: 375px) {
+            .navbar {
+                padding: 0 12px;
+                height: 60px;
+            }
+            
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+            
+            .nav-logo i {
+                font-size: 1rem;
+            }
+            
+            .nav-actions {
+                gap: 6px;
+            }
+            
+            .lang-switch {
+                display: none !important;
+            }
+            
+            .btn {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+                min-height: 36px;
+            }
+            
+            #loginBtn, #registerBtn, #signOutBtn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+                min-height: 36px;
+            }
+            
+            .mobile-menu-btn {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        /* ===== Enhanced Mobile Optimizations (≤768px) ===== */
+        @media (max-width: 768px) {
+            /* Navbar improvements */
+            .navbar {
+                padding: 0 16px;
+                height: 64px;
+            }
+            
+            .nav-links {
+                display: none !important;
+            }
+            
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+            
+            .nav-actions {
+                gap: 8px;
+            }
+            
+            /* Ensure language switch is visible but compact on tablet */
+            .lang-switch {
+                padding: 4px 8px;
+                border-radius: 8px;
+            }
+            
+            .lang-btn {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+            }
+            
+            /* Make sure all buttons are easily tappable */
+            .btn {
+                min-height: 44px;
+                padding: 10px 18px;
+                font-size: 0.85rem;
+                border-radius: 10px;
+            }
+            
+            #loginBtn, #registerBtn, #signOutBtn, #profileBtn {
+                min-height: 40px;
+                padding: 8px 12px;
+                font-size: 0.8rem;
+                border-radius: 10px;
+            }
+            
+            #profileBtn {
+                padding: 6px 10px;
+            }
+            
+            /* Hero section improvements */
+            .hero {
+                padding: 90px 16px 50px;
+                min-height: 85vh;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+            
+            .hero p {
+                font-size: 0.95rem;
+                padding: 0 10px;
+            }
+            
+            .hero-stats {
+                gap: 30px;
+                flex-wrap: wrap;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.75rem;
+            }
+            
+            /* Category filter improvements */
+            .category-filter {
+                padding: 16px;
+                gap: 8px;
+            }
+            
+            .category-pill {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+            
+            /* Modal improvements for mobile */
+            .modal-overlay {
+                padding: 10px;
+                align-items: flex-end;
+            }
+            
+            .modal {
+                max-height: 85vh;
+                border-radius: 20px 20px 0 0;
+                max-width: 100%;
+            }
+            
+            .modal-header {
+                padding: 24px 20px 16px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .modal-tabs {
+                padding: 0 20px;
+            }
+            
+            .modal-tab {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .form-group {
+                margin-bottom: 16px;
+            }
+            
+            .form-group input,
+            .form-group select {
+                padding: 12px 14px;
+                font-size: 16px !important;
+                min-height: 48px;
+                border-radius: 10px;
+            }
+            
+            .identity-options {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            
+            .identity-card {
+                padding: 12px 8px;
+            }
+            
+            .identity-card i {
+                font-size: 1.2rem;
+            }
+            
+            .modal-btn {
+                margin-top: 16px;
+                padding: 14px;
+                font-size: 1rem;
+            }
+            
+            /* Main container adjustments */
+            .main-container {
+                padding: 16px;
+                gap: 20px;
+            }
+            
+            /* Welcome banner improvements */
+            .welcome-banner {
+                padding: 16px 16px 0;
+            }
+            
+            .welcome-inner {
+                padding: 20px 16px;
+            }
+            
+            .welcome-greeting {
+                font-size: 1.2rem;
+            }
+            
+            .welcome-actions {
+                gap: 8px;
+            }
+            
+            .welcome-action-btn {
+                padding: 12px 14px;
+                font-size: 0.85rem;
+                min-height: 44px;
+            }
+            
+            /* Post card improvements */
+            .post-card {
+                padding: 16px;
+                margin-bottom: 12px;
+            }
+            
+            .post-author-name {
+                font-size: 0.9rem;
+            }
+            
+            .post-content {
+                font-size: 0.9rem;
+            }
+            
+            /* Sidebar improvements */
+            .sidebar {
+                position: static;
+            }
+            
+            .sidebar-card {
+                padding: 16px;
+            }
+            
+            /* Footer improvements */
+            .footer {
+                padding: 30px 16px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 0 4px;
+            }
+            
+            /* Mobile navigation improvements */
+            .mobile-nav {
+                top: 64px;
+            }
+            
+            .mobile-nav a {
+                padding: 14px 16px;
+                font-size: 0.95rem;
+                min-height: 48px;
+            }
+            
+            /* Profile page mobile */
+            .profile-page {
+                padding: 16px;
+            }
+            
+            .profile-header-card {
+                padding: 24px 16px;
+            }
+            
+            /* New post page mobile */
+            .new-post-page {
+                padding: 16px;
+            }
+            
+            .new-post-card {
+                padding: 20px 16px;
+            }
+            
+            /* Ensure touch targets are large enough */
+            .action-btn {
+                min-height: 44px;
+                min-width: 44px;
+                padding: 10px 12px;
+            }
+            
+            .share-menu-item {
+                min-height: 48px;
+                padding: 14px 16px;
+            }
+            
+            /* Make trending items more tappable */
+            .trending-item {
+                padding: 14px 0;
+                min-height: 48px;
+            }
+            
+            /* Expand toggle improvements */
+            .expand-toggle {
+                min-height: 48px;
+                width: 100%;
+                justify-content: center;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Stories header actions */
+        .stories-header-actions {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .stories-header-actions .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            min-height: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .stories-header-actions {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+            
+            .stories-header-actions .btn-sm {
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .posts-section h2 {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .stories-header-actions .btn-sm {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Share Story button in nav */
+        .share-story-btn {
+            color: var(--accent-coral) !important;
+            background: rgba(255, 107, 91, 0.1);
+            border: 1px solid rgba(255, 107, 91, 0.3);
+            border-radius: 8px;
+            padding: 8px 14px !important;
+            margin-left: 8px;
+        }
+
+        .share-story-btn:hover {
+            background: var(--accent-gradient) !important;
+            color: white !important;
+            border-color: transparent !important;
+        }
+
+        .share-story-mobile {
+            color: var(--accent-coral) !important;
+            background: rgba(255, 107, 91, 0.1);
+            border-radius: 10px;
+            margin-top: 4px;
+        }
+
+        .share-story-mobile i {
+            color: var(--accent-coral);
+        }
+
+        /* Stories title row */
+        .stories-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            gap: 16px;
+        }
+
+        .stories-title-row h2 {
+            margin-bottom: 0 !important;
+        }
+
+        .sort-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 44px;
+        }
+
+        .sort-btn:hover {
+            border-color: var(--accent-coral);
+            color: var(--text-primary);
+            background: rgba(255, 107, 91, 0.1);
+        }
+
+        .sort-btn i {
+            color: var(--accent-coral);
+        }
+
+        @media (max-width: 768px) {
+            .stories-title-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .sort-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .sort-btn {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -3019,9 +3544,11 @@
             <li><a href="#" data-nav="home" data-i18n="home">Home</a></li>
             <li><a href="#" class="active" data-nav="stories" data-i18n="stories">Stories</a></li>
             <li><a href="#" data-nav="explore" data-i18n="explore">Explore</a></li>
-            <li><a href="#" data-nav="newpost" data-i18n="newPost">New Post</a></li>
             <li><a href="#" data-nav="topics" data-i18n="topics">Topics</a></li>
             <li><a href="#" data-nav="about" data-i18n="about">About</a></li>
+            <li><a href="#" onclick="openNewPostModal(); return false;" class="share-story-btn" data-i18n="shareStory">
+                <i class="fas fa-pen-to-square"></i> Share Story
+            </a></li>
             <div class="nav-indicator" id="navIndicator"></div>
         </ul>
         <div class="nav-actions">
@@ -3050,9 +3577,11 @@
         <a href="#" class="active" data-nav="home" data-i18n="home">Home</a>
         <a href="#" data-nav="stories" data-i18n="stories">Stories</a>
         <a href="#" data-nav="explore" data-i18n="explore">Explore</a>
-        <a href="#" data-nav="newpost" data-i18n="newPost">New Post</a>
         <a href="#" data-nav="topics" data-i18n="topics">Topics</a>
-        <a href="#" data-nav="about" data-i18n="about">About</a>
+<a href="#" data-nav="about" data-i18n="about">About</a>
+        <a href="#" onclick="openNewPostModal(); return false;" class="share-story-mobile" data-i18n="shareStory">
+            <i class="fas fa-pen-to-square"></i> Share Story
+        </a>
         <a href="#" data-nav="profile" data-i18n="profile" style="display:none" id="mobileProfileLink">Profile</a>
         <a href="#" data-nav="signout" data-i18n="logOut" style="display:none" id="mobileSignOutLink" onclick="handleLogout(); return false;">Sign Out</a>
     </div>
@@ -3152,7 +3681,12 @@
 
     <main class="main-container" id="mainContainer">
         <section class="posts-section" id="postsSection">
-            <h2><i class="fas fa-fire"></i> <span data-i18n="communityStories">Community Stories</span></h2>
+            <div class="stories-title-row">
+                <h2><i class="fas fa-fire"></i> <span data-i18n="communityStories">Community Stories</span></h2>
+                <button class="btn btn-secondary btn-sm sort-btn" onclick="sortByLatest()">
+                    <i class="fas fa-clock"></i> <span>Latest</span>
+                </button>
+            </div>
             <div class="posts-grid" id="postsGrid">
             </div>
         </section>
@@ -3696,7 +4230,7 @@
         /* ===== i18n System ===== */
         const i18n = {
             en: {
-                home: 'Home', stories: 'Stories', explore: 'Explore', newPost: 'New Post',
+                home: 'Home', stories: 'Stories', explore: 'Explore', newPost: 'New Post', shareStory: 'Share Story',
                 topics: 'Topics', about: 'About', profile: 'Profile',
                 signIn: 'Sign In', joinNow: 'Join Now',
                 welcomeBack: 'Welcome back, Guest!', readyToShare: 'Ready to share your next China story?',
@@ -3756,7 +4290,7 @@
                 addPhoto: 'Add Photo', selectCity: 'Select city...', back: 'Back'
             },
             fr: {
-                home: 'Accueil', stories: 'Récits', explore: 'Explorer', newPost: 'Nouveau Post',
+                home: 'Accueil', stories: 'Récits', explore: 'Explorer', newPost: 'Nouveau Post', shareStory: 'Partager une histoire',
                 topics: 'Sujets', about: 'À propos', profile: 'Profil',
                 signIn: 'Se connecter', joinNow: "S'inscrire",
                 welcomeBack: 'Bienvenue, Invité !', readyToShare: 'Prêt à partager votre prochaine histoire de Chine ?',
@@ -4032,6 +4566,9 @@
             await loadLikes();
             await loadCommentCounts();
             renderPosts();
+            if (window.location.hash.startsWith('#post-')) {
+                handleHashChange();
+            }
         }
 
         async function loadLikes() {
@@ -4352,7 +4889,8 @@
         }
 
         function copyPostLink(postId) {
-            const url = window.location.href.split('#')[0] + '#post-' + postId;
+            const baseUrl = 'https://chris-topher-code.github.io/community/';
+            const url = baseUrl + '#post-' + postId;
             navigator.clipboard.writeText(url).then(() => {
                 showToast('Link copied to clipboard! 📋');
             }).catch(() => {
@@ -4365,7 +4903,8 @@
             const post = postsData.find(p => p.id === postId);
             if (post) {
                 const text = encodeURIComponent(post.content.substring(0, 100) + '...');
-                window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+                const baseUrl = 'https://chris-topher-code.github.io/community/';
+                window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(baseUrl + '#post-' + postId)}`, '_blank');
             }
             document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
         }
@@ -4702,6 +5241,27 @@
         supabaseClient.auth.onAuthStateChange((event, session) => {
             checkSession();
         });
+
+        // Handle deep linking: #post-123
+        window.addEventListener('hashchange', handleHashChange);
+        function handleHashChange() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#post-')) {
+                const postId = parseInt(hash.replace('#post-', ''));
+                if (!isNaN(postId)) {
+                    const postEl = document.querySelector(`.post-card[data-post-id="${postId}"]`);
+                    if (postEl) {
+                        navigateTo('home');
+                        setTimeout(() => {
+                            togglePostExpand(postId);
+                            postEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 300);
+                    }
+                }
+            }
+        }
+
+        // Initial hash check handled in loadPosts() after posts are ready
 
         document.getElementById('newPostForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -5155,6 +5715,11 @@
             .post-card:hover::before { opacity: 1; }
         `;
         document.head.appendChild(glowStyle);
+
+        function sortByLatest() {
+            renderPosts();
+            showToast(currentLang === 'fr' ? 'Affichage des derniers messages' : 'Showing latest posts');
+        }
     </script>
 </body>
 </html>
