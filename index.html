@@ -2234,7 +2234,7 @@
             display: none;
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 60px;
+            padding: 20px 60px 40px;
             min-height: calc(100vh - 70px);
         }
 
@@ -2280,7 +2280,7 @@
 
         .new-post-textarea {
             width: 100%;
-            min-height: 200px;
+            min-height: 300px;
             padding: 20px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--glass-border);
@@ -3017,7 +3017,7 @@
         </div>
         <ul class="nav-links">
             <li><a href="#" data-nav="home" data-i18n="home">Home</a></li>
-            <li><a href="#" class="active" data-nav="home" data-i18n="stories">Stories</a></li>
+            <li><a href="#" class="active" data-nav="stories" data-i18n="stories">Stories</a></li>
             <li><a href="#" data-nav="explore" data-i18n="explore">Explore</a></li>
             <li><a href="#" data-nav="newpost" data-i18n="newPost">New Post</a></li>
             <li><a href="#" data-nav="topics" data-i18n="topics">Topics</a></li>
@@ -3048,7 +3048,7 @@
             </div>
         </div>
         <a href="#" class="active" data-nav="home" data-i18n="home">Home</a>
-        <a href="#" data-nav="home" data-i18n="stories">Stories</a>
+        <a href="#" data-nav="stories" data-i18n="stories">Stories</a>
         <a href="#" data-nav="explore" data-i18n="explore">Explore</a>
         <a href="#" data-nav="newpost" data-i18n="newPost">New Post</a>
         <a href="#" data-nav="topics" data-i18n="topics">Topics</a>
@@ -3110,14 +3110,14 @@
     </section>
 
     <div class="category-filter category-scroll-hint">
-        <div class="category-pill active" data-category="all">全部 (All)</div>
-        <div class="category-pill" data-category="travel">🧳 旅游 Travel</div>
-        <div class="category-pill" data-category="study">🎓 学习 Study</div>
-        <div class="category-pill" data-category="work">👷 工作 Work</div>
-        <div class="category-pill" data-category="entertainment">🎭 娱乐 Entertainment</div>
-        <div class="category-pill" data-category="food">🍜 美食 Food</div>
-        <div class="category-pill" data-category="life">🏙️ 生活 Life</div>
-        <div class="category-pill" data-category="business">💼 商务 Business</div>
+        <div class="category-pill active" data-category="all">All / Tout</div>
+        <div class="category-pill" data-category="travel">🧳 Travel / Voyage</div>
+        <div class="category-pill" data-category="study">🎓 Study / Étude</div>
+        <div class="category-pill" data-category="work">👷 Work / Travail</div>
+        <div class="category-pill" data-category="entertainment">🎭 Entertainment / Divertissement</div>
+        <div class="category-pill" data-category="food">🍜 Food / Nourriture</div>
+        <div class="category-pill" data-category="life">🏙️ Life / Vie</div>
+        <div class="category-pill" data-category="business">💼 Business / Affaires</div>
     </div>
 
     <section class="explore-section" id="exploreSection">
@@ -3668,6 +3668,17 @@
                             <option value="nanjing">🦚 Nanjing</option>
                             <option value="tianjin">⚓ Tianjin</option>
                         </select>
+                        <select class="new-post-select" id="postTopic">
+                            <option value="">📌 Select topic...</option>
+                            <option value="study">🎓 Student Life</option>
+                            <option value="work">👷 Working in China</option>
+                            <option value="travel">🧳 Travel & Adventure</option>
+                            <option value="food">🍜 Food & Dining</option>
+                            <option value="life">🏙️ Daily Life</option>
+                            <option value="entertainment">🎭 Entertainment</option>
+                            <option value="business">💼 Business & Entrepreneurship</option>
+                            <option value="language">🗣️ Language Learning</option>
+                        </select>
                         <label class="new-post-img-btn" for="imageUpload">
                             <i class="fas fa-image"></i> <span data-i18n="addPhoto">Add Photo</span>
                         </label>
@@ -3738,9 +3749,9 @@
                 company: 'Company', storiesLink: 'Stories', exploreCitiesLink: 'Explore Cities',
                 topicsLink: 'Topics', newPostLink: 'New Post', visaInfo: 'Visa Information',
                 healthcare: 'Healthcare', languageTips: 'Language Tips',
-                allCategory: '全部 (All)', travelCat: '🧳 旅游 Travel', studyCat: '🎓 学习 Study',
-                workCat: '👷 工作 Work', entertainmentCat: '🎭 娱乐 Entertainment',
-                foodCat: '🍜 美食 Food', lifeCat: '🏙️ 生活 Life', businessCat: '💼 商务 Business',
+                allCategory: 'All', travelCat: '🧳 Travel', studyCat: '🎓 Study',
+                workCat: '👷 Work', entertainmentCat: '🎭 Entertainment',
+                foodCat: '🍜 Food', lifeCat: '🏙️ Life', businessCat: '💼 Business',
                 postsIn: 'Posts in', searchPlaceholder: 'Search stories, topics, or people...',
                 addPhoto: 'Add Photo', selectCity: 'Select city...', back: 'Back'
             },
@@ -3798,9 +3809,9 @@
                 company: 'Entreprise', storiesLink: 'Récits', exploreCitiesLink: 'Explorer les villes',
                 topicsLink: 'Sujets', newPostLink: 'Nouveau post', visaInfo: 'Informations visa',
                 healthcare: 'Santé', languageTips: 'Conseils linguistiques',
-                allCategory: '全部 (Tous)', travelCat: '🧳 Voyage', studyCat: '🎓 Études',
+                allCategory: 'Tout', travelCat: '🧳 Voyage', studyCat: '🎓 Études',
                 workCat: '👷 Travail', entertainmentCat: '🎭 Divertissement',
-                foodCat: '🍜 Gastronomie', lifeCat: '🏙️ Vie quotidienne', businessCat: '💼 Affaires',
+                foodCat: '🍜 Nourriture', lifeCat: '🏙️ Vie', businessCat: '💼 Affaires',
                 postsIn: 'Posts à', searchPlaceholder: 'Rechercher des récits, sujets ou personnes...',
                 addPhoto: 'Ajouter une photo', selectCity: 'Choisir une ville...', back: 'Retour'
             }
@@ -3837,6 +3848,12 @@
                 const cat = pill.dataset.category;
                 const key = cat + 'Cat';
                 if (i18n[currentLang][key]) pill.textContent = i18n[currentLang][key];
+            });
+            document.querySelectorAll('#postsGrid .post-category, #cityPostsGrid .post-category, .my-post-mini-cat.post-category').forEach(el => {
+                const categoryClass = el.classList[1];
+                if (categoryClass && categoryClass !== 'post-category') {
+                    el.textContent = t(categoryClass + 'Cat');
+                }
             });
             document.documentElement.lang = currentLang;
         }
@@ -3882,7 +3899,7 @@
                 const cat = categories[post.category];
                 return `
                 <div class="my-post-mini" onclick="navigateTo('home'); setTimeout(() => togglePostExpand(${post.id}), 200);">
-                    <span class="my-post-mini-cat post-category ${cat.class}">${cat.label.split(' ')[0]}</span>
+                    <span class="my-post-mini-cat post-category ${cat.class}">${t(post.category + 'Cat')}</span>
                     <span class="my-post-mini-content">${post.content.substring(0, 80)}...</span>
                     <span class="my-post-mini-time">${post.time}</span>
                     <div class="my-post-mini-actions">
@@ -3948,13 +3965,14 @@
         });
 
         const categories = {
-            travel: { label: '🧳 旅游 Travel', class: 'travel' },
-            study: { label: '🎓 学习 Study', class: 'study' },
-            work: { label: '👷 工作 Work', class: 'work' },
-            entertainment: { label: '🎭 娱乐 Entertainment', class: 'entertainment' },
-            food: { label: '🍜 美食 Food', class: 'food' },
-            life: { label: '🏙️ 生活 Life', class: 'life' },
-            business: { label: '💼 商务 Business', class: 'business' }
+            travel: { label: '🧳 Travel', class: 'travel' },
+            study: { label: '🎓 Study', class: 'study' },
+            work: { label: '👷 Work', class: 'work' },
+            entertainment: { label: '🎭 Entertainment', class: 'entertainment' },
+            food: { label: '🍜 Food', class: 'food' },
+            life: { label: '🏙️ Life', class: 'life' },
+            business: { label: '💼 Business', class: 'business' },
+            language: { label: '🗣️ Language', class: 'language' }
         };
 
         const cities = [
@@ -4106,7 +4124,7 @@
                         </div>
                         <div class="post-time">${post.time}</div>
                     </div>
-                    <span class="post-category ${cat.class}">${cat.label.split(' ')[0]} ${cat.label.split(' ')[1]}</span>
+                    <span class="post-category ${cat.class}">${t(post.category + 'Cat')}</span>
                 </div>
                 <p class="post-content">${post.content}</p>
                 <div class="post-tags">
@@ -4411,6 +4429,7 @@
                 mainContainer.style.display = 'none';
                 categoryFilter.style.display = 'none';
                 hero.style.display = 'none';
+                document.querySelector('.footer').style.display = 'none';
                 setTimeout(() => {
                     const el = document.getElementById('topicsHero');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -4421,6 +4440,7 @@
                 mainContainer.style.display = 'none';
                 categoryFilter.style.display = 'none';
                 hero.style.display = 'none';
+                document.querySelector('.footer').style.display = 'none';
                 setTimeout(() => {
                     const el = document.getElementById('aboutHero');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -4431,6 +4451,7 @@
                 mainContainer.style.display = 'none';
                 categoryFilter.style.display = 'none';
                 hero.style.display = 'none';
+                document.querySelector('.footer').style.display = 'none';
                 loadProfile();
                 switchProfileTab('myposts');
                 setTimeout(() => {
@@ -4442,6 +4463,7 @@
                 mainContainer.style.display = 'none';
                 categoryFilter.style.display = 'none';
                 hero.style.display = 'none';
+                document.querySelector('.footer').style.display = 'none';
                 if (currentUser) {
                     document.getElementById('newPostAvatar').src = currentUser.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
                 }
@@ -4453,12 +4475,12 @@
                 mainContainer.style.display = 'grid';
                 mainContainer.classList.add('page-transition');
                 categoryFilter.style.display = 'flex';
-                if (isLoggedIn) hero.style.display = 'none';
-                else hero.style.display = 'block';
+                hero.style.display = 'block';
+                document.querySelector('.footer').style.display = 'block';
                 if (page === 'home') {
                     setTimeout(() => {
-                        const el = document.getElementById('postsSection');
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        const heroEl = document.querySelector('.hero');
+                        if (heroEl) heroEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }, 50);
                 }
             }
@@ -4684,7 +4706,7 @@
         document.getElementById('newPostForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const content = document.getElementById('postContent').value.trim();
-            const category = document.getElementById('postCategory').value;
+            let category = document.getElementById('postTopic').value || document.getElementById('postCategory').value;
             const city = document.getElementById('postCity')?.value || 'unknown';
             if (!content) return;
             if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); return; }
@@ -4708,6 +4730,16 @@
                 categoryPills.forEach(p => p.classList.remove('active'));
                 document.querySelector('.category-pill[data-category="all"]').classList.add('active');
                 navigateTo('home');
+                renderPosts();
+            } else if (navTarget === 'stories') {
+                currentCategory = 'all';
+                categoryPills.forEach(p => p.classList.remove('active'));
+                document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+                navigateTo('home');
+                setTimeout(() => {
+                    const el = document.getElementById('postsSection');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
                 renderPosts();
             } else if (navTarget === 'explore') {
                 navigateTo('explore');
