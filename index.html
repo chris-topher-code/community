@@ -3597,6 +3597,114 @@
                 font-size: 0.85rem;
             }
         }
+
+        /* Mobile Bottom Navigation Bar */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 26, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            padding: 8px 8px;
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 999;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .mobile-bottom-nav.active {
+            display: flex;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 6px 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.65rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            min-width: 60px;
+            min-height: 50px;
+            border-radius: 10px;
+            flex: 1;
+        }
+
+        .bottom-nav-item i {
+            font-size: 1.1rem;
+        }
+
+        .bottom-nav-item:hover,
+        .bottom-nav-item.active {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .share-story-bottom {
+            color: var(--accent-coral);
+            background: rgba(255, 107, 91, 0.12);
+            border: 1px solid rgba(255, 107, 91, 0.25);
+        }
+
+        .share-story-bottom:hover {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        .share-story-bottom i {
+            color: var(--accent-coral);
+        }
+
+        .share-story-bottom:hover i {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            /* Show bottom nav on mobile */
+            .mobile-bottom-nav {
+                display: flex;
+            }
+            
+            /* Hide the old hamburger menu nav */
+            .mobile-nav {
+                display: none !important;
+            }
+            
+            /* Add padding to body for bottom nav */
+            body {
+                padding-bottom: 70px;
+            }
+            
+            /* Adjust navbar for bottom nav */
+            .navbar {
+                height: 60px;
+            }
+            
+            .nav-links {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .bottom-nav-item {
+                min-width: 60px;
+                padding: 6px 10px;
+                font-size: 0.65rem;
+            }
+            
+            .bottom-nav-item i {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3632,23 +3740,27 @@
         </div>
     </nav>
 
-    <div class="mobile-nav" id="mobileNav">
-        <div style="display:flex; justify-content:center; padding: 8px 0 4px;">
-            <div class="lang-switch">
-                <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
-                <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
-            </div>
-        </div>
-        <a href="#" class="active" data-nav="home" data-i18n="home">Home</a>
-        <a href="#" data-nav="stories" data-i18n="stories">Stories</a>
-        <a href="#" data-nav="explore" data-i18n="explore">Explore</a>
-        <a href="#" data-nav="topics" data-i18n="topics">Topics</a>
-<a href="#" data-nav="about" data-i18n="about">About</a>
-        <a href="#" onclick="openNewPostModal(); return false;" class="share-story-mobile" data-i18n="shareStory">
-            <i class="fas fa-pen-to-square"></i> Share Story
+    <div class="mobile-bottom-nav" id="mobileBottomNav">
+        <a href="#" data-nav="home" class="bottom-nav-item" data-i18n="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
         </a>
-        <a href="#" data-nav="profile" data-i18n="profile" style="display:none" id="mobileProfileLink">Profile</a>
-        <a href="#" data-nav="signout" data-i18n="logOut" style="display:none" id="mobileSignOutLink" onclick="handleLogout(); return false;">Sign Out</a>
+        <a href="#" data-nav="stories" class="bottom-nav-item" data-i18n="stories">
+            <i class="fas fa-book-open"></i>
+            <span>Stories</span>
+        </a>
+        <a href="#" onclick="openNewPostModal(); return false;" class="bottom-nav-item share-story-bottom" data-i18n="shareStory">
+            <i class="fas fa-pen-to-square"></i>
+            <span>Share Story</span>
+        </a>
+        <a href="#" data-nav="explore" class="bottom-nav-item" data-i18n="explore">
+            <i class="fas fa-compass"></i>
+            <span>Explore</span>
+        </a>
+        <a href="#" data-nav="about" class="bottom-nav-item" data-i18n="about">
+            <i class="fas fa-info-circle"></i>
+            <span>About</span>
+        </a>
     </div>
 
     <div class="welcome-banner" id="welcomeBanner">
