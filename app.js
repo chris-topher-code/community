@@ -690,6 +690,7 @@ function toggleExplore(show) {
         mainContainer.style.display = 'none';
         categoryFilter.style.display = 'none';
         hero.style.display = 'none';
+        document.getElementById('welcomeBanner').style.display = 'none';
         renderCitiesGrid();
     } else {
         exploreSection.classList.remove('active');
@@ -835,6 +836,7 @@ function navigateTo(page) {
         mainContainer.style.display = 'none';
         categoryFilter.style.display = 'none';
         hero.style.display = 'none';
+        document.getElementById('welcomeBanner').style.display = 'none';
         document.querySelector('.footer').style.display = 'none';
         setTimeout(() => {
             const el = document.getElementById('topicsHero');
@@ -847,6 +849,7 @@ function navigateTo(page) {
             mainContainer.style.display = 'none';
             categoryFilter.style.display = 'none';
             hero.style.display = 'none';
+            document.getElementById('welcomeBanner').style.display = 'none';
             document.querySelector('.footer').style.display = 'none';
             const storiesSidebar = storiesEl.querySelector('.sidebar');
             if (storiesSidebar) storiesSidebar.style.display = 'block';
@@ -861,6 +864,7 @@ function navigateTo(page) {
         mainContainer.style.display = 'none';
         categoryFilter.style.display = 'none';
         hero.style.display = 'none';
+        document.getElementById('welcomeBanner').style.display = 'none';
         document.querySelector('.footer').style.display = 'none';
         setTimeout(() => {
             const el = document.getElementById('aboutHero');
@@ -872,6 +876,7 @@ function navigateTo(page) {
         mainContainer.style.display = 'none';
         categoryFilter.style.display = 'none';
         hero.style.display = 'none';
+        document.getElementById('welcomeBanner').style.display = 'none';
         document.querySelector('.footer').style.display = 'none';
         loadProfile();
         switchProfileTab('myposts');
@@ -884,6 +889,7 @@ function navigateTo(page) {
         mainContainer.style.display = 'none';
         categoryFilter.style.display = 'none';
         hero.style.display = 'none';
+        document.getElementById('welcomeBanner').style.display = 'none';
         document.querySelector('.footer').style.display = 'none';
         if (currentUser) {
             document.getElementById('newPostAvatar').src = currentUser.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
@@ -1317,15 +1323,7 @@ trendingListItems.forEach(item => {
 
 /* ===== Micro-interactions ===== */
 
-// 1. Navbar shrink on scroll
-const navbarEl = document.querySelector('.navbar');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 80) {
-        navbarEl.classList.add('shrink');
-    } else {
-        navbarEl.classList.remove('shrink');
-    }
-}, { passive: true });
+
 
 // 2. Nav sliding indicator
 function updateNavIndicator() {

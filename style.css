@@ -1020,13 +1020,8 @@ body.logged-in .category-filter {
     }
 }
 
-/* ===== Navbar shrink on scroll ===== */
 .navbar {
-    transition: height 0.4s ease, padding 0.4s ease, background 0.4s ease;
-}
-
-.navbar.shrink {
-    height: 56px;
+    transition: background 0.4s ease;
 }
 
 .nav-indicator {
@@ -2147,6 +2142,17 @@ body.logged-in .welcome-banner {
     background: var(--accent-gradient);
     border-color: transparent;
     color: white;
+}
+
+.filter-row-categories {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.filter-row-categories .category-pill {
+    padding: 6px 16px;
+    font-size: 0.82rem;
 }
 
 .page-hero {
