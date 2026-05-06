@@ -1,1936 +1,1653 @@
-(function() {
-    const i18n = {
-        en: {
-            home: 'Home', projects: 'Projects', myProjects: 'My Projects',
-            profile: 'Profile', notifications: 'Notifications',
-            login: 'Sign In', register: 'Sign Up', logout: 'Sign Out',
-            search: 'Search...', createProject: 'New Project',
-            singleProject: 'Single Person', teamProject: 'Team Project',
-            open: 'Open', inProgress: 'In Progress', completed: 'Completed',
-            apply: 'Apply', accept: 'Accept', reject: 'Reject',
-            submit: 'Submit', cancel: 'Cancel', save: 'Save', delete: 'Delete',
-            comment: 'Comment', leaveMessage: 'Leave a message',
-            noProjects: 'No projects yet', noNotifications: 'No notifications',
-            noComments: 'No comments yet', noQRCodes: 'No QR codes added yet',
-            welcome: 'Welcome', createAccount: 'Create Account',
-            email: 'Email', password: 'Password', username: 'Username',
-            confirmPassword: 'Confirm Password',
-            alreadyHaveAccount: 'Already have an account?',
-            dontHaveAccount: "Don't have an account?",
-            signIn: 'Sign In', signUp: 'Sign Up', signOut: 'Sign Out',
-            requester: 'Requester', receiver: 'Receiver',
-            postProject: 'Post a Project', findCollaborators: 'Find Collaborators', getItDone: 'Get It Done',
-            loadingProjects: 'Loading projects', loadingYourProjects: 'Loading your projects',
-            noProjectsYet: 'No projects yet', beFirstToPost: 'Be the first to post a project!',
-            allProjects: 'All Projects', allStatus: 'All Status',
-            myProjects: 'My Projects', inProgressTab: 'In Progress', completedTab: 'Completed',
-            allProjectsFilter: 'All Projects', asRequester: 'As Requester', asReceiver: 'As Receiver',
-            back: 'Back', createNewProject: 'Create New Project',
-            postYourProject: 'Post your project needs, find the right collaborators',
-            projectTitle: 'Project Title', projectDescription: 'Project Description',
-            projectType: 'Project Type', budget: 'Budget', deadline: 'Deadline', contact: 'Contact',
-            cancel: 'Cancel', publishProject: 'Publish Project',
-            applyForProject: 'Apply for Project', yourMessage: 'Your Message',
-            submitApplication: 'Submit Application',
-            projectApplications: 'Project Applications',
-            singlePersonProject: 'Single Person Project', simpleTaskOnePerson: 'Simple task, one person enough',
-            teamProject: 'Team Project', complexTaskTeamwork: 'Complex task, requires teamwork',
-            pending: 'Pending', accepted: 'Accepted', rejected: 'Rejected',
-            markInProgress: 'Mark In Progress', markCompleted: 'Mark Completed',
-            viewApplications: 'View Applications', deleteProject: 'Delete Project',
-            comments: 'Comments', noCommentsYet: 'No comments yet. Be the first to comment!',
-            leaveComment: 'Leave a comment...', postComment: 'Post Comment',
-            signInToComment: 'Sign in to leave a comment.',
-            actions: 'Actions', signInToTakeAction: 'Sign in to take action',
-            postedBy: 'Posted by', budgetLabel: 'Budget', posted: 'Posted',
-            backToProjects: 'Back to Projects',
-            howItWorks: 'How It Works',
-            joinCommunity: 'Join a community of creators and collaborators. Post projects, find talent, and build amazing things together.',
-            getStarted: 'Get Started', browseProjects: 'Browse Projects',
-            descriptionWhatNeed: 'Describe what you need and set your budget',
-            connectWithPeople: 'Connect with talented people ready to help',
-            collaborateComplete: 'Collaborate and complete your project',
-            qrCodes: 'QR Codes', addPaymentQRCodes: 'Add your payment QR codes (WeChat, Alipay, etc.)',
-            noQRCodesYet: 'No QR codes added yet.', addNewQRCode: 'Add New QR Code',
-            qrCodeImage: 'QR Code Image', name: 'Name', type: 'Type',
-            wechat: 'WeChat', alipay: 'Alipay', other: 'Other',
-            delete: 'Delete', addQRCode: 'Add QR Code',
-            messageWall: 'Message Wall', noMessagesYet: 'No messages yet. Leave a message!',
-            leaveMessage: 'Leave a message...', postMessage: 'Post Message',
-            thisIsYourProfile: 'This is your profile.',
-            signInToLeaveMessage: 'Sign in to leave a message.',
-            notifications: 'Notifications', noNotificationsYet: 'You\'re all caught up!',
-            pleaseSignIn: 'Please Sign In', needToBeLoggedIn: 'You need to be logged in to view your projects.',
-            error: 'Error', loading: 'Loading...',
-            projectNotFound: 'Project Not Found', selectProjectFromList: 'Please select a project from the list.',
-            newApplication: 'New Application',
-            applicationAccepted: 'Application Accepted', applicationRejected: 'Application Rejected',
-            applicationStatus: 'Your application for the project has been',
-            pleaseSignInFirst: 'Please sign in first',
-            fillAllRequired: 'Please fill all required fields',
-            projectCreated: 'Project created successfully!',
-            failedToCreateProject: 'Failed to create project',
-            confirmDelete: 'Are you sure you want to delete this project?',
-            projectDeleted: 'Project deleted',
-            failedToDeleteProject: 'Failed to delete project',
-            projectUpdated: 'Project updated!',
-            failedToUpdateProject: 'Failed to update project',
-            commentAdded: 'Comment added!',
-            applicationSubmitted: 'Application submitted!',
-            pleaseSelectImageAndName: 'Please select an image and enter a name',
-            qrCodeAdded: 'QR Code added!',
-            failedToSaveQRCode: 'Failed to save QR code',
-            qrCodeDeleted: 'QR Code deleted',
-            confirmDeleteQRCode: 'Delete this QR code?',
-            messagePosted: 'Message posted!',
-            switchedToRole: 'Switched to',
-            mode: 'mode',
-            accountCreatedCheckEmail: 'Account created! Please check your email to confirm your account.',
-            accountCreatedSignIn: 'Account created! Please sign in.',
-            signingIn: 'Signing in...',
-            invalidCredentials: 'Invalid credentials',
-            signInFailed: 'Sign in failed',
-            passwordMismatch: 'Passwords do not match',
-            passwordMinLength: 'Password must be at least 6 characters',
-            creatingAccount: 'Creating account...',
-            signUpFailed: 'Sign up failed',
-            signedOutSuccessfully: 'Signed out successfully',
-            openStatus: 'Open', inProgressStatus: 'In Progress', completedStatus: 'Completed',
-            singlePerson: 'Single', multiplePeople: 'Multiple',
-            unknown: 'Unknown', negotiable: 'Negotiable', noDeadline: 'No deadline',
-            viewDetails: 'View Details',
-            applications: 'Applications',
-            userNotFound: 'User Not Found',
-            loadingProjectDetails: 'Loading project details',
-            loadingProfile: 'Loading profile',
-            loadingNotifications: 'Loading notifications',
-            loadingUserWall: 'Loading user wall',
-            historyReceivedProjects: 'Projects Completed as Receiver',
-            historyPostedProjects: 'Projects Posted as Requester',
-            noHistoryProjects: 'No completed projects yet',
-        },
-        zh: {
-            home: '首页', projects: '项目', myProjects: '我的项目',
-            profile: '个人主页', notifications: '通知',
-            login: '登录', register: '注册', logout: '退出',
-            search: '搜索...', createProject: '创建项目',
-            singleProject: '单人项目', teamProject: '多人项目',
-            open: '开放', inProgress: '进行中', completed: '已完成',
-            apply: '申请', accept: '接受', reject: '拒绝',
-            submit: '提交', cancel: '取消', save: '保存', delete: '删除',
-            comment: '留言', leaveMessage: '留言',
-            noProjects: '暂无项目', noNotifications: '暂无通知',
-            noComments: '暂无评论', noQRCodes: '暂无收款码',
-            welcome: '欢迎', createAccount: '创建账号',
-            email: '邮箱', password: '密码', username: '用户名',
-            confirmPassword: '确认密码',
-            alreadyHaveAccount: '已有账号？',
-            dontHaveAccount: '没有账号？',
-            signIn: '登录', signUp: '注册', signOut: '退出',
-            requester: '发布者', receiver: '接收者',
-            postProject: '发布项目', findCollaborators: '寻找协作者', getItDone: '完成项目',
-            loadingProjects: '加载中...', loadingYourProjects: '加载中...',
-            noProjectsYet: '暂无项目', beFirstToPost: '成为第一个发布项目的人！',
-            allProjects: '所有项目', allStatus: '全部状态',
-            myProjects: '我的项目', inProgressTab: '进行中', completedTab: '已完成',
-            allProjectsFilter: '全部项目', asRequester: '作为发布者', asReceiver: '作为接收者',
-            back: '返回', createNewProject: '创建新项目',
-            postYourProject: '发布您的项目需求，找到合适的协作者',
-            projectTitle: '项目标题', projectDescription: '项目描述',
-            projectType: '项目类型', budget: '预算范围', deadline: '截止日期', contact: '联系方式',
-            cancel: '取消', publishProject: '发布项目',
-            applyForProject: '申请承接', yourMessage: '您的留言',
-            submitApplication: '提交申请',
-            projectApplications: '项目申请',
-            singlePersonProject: '单人项目', simpleTaskOnePerson: '适合简单任务，单人即可完成',
-            teamProject: '多人项目', complexTaskTeamwork: '适合复杂任务，需要团队协作',
-            pending: '待处理', accepted: '已接受', rejected: '已拒绝',
-            markInProgress: '标记进行中', markCompleted: '标记完成',
-            viewApplications: '查看申请', deleteProject: '删除项目',
-            comments: '留言', noCommentsYet: '暂无评论，成为第一个留言的人！',
-            leaveComment: '留言...', postComment: '发布留言',
-            signInToComment: '登录后留言',
-            actions: '操作', signInToTakeAction: '登录后操作',
-            postedBy: '发布者', budgetLabel: '预算', posted: '发布于',
-            backToProjects: '返回项目列表',
-            howItWorks: '使用方法',
-            joinCommunity: '加入创作者和协作者社区。发布项目，发现人才，共同完成出色的作品。',
-            getStarted: '开始使用', browseProjects: '浏览项目',
-            descriptionWhatNeed: '描述您的需求并设定预算',
-            connectWithPeople: '与准备好帮助您的人才联系',
-            collaborateComplete: '协作完成您的项目',
-            qrCodes: '收款码', addPaymentQRCodes: '添加您的收款码（微信、支付宝等）',
-            noQRCodesYet: '暂无收款码', addNewQRCode: '添加新收款码',
-            qrCodeImage: '收款码图片', name: '名称', type: '类型',
-            wechat: '微信', alipay: '支付宝', other: '其他',
-            delete: '删除', addQRCode: '添加收款码',
-            messageWall: '留言墙', noMessagesYet: '暂无留言，留言吧！',
-            leaveMessage: '留言...', postMessage: '发布留言',
-            thisIsYourProfile: '这是您的个人主页',
-            signInToLeaveMessage: '登录后留言',
-            notifications: '通知', noNotificationsYet: '暂无通知',
-            pleaseSignIn: '请先登录', needToBeLoggedIn: '您需要登录才能查看项目',
-            error: '错误', loading: '加载中...',
-            projectNotFound: '未找到项目', selectProjectFromList: '请从列表中选择一个项目',
-            newApplication: '新申请',
-            applicationAccepted: '申请已接受', applicationRejected: '申请被拒绝',
-            applicationStatus: '您的项目申请已',
-            pleaseSignInFirst: '请先登录',
-            fillAllRequired: '请填写所有必填项',
-            projectCreated: '项目创建成功！',
-            failedToCreateProject: '创建项目失败',
-            confirmDelete: '确定要删除此项目吗？',
-            projectDeleted: '项目已删除',
-            failedToDeleteProject: '删除项目失败',
-            projectUpdated: '项目已更新！',
-            failedToUpdateProject: '更新项目失败',
-            commentAdded: '留言已添加！',
-            applicationSubmitted: '申请已提交！',
-            pleaseSelectImageAndName: '请选择图片并输入名称',
-            qrCodeAdded: '收款码已添加！',
-            failedToSaveQRCode: '保存收款码失败',
-            qrCodeDeleted: '收款码已删除',
-            confirmDeleteQRCode: '确定删除此收款码？',
-            messagePosted: '留言已发布！',
-            switchedToRole: '已切换为',
-            mode: '模式',
-            accountCreatedCheckEmail: '账号已创建！请查看邮件确认您的账号。',
-            accountCreatedSignIn: '账号已创建！请登录。',
-            signingIn: '登录中...',
-            invalidCredentials: '用户名或密码错误',
-            signInFailed: '登录失败',
-            passwordMismatch: '两次密码输入不一致',
-            passwordMinLength: '密码至少6位',
-            creatingAccount: '创建账号中...',
-            signUpFailed: '注册失败',
-            signedOutSuccessfully: '已成功退出登录',
-            openStatus: '开放', inProgressStatus: '进行中', completedStatus: '已完成',
-            singlePerson: '单人', multiplePeople: '多人',
-            unknown: '未知', negotiable: '待定', noDeadline: '不限',
-            viewDetails: '查看详情',
-            applications: '申请',
-            userNotFound: '未找到用户',
-            loadingProjectDetails: '加载项目详情', loadingProfile: '加载个人主页', loadingNotifications: '加载通知', loadingUserWall: '加载留言墙',
-            historyReceivedProjects: '历史承接项目',
-            historyPostedProjects: '历史发布项目',
-            noHistoryProjects: '暂无历史项目',
-        },
-        fr: {
-            home: 'Accueil', projects: 'Projets', myProjects: 'Mes Projets',
-            profile: 'Profil', notifications: 'Notifications',
-            login: 'Connexion', register: 'Inscription', logout: 'Déconnexion',
-            search: 'Rechercher...', createProject: 'Nouveau Projet',
-            singleProject: 'Une Personne', teamProject: 'Équipe',
-            open: 'Ouvert', inProgress: 'En Cours', completed: 'Terminé',
-            apply: 'Postuler', accept: 'Accepter', reject: 'Rejeter',
-            submit: 'Soumettre', cancel: 'Annuler', save: 'Enregistrer', delete: 'Supprimer',
-            comment: 'Commentaire', leaveMessage: 'Laisser un message',
-            noProjects: 'Aucun projet', noNotifications: 'Aucune notification',
-            noComments: 'Aucun commentaire', noQRCodes: 'Aucun code QR ajouté',
-            welcome: 'Bienvenue', createAccount: 'Créer un Compte',
-            email: 'E-mail', password: 'Mot de passe', username: 'Nom d\'utilisateur',
-            confirmPassword: 'Confirmer le mot de passe',
-            alreadyHaveAccount: 'Vous avez déjà un compte ?',
-            dontHaveAccount: 'Vous n\'avez pas de compte ?',
-            signIn: 'Connexion', signUp: 'Inscription', signOut: 'Déconnexion',
-            requester: 'Demandeur', receiver: 'Récepteur',
-            postProject: 'Publier un Projet', findCollaborators: 'Trouver des Collaborateurs', getItDone: 'Réaliser',
-            loadingProjects: 'Chargement des projets...', loadingYourProjects: 'Chargement de vos projets...',
-            noProjectsYet: 'Aucun projet', beFirstToPost: 'Soyez le premier à publier un projet !',
-            allProjects: 'Tous les Projets', allStatus: 'Tous les Statuts',
-            myProjects: 'Mes Projets', inProgressTab: 'En Cours', completedTab: 'Terminé',
-            allProjectsFilter: 'Tous les Projets', asRequester: 'En tant que Demandeur', asReceiver: 'En tant que Récepteur',
-            back: 'Retour', createNewProject: 'Créer un Nouveau Projet',
-            postYourProject: 'Publiez vos besoins, trouvez les bons collaborateurs',
-            projectTitle: 'Titre du Projet', projectDescription: 'Description du Projet',
-            projectType: 'Type de Projet', budget: 'Budget', deadline: 'Date Limite', contact: 'Contact',
-            cancel: 'Annuler', publishProject: 'Publier le Projet',
-            applyForProject: 'Postuler pour le Projet', yourMessage: 'Votre Message',
-            submitApplication: 'Soumettre la Candidature',
-            projectApplications: 'Candidatures au Projet',
-            singlePersonProject: 'Projet Solo', simpleTaskOnePerson: 'Tâche simple, une personne suffit',
-            teamProject: 'Projet d\'Équipe', complexTaskTeamwork: 'Tâche complexe, nécessite une équipe',
-            pending: 'En Attente', accepted: 'Accepté', rejected: 'Refusé',
-            markInProgress: 'Marquer En Cours', markCompleted: 'Marquer Terminé',
-            viewApplications: 'Voir les Candidatures', deleteProject: 'Supprimer le Projet',
-            comments: 'Commentaires', noCommentsYet: 'Aucun commentaire. Soyez le premier !',
-            leaveComment: 'Laisser un commentaire...', postComment: 'Publier',
-            signInToComment: 'Connectez-vous pour laisser un commentaire.',
-            actions: 'Actions', signInToTakeAction: 'Connectez-vous pour agir',
-            postedBy: 'Publié par', budgetLabel: 'Budget', posted: 'Publié le',
-            backToProjects: 'Retour aux Projets',
-            howItWorks: 'Comment Ça Marche',
-            joinCommunity: 'Rejoignez une communauté de créateurs et collaborateurs. Publiez des projets, trouvez des talents et construisez ensemble.',
-            getStarted: 'Commencer', browseProjects: 'Parcourir les Projets',
-            descriptionWhatNeed: 'Décrivez votre besoin et définissez votre budget',
-            connectWithPeople: 'Connectez-vous avec des talents prêts à vous aider',
-            collaborateComplete: 'Collaborez et réalisez votre projet',
-            qrCodes: 'Codes QR', addPaymentQRCodes: 'Ajoutez vos codes QR de paiement (WeChat, Alipay, etc.)',
-            noQRCodesYet: 'Aucun code QR ajouté.', addNewQRCode: 'Ajouter un Nouveau Code QR',
-            qrCodeImage: 'Image du Code QR', name: 'Nom', type: 'Type',
-            wechat: 'WeChat', alipay: 'Alipay', other: 'Autre',
-            delete: 'Supprimer', addQRCode: 'Ajouter le Code QR',
-            messageWall: 'Mur de Messages', noMessagesYet: 'Aucun message. Laissez un message !',
-            leaveMessage: 'Laisser un message...', postMessage: 'Publier le Message',
-            thisIsYourProfile: 'C\'est votre profil.',
-            signInToLeaveMessage: 'Connectez-vous pour laisser un message.',
-            notifications: 'Notifications', noNotificationsYet: 'Vous êtes à jour !',
-            pleaseSignIn: 'Veuillez Vous Connecter', needToBeLoggedIn: 'Vous devez être connecté pour voir vos projets.',
-            error: 'Erreur', loading: 'Chargement...',
-            projectNotFound: 'Projet Non Trouvé', selectProjectFromList: 'Veuillez sélectionner un projet dans la liste.',
-            newApplication: 'Nouvelle Candidature',
-            applicationAccepted: 'Candidature Acceptée', applicationRejected: 'Candidature Refusée',
-            applicationStatus: 'Votre candidature pour le projet a été',
-            pleaseSignInFirst: 'Veuillez d\'abord vous connecter',
-            fillAllRequired: 'Veuillez remplir tous les champs obligatoires',
-            projectCreated: 'Projet créé avec succès !',
-            failedToCreateProject: 'Échec de la création du projet',
-            confirmDelete: 'Êtes-vous sûr de vouloir supprimer ce projet ?',
-            projectDeleted: 'Projet supprimé',
-            failedToDeleteProject: 'Échec de la suppression du projet',
-            projectUpdated: 'Projet mis à jour !',
-            failedToUpdateProject: 'Échec de la mise à jour du projet',
-            commentAdded: 'Commentaire ajouté !',
-            applicationSubmitted: 'Candidature soumise !',
-            pleaseSelectImageAndName: 'Veuillez sélectionner une image et entrer un nom',
-            qrCodeAdded: 'Code QR ajouté !',
-            failedToSaveQRCode: 'Échec de l\'enregistrement du code QR',
-            qrCodeDeleted: 'Code QR supprimé',
-            confirmDeleteQRCode: 'Supprimer ce code QR ?',
-            messagePosted: 'Message publié !',
-            switchedToRole: 'Passé à',
-            mode: 'mode',
-            accountCreatedCheckEmail: 'Compte créé ! Veuillez vérifier votre e-mail pour confirmer.',
-            accountCreatedSignIn: 'Compte créé ! Veuillez vous connecter.',
-            signingIn: 'Connexion en cours...',
-            invalidCredentials: 'Identifiants invalides',
-            signInFailed: 'Échec de la connexion',
-            passwordMismatch: 'Les mots de passe ne correspondent pas',
-            passwordMinLength: 'Le mot de passe doit contenir au moins 6 caractères',
-            creatingAccount: 'Création du compte...',
-            signUpFailed: 'Échec de l\'inscription',
-            signedOutSuccessfully: 'Déconnecté avec succès',
-            openStatus: 'Ouvert', inProgressStatus: 'En Cours', completedStatus: 'Terminé',
-            singlePerson: 'Solo', multiplePeople: 'Équipe',
-            unknown: 'Inconnu', negotiable: 'À négocier', noDeadline: 'Pas de date limite',
-            viewDetails: 'Voir les Détails',
-            applications: 'Candidatures',
-            userNotFound: 'Utilisateur Non Trouvé',
-            loadingProjectDetails: 'Chargement des détails du projet',
-            loadingProfile: 'Chargement du profil',
-            loadingNotifications: 'Chargement des notifications',
-            loadingUserWall: 'Chargement du mur de messages',
-            historyReceivedProjects: 'Projets Terminés en Récepteur',
-            historyPostedProjects: 'Projets Publiés en Demandeur',
-            noHistoryProjects: 'Aucun projet terminé',
-        }
-    };
-
-    let currentLang = localStorage.getItem('lang') || 'en';
-    window.t = function(key) { return i18n[currentLang]?.[key] || i18n.en[key] || key; };
-
-    window.translatePage = function(lang) {
-        currentLang = lang;
-        localStorage.setItem('lang', lang);
-        document.getElementById('langBtnEn').classList.toggle('active', lang === 'en');
-        document.getElementById('langBtnFr').classList.toggle('active', lang === 'fr');
-        updateAllTranslations();
-    };
-
-    function updateAllTranslations() {
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            el.textContent = t(key);
-        });
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-            const key = el.getAttribute('data-i18n-placeholder');
-            el.placeholder = t(key);
-        });
-        document.querySelectorAll('[data-i18n-title]').forEach(el => {
-            const key = el.getAttribute('data-i18n-title');
-            el.title = t(key);
-        });
-        updateNavTranslations();
-        updateRoleBadgeText();
+/* ===== i18n System ===== */
+const i18n = {
+    en: {
+        home: 'Home', stories: 'Stories', explore: 'Explore', newPost: 'New Post', shareStory: 'Share Story',
+        topics: 'Topics', about: 'About', profile: 'Profile',
+        signIn: 'Sign In', joinNow: 'Join Now',
+        welcomeBack: 'Welcome back, Guest!', readyToShare: 'Ready to share your next China story?',
+        shareAStory: 'Share a Story', exploreCities: 'Explore Cities', browseTopics: 'Browse Topics',
+        communityStories: 'Community Stories', showComments: 'Show Comments', hideComments: 'Hide Comments',
+        translate: 'Translate', translated: 'Translated', copyLink: 'Copy Link',
+        writeComment: 'Write a comment...', send: 'Send', noStories: 'No stories found',
+        tryDifferent: 'Try a different search term', noPostsCategory: 'No posts in this category yet',
+        postShared: 'Post shared successfully!', commentPosted: 'Comment posted!',
+        linkCopied: 'Link copied to clipboard!', wechatShare: 'WeChat share: long press to copy link',
+        translating: 'Translating to French...', searching: 'Searching for',
+        trendingTopics: 'Trending Topics', communityStats: 'Community Stats',
+        quickLinks: 'Quick Links', members: 'Members', comments: 'Comments',
+        shares: 'Shares', countries: 'Countries', exploreCitiesTitle: 'Explore Cities',
+        discoverStories: 'Discover authentic stories from every corner of China',
+        posts: 'posts', backToCities: 'Back to Cities', storiesLabel: 'Stories',
+        topicsTitle: 'Topics', topicsSubtitle: 'Explore conversations organized by what matters to you',
+        aboutTitle: 'About ChinaVoices', aboutSubtitle: 'Connecting foreigners across China through authentic stories and shared experiences',
+        ourMission: 'Our Mission', whatWeOffer: 'What We Offer', communityGuidelines: 'Community Guidelines',
+        getInvolved: 'Get Involved', shareExperience: 'Share your China experiences and stories',
+        connectForeigners: 'Connect with foreigners in your city', discoverTips: 'Discover local tips and hidden gems',
+        getAnswers: 'Get answers to your China questions', joinDiscussions: 'Join topic-based discussions',
+        accessResources: 'Access curated resources and guides', respectful: 'Be respectful and inclusive',
+        authentic: 'Share authentic experiences', protectPrivacy: 'Protect privacy and personal info',
+        noSpam: 'No spam or self-promotion', reportContent: 'Report inappropriate content',
+        helpNewcomers: 'Help newcomers feel welcome',
+        myPosts: 'My Posts', editProfile: 'Edit Profile', settings: 'Settings',
+        noPostsYet: 'No posts yet', startSharing: 'Start sharing your China story!',
+        displayName: 'Display Name', countryOrigin: 'Country of Origin', bio: 'Bio',
+        saveChanges: 'Save Changes', accountSettings: 'Account Settings',
+        changePassword: 'Change Password', logOut: 'Log Out', deleteAccount: 'Delete Account',
+        passwordChanged: 'Password change is not available in demo mode',
+        accountDeleted: 'Account deletion is not available in demo mode',
+        joinedRecently: 'Joined recently', likesReceived: 'Likes Received', commentsMade: 'Comments',
+        welcomeGuest: 'Welcome back, Guest!', postCategory: 'Category',
+        shareYourStory: 'Share Your Story', tellCommunity: 'Tell the community about your experience in China',
+        postPlaceholder: 'Share your story...', postBtn: 'Post',
+        welcomeBackTitle: 'Welcome Back', loginSubtitle: 'Log in to continue your China journey',
+        logIn: 'Log In', joinCommunity: 'Join Our Community',
+        registerSubtitle: 'Create an account to start sharing your story',
+        createAccount: 'Create Account', emailAddress: 'Email Address',
+        password: 'Password', confirmPassword: 'Confirm Password',
+        selectCountry: 'Select your country...', whatDescribes: 'What best describes you?',
+        student: 'Student', worker: 'Worker', tourist: 'Tourist',
+        business: 'Business', researcher: 'Researcher', other: 'Other',
+        newcomerGuide: 'Newcomer Guide', essentialTips: 'Essential tips for China',
+        allTopics: 'All topic categories', browseTopicsLink: 'Browse Topics',
+        aboutUs: 'About Us', contact: 'Contact', privacyPolicy: 'Privacy Policy',
+        termsOfService: 'Terms of Service', community: 'Community', resources: 'Resources',
+        company: 'Company', storiesLink: 'Stories', exploreCitiesLink: 'Explore Cities',
+        topicsLink: 'Topics', newPostLink: 'New Post', visaInfo: 'Visa Information',
+        healthcare: 'Healthcare', languageTips: 'Language Tips',
+        allCategory: 'All', travelCat: '🧳 Travel', studyCat: '🎓 Study',
+        workCat: '👷 Work', entertainmentCat: '🎭 Entertainment',
+        foodCat: '🍜 Food', lifeCat: '🏙️ Life', businessCat: '💼 Business',
+        postsIn: 'Posts in', searchPlaceholder: 'Search stories, topics, or people...',
+        addPhoto: 'Add Photo', selectCity: 'Select city...', back: 'Back'
+    },
+    fr: {
+        home: 'Accueil', stories: 'Récits', explore: 'Explorer', newPost: 'Nouveau Post', shareStory: 'Partager une histoire',
+        topics: 'Sujets', about: 'À propos', profile: 'Profil',
+        signIn: 'Se connecter', joinNow: "S'inscrire",
+        welcomeBack: 'Bienvenue, Invité !', readyToShare: 'Prêt à partager votre prochaine histoire de Chine ?',
+        shareAStory: 'Partager une histoire', exploreCities: 'Explorer les villes', browseTopics: 'Parcourir les sujets',
+        communityStories: 'Récits de la communauté', showComments: 'Afficher les commentaires', hideComments: 'Masquer les commentaires',
+        translate: 'Traduire', translated: 'Traduit', copyLink: 'Copier le lien',
+        writeComment: 'Écrire un commentaire...', send: 'Envoyer', noStories: 'Aucun récit trouvé',
+        tryDifferent: 'Essayez un autre terme de recherche', noPostsCategory: 'Aucun post dans cette catégorie',
+        postShared: 'Post partagé avec succès !', commentPosted: 'Commentaire publié !',
+        linkCopied: 'Lien copié dans le presse-papiers !', wechatShare: 'Partage WeChat : appuyez longuement pour copier le lien',
+        translating: 'Traduction en cours...', searching: 'Recherche de',
+        trendingTopics: 'Sujets tendance', communityStats: 'Statistiques de la communauté',
+        quickLinks: 'Liens rapides', members: 'Membres', comments: 'Commentaires',
+        shares: 'Partages', countries: 'Pays', exploreCitiesTitle: 'Explorer les villes',
+        discoverStories: 'Découvrez des récits authentiques de chaque coin de Chine',
+        posts: 'publications', backToCities: 'Retour aux villes', storiesLabel: 'Récits',
+        topicsTitle: 'Sujets', topicsSubtitle: 'Explorez les conversations organisées par ce qui vous intéresse',
+        aboutTitle: 'À propos de ChinaVoices', aboutSubtitle: 'Connecter les étrangers à travers la Chine grâce à des récits authentiques',
+        ourMission: 'Notre mission', whatWeOffer: 'Ce que nous offrons', communityGuidelines: 'Règles de la communauté',
+        getInvolved: 'Participez', shareExperience: 'Partagez vos expériences en Chine',
+        connectForeigners: 'Connectez-vous avec des étrangers dans votre ville', discoverTips: 'Découvrez des conseils locaux et des trésors cachés',
+        getAnswers: 'Obtenez des réponses à vos questions sur la Chine', joinDiscussions: 'Rejoignez des discussions par sujet',
+        accessResources: 'Accédez à des ressources et guides sélectionnés', respectful: 'Soyez respectueux et inclusif',
+        authentic: 'Partagez des expériences authentiques', protectPrivacy: 'Protégez la vie privée et les informations personnelles',
+        noSpam: 'Pas de spam ni d\'autopromotion', reportContent: 'Signalez le contenu inapproprié',
+        helpNewcomers: 'Aidez les nouveaux arrivants à se sentir les bienvenus',
+        myPosts: 'Mes posts', editProfile: 'Modifier le profil', settings: 'Paramètres',
+        noPostsYet: 'Pas encore de posts', startSharing: 'Commencez à partager votre histoire de Chine !',
+        displayName: 'Nom d\'affichage', countryOrigin: 'Pays d\'origine', bio: 'Bio',
+        saveChanges: 'Enregistrer les modifications', accountSettings: 'Paramètres du compte',
+        changePassword: 'Changer le mot de passe', logOut: 'Se déconnecter', deleteAccount: 'Supprimer le compte',
+        passwordChanged: 'Le changement de mot de passe n\'est pas disponible en mode démo',
+        accountDeleted: 'La suppression de compte n\'est pas disponible en mode démo',
+        joinedRecently: 'Inscrit récemment', likesReceived: 'J\'aime reçus', commentsMade: 'Commentaires',
+        welcomeGuest: 'Bienvenue, Invité !', postCategory: 'Catégorie',
+        shareYourStory: 'Partagez votre histoire', tellCommunity: 'Racontez votre expérience en Chine',
+        postPlaceholder: 'Partagez votre histoire...', postBtn: 'Publier',
+        welcomeBackTitle: 'Bon retour', loginSubtitle: 'Connectez-vous pour continuer votre aventure en Chine',
+        logIn: 'Se connecter', joinCommunity: 'Rejoignez notre communauté',
+        registerSubtitle: 'Créez un compte pour commencer à partager',
+        createAccount: 'Créer un compte', emailAddress: 'Adresse e-mail',
+        password: 'Mot de passe', confirmPassword: 'Confirmer le mot de passe',
+        selectCountry: 'Sélectionnez votre pays...', whatDescribes: 'Qui êtes-vous ?',
+        student: 'Étudiant', worker: 'Travailleur', tourist: 'Touriste',
+        business: 'Entrepreneur', researcher: 'Chercheur', other: 'Autre',
+        newcomerGuide: 'Guide du nouveau venu', essentialTips: 'Conseils essentiels pour la Chine',
+        allTopics: 'Toutes les catégories de sujets', browseTopicsLink: 'Parcourir les sujets',
+        aboutUs: 'À propos', contact: 'Contact', privacyPolicy: 'Politique de confidentialité',
+        termsOfService: 'Conditions d\'utilisation', community: 'Communauté', resources: 'Ressources',
+        company: 'Entreprise', storiesLink: 'Récits', exploreCitiesLink: 'Explorer les villes',
+        topicsLink: 'Sujets', newPostLink: 'Nouveau post', visaInfo: 'Informations visa',
+        healthcare: 'Santé', languageTips: 'Conseils linguistiques',
+        allCategory: 'Tout', travelCat: '🧳 Voyage', studyCat: '🎓 Études',
+        workCat: '👷 Travail', entertainmentCat: '🎭 Divertissement',
+        foodCat: '🍜 Nourriture', lifeCat: '🏙️ Vie', businessCat: '💼 Affaires',
+        postsIn: 'Posts à', searchPlaceholder: 'Rechercher des récits, sujets ou personnes...',
+        addPhoto: 'Ajouter une photo', selectCity: 'Choisir une ville...', back: 'Retour'
     }
+};
 
-    function updateNavTranslations() {
-        const navMap = {
-            'nav-home': 'home', 'nav-projects': 'projects', 'nav-myprojects': 'myProjects',
-            'nav-newproject': 'createProject', 'nav-login': 'login', 'nav-register': 'register'
-        };
-        Object.entries(navMap).forEach(([id, key]) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = t(key);
-        });
-        const signOutBtn = document.querySelector('#userInfo button.btn-sm.btn-outline:last-of-type');
-        if (signOutBtn && signOutBtn.textContent.includes('Out')) signOutBtn.textContent = t('signOut');
-        const profileBtn = document.querySelector('#userInfo .btn-outline');
-        if (profileBtn && profileBtn.textContent === 'Profile') profileBtn.textContent = t('profile');
+let currentLang = localStorage.getItem('lang') || 'en';
+
+function t(key) {
+    return i18n[currentLang][key] || i18n['en'][key] || key;
+}
+
+function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.lang === lang);
+    });
+    applyTranslations();
+}
+
+function applyTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        const translated = t(key);
+        if (translated) el.textContent = translated;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        el.placeholder = t(el.dataset.i18nPlaceholder);
+    });
+    const catAll = document.querySelector('.category-pill[data-category="all"]');
+    if (catAll) catAll.textContent = t('allCategory');
+    const catPills = document.querySelectorAll('.category-pill[data-category]');
+    catPills.forEach(pill => {
+        const cat = pill.dataset.category;
+        const key = cat + 'Cat';
+        if (i18n[currentLang][key]) pill.textContent = i18n[currentLang][key];
+    });
+    document.querySelectorAll('#postsGrid .post-category, #cityPostsGrid .post-category, .my-post-mini-cat.post-category').forEach(el => {
+        const categoryClass = el.classList[1];
+        if (categoryClass && categoryClass !== 'post-category') {
+            el.textContent = t(categoryClass + 'Cat');
+        }
+    });
+    document.documentElement.lang = currentLang;
+}
+
+/* ===== User State ===== */
+
+async function handleLogout() {
+    await supabaseClient.auth.signOut();
+    isLoggedIn = false;
+    currentUser = null;
+    userLikes.clear();
+    document.body.classList.remove('logged-in');
+    document.getElementById('mobileProfileLink').style.display = 'none';
+    document.getElementById('mobileSignOutLink').style.display = 'none';
+    navigateTo('home');
+    showToast(currentLang === 'fr' ? 'Déconnecté avec succès' : 'Logged out successfully');
+    await loadPosts();
+}
+
+/* ===== Profile Page ===== */
+function switchProfileTab(tab) {
+    document.querySelectorAll('.profile-tab').forEach(t => t.classList.toggle('active', t.dataset.ptab === tab));
+    document.querySelectorAll('.profile-tab-content').forEach(c => {
+        c.classList.remove('active');
+        c.style.display = 'none';
+    });
+    const target = document.getElementById('profileTab' + tab.charAt(0).toUpperCase() + tab.slice(1));
+    if (target) {
+        target.style.display = 'block';
+        target.classList.add('active');
     }
+}
 
-    function updateRoleBadgeText() {
-        const badge = document.getElementById('roleBadge');
-        const mobileBadge = document.getElementById('mobileRoleBadge');
-        if (badge && currentProfile) {
-            badge.textContent = currentProfile.role === 'requester' ? t('requester') : t('receiver');
-        }
-        if (mobileBadge && currentProfile) {
-            mobileBadge.textContent = currentProfile.role === 'requester' ? t('requester') : t('receiver');
-        }
+function renderMyPosts() {
+    const list = document.getElementById('myPostsList');
+    if (!list) return;
+    const myPosts = currentUser ? postsData.filter(p => p.user_id === currentUser.id) : [];
+    if (myPosts.length === 0) {
+        list.innerHTML = `<div class="empty-profile"><i class="fas fa-pen-nib"></i><h3>${t('noPostsYet')}</h3><p>${t('startSharing')}</p></div>`;
+        return;
     }
-
-    function getRoleName(role) {
-        return role === 'requester' ? t('requester') : t('receiver');
-    }
-
-    const SUPABASE_URL = 'https://byalvlknbqezukucyiul.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ5YWx2bGtuYnFlenVrdWN5aXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MjgyMTksImV4cCI6MjA5MzMwNDIxOX0.tu5ZwTTykWy9yjkmqfYponmmAFNuxSTcGTIpqDQiocg';
-
-    async function fetchApi(endpoint, options = {}) {
-        const url = SUPABASE_URL + endpoint;
-        const headers = {
-            'apikey': SUPABASE_KEY,
-            'Authorization': 'Bearer ' + (sessionStorage.getItem('sb_token') || SUPABASE_KEY),
-            'Content-Type': 'application/json',
-            ...options.headers
-        };
-        const response = await fetch(url, { ...options, headers });
-        const text = await response.text();
-        let data;
-        try { data = JSON.parse(text); } catch { data = text; }
-        if (!response.ok) {
-            if (response.status === 401 && (data?.msg === 'JWT expired' || data?.error?.message === 'JWT expired')) {
-                localStorage.removeItem('sb_session');
-                currentUser = null;
-                currentProfile = null;
-                showToast('Session expired, please login again', 'error');
-                updateNavForAuth();
-            }
-            throw { message: data?.error?.message || data?.msg || data?.message || data || 'Request failed', status: response.status };
-        }
-        return { data, response };
-    }
-
-    const supabase = {
-        auth: {
-            async signInWithPassword({ email, password }) {
-                try {
-                    const { data } = await fetchApi('/auth/v1/token?grant_type=password', {
-                        method: 'POST',
-                        body: JSON.stringify({ email, password })
-                    });
-                    const session = { access_token: data.access_token, user: data.user };
-                    localStorage.setItem('sb_session', JSON.stringify(session));
-                    return { data: { session, user: data.user }, error: null };
-                } catch (err) {
-                    return { data: { session: null, user: null }, error: { message: err.message || 'Invalid credentials' } };
-                }
-            },
-
-            async signUp({ email, password, options }) {
-                try {
-                    const { data, response } = await fetchApi('/auth/v1/signup', {
-                        method: 'POST',
-                        body: JSON.stringify({ email, password, data: options?.data })
-                    });
-                    if (!response.ok) {
-                        let errorMsg = 'Signup failed';
-                        if (typeof data === 'string') errorMsg = data;
-                        else if (data?.error?.message) errorMsg = data.error.message;
-                        else if (data?.msg) errorMsg = data.msg;
-                        else if (data?.message) errorMsg = data.message;
-                        throw { message: errorMsg, status: response.status };
-                    }
-                    const user = data?.user || data;
-                    return { data: { user, session: data?.session || null }, error: null };
-                } catch (err) {
-                    return { data: { user: null, session: null }, error: { message: err.message || 'Signup failed' } };
-                }
-            },
-
-            async signOut() {
-                try {
-                    await fetchApi('/auth/v1/logout', { method: 'POST' });
-                } catch {}
-                localStorage.removeItem('sb_session');
-                return { error: null };
-            },
-
-            async getSession() {
-                const stored = localStorage.getItem('sb_session');
-                if (stored) {
-                    const session = JSON.parse(stored);
-                    sessionStorage.setItem('sb_token', session.access_token);
-                    return { data: { session }, error: null };
-                }
-                return { data: { session: null }, error: null };
-            },
-
-            onAuthStateChange(callback) {
-                this._listener = callback;
-            },
-
-            _notifyChange(event, session) {
-                if (this._listener) this._listener(event, session);
-            }
-        }
-    };
-
-    supabase.from = function(table) {
-        return {
-            _table: table,
-            _select: '*',
-            _eqField: null,
-            _eqValue: null,
-
-            select: function(columns = '*') {
-                this._select = columns;
-                return this;
-            },
-
-            insert: function(data) {
-                return this._execute(async () => {
-                    const { data: result } = await fetchApi('/rest/v1/' + table, {
-                        method: 'POST',
-                        body: JSON.stringify(data)
-                    });
-                    return { data: [result], error: null };
-                });
-            },
-
-            update: function(data) {
-                const self = this;
-                return this._execute(async () => {
-                    let url = '/rest/v1/' + table;
-                    if (self._eqField && self._eqValue) {
-                        url += '?' + self._eqField + '=eq.' + encodeURIComponent(self._eqValue);
-                    }
-                    const { data: result } = await fetchApi(url, {
-                        method: 'PATCH',
-                        body: JSON.stringify(data)
-                    });
-                    return { data: [result], error: null };
-                });
-            },
-
-            delete: function() {
-                const self = this;
-                return this._execute(async () => {
-                    let url = '/rest/v1/' + table;
-                    if (self._eqField && self._eqValue) {
-                        url += '?' + self._eqField + '=eq.' + encodeURIComponent(self._eqValue);
-                    }
-                    await fetchApi(url, { method: 'DELETE' });
-                    return { error: null };
-                });
-            },
-
-            eq: function(field, value) {
-                this._eqField = field;
-                this._eqValue = value;
-                return this;
-            },
-
-            single: function() {
-                const self = this;
-                return this._execute(async () => {
-                    let url = '/rest/v1/' + table + '?select=' + encodeURIComponent(self._select);
-                    if (self._eqField && self._eqValue) {
-                        url += '&' + self._eqField + '=eq.' + encodeURIComponent(self._eqValue);
-                    }
-                    url += '&limit=1&offset=0';
-                    const { data } = await fetchApi(url);
-                    return { data: data?.[0] || null, error: data ? null : { message: 'Not found' } };
-                });
-            },
-
-            order: function(field, options) {
-                this._orderField = field;
-                this._orderDesc = options?.ascending === false;
-                return this;
-            },
-
-            then: function(resolve, reject) {
-                this._resolve = resolve;
-                this._reject = reject;
-                return this;
-            },
-
-            _execute: function(fn) {
-                const self = this;
-                return {
-                    then: function(resolve, reject) {
-                        fn().then(resolve).catch(reject);
-                    },
-                    catch: function(reject) { return this; }
-                };
-            },
-
-            _buildUrl: function() {
-                let url = '/rest/v1/' + this._table + '?select=' + encodeURIComponent(this._select);
-                if (this._eqField && this._eqValue) {
-                    url += '&' + this._eqField + '=eq.' + encodeURIComponent(this._eqValue);
-                }
-                return url;
-            }
-        };
-    };
-
-    let currentUser = null;
-    let currentProfile = null;
-    let currentProjectId = null;
-    let currentViewingUserId = null;
-    let projectsTab = 'active';
-
-    // Navigation history for back button
-    let navHistory = [];
-
-    window.navigate = function(page, id, _isBack) {
-        try {
-            console.log('navigate called with', page, id);
-            
-            // Track navigation history (skip if navigating back, skip duplicate of current page)
-            if (!_isBack) {
-                const prevPage = sessionStorage.getItem('currentPage');
-                const prevId = sessionStorage.getItem('view_project_id') || '';
-                if (prevPage && prevPage !== page) {
-                    navHistory.push({ page: prevPage, id: prevId });
-                } else if (prevPage === page && id && id !== prevId) {
-                    navHistory.push({ page: prevPage, id: prevId });
-                }
-            }
-            
-            // Update back button visibility
-            updateBackButton();
-            
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-            const pageEl = document.getElementById('page-' + page);
-            if (pageEl) pageEl.classList.add('active');
-            const navBtn = document.getElementById('nav-' + page);
-            if (navBtn) navBtn.classList.add('active');
-            sessionStorage.setItem('currentPage', page);
-
-            if (page === 'project-detail') {
-                if (id) sessionStorage.setItem('view_project_id', id);
-                loadProjectDetail();
-            } else if (page === 'projects') {
-                console.log('projects-list element', document.getElementById('projects-list'));
-                loadProjects();
-            } else if (page === 'myprojects') {
-                loadMyProjects();
-            } else if (page === 'profile') {
-                loadProfile();
-            } else if (page === 'notifications') {
-                loadNotifications();
-            } else if (page === 'user-wall') {
-                if (id) {
-                    currentViewingUserId = id;
-                    loadUserWall(id);
-                }
-            }
-        } catch(e) {
-            console.error('Navigate error:', e);
-        }
-    };
-
-    window.goBack = function() {
-        if (navHistory.length === 0) return;
-        const prev = navHistory.pop();
-        updateBackButton();
-        navigate(prev.page, prev.id || undefined, true);
-    };
-
-    function updateBackButton() {
-        const btn = document.getElementById('backBtn');
-        if (!btn) return;
-        if (navHistory.length > 0) {
-            btn.classList.add('visible');
-        } else {
-            btn.classList.remove('visible');
-        }
-    }
-
-    window.toggleRole = function() {
-        if (!currentProfile) return;
-        const newRole = currentProfile.role === 'requester' ? 'receiver' : 'requester';
-        const roleName = getRoleName(newRole);
-        updateProfile({ role: newRole });
-        currentProfile.role = newRole;
-        document.getElementById('roleBadge').textContent = roleName;
-        const currentPage = sessionStorage.getItem('currentPage');
-        if (currentPage) navigate(currentPage);
-    };
-
-    async function updateProfile(data) {
-        if (!currentUser) return;
-        await supabase.from('profiles').eq('id', currentUser.id).update(data);
-        currentProfile.role = data.role || currentProfile.role;
-        document.getElementById('roleBadge').textContent = getRoleName(currentProfile.role);
-    }
-
-    function showToast(message, type = 'info') {
-        const container = document.getElementById('toastContainer');
-        const toast = document.createElement('div');
-        toast.className = 'toast ' + type;
-        toast.textContent = message;
-        container.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
-    }
-
-    async function loadCurrentUser() {
-        try {
-            const { data } = await supabase.auth.getSession();
-            if (data.session) {
-                currentUser = data.session.user;
-                const { data: profile } = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
-                currentProfile = profile;
-                updateNavForAuth();
-                updateNotificationBadge();
-            }
-        } catch (e) {
-            console.log('Session check failed:', e);
-        }
-    }
-
-    function updateNavForAuth() {
-        const userInfo = document.getElementById('userInfo');
-        const navLogin = document.getElementById('nav-login');
-        const navRegister = document.getElementById('nav-register');
-        const mobileUserBar = document.getElementById('mobileUserBar');
-
-        if (currentUser) {
-            if (userInfo) userInfo.classList.add('visible');
-            if (navLogin) navLogin.style.display = 'none';
-            if (navRegister) navRegister.style.display = 'none';
-            if (mobileUserBar) {
-                mobileUserBar.style.display = 'flex';
-                const mobileUserEmail = document.getElementById('mobileUserEmail');
-                if (mobileUserEmail) mobileUserEmail.textContent = currentUser.email;
-            }
-            const userEmail = document.getElementById('userEmail');
-            if (userEmail) userEmail.textContent = currentUser.email;
-            if (currentProfile) {
-                const roleBadge = document.getElementById('roleBadge');
-                const mobileRoleBadge = document.getElementById('mobileRoleBadge');
-                if (roleBadge) roleBadge.textContent = getRoleName(currentProfile.role);
-                if (mobileRoleBadge) mobileRoleBadge.textContent = getRoleName(currentProfile.role);
-                if (!currentProfile.qrCodes) currentProfile.qrCodes = [];
-            }
-        } else {
-            if (userInfo) userInfo.classList.remove('visible');
-            if (navLogin) navLogin.style.display = 'block';
-            if (navRegister) navRegister.style.display = 'block';
-            if (mobileUserBar) mobileUserBar.style.display = 'none';
-        }
-        updateNavTranslations();
-    }
-
-    window.toggleMobileNav = function() {
-        const nav = document.querySelector('nav');
-        if (nav) nav.classList.toggle('mobile-open');
-    };
-
-    window.handleSignIn = async function() {
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-
-        showToast('Signing in...', 'info');
-
-        try {
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-            if (error) {
-                showToast(error.message, 'error');
-                return;
-            }
-
-            currentUser = data.user;
-            const { data: profile } = await supabase.from('profiles').select('*').eq('id', currentUser.id).single();
-            currentProfile = profile;
-
-            supabase.auth._notifyChange('SIGNED_IN', data.session);
-            updateNavForAuth();
-            showToast('Welcome back!', 'success');
-            navigate('projects');
-        } catch (e) {
-            showToast(e.message || 'Sign in failed', 'error');
-        }
-    };
-
-    window.handleSignUp = async function() {
-        const username = document.getElementById('reg-username').value;
-        const email = document.getElementById('reg-email').value;
-        const password = document.getElementById('reg-password').value;
-        const confirm = document.getElementById('reg-password-confirm').value;
-
-        if (password !== confirm) {
-            showToast('Passwords do not match', 'error');
-            return;
-        }
-
-        if (password.length < 6) {
-            showToast('Password must be at least 6 characters', 'error');
-            return;
-        }
-
-        showToast('Creating account...', 'info');
-
-        try {
-            const { data, error } = await supabase.auth.signUp({
-                email,
-                password,
-                options: { data: { username } }
-            });
-
-            if (error) {
-                showToast(error.message, 'error');
-                return;
-            }
-
-            if (data.user?.id) {
-                const { error: profileError } = await supabase.from('profiles').insert({
-                    id: data.user.id,
-                    username,
-                    email,
-                    role: 'requester',
-                    qrCodes: []
-                });
-                if (profileError) {
-                    console.error('Profile creation warning:', profileError);
-                }
-            }
-
-            if (data.session === null && data.user) {
-                showToast('Account created! Please check your email to confirm your account.', 'success');
-                navigate('login');
-            } else {
-                showToast('Account created! Please sign in.', 'success');
-                navigate('login');
-            }
-        } catch (e) {
-            showToast(e.message || 'Sign up failed', 'error');
-        }
-    };
-
-    window.handleSignOut = async function() {
-        await supabase.auth.signOut();
-        currentUser = null;
-        currentProfile = null;
-        supabase.auth._notifyChange('SIGNED_OUT', null);
-        updateNavForAuth();
-        showToast('Signed out successfully', 'success');
-        navigate('home');
-    };
-
-    window.loadProjects = function() {
-        console.log('loadProjects called, container:', document.getElementById('projects-list'));
-        const container = document.getElementById('projects-list');
-        let statusFilter = document.getElementById('filter-status')?.value || '';
-        statusFilter = statusFilter.replace('in-progress', 'in_progress');
-
-        container.innerHTML = '<div class="loading visible">' + t('loadingProjects') + '</div>';
-
-        let projects = JSON.parse(localStorage.getItem('projects') || '[]');
-        console.log('projects loaded', projects.length);
-
-        const renderAndReturn = () => {
-            if (projects.length > 0) {
-                renderProjects(projects, statusFilter, container);
-            } else {
-                renderProjects(projects, statusFilter, container);
-            }
-        };
-
-        const session = localStorage.getItem('sb_session');
-        if (session) {
-            fetchApi('/rest/v1/projects?select=*&order=created_at.desc')
-                .then(({ data }) => {
-                    if (data && data.length > 0) {
-                        const localIds = projects.map(p => p.id);
-                        const newProjects = data.filter(p => !localIds.includes(p.id));
-                        projects = [...projects, ...newProjects];
-                    }
-                    renderProjects(projects, statusFilter, container);
-                })
-                .catch(() => {
-                    renderProjects(projects, statusFilter, container);
-                });
-        } else {
-            renderProjects(projects, statusFilter, container);
-        }
-    };
-
-    function renderProjects(projects, statusFilter, container) {
-        console.log('renderProjects called, projects:', projects.length);
-        if (statusFilter) {
-            projects = projects.filter(p => p.status === statusFilter);
-        }
-
-        if (!projects || projects.length === 0) {
-            container.innerHTML = '<div class="empty-state"><h3>' + t('noProjectsYet') + '</h3><p>' + t('beFirstToPost') + '</p></div>';
-            return;
-        }
-
-        const statusMap = {
-            'open': t('openStatus'),
-            'in_progress': t('inProgressStatus'),
-            'completed': t('completedStatus')
-        };
-
-        const typeMap = {
-            'single': t('singlePerson'),
-            'team': t('multiplePeople'),
-            '单人项目': t('singlePerson'),
-            '多人项目': t('multiplePeople')
-        };
-
-        container.innerHTML = '<div class="projects-grid">' + projects.map(p => `
-            <div class="project-card" onclick="viewProject('${p.id}')">
-                <div class="project-card-header">
-                    <h3>${escapeHtml(p.title)}</h3>
-                    ${p.project_type ? `<span class="badge badge-team">${typeMap[p.project_type] || p.project_type}</span>` : ''}
-                </div>
-                <p class="project-desc">${escapeHtml(p.description.substring(0, 80))}${p.description.length > 80 ? '...' : ''}</p>
-                <div class="project-card-footer">
-                    <span class="badge badge-${p.status === 'open' ? 'open' : p.status === 'in_progress' ? 'progress' : 'done'}">${statusMap[p.status] || p.status}</span>
-                    <span class="budget">💰 ${escapeHtml(p.budget || '待定')}</span>
-                </div>
-                <div class="project-meta">
-                    <span>👤 <span style="color: var(--accent); cursor: pointer;" onclick="event.stopPropagation(); navigate('user-wall', '${p.requester_id}')">${escapeHtml(p.requester_name || '未知')}</span></span>
-                    <span>📅 ${escapeHtml(p.deadline || '不限')}</span>
-                </div>
+    list.innerHTML = myPosts.map(post => {
+        const cat = categories[post.category];
+        return `
+        <div class="my-post-mini" onclick="navigateTo('home'); setTimeout(() => togglePostExpand(${post.id}), 200);">
+            <span class="my-post-mini-cat post-category ${cat.class}">${t(post.category + 'Cat')}</span>
+            <span class="my-post-mini-content">${post.content.substring(0, 80)}...</span>
+            <span class="my-post-mini-time">${post.time}</span>
+            <div class="my-post-mini-actions">
+                <button onclick="event.stopPropagation(); deletePost(${post.id})" title="Delete"><i class="fas fa-trash"></i></button>
             </div>
-        `).join('') + '</div>';
+        </div>`;
+    }).join('');
+}
+
+function updateProfileStats() {
+    if (!currentUser) return;
+    const myPosts = postsData.filter(p => p.user_id === currentUser.id);
+    const totalLikes = myPosts.reduce((sum, p) => sum + p.likes, 0);
+    const totalComments = myPosts.reduce((sum, p) => sum + p.comments, 0);
+    document.getElementById('profilePostsCount').textContent = myPosts.length;
+    document.getElementById('profileLikesCount').textContent = totalLikes;
+    document.getElementById('profileCommentsCount').textContent = totalComments;
+}
+
+function loadProfile() {
+    if (!currentUser) return;
+    document.getElementById('profileDisplayName').textContent = currentUser.name || 'Guest User';
+    document.getElementById('profileCountry').textContent = currentUser.country || 'Unknown';
+    document.getElementById('profileIdentity').textContent = currentUser.identity || 'Member';
+    document.getElementById('profileAvatar').src = currentUser.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
+    document.getElementById('editName').value = currentUser.name || '';
+    document.getElementById('editCountry').value = currentUser.country_code || '';
+    document.getElementById('editBio').value = currentUser.bio || '';
+    updateProfileStats();
+    renderMyPosts();
+}
+
+function triggerAvatarUpload() {
+    if (!currentUser) {
+        showToast(currentLang === 'fr' ? 'Veuillez vous connecter' : 'Please sign in first');
+        return;
+    }
+    document.getElementById('avatarUploadInput').click();
+}
+
+async function handleAvatarUpload(input) {
+    if (!input.files || !input.files[0]) return;
+    const file = input.files[0];
+
+    if (!file.type.startsWith('image/')) {
+        showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
+        return;
     }
 
-    window.loadMyProjects = async function() {
-        const container = document.getElementById('myprojects-list');
-        const roleFilter = document.getElementById('myfilter-role')?.value || 'all';
-
-        if (!currentUser) {
-            container.innerHTML = '<div class="empty-state"><h3>' + t('noProjects') + '</h3><p>' + t('beFirstToPost') + '</p></div>';
-            return;
-        }
-
-        container.innerHTML = '<div class="loading visible">Loading your projects</div>';
-
-        try {
-            const { data: allProjects } = await fetchApi('/rest/v1/projects?select=*&order=created_at.desc');
-
-            let filtered = [];
-            if (roleFilter === 'created' || roleFilter === 'all') {
-                filtered = filtered.concat(allProjects.filter(p => p.requester_id === currentUser.id));
-            }
-            if (roleFilter === 'applied' || roleFilter === 'all') {
-                filtered = filtered.concat(allProjects.filter(p => p.receiver_id === currentUser.id));
-            }
-
-            filtered = [...new Map(filtered.map(p => [p.id, p])).values()];
-
-            if (projectsTab === 'active') {
-                filtered = filtered.filter(p => p.status !== 'completed');
-            } else {
-                filtered = filtered.filter(p => p.status === 'completed');
-            }
-
-            if (filtered.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h3>' + t('noProjects') + '</h3><p>' + (projectsTab === 'active' ? t('noProjectsYet') : t('noProjects')) + '</p></div>';
-                return;
-            }
-
-            container.innerHTML = '<div class="project-grid">' + filtered.map(p => `
-                <div class="project-card">
-                    <h3>${escapeHtml(p.title)}</h3>
-                    <p>${escapeHtml(p.description.substring(0, 100))}${p.description.length > 100 ? '...' : ''}</p>
-                    <span class="status-badge status-${p.status}">${p.status.replace('-', ' ')}</span>
-                    ${p.project_type ? `<span class="status-badge" style="background: rgba(139, 92, 246, 0.2); color: var(--accent-hover); margin-left: 0.5rem;">${escapeHtml(p.project_type)}</span>` : ''}
-                    <div class="meta" style="margin-top: 1rem;">
-                        <button class="btn btn-sm btn-secondary" onclick="viewProject('${p.id}')">View Details</button>
-                        ${p.requester_id === currentUser.id ? `<button class="btn btn-sm btn-outline" onclick="showApplications('${p.id}')">Applications (${getApplicationCount(p.id)})</button>` : ''}
-                        ${p.requester_id === currentUser.id ? `<button class="btn btn-sm btn-danger" onclick="deleteProject('${p.id}')">Delete</button>` : ''}
-                    </div>
-                </div>
-            `).join('') + '</div>';
-        } catch (e) {
-            container.innerHTML = '<div class="empty-state"><h3>Error</h3><p>' + escapeHtml(e.message) + '</p></div>';
-        }
-    };
-
-    function getApplicationCount(projectId) {
-        const apps = JSON.parse(localStorage.getItem('applications') || '[]');
-        return apps.filter(a => a.project_id === projectId).length;
+    if (file.size > 5 * 1024 * 1024) {
+        showToast(currentLang === 'fr' ? 'Image trop grande (max 5MB)' : 'Image too large (max 5MB)');
+        return;
     }
 
-    window.switchProjectsTab = function(tab) {
-        projectsTab = tab;
-        document.getElementById('tab-active').classList.toggle('active', tab === 'active');
-        document.getElementById('tab-completed').classList.toggle('active', tab === 'completed');
-        loadMyProjects();
-    };
+    showToast(currentLang === 'fr' ? 'Téléchargement...' : 'Uploading...');
 
-    window.viewProject = function(id) {
-        console.log('viewProject called with id:', id);
-        sessionStorage.setItem('view_project_id', id);
-        navigate('project-detail');
-    };
-
-    window.loadProjectDetail = async function() {
-        const id = sessionStorage.getItem('view_project_id');
-        const container = document.getElementById('project-detail-content');
-
-        console.log('loadProjectDetail called - id:', id, 'container:', container);
-
-        if (!id) {
-            console.log('No project id found in sessionStorage');
-            container.innerHTML = '<div class="empty-state"><h3>Project Not Found</h3><p>Please select a project from the list.</p></div>';
-            return;
-        }
-
-        container.innerHTML = '<div class="loading visible">Loading project</div>';
-
-        const getLocalProject = () => {
-            const localProjects = JSON.parse(localStorage.getItem('projects') || '[]');
-            console.log('getLocalProject - localStorage projects count:', localProjects.length, 'looking for id:', id);
-            const found = localProjects.find(p => p.id === id);
-            console.log('getLocalProject - found project:', found ? found.title : 'NOT FOUND');
-            return found;
-        };
-
-        const renderProjectDetail = (project, requester) => {
-            console.log('renderProjectDetail called with project:', project?.title);
-            const isOwner = currentUser && project.requester_id === currentUser.id;
-            const canApply = currentUser && !isOwner && project.status === 'open';
-            const comments = JSON.parse(localStorage.getItem('comments') || '[]').filter(c => c.project_id === id);
-
-            container.innerHTML = `
-                <div class="detail-grid">
-                    <div class="card">
-                        <button class="btn btn-outline btn-sm" onclick="navigate('projects')" style="margin-bottom: 1rem;">← Back to Projects</button>
-                        <h1>${escapeHtml(project.title)}</h1>
-                        <span class="status-badge status-${project.status}">${project.status.replace('-', ' ')}</span>
-                        ${project.project_type ? `<span class="status-badge" style="background: rgba(139, 92, 246, 0.2); color: var(--accent-hover); margin-left: 0.5rem;">${escapeHtml(project.project_type)}</span>` : ''}
-                        <p style="margin-top: 1rem;">Posted by: <span style="color: var(--accent); cursor: pointer;" onclick="navigate('user-wall', '${project.requester_id}')">${escapeHtml(requester?.username || 'Unknown')}</span></p>
-                        <p style="margin-top: 1.5rem;">${escapeHtml(project.description)}</p>
-                        <div class="meta" style="margin-top: 2rem;">
-                            <span>Budget: $${project.budget || 0}</span>
-                            <span>Posted: ${new Date(project.created_at).toLocaleDateString()}</span>
-                        </div>
-                    </div>
-                    <div class="detail-sidebar">
-                        <h2>Actions</h2>
-                        ${isOwner ? `
-                            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 0.5rem;" onclick="updateProjectStatus('${project.id}', 'in_progress')">Mark In Progress</button>
-                            <button class="btn btn-secondary" style="width: 100%; margin-bottom: 0.5rem;" onclick="updateProjectStatus('${project.id}', 'completed')">Mark Completed</button>
-                            <button class="btn btn-outline" style="width: 100%; margin-bottom: 0.5rem;" onclick="showApplications('${project.id}')">View Applications</button>
-                            <button class="btn btn-danger" style="width: 100%;" onclick="deleteProject('${project.id}')">Delete Project</button>
-                        ` : ''}
-                        ${canApply ? `
-                            <button class="btn" style="width: 100%;" onclick="openApplyModal('${project.id}')">申请承接 (Apply)</button>
-                        ` : ''}
-                        ${!currentUser ? '<p style="color: var(--text-muted); text-align: center;">Sign in to take action</p>' : ''}
-                    </div>
-                </div>
-                <div class="card" style="margin-top: 1.5rem;">
-                    <h2>Comments / 留言</h2>
-                    <div id="comments-list">
-                        ${comments.length === 0 ? '<p style="color: var(--text-muted); padding: 1.25rem; background: rgba(139, 92, 246, 0.08); border-radius: 12px; border-left: 3px solid var(--accent); text-align: center;">No comments yet. Be the first to comment!</p>' : comments.map(c => `
-                            <div class="comment-item">
-                                <div class="header">
-                                    <span class="author" style="cursor: pointer;" onclick="navigate('user-wall', '${c.user_id}')">${escapeHtml(c.username)}</span>
-                                    <span class="time">${new Date(c.created_at).toLocaleString()}</span>
-                                </div>
-                                <div class="content">${escapeHtml(c.content)}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    ${currentUser ? `
-                        <form onsubmit="event.preventDefault(); addComment('${id}');" style="margin-top: 1rem;">
-                            <textarea id="comment-input" class="form-textarea" rows="3" placeholder="Leave a comment..." required></textarea>
-                            <button type="submit" class="btn btn-sm">Post Comment</button>
-                        </form>
-                    ` : '<p style="color: var(--text-muted); margin-top: 1rem;">Sign in to leave a comment.</p>'}
-                </div>
-            `;
-        };
-
-        if (id.startsWith('demo-')) {
-            const localProject = getLocalProject();
-            if (localProject) {
-                const localProfiles = JSON.parse(localStorage.getItem('profiles') || '[]');
-                const requester = localProfiles.find(p => p.id === localProject.requester_id) || null;
-                renderProjectDetail(localProject, requester);
-                return;
-            }
-        }
-
-        try {
-            const { data: projects } = await fetchApi('/rest/v1/projects?select=*&id=eq.' + encodeURIComponent(id) + '&limit=1');
-            const project = projects?.[0];
-
-            if (!project) {
-                const localProject = getLocalProject();
-                if (localProject) {
-                    renderProjectDetail(localProject, null);
-                    return;
-                }
-                container.innerHTML = '<div class="empty-state"><h3>Project Not Found</h3></div>';
-                return;
-            }
-
-            let requester = null;
-            try {
-                const { data: profiles } = await fetchApi('/rest/v1/profiles?select=*&id=eq.' + encodeURIComponent(project.requester_id) + '&limit=1');
-                requester = profiles?.[0];
-            } catch (e) {
-                console.warn('Failed to fetch requester profile, using local data');
-            }
-
-            renderProjectDetail(project, requester);
-        } catch (e) {
-            const localProject = getLocalProject();
-            if (localProject) {
-                renderProjectDetail(localProject, null);
-                return;
-            }
-            container.innerHTML = '<div class="empty-state"><h3>Error loading project</h3><p>Unable to connect to server. Please check your connection and try again.</p><p style="color: var(--text-muted); margin-top: 0.5rem;">Details: ' + escapeHtml(e.message) + '</p></div>';
-        }
-    };
-
-    window.addComment = function(projectId) {
-        const input = document.getElementById('comment-input');
-        const content = input.value.trim();
-        if (!content || !currentUser) return;
-
-        const comments = JSON.parse(localStorage.getItem('comments') || '[]');
-        comments.push({
-            id: Date.now().toString(),
-            project_id: projectId,
-            user_id: currentUser.id,
-            username: currentProfile?.username || currentUser.email,
-            content: content,
-            created_at: new Date().toISOString()
-        });
-        localStorage.setItem('comments', JSON.stringify(comments));
-        showToast('Comment added!', 'success');
-        loadProjectDetail();
-    };
-
-    window.updateProjectStatus = async function(id, status) {
-        try {
-            await fetchApi('/rest/v1/projects?id=eq.' + encodeURIComponent(id), {
-                method: 'PATCH',
-                body: JSON.stringify({ status })
-            });
-            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-            const idx = projects.findIndex(p => p.id === id);
-            if (idx !== -1) {
-                projects[idx].status = status;
-                localStorage.setItem('projects', JSON.stringify(projects));
-            }
-            showToast('Project updated!', 'success');
-            loadProjectDetail();
-        } catch (err) {
-            showToast('Failed to update project', 'error');
-        }
-    };
-
-    window.openApplyModal = function(projectId) {
-        currentProjectId = projectId;
-        document.getElementById('applyModal').classList.add('active');
-    };
-
-    window.closeApplyModal = function() {
-        document.getElementById('applyModal').classList.remove('active');
-        document.getElementById('apply-message').value = '';
-        currentProjectId = null;
-    };
-
-    window.submitApplication = async function() {
-        if (!currentUser || !currentProjectId) return;
-        const message = document.getElementById('apply-message').value.trim();
-        if (!message) return;
-
-        const applications = JSON.parse(localStorage.getItem('applications') || '[]');
-        const newApp = {
-            id: Date.now().toString(),
-            project_id: currentProjectId,
-            user_id: currentUser.id,
-            username: currentProfile?.username || currentUser.email,
-            message: message,
-            status: 'pending',
-            created_at: new Date().toISOString()
-        };
-        applications.push(newApp);
-        localStorage.setItem('applications', JSON.stringify(applications));
-
-        const { data: projects } = await fetchApi('/rest/v1/projects?select=*&id=eq.' + encodeURIComponent(currentProjectId) + '&limit=1');
-        const project = projects?.[0];
-        if (project) {
-            const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
-            notifications.push({
-                id: Date.now().toString(),
-                user_id: project.requester_id,
-                type: 'application',
-                title: 'New Application / 新申请',
-                content: `${currentProfile?.username || currentUser.email} applied for "${project.title}"`,
-                read: false,
-                link: currentProjectId,
-                created_at: new Date().toISOString()
-            });
-            localStorage.setItem('notifications', JSON.stringify(notifications));
-        }
-
-        closeApplyModal();
-        showToast('Application submitted!', 'success');
-        navigate('myprojects');
-    };
-
-    window.showApplications = function(projectId) {
-        const applications = JSON.parse(localStorage.getItem('applications') || '[]').filter(a => a.project_id === projectId);
-        const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-        const project = projects.find(p => p.id === projectId);
-        const container = document.getElementById('applications-list');
-
-        if (applications.length === 0) {
-            container.innerHTML = '<p style="color: var(--text-muted);">No applications yet.</p>';
-        } else {
-            container.innerHTML = applications.map(a => `
-                <div class="application-item">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="applicant">${escapeHtml(a.username)}</span>
-                        <span class="status ${a.status}">${a.status}</span>
-                    </div>
-                    <p class="message">${escapeHtml(a.message)}</p>
-                    <p style="color: var(--text-muted); font-size: 0.8rem;">${new Date(a.created_at).toLocaleString()}</p>
-                    ${a.status === 'pending' && currentUser?.id === project?.requester_id ? `
-                        <div class="btn-group" style="margin-top: 0.5rem;">
-                            <button class="btn btn-sm btn-secondary" onclick="handleApplication('${a.id}', 'accepted')">Accept</button>
-                            <button class="btn btn-sm btn-danger" onclick="handleApplication('${a.id}', 'rejected')">Reject</button>
-                        </div>
-                    ` : ''}
-                </div>
-            `).join('');
-        }
-
-        document.getElementById('applicationsModal').classList.add('active');
-    };
-
-    window.closeApplicationsModal = function() {
-        document.getElementById('applicationsModal').classList.remove('active');
-    };
-
-    window.handleApplication = async function(applicationId, status) {
-        const applications = JSON.parse(localStorage.getItem('applications') || '[]');
-        const app = applications.find(a => a.id === applicationId);
-        if (!app) return;
-
-        app.status = status;
-        localStorage.setItem('applications', JSON.stringify(applications));
-
-        try {
-            const { data: projects } = await fetchApi('/rest/v1/projects?select=*&id=eq.' + encodeURIComponent(app.project_id) + '&limit=1');
-            if (status === 'accepted') {
-                await fetchApi('/rest/v1/projects?id=eq.' + encodeURIComponent(app.project_id), {
-                    method: 'PATCH',
-                    body: JSON.stringify({ status: 'in_progress', receiver_id: app.user_id })
-                });
-            }
-        } catch (err) {
-            console.error('API error:', err);
-        }
-
-        const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
-        notifications.push({
-            id: Date.now().toString(),
-            user_id: app.user_id,
-            type: status === 'accepted' ? 'accepted' : 'rejected',
-            title: status === 'accepted' ? 'Application Accepted / 申请已接受' : 'Application Rejected / 申请被拒绝',
-            content: `Your application for the project has been ${status}`,
-            read: false,
-            link: app.project_id,
-            created_at: new Date().toISOString()
-        });
-        localStorage.setItem('notifications', JSON.stringify(notifications));
-
-        showToast('Application ' + status, 'success');
-        closeApplicationsModal();
-        loadProjectDetail();
-    };
-
-    window.deleteProject = async function(id) {
-        if (!confirm('Are you sure you want to delete this project?')) return;
-        try {
-            await fetchApi('/rest/v1/projects?id=eq.' + encodeURIComponent(id), { method: 'DELETE' });
-            let projects = JSON.parse(localStorage.getItem('projects') || '[]');
-            projects = projects.filter(p => p.id !== id);
-            localStorage.setItem('projects', JSON.stringify(projects));
-            showToast('Project deleted', 'success');
-            navigate('myprojects');
-        } catch (err) {
-            showToast('Failed to delete project', 'error');
-        }
-    };
-
-    window.handleCreateProject = async function() {
-        if (!currentUser) {
-            showToast(t('pleaseSignInFirst'), 'error');
-            navigate('login');
-            return;
-        }
-
-        const title = document.getElementById('new-title').value;
-        const description = document.getElementById('new-description').value;
-        const budget = document.getElementById('new-budget').value;
-        const deadline = document.getElementById('new-deadline').value;
-        const contact = document.getElementById('new-contact').value;
-        const projectTypeEl = document.querySelector('input[name="project_type"]:checked');
-        const projectType = projectTypeEl ? (projectTypeEl.value === 'single' ? t('singlePersonProject') : t('teamProject')) : t('singlePersonProject');
-
-        if (!title || !description) {
-            showToast(t('fillAllRequired'), 'error');
-            return;
-        }
-
-        try {
-            const { data, error } = await supabase.from('projects').insert({
-                title,
-                description,
-                budget,
-                deadline,
-                contact,
-                status: 'open',
-                requester_id: currentUser.id,
-                requester_name: currentProfile?.username || currentUser.email,
-                project_type: projectType
-            });
-
-            if (!error && data?.id) {
-                const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-                projects.unshift({
-                    id: data.id,
-                    title,
-                    description,
-                    budget,
-                    deadline,
-                    contact,
-                    status: 'open',
-                    requester_id: currentUser.id,
-                    requester_name: currentProfile?.username || currentUser.email,
-                    project_type: projectType,
-                    created_at: new Date().toISOString()
-                });
-                localStorage.setItem('projects', JSON.stringify(projects));
-            }
-            showToast(t('projectCreated'), 'success');
-            navigate('myprojects');
-        } catch (err) {
-            showToast(t('failedToCreateProject'), 'error');
-        }
-
-        document.getElementById('new-title').value = '';
-        document.getElementById('new-description').value = '';
-        document.getElementById('new-budget').value = '';
-        document.getElementById('new-deadline').value = '';
-        document.getElementById('new-contact').value = '';
-    };
-
-    window.loadProfile = async function() {
-        const container = document.getElementById('profile-content');
-
-        if (!currentUser) {
-            container.innerHTML = '<div class="empty-state"><h3>Please Sign In</h3><p>You need to be logged in to view your profile.</p></div>';
-            return;
-        }
-
-        if (!currentProfile) {
-            currentProfile = { qrCodes: [] };
-        }
-        if (!currentProfile.qrCodes) currentProfile.qrCodes = [];
-
-        let receivedProjects = [];
-        let postedProjects = [];
-
-        try {
-            const { data: received } = await fetchApi(`/rest/v1/projects?select=*&receiver_id=eq.${encodeURIComponent(currentProfile.id)}&status=eq.completed&order=created_at.desc`);
-            receivedProjects = received || [];
-        } catch (e) { console.error('Error fetching received projects:', e); }
-
-        try {
-            const { data: posted } = await fetchApi(`/rest/v1/projects?select=*&requester_id=eq.${encodeURIComponent(currentProfile.id)}&status=eq.completed&order=created_at.desc`);
-            postedProjects = posted || [];
-        } catch (e) { console.error('Error fetching posted projects:', e); }
-
-        const renderHistoryProject = (p) => `
-            <div class="project-card" onclick="viewProject('${p.id}')">
-                <div class="project-card-header">
-                    <h3>${escapeHtml(p.title)}</h3>
-                </div>
-                <p class="project-desc">${escapeHtml(p.description.substring(0, 80))}${p.description.length > 80 ? '...' : ''}</p>
-                <div class="project-card-footer">
-                    <span class="badge badge-done">${t('completed')}</span>
-                    <span class="budget">💰 ${escapeHtml(p.budget || '待定')}</span>
-                </div>
-                <div class="project-meta">
-                    <span>📅 ${escapeHtml(p.deadline || '不限')}</span>
-                </div>
-            </div>
-        `;
-
-        container.innerHTML = `
-            <div class="card">
-                <div class="profile-header">
-                    <div class="profile-avatar">${(currentProfile?.username || currentUser.email || 'U').charAt(0).toUpperCase()}</div>
-                    <h1>${escapeHtml(currentProfile?.username || 'User')}</h1>
-                    <p>${escapeHtml(currentUser.email)}</p>
-                    <span class="status-badge status-in-progress" style="margin-top: 0.5rem;">${(currentProfile?.role || 'requester').charAt(0).toUpperCase() + (currentProfile?.role || 'requester').slice(1)}</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>QR Codes / 收款码</h2>
-                <p>Add your payment QR codes (WeChat, Alipay, etc.)</p>
-                <div id="qr-codes-list">
-                    ${currentProfile.qrCodes.length === 0 ? '<p style="color: var(--text-muted);">No QR codes added yet.</p>' : currentProfile.qrCodes.map((qr, i) => `
-                        <div class="qr-code-item">
-                            <img src="${qr.url}" alt="${escapeHtml(qr.name)}">
-                            <div class="info">
-                                <div class="name">${escapeHtml(qr.name)}</div>
-                                <div class="type">${escapeHtml(qr.type)}</div>
-                            </div>
-                            <button class="btn btn-sm btn-danger" onclick="deleteQRCode(${i})">Delete</button>
-                        </div>
-                    `).join('')}
-                </div>
-                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(139, 92, 246, 0.2);">
-                    <h3 style="margin-bottom: 1rem;">Add New QR Code</h3>
-                    <form onsubmit="event.preventDefault(); addQRCode();">
-                        <div class="form-group">
-                            <label>QR Code Image</label>
-                            <input type="file" id="qr-file" accept="image/*" onchange="previewQRCode(this)">
-                            <img id="qr-preview" style="max-width: 150px; margin-top: 0.5rem; display: none;">
-                        </div>
-                        <div class="form-group">
-                            <label>Name / 名称</label>
-                            <input type="text" id="qr-name" placeholder="e.g., 微信/支付宝/其他" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Type / 类型</label>
-                            <select id="qr-type" class="form-control">
-                                <option value="微信">微信 (WeChat)</option>
-                                <option value="支付宝">支付宝 (Alipay)</option>
-                                <option value="其他">其他 (Other)</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-sm btn-secondary">Add QR Code</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>${t('historyReceivedProjects')}</h2>
-                <div class="projects-grid">
-                    ${receivedProjects.length === 0 ? `<p style="color: var(--text-muted);">${t('noHistoryProjects')}</p>` : receivedProjects.map(renderHistoryProject).join('')}
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>${t('historyPostedProjects')}</h2>
-                <div class="projects-grid">
-                    ${postedProjects.length === 0 ? `<p style="color: var(--text-muted);">${t('noHistoryProjects')}</p>` : postedProjects.map(renderHistoryProject).join('')}
-                </div>
-            </div>
-        `;
-    };
-
-    window.previewQRCode = function(input) {
-        const preview = document.getElementById('qr-preview');
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    };
-
-    window.addQRCode = function() {
-        const fileInput = document.getElementById('qr-file');
-        const name = document.getElementById('qr-name').value.trim();
-        const type = document.getElementById('qr-type').value;
-
-        if (!fileInput.files[0] || !name) {
-            showToast('Please select an image and enter a name', 'error');
-            return;
-        }
-
+    // Read file, resize to 200x200, convert to base64
+    const avatarUrl = await new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = async function(e) {
-            if (!currentProfile.qrCodes) currentProfile.qrCodes = [];
-            currentProfile.qrCodes.push({
-                name: name,
-                url: e.target.result,
-                type: type
-            });
-
-            try {
-                await fetchApi('/rest/v1/profiles?id=eq.' + currentUser.id, {
-                    method: 'PATCH',
-                    body: JSON.stringify({ qrCodes: currentProfile.qrCodes })
-                });
-                showToast('QR Code added!', 'success');
-            } catch (err) {
-                showToast('Failed to save QR code', 'error');
-            }
-            loadProfile();
+        reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const size = 200;
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                const min = Math.min(img.width, img.height);
+                const sx = (img.width - min) / 2;
+                const sy = (img.height - min) / 2;
+                ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+                resolve(canvas.toDataURL('image/jpeg', 0.8));
+            };
+            img.onerror = reject;
+            img.src = e.target.result;
         };
-        reader.readAsDataURL(fileInput.files[0]);
-    };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
 
-    window.deleteQRCode = async function(index) {
-        if (!confirm('Delete this QR code?')) return;
-        currentProfile.qrCodes.splice(index, 1);
-        try {
-            await fetchApi('/rest/v1/profiles?id=eq.' + currentUser.id, {
-                method: 'PATCH',
-                body: JSON.stringify({ qrCodes: currentProfile.qrCodes })
-            });
-            showToast('QR Code deleted', 'success');
-        } catch (err) {
-            showToast('Failed to delete QR code', 'error');
-        }
-        loadProfile();
-    };
+    // Save directly to database (no Storage needed)
+    const { error } = await supabaseClient.from('profiles').update({ avatar_url: avatarUrl }).eq('id', currentUser.id);
 
-    window.loadNotifications = function() {
-        const container = document.getElementById('notifications-list');
+    if (error) {
+        console.error('Avatar save error:', error);
+        showToast(currentLang === 'fr' ? 'Échec de la sauvegarde' : 'Save failed');
+        return;
+    }
 
-        if (!currentUser) {
-            container.innerHTML = '<div class="empty-state"><h3>Please Sign In</h3><p>You need to be logged in to view notifications.</p></div>';
-            return;
-        }
+    currentUser.avatar_url = avatarUrl;
 
-        const notifications = JSON.parse(localStorage.getItem('notifications') || '[]').filter(n => n.user_id === currentUser.id);
+    document.getElementById('profileAvatar').src = avatarUrl;
+    document.getElementById('profileBtn').querySelector('img').src = avatarUrl;
+    document.getElementById('newPostAvatar').src = avatarUrl;
 
-        if (notifications.length === 0) {
-            container.innerHTML = '<div class="empty-state"><h3>No Notifications</h3><p>You\'re all caught up!</p></div>';
-            return;
-        }
+    showToast(currentLang === 'fr' ? 'Photo de profil mise à jour !' : 'Profile photo updated!');
+}
 
-        container.innerHTML = notifications.map(n => `
-            <div class="notification-item ${n.read ? '' : 'unread'}" onclick="handleNotificationClick('${n.id}', '${n.link}')">
-                <div class="title">${escapeHtml(n.title)}</div>
-                <div class="content">${escapeHtml(n.content)}</div>
-                <div class="time">${new Date(n.created_at).toLocaleString()}</div>
+async function deletePost(postId) {
+    const msg = currentLang === 'fr' ? 'Supprimer ce post ?' : 'Delete this post?';
+    if (!confirm(msg)) return;
+    const { error } = await supabaseClient.from('posts').delete().eq('id', postId);
+    if (error) { showToast('Error deleting'); return; }
+    await loadPosts();
+    renderMyPosts();
+    updateProfileStats();
+    showToast(currentLang === 'fr' ? 'Post supprimé' : 'Post deleted');
+}
+
+
+document.getElementById('editProfileForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!currentUser) return;
+    const name = document.getElementById('editName').value || currentUser.name;
+    const country = document.getElementById('editCountry').value || currentUser.country_code;
+    const bio = document.getElementById('editBio').value;
+    const avatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}`;
+    const { error } = await supabaseClient.from('profiles').update({
+        name, country_code: country, country, bio, avatar_url: avatarUrl
+    }).eq('id', currentUser.id);
+    if (error) { showToast('Error updating profile'); return; }
+    currentUser.name = name;
+    currentUser.country = country;
+    currentUser.bio = bio;
+    currentUser.avatar_url = avatarUrl;
+    document.getElementById('profileBtn').querySelector('img').src = avatarUrl;
+    loadProfile();
+    showToast(currentLang === 'fr' ? 'Profil mis à jour !' : 'Profile updated!');
+});
+
+const categories = {
+    travel: { label: '🧳 Travel', class: 'travel' },
+    study: { label: '🎓 Study', class: 'study' },
+    work: { label: '👷 Work', class: 'work' },
+    entertainment: { label: '🎭 Entertainment', class: 'entertainment' },
+    food: { label: '🍜 Food', class: 'food' },
+    life: { label: '🏙️ Life', class: 'life' },
+    business: { label: '💼 Business', class: 'business' },
+    language: { label: '🗣️ Language', class: 'language' }
+};
+
+const cities = [
+    { id: 'beijing', name: '北京', english: 'Beijing', icon: '🏯' },
+    { id: 'shanghai', name: '上海', english: 'Shanghai', icon: '🌆' },
+    { id: 'guangzhou', name: '广州', english: 'Guangzhou', icon: '🏙️' },
+    { id: 'shenzhen', name: '深圳', english: 'Shenzhen', icon: '🚀' },
+    { id: 'chengdu', name: '成都', english: 'Chengdu', icon: '🐼' },
+    { id: 'hangzhou', name: '杭州', english: 'Hangzhou', icon: '🏝️' },
+    { id: 'xian', name: '西安', english: "Xi'an", icon: '🏺' },
+    { id: 'suzhou', name: '苏州', english: 'Suzhou', icon: '🌸' },
+    { id: 'wuhan', name: '武汉', english: 'Wuhan', icon: '🌉' },
+    { id: 'chongqing', name: '重庆', english: 'Chongqing', icon: '🌶️' },
+    { id: 'nanjing', name: '南京', english: 'Nanjing', icon: '🦚' },
+    { id: 'tianjin', name: '天津', english: 'Tianjin', icon: '⚓' }
+];
+
+/* ===== Supabase Connection ===== */
+const SUPABASE_URL = 'https://ewepgcoayckdznpxwdfq.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_QMiUjV4HukLdaKGmlbyXXg_BCv4qNhk';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let currentCategory = 'all';
+let isLoggedIn = false;
+let exploreActive = false;
+let currentCityFilter = null;
+let searchQuery = '';
+let currentUser = null;
+let postsData = [
+    { id: 1, author: 'Sarah from USA', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah', country: 'United States', countryCode: 'US', time: '2 hours ago', createdAt: Date.now() - 2*60*60*1000, content: 'Just discovered the most amazing street food stall in Chengdu! The owner has been making the same recipe for 40 years. Sometimes the best experiences in China are the ones you stumble upon randomly.', tags: [], category: 'food', city: 'chengdu', likes: 12, comments: 5, shares: 2, liked: false, user_id: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890' },
+    { id: 2, author: 'Takeshi Yamamoto', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Takeshi', country: 'Japan', countryCode: 'JP', time: '3 hours ago', createdAt: Date.now() - 3*60*60*1000, content: 'Finally got my residence permit renewed after some stressful weeks! Pro tip: start the renewal process at least 2 months before expiration. The immigration office in Beijing has gotten much more efficient.', tags: [], category: 'life', city: 'beijing', likes: 18, comments: 8, shares: 3, liked: false, user_id: 'b2c3d4e5-f6a7-8901-bcde-f12345678901' },
+    { id: 3, author: 'Marie Dubois', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Marie', country: 'France', countryCode: 'FR', time: '5 hours ago', createdAt: Date.now() - 5*60*60*1000, content: 'As someone who grew up with French trains, the Beijing-Shanghai HSR feels like the future! And the food options on board are surprisingly good. 1,318 km in just 4.5 hours with impeccable service.', tags: [], category: 'travel', city: 'shanghai', likes: 24, comments: 12, shares: 6, liked: false, user_id: 'c3d4e5f6-a7b8-9012-cdef-123456789012' },
+    { id: 4, author: 'Hans Mueller', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Hans', country: 'Germany', countryCode: 'DE', time: '4 hours ago', createdAt: Date.now() - 4*60*60*1000, content: 'Germans love efficiency and order. Shenzhen tech parks remind me of Munich but with better weather and more entrepreneurial energy. The startup ecosystem here is incredible!', tags: [], category: 'work', city: 'shenzhen', likes: 15, comments: 7, shares: 4, liked: false, user_id: 'd4e5f6a7-b8c9-0123-defa-234567890123' },
+    { id: 5, author: 'Carlos from Brazil', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos', country: 'Brazil', countryCode: 'BR', time: '6 hours ago', createdAt: Date.now() - 6*60*60*1000, content: 'Missing Brazilian coffee but found an amazing specialty coffee shop in Shanghai! The owner even imports beans from Brazil. Small world. Price was reasonable too.', tags: [], category: 'food', city: 'shanghai', likes: 21, comments: 9, shares: 5, liked: false, user_id: 'e5f6a7b8-c9d0-1234-efab-345678901234' },
+    { id: 6, author: 'Sarah from USA', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah', country: 'United States', countryCode: 'US', time: '1 day ago', createdAt: Date.now() - 24*60*60*1000, content: 'Working remotely from Shanghai for 6 months now. The coworking scene here is incredible! Met so many interesting people from different industries. Anyone else doing remote work in China?', tags: [], category: 'work', city: 'shanghai', likes: 32, comments: 15, shares: 8, liked: false, user_id: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890' },
+    { id: 7, author: 'Takeshi Yamamoto', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Takeshi', country: 'Japan', countryCode: 'JP', time: '8 hours ago', createdAt: Date.now() - 8*60*60*1000, content: 'Photographer paradise! The karst landscape around Guilin is unlike anywhere else. Spent a week there and took over 2,000 photos. The morning mist over the Li River is pure magic.', tags: [], category: 'travel', city: 'guangzhou', likes: 45, comments: 20, shares: 12, liked: false, user_id: 'b2c3d4e5-f6a7-8901-bcde-f12345678901' },
+    { id: 8, author: 'Marie Dubois', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Marie', country: 'France', countryCode: 'FR', time: '2 days ago', createdAt: Date.now() - 2*24*60*60*1000, content: 'Learning to navigate Chinese bureaucracy as a foreigner. Today I successfully opened a bank account without speaking a word of Mandarin. Gestures work wonders!', tags: [], category: 'life', city: 'beijing', likes: 28, comments: 14, shares: 7, liked: false, user_id: 'c3d4e5f6-a7b8-9012-cdef-123456789012' },
+    { id: 9, author: 'Hans Mueller', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Hans', country: 'Germany', countryCode: 'DE', time: '10 hours ago', createdAt: Date.now() - 10*60*60*1000, content: 'Just bought my first e-scooter. The bike lanes in Guangzhou are so well organized! Much better than Berlin. Now I can explore the city freely and avoid the metro during rush hour.', tags: [], category: 'life', city: 'guangzhou', likes: 19, comments: 6, shares: 3, liked: false, user_id: 'd4e5f6a7-b8c9-0123-defa-234567890123' },
+    { id: 10, author: 'Carlos from Brazil', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos', country: 'Brazil', countryCode: 'BR', time: '14 hours ago', createdAt: Date.now() - 14*60*60*1000, content: 'The football culture in Guangzhou is incredible. Found a local futsal group that plays every weekend. Made some great friends already! They even have proper AstroTurf courts.', tags: [], category: 'life', city: 'guangzhou', likes: 22, comments: 11, shares: 4, liked: false, user_id: 'e5f6a7b8-c9d0-1234-efab-345678901234' }
+];
+let userLikes = new Set();
+setTimeout(renderPosts, 0);
+
+/* ===== Data Loading ===== */
+async function loadPosts() {
+    const { data, error } = await supabaseClient
+        .from('posts')
+        .select('*, profiles(name, avatar_url, country, country_code)')
+        .order('created_at', { ascending: false });
+    if (!error && data && data.length > 0) {
+        postsData = data.map(p => ({
+            id: p.id,
+            author: p.profiles?.name || 'Guest',
+            avatar: p.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest',
+            country: p.profiles?.country || 'Unknown',
+            countryCode: p.profiles?.country_code || 'UN',
+            time: getTimeAgo(p.created_at),
+            createdAt: new Date(p.created_at).getTime(),
+            content: p.content,
+            tags: [],
+            category: p.category || 'life',
+            city: p.city || 'unknown',
+            likes: 0,
+            comments: 0,
+            shares: 0,
+            liked: false,
+            user_id: p.user_id
+        }));
+    }
+    await loadLikes();
+    await loadCommentCounts();
+    renderPosts();
+    if (window.location.hash.startsWith('#post-')) {
+        handleHashChange();
+    }
+}
+
+async function loadLikes() {
+    const { data } = await supabaseClient.from('likes').select('post_id, user_id');
+    if (!data) return;
+    const likeCountMap = {};
+    data.forEach(l => {
+        likeCountMap[l.post_id] = (likeCountMap[l.post_id] || 0) + 1;
+        if (currentUser && l.user_id === currentUser.id) userLikes.add(l.post_id);
+    });
+    postsData.forEach(p => {
+        p.likes = likeCountMap[p.id] || 0;
+        p.liked = userLikes.has(p.id);
+    });
+}
+
+async function loadCommentCounts() {
+    const { data } = await supabaseClient.from('comments').select('post_id');
+    if (!data) return;
+    const countMap = {};
+    data.forEach(c => { countMap[c.post_id] = (countMap[c.post_id] || 0) + 1; });
+    postsData.forEach(p => { p.comments = countMap[p.id] || 0; });
+}
+
+function getTimeAgo(dateStr) {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return currentLang === 'fr' ? "À l'instant" : "Just now";
+    if (mins < 60) return `${mins}m ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `${hrs}h ago`;
+    const days = Math.floor(hrs / 24);
+    return `${days}d ago`;
+}
+
+function showToast(message) {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+function getFlagEmoji(countryCode) {
+    const codePoints = countryCode
+        .toUpperCase()
+        .split('')
+        .map(char => 127397 + char.charCodeAt(0));
+    return String.fromCodePoint(...codePoints);
+}
+
+async function toggleLike(postId) {
+    if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour aimer' : 'Please sign in to like'); return; }
+    const liked = userLikes.has(postId);
+    if (liked) {
+        await supabaseClient.from('likes').delete().eq('post_id', postId).eq('user_id', currentUser.id);
+        userLikes.delete(postId);
+    } else {
+        await supabaseClient.from('likes').insert({ post_id: postId, user_id: currentUser.id });
+        userLikes.add(postId);
+    }
+    const post = postsData.find(p => p.id === postId);
+    if (post) { post.liked = !liked; post.likes += liked ? -1 : 1; }
+    if (currentCityFilter) renderCityPosts(currentCityFilter);
+    else renderPosts();
+}
+
+function translatePost(postId, lang) {
+    showToast(currentLang === 'fr' ? 'Traduction bientôt disponible' : 'Translation coming soon');
+}
+
+function getPostHTML(post, idx) {
+    const cat = categories[post.category];
+    const isExpanded = expandedPostId === post.id;
+    const delay = idx !== undefined ? `animation-delay: ${idx * 0.08}s` : '';
+    return `
+    <article class="post-card spotlight-card ${isExpanded ? 'expanded' : ''}" data-post-id="${post.id}" style="${delay}">
+        <div class="post-header">
+            <img src="${post.avatar}" alt="${post.author}" class="post-avatar">
+            <div class="post-author-info">
+                <div class="post-author-name">
+                    ${post.author}
+                    <span class="post-author-country">
+                        <span class="flag-icon">${getFlagEmoji(post.countryCode)}</span>
+                        ${post.country}
+                    </span>
+                </div>
+                <div class="post-time">${post.time}</div>
+            </div>
+            <span class="post-category ${cat.class}">${t(post.category + 'Cat')}</span>
+        </div>
+        <p class="post-content">${post.content}</p>
+        <div class="post-tags">
+            ${post.tags.map(tag => `<span class="post-tag">${tag}</span>`).join('')}
+        </div>
+        <div class="post-actions">
+            <button class="action-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
+                <i class="${post.liked ? 'fas' : 'far'} fa-heart"></i>
+                <span>${post.likes}</span>
+            </button>
+            <button class="action-btn" onclick="togglePostExpand(${post.id}); setTimeout(() => { const inp = document.querySelector('.post-card[data-post-id=&quot;${post.id}&quot;] .comment-input-row input'); if(inp) inp.focus(); }, 100);">
+                <i class="far fa-comment"></i>
+                <span>${post.comments}</span>
+            </button>
+            <div class="share-dropdown">
+                <button class="action-btn" onclick="toggleShareMenu(${post.id})">
+                    <i class="far fa-share-square"></i>
+                    <span>${post.shares}</span>
+                </button>
+                <div class="share-menu" id="shareMenu${post.id}">
+                    <button class="share-menu-item" onclick="copyPostLink(${post.id})">
+                        <i class="fas fa-link"></i> ${t('copyLink')}
+                    </button>
+                    <button class="share-menu-item" onclick="shareToTwitter(${post.id})">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </button>
+                    <button class="share-menu-item" onclick="shareToWeChat(${post.id})">
+                        <i class="fab fa-weixin"></i> WeChat
+                    </button>
+                </div>
+            </div>
+            <button class="action-btn translate-btn" onclick="translatePost(${post.id})">
+                <i class="fas fa-language"></i>
+                <span>${t('translate')}</span>
+            </button>
+        </div>
+        <button class="expand-toggle" onclick="togglePostExpand(${post.id})">
+            <i class="fas fa-chevron-down"></i>
+            <span>${isExpanded ? t('hideComments') : t('showComments')}</span>
+        </button>
+        <div class="comment-section">
+            <div class="comments-list" id="comments-${post.id}">
+                ${isExpanded ? '<div style="text-align:center;padding:10px;color:var(--text-muted)">Loading comments...</div>' : ''}
+            </div>
+        </div>
+    </article>
+    `;
+}
+
+function renderPosts() {
+    const postsGrid = document.getElementById('postsGrid');
+    const storiesGrid = document.getElementById('storiesGrid');
+    if (!postsGrid) return;
+
+    const isStoriesPage = document.getElementById('storiesPage')?.classList.contains('active');
+    const targetGrid = isStoriesPage ? storiesGrid : postsGrid;
+    const gridToUse = targetGrid || postsGrid;
+
+    let filteredPosts = currentCategory === 'all'
+        ? [...postsData]
+        : postsData.filter(post => post.category === currentCategory);
+
+    if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        filteredPosts = filteredPosts.filter(post =>
+            post.content.toLowerCase().includes(q) ||
+            post.author.toLowerCase().includes(q) ||
+            post.tags.some(tag => tag.toLowerCase().includes(q)) ||
+            post.city.toLowerCase().includes(q) ||
+            post.country.toLowerCase().includes(q)
+        );
+    }
+
+    filteredPosts.sort((a, b) => b.createdAt - a.createdAt);
+
+    if (filteredPosts.length === 0) {
+        gridToUse.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-search"></i>
+                <h3>${t('noStories')}</h3>
+                <p>${searchQuery.trim() ? t('tryDifferent') : t('noPostsCategory')}</p>
+            </div>`;
+        return;
+    }
+
+    gridToUse.innerHTML = filteredPosts.map((post, i) => getPostHTML(post, i)).join('');
+}
+
+function getCityPostCount(cityId) {
+    return postsData.filter(post => post.city === cityId).length;
+}
+
+function renderCitiesGrid() {
+    const citiesGrid = document.getElementById('citiesGrid');
+    if (!citiesGrid) return;
+
+    const pairs = [];
+    for (let i = 0; i < cities.length; i += 2) {
+        pairs.push(cities.slice(i, i + 2));
+    }
+
+    citiesGrid.innerHTML = pairs.map(pair => `
+        <div class="city-pair">
+            ${pair.map(city => {
+                const count = getCityPostCount(city.id);
+                return `
+                <div class="city-card spotlight-card" data-city="${city.id}" onclick="selectCity('${city.id}')">
+                    <div class="city-card-icon">${city.icon}</div>
+                    <div class="city-card-name">${city.name}</div>
+                    <div class="city-card-english">${city.english}</div>
+                    <div class="city-card-count">
+                        <i class="fas fa-comment"></i>
+                        ${count} posts
+                    </div>
+                </div>
+                `;
+            }).join('')}
+        </div>
+    `).join('');
+}
+
+function selectCity(cityId) {
+    const city = cities.find(c => c.id === cityId);
+    if (!city) return;
+
+    currentCityFilter = cityId;
+
+    document.getElementById('citiesView').style.display = 'none';
+    document.getElementById('cityPostsView').style.display = 'block';
+    document.getElementById('cityPostsTitle').innerHTML = `Posts in <span>${city.name} (${city.english})</span>`;
+
+    document.getElementById('cityHeroBanner').innerHTML = `
+        <div class="city-icon">${city.icon}</div>
+        <h2>${city.name}</h2>
+        <div class="city-english">${city.english}</div>
+        <div class="city-stats">
+            <div class="city-stat">
+                <div class="city-stat-number">${postsData.filter(p => p.city === cityId).length}</div>
+                <div class="city-stat-label">Stories</div>
+            </div>
+            <div class="city-stat">
+                <div class="city-stat-number">${Math.floor(Math.random() * 50 + 10)}</div>
+                <div class="city-stat-label">Topics</div>
+            </div>
+        </div>
+    `;
+
+    renderCityPosts(cityId);
+}
+
+function renderCityPosts(cityId) {
+    const cityPostsGrid = document.getElementById('cityPostsGrid');
+    if (!cityPostsGrid) return;
+
+    const filteredPosts = postsData.filter(post => post.city === cityId);
+    cityPostsGrid.innerHTML = filteredPosts.map((post, i) => getPostHTML(post, i)).join('');
+}
+
+function backToCities() {
+    currentCityFilter = null;
+    document.getElementById('citiesView').style.display = 'block';
+    document.getElementById('cityPostsView').style.display = 'none';
+}
+
+function toggleExplore(show) {
+    const exploreSection = document.getElementById('exploreSection');
+    const mainContainer = document.getElementById('mainContainer');
+    const categoryFilter = document.querySelector('.category-filter');
+    const hero = document.querySelector('.hero');
+
+    document.getElementById('topicsPage').classList.remove('active');
+    document.getElementById('aboutPage').classList.remove('active');
+
+    if (show) {
+        exploreSection.classList.add('active', 'page-transition');
+        mainContainer.style.display = 'none';
+        categoryFilter.style.display = 'none';
+        hero.style.display = 'none';
+        renderCitiesGrid();
+    } else {
+        exploreSection.classList.remove('active');
+        mainContainer.style.display = 'grid';
+        categoryFilter.style.display = 'flex';
+        if (!isLoggedIn) hero.style.display = 'block';
+        else hero.style.display = 'none';
+        backToCities();
+    }
+    exploreActive = show;
+}
+
+let expandedPostId = null;
+
+function togglePostExpand(postId) {
+    const postCard = document.querySelector(`.post-card[data-post-id="${postId}"]`);
+    if (!postCard) return;
+
+    const wasExpanded = postCard.classList.contains('expanded');
+
+    document.querySelectorAll('.post-card.expanded').forEach(card => {
+        card.classList.remove('expanded');
+    });
+
+    if (wasExpanded) {
+        expandedPostId = null;
+    } else {
+        postCard.classList.add('expanded');
+        expandedPostId = postId;
+        setTimeout(() => loadCommentsIntoPost(postId), 50);
+    }
+}
+
+async function loadCommentsIntoPost(postId) {
+    const container = document.getElementById(`comments-${postId}`);
+    if (!container) return;
+    const comments = await loadCommentsForPost(postId);
+    if (comments.length === 0) {
+        container.innerHTML = `<div style="text-align:center;padding:12px;color:var(--text-muted);font-size:0.85rem">${currentLang === 'fr' ? 'Pas encore de commentaires' : 'No comments yet'}</div>`;
+    } else {
+        container.innerHTML = comments.map(c => `
+            <div class="comment">
+                <div class="comment-avatar"><img src="${c.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest'}" style="width:36px;height:36px;border-radius:50%;object-fit:cover"></div>
+                <div class="comment-content">
+                    <div class="comment-author">${c.profiles?.name || 'Guest'} <span>${getFlagEmoji(c.profiles?.country_code || 'UN')}</span></div>
+                    <div class="comment-text">${c.content}</div>
+                </div>
             </div>
         `).join('');
-    };
+    }
+    container.innerHTML += `
+        <div class="comment-input-row">
+            <input type="text" placeholder="${t('writeComment')}" onkeydown="if(event.key==='Enter') addComment(${postId}, this)">
+            <button onclick="addComment(${postId}, this.previousElementSibling)">${t('send')}</button>
+        </div>`;
+}
 
-    window.handleNotificationClick = function(notifId, projectLink) {
-        const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
-        const notif = notifications.find(n => n.id === notifId);
-        if (notif) {
-            notif.read = true;
-            localStorage.setItem('notifications', JSON.stringify(notifications));
+function toggleShareMenu(postId) {
+    const menu = document.getElementById(`shareMenu${postId}`);
+    document.querySelectorAll('.share-menu').forEach(m => {
+        if (m !== menu) m.classList.remove('active');
+    });
+    menu.classList.toggle('active');
+}
+
+function copyPostLink(postId) {
+    const baseUrl = 'https://chris-topher-code.github.io/community/';
+    const url = baseUrl + '#post-' + postId;
+    navigator.clipboard.writeText(url).then(() => {
+        showToast('Link copied to clipboard! 📋');
+    }).catch(() => {
+        showToast('Link copied! 📋');
+    });
+    document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
+}
+
+function shareToTwitter(postId) {
+    const post = postsData.find(p => p.id === postId);
+    if (post) {
+        const text = encodeURIComponent(post.content.substring(0, 100) + '...');
+        const baseUrl = 'https://chris-topher-code.github.io/community/';
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(baseUrl + '#post-' + postId)}`, '_blank');
+    }
+    document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
+}
+
+function shareToWeChat(postId) {
+    showToast(t('wechatShare') + ' 📱');
+    copyPostLink(postId);
+}
+
+async function addComment(postId, inputEl) {
+    const text = inputEl.value.trim();
+    if (!text) return;
+    if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour commenter' : 'Please sign in to comment'); return; }
+    const { error } = await supabaseClient.from('comments').insert({ post_id: postId, user_id: currentUser.id, content: text });
+    if (error) { showToast('Error posting comment'); return; }
+    inputEl.value = '';
+    showToast(t('commentPosted') + ' 💬');
+    await loadPosts();
+}
+
+async function loadCommentsForPost(postId) {
+    const { data } = await supabaseClient
+        .from('comments')
+        .select('*, profiles(name, avatar_url, country_code)')
+        .eq('post_id', postId)
+        .order('created_at', { ascending: true });
+    return data || [];
+}
+
+function highlightNavLink(pageName) {
+    const allLinks = document.querySelectorAll('.nav-links a[data-nav], #mobileNav a[data-nav], .mobile-bottom-nav a[data-nav]');
+    allLinks.forEach(l => l.classList.remove('active'));
+    allLinks.forEach(l => {
+        if (pageName === 'home' && (l.dataset.nav === 'home')) l.classList.add('active');
+        else if (l.dataset.nav === pageName) l.classList.add('active');
+    });
+}
+
+function navigateTo(page) {
+    ['topicsPage', 'aboutPage', 'profilePage', 'newPostPage', 'storiesPage'].forEach(p => {
+        const el = document.getElementById(p);
+        if (el) el.classList.remove('active');
+    });
+
+    const mainContainer = document.getElementById('mainContainer');
+    const categoryFilter = document.querySelector('.category-filter');
+    const hero = document.querySelector('.hero');
+
+    if (page === 'explore') {
+        toggleExplore(true);
+        highlightNavLink('explore');
+        closeMobileNav();
+        return;
+    }
+
+    toggleExplore(false);
+
+    if (page === 'topics') {
+        const topicsEl = document.getElementById('topicsPage');
+        topicsEl.classList.add('active', 'page-transition');
+        mainContainer.style.display = 'none';
+        categoryFilter.style.display = 'none';
+        hero.style.display = 'none';
+        document.querySelector('.footer').style.display = 'none';
+        setTimeout(() => {
+            const el = document.getElementById('topicsHero');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+    } else if (page === 'stories') {
+        const storiesEl = document.getElementById('storiesPage');
+        if (storiesEl) {
+            storiesEl.classList.add('active', 'page-transition');
+            mainContainer.style.display = 'none';
+            categoryFilter.style.display = 'none';
+            hero.style.display = 'none';
+            document.querySelector('.footer').style.display = 'none';
+            const storiesSidebar = storiesEl.querySelector('.sidebar');
+            if (storiesSidebar) storiesSidebar.style.display = 'block';
+            setTimeout(() => {
+                storiesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+            renderPosts();
         }
-        updateNotificationBadge();
-        navigate('project-detail', projectLink);
-    };
-
-    window.updateNotificationBadge = function() {
-        const badge = document.getElementById('notificationBadge');
-        if (!badge) return;
-        if (!currentUser) {
-            badge.style.display = 'none';
-            return;
+    } else if (page === 'about') {
+        const aboutEl = document.getElementById('aboutPage');
+        aboutEl.classList.add('active', 'page-transition');
+        mainContainer.style.display = 'none';
+        categoryFilter.style.display = 'none';
+        hero.style.display = 'none';
+        document.querySelector('.footer').style.display = 'none';
+        setTimeout(() => {
+            const el = document.getElementById('aboutHero');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+    } else if (page === 'profile') {
+        const profileEl = document.getElementById('profilePage');
+        profileEl.classList.add('active', 'page-transition');
+        mainContainer.style.display = 'none';
+        categoryFilter.style.display = 'none';
+        hero.style.display = 'none';
+        document.querySelector('.footer').style.display = 'none';
+        loadProfile();
+        switchProfileTab('myposts');
+        setTimeout(() => {
+            profileEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+    } else if (page === 'newpost') {
+        const newPostEl = document.getElementById('newPostPage');
+        newPostEl.classList.add('active', 'page-transition');
+        mainContainer.style.display = 'none';
+        categoryFilter.style.display = 'none';
+        hero.style.display = 'none';
+        document.querySelector('.footer').style.display = 'none';
+        if (currentUser) {
+            document.getElementById('newPostAvatar').src = currentUser.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
         }
-
-        const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
-        const unread = notifications.filter(n => n.user_id === currentUser.id && !n.read).length;
-
-        if (unread > 0) {
-            badge.textContent = unread > 99 ? '99+' : unread;
-            badge.style.display = 'block';
+        setTimeout(() => {
+            newPostEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('postContent').focus();
+        }, 50);
+    } else {
+        // home page
+        document.querySelector('.footer').style.display = 'block';
+        if (isLoggedIn) {
+            hero.style.display = 'none';
+            mainContainer.style.display = 'grid';
+            categoryFilter.style.display = 'flex';
+            document.getElementById('welcomeBanner').style.display = 'block';
         } else {
-            badge.style.display = 'none';
+            hero.style.display = 'block';
+            mainContainer.style.display = 'none';
+            categoryFilter.style.display = 'none';
+            document.getElementById('welcomeBanner').style.display = 'none';
         }
+    }
+
+    highlightNavLink(page);
+    closeMobileNav();
+}
+
+function filterByTopic(category) {
+    navigateTo('stories');
+    currentCategory = category;
+    categoryPills.forEach(p => p.classList.remove('active'));
+    const matchingPill = document.querySelector(`.category-pill[data-category="${category}"]`);
+    if (matchingPill) {
+        matchingPill.classList.add('active');
+    } else {
+        document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+        currentCategory = 'all';
+        showToast(`Browsing "${category}" topic 🔍`);
+    }
+    renderPosts();
+}
+
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileNav = document.getElementById('mobileNav');
+
+function toggleMobileNav() {
+    mobileNav.classList.toggle('active');
+    const icon = mobileMenuBtn.querySelector('i');
+    if (mobileNav.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
+}
+
+function closeMobileNav() {
+    mobileNav.classList.remove('active');
+    const icon = mobileMenuBtn.querySelector('i');
+    icon.classList.remove('fa-times');
+    icon.classList.add('fa-bars');
+}
+
+mobileMenuBtn.addEventListener('click', toggleMobileNav);
+
+document.addEventListener('click', (e) => {
+    if (!mobileNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        closeMobileNav();
+    }
+    if (!e.target.closest('.share-dropdown')) {
+        document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
+    }
+});
+
+const loginBtn = document.getElementById('loginBtn');
+const registerBtn = document.getElementById('registerBtn');
+const authModal = document.getElementById('authModal');
+const modalClose = document.getElementById('modalClose');
+const modalTabs = document.querySelectorAll('.modal-tab');
+const modalTitle = document.getElementById('modalTitle');
+const modalSubtitle = document.getElementById('modalSubtitle');
+const submitBtn = document.getElementById('submitBtn');
+const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+const countryGroup = document.getElementById('countryGroup');
+const identityGroup = document.getElementById('identityGroup');
+const identityCards = document.querySelectorAll('.identity-card');
+
+let currentTab = 'login';
+
+function openModal(tab) {
+    currentTab = tab;
+    authModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    modalTabs.forEach(t => t.classList.remove('active'));
+    document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+
+    if (tab === 'login') {
+        modalTitle.textContent = t('welcomeBackTitle');
+        modalSubtitle.textContent = t('loginSubtitle');
+        submitBtn.textContent = t('logIn');
+        confirmPasswordGroup.style.display = 'none';
+        countryGroup.style.display = 'none';
+        identityGroup.style.display = 'none';
+    } else {
+        modalTitle.textContent = t('joinCommunity');
+        modalSubtitle.textContent = t('registerSubtitle');
+        submitBtn.textContent = t('createAccount');
+        confirmPasswordGroup.style.display = 'block';
+        countryGroup.style.display = 'block';
+        identityGroup.style.display = 'block';
+    }
+}
+
+function closeModal() {
+    authModal.classList.remove('active');
+    document.body.style.overflow = '';
+    document.getElementById('emailInput').value = '';
+    document.getElementById('passwordInput').value = '';
+}
+
+function openNewPostModal() {
+    if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); return; }
+    navigateTo('newpost');
+}
+
+function closeNewPostModal() {
+    navigateTo('home');
+    document.getElementById('postContent').value = '';
+    removeImage();
+    updateCharCount(document.getElementById('postContent'));
+}
+
+function updateCharCount(textarea) {
+    const count = textarea.value.length;
+    const el = document.getElementById('charCount');
+    if (!el) return;
+    el.textContent = `${count} / 5000`;
+    el.className = 'char-count' + (count > 4500 ? (count > 4900 ? ' danger' : ' warning') : '');
+}
+
+let selectedImageFile = null;
+
+function previewImage(input) {
+    const file = input.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { showToast('Image too large (max 5MB)'); return; }
+    selectedImageFile = file;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const preview = document.getElementById('imagePreview');
+        document.getElementById('previewImg').src = e.target.result;
+        preview.style.display = 'block';
     };
+    reader.readAsDataURL(file);
+}
 
-    window.loadUserWall = function(userId) {
-        const container = document.getElementById('user-wall-content');
-        container.innerHTML = '<div class="loading visible">Loading...</div>';
+function removeImage() {
+    selectedImageFile = null;
+    const preview = document.getElementById('imagePreview');
+    if (preview) { preview.style.display = 'none'; document.getElementById('previewImg').src = ''; }
+    const upload = document.getElementById('imageUpload');
+    if (upload) upload.value = '';
+}
 
-        const getProfile = async () => {
-            try {
-                const { data } = await fetchApi('/rest/v1/profiles?select=*&id=eq.' + encodeURIComponent(userId) + '&limit=1');
-                if (data && data.length > 0) return data[0];
-            } catch(e) {}
-            const localProfiles = JSON.parse(localStorage.getItem('profiles') || '[]');
-            return localProfiles.find(p => p.id === userId) || null;
-        };
+loginBtn.addEventListener('click', () => openModal('login'));
+registerBtn.addEventListener('click', () => openModal('register'));
+modalClose.addEventListener('click', closeModal);
 
-        getProfile().then(profile => {
-            if (!profile) {
-                container.innerHTML = '<div class="empty-state"><h3>User Not Found</h3></div>';
-                return;
+authModal.addEventListener('click', (e) => {
+    if (e.target === authModal) closeModal();
+});
+
+modalTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        openModal(tab.dataset.tab);
+    });
+});
+
+identityCards.forEach(card => {
+    card.addEventListener('click', () => {
+        identityCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+    });
+});
+
+document.getElementById('authForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value;
+    const password = document.getElementById('passwordInput').value;
+
+    if (!email || !password) return;
+
+    if (currentTab === 'register') {
+        const countrySelect = document.getElementById('countrySelect');
+        const selectedIdentity = document.querySelector('.identity-card.selected');
+        const name = email.split('@')[0];
+        const { data, error } = await supabaseClient.auth.signUp({
+            email, password,
+            options: { data: { name, country: countrySelect?.value || 'UN', identity: selectedIdentity?.querySelector('span')?.textContent || 'Member' } }
+        });
+        if (error) { showToast(error.message); return; }
+        showToast(t('welcomeGuest') + ' 🎉');
+    } else {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) { showToast(error.message); return; }
+        showToast(t('welcomeGuest') + ' 🎉');
+    }
+    closeModal();
+    await checkSession();
+});
+
+async function checkSession() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+        isLoggedIn = true;
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', user.id).single();
+        currentUser = profile || { id: user.id, name: user.user_metadata?.name || user.email.split('@')[0], avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest', country: 'Unknown', country_code: 'UN', identity: 'Member' };
+        const welcomeEl = document.querySelector('.welcome-greeting');
+        if (welcomeEl && currentUser) {
+            const userName = currentUser.name || currentUser.email?.split('@')[0] || 'User';
+            welcomeEl.textContent = `Welcome back, ${userName}! 👋`;
+        }
+        document.body.classList.add('logged-in');
+        const hero = document.querySelector('.hero');
+        if (hero) hero.style.display = 'none';
+        const mainContainer = document.getElementById('mainContainer');
+        if (mainContainer) mainContainer.style.display = 'grid';
+        const categoryFilter = document.querySelector('.category-filter');
+        if (categoryFilter) categoryFilter.style.display = 'flex';
+        const welcomeBanner = document.getElementById('welcomeBanner');
+        if (welcomeBanner) welcomeBanner.style.display = 'block';
+        const footer = document.querySelector('.footer');
+        if (footer) footer.style.display = 'block';
+        window.scrollTo({ top: 0 });
+        document.getElementById('profileBtn').querySelector('img').src = currentUser.avatar_url;
+        document.getElementById('mobileProfileLink').style.display = 'block';
+        document.getElementById('mobileSignOutLink').style.display = 'block';
+    } else {
+        isLoggedIn = false;
+        currentUser = null;
+        document.body.classList.remove('logged-in');
+        const hero = document.querySelector('.hero');
+        if (hero) hero.style.display = 'block';
+        document.getElementById('mobileProfileLink').style.display = 'none';
+        document.getElementById('mobileSignOutLink').style.display = 'none';
+    }
+    await loadPosts();
+    applyTranslations();
+    document.body.classList.remove('loading');
+    highlightNavLink('home');
+}
+
+checkSession();
+// Failsafe: remove loading class after 5 seconds even if checkSession hangs
+setTimeout(() => document.body.classList.remove('loading'), 5000);
+
+supabaseClient.auth.onAuthStateChange((event, session) => {
+    checkSession();
+});
+
+// Handle deep linking: #post-123
+window.addEventListener('hashchange', handleHashChange);
+function handleHashChange() {
+    const hash = window.location.hash;
+    if (hash.startsWith('#post-')) {
+        const postId = parseInt(hash.replace('#post-', ''));
+        if (!isNaN(postId)) {
+            const postEl = document.querySelector(`.post-card[data-post-id="${postId}"]`);
+            if (postEl) {
+                navigateTo('home');
+                setTimeout(() => {
+                    togglePostExpand(postId);
+                    postEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
             }
-
-            const wallMessages = JSON.parse(localStorage.getItem('wallMessages') || '[]').filter(m => m.to_user_id === userId);
-            const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-            const receivedReviews = reviews.filter(r => r.target_id === userId);
-            const givenReviews = reviews.filter(r => r.reviewer_id === userId);
-            const allProjects = JSON.parse(localStorage.getItem('projects') || '[]');
-            const postedProjects = allProjects.filter(p => p.requester_id === userId);
-            const completedAsRequester = postedProjects.filter(p => p.status === 'completed');
-            const completedAsReceiver = allProjects.filter(p => (p.receiver_ids || []).includes(userId) && p.status === 'completed');
-            const avgRating = receivedReviews.length > 0 ? (receivedReviews.reduce((s, r) => s + r.rating, 0) / receivedReviews.length).toFixed(1) : 'N/A';
-            const isOwnProfile = currentUser && currentUser.id === userId;
-
-            const roleLabel = profile.role === 'receiver' ? '接单者 / Receiver' : '发单者 / Requester';
-            const roleColor = profile.role === 'receiver' ? 'var(--success)' : 'var(--accent-secondary)';
-
-            const renderStars = (rating) => {
-                return '★'.repeat(rating) + '☆'.repeat(5 - rating);
-            };
-
-            container.innerHTML = `
-                <div class="card">
-                    <button class="back-btn" onclick="goBack()" style="margin-bottom: 1rem;">← 返回</button>
-                    <div class="profile-header">
-                        <div class="profile-avatar">${(profile.username || 'U').charAt(0).toUpperCase()}</div>
-                        <h1>${escapeHtml(profile.username || 'User')}</h1>
-                        <p style="color: var(--text-muted);">${escapeHtml(profile.email || '')}</p>
-                        <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 0.75rem; flex-wrap: wrap;">
-                            <span class="status-badge" style="background: ${roleColor}22; color: ${roleColor};">${roleLabel}</span>
-                            <span class="status-badge" style="background: rgba(234, 179, 8, 0.15); color: #eab308;">⭐ ${avgRating} · ${receivedReviews.length} 条评价</span>
-                        </div>
-                        <div style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">${postedProjects.length}</div>
-                                <div style="font-size: 0.75rem; color: var(--text-muted);">发布项目</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--success);">${completedAsRequester.length + completedAsReceiver.length}</div>
-                                <div style="font-size: 0.75rem; color: var(--text-muted);">已完成</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-secondary);">${givenReviews.length}</div>
-                                <div style="font-size: 0.75rem; color: var(--text-muted);">发出评价</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project History -->
-                <div class="card">
-                    <h2>📋 项目历史 / Project History</h2>
-                    ${postedProjects.length === 0 ? '<p style="color: var(--text-muted);">暂无项目记录</p>' : `
-                        <div class="projects-grid">
-                            ${postedProjects.map(p => `
-                                <div class="project-card" onclick="viewProject('${p.id}')">
-                                    <div class="project-card-header">
-                                        <h3>${escapeHtml(p.title)}</h3>
-                                    </div>
-                                    <p class="project-desc">${escapeHtml((p.description || '').substring(0, 80))}${(p.description || '').length > 80 ? '...' : ''}</p>
-                                    <div class="project-card-footer">
-                                        <span class="badge badge-${p.status === 'open' ? 'open' : p.status === 'in_progress' ? 'progress' : 'done'}">${p.status === 'open' ? '进行中' : p.status === 'in_progress' ? '进行中' : '已完成'}</span>
-                                        <span class="budget">💰 ${escapeHtml(p.budget || '待定')}</span>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `}
-                </div>
-
-                <!-- Reviews / Received -->
-                <div class="card">
-                    <h2>⭐ 收到的评价 / Reviews Received</h2>
-                    ${receivedReviews.length === 0 ? '<p style="color: var(--text-muted);">暂无评价</p>' : receivedReviews.map(r => `
-                        <div class="comment-item">
-                            <div class="header">
-                                <span class="author" style="cursor: pointer;" onclick="navigate('user-wall', '${r.reviewer_id}')">${escapeHtml(r.reviewer_name)}</span>
-                                <span class="time">${new Date(r.created_at).toLocaleDateString()}</span>
-                            </div>
-                            <div style="color: #eab308; margin-bottom: 0.5rem;">${renderStars(r.rating)}</div>
-                            <div class="content">${escapeHtml(r.content)}</div>
-                        </div>
-                    `).join('')}
-                </div>
-
-                <!-- Reviews / Given -->
-                <div class="card">
-                    <h2>✍️ 发出的评价 / Reviews Given</h2>
-                    ${givenReviews.length === 0 ? '<p style="color: var(--text-muted);">暂无评价</p>' : givenReviews.map(r => `
-                        <div class="comment-item">
-                            <div class="header">
-                                <span class="author" style="cursor: pointer;" onclick="navigate('user-wall', '${r.target_id}')">→ ${escapeHtml(r.target_name)}</span>
-                                <span class="time">${new Date(r.created_at).toLocaleDateString()}</span>
-                            </div>
-                            <div style="color: #eab308; margin-bottom: 0.5rem;">${renderStars(r.rating)}</div>
-                            <div class="content">${escapeHtml(r.content)}</div>
-                        </div>
-                    `).join('')}
-                </div>
-
-                <!-- Message Wall -->
-                <div class="card">
-                    <h2>💬 留言墙 / Message Wall</h2>
-                    <div id="wall-messages-list">
-                        ${wallMessages.length === 0 ? '<p style="color: var(--text-muted);">暂无留言，来留个言吧！</p>' : wallMessages.map(m => `
-                            <div class="wall-message">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                    <span style="color: var(--accent); font-weight: 600; cursor: pointer;" onclick="navigate('user-wall', '${m.from_user_id}')">${escapeHtml(m.from_username)}</span>
-                                    <span style="color: var(--text-muted); font-size: 0.8rem;">${new Date(m.created_at).toLocaleString()}</span>
-                                </div>
-                                <div style="color: var(--text-primary);">${escapeHtml(m.content)}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    ${!isOwnProfile ? `
-                        <form onsubmit="event.preventDefault(); addWallMessage('${userId}');" style="margin-top: 1rem;">
-                            <textarea id="wall-message-input" rows="3" placeholder="Leave a message..." class="form-control" required></textarea>
-                            <button type="submit" class="btn btn-sm" style="margin-top: 0.5rem;">Post Message</button>
-                        </form>
-                    ` : '<p style="color: var(--text-muted); margin-top: 1rem;">这是你的个人主页。</p>'}
-                </div>
-            `;
-        }).catch(e => {
-            container.innerHTML = '<div class="empty-state"><h3>Error</h3><p>' + escapeHtml(e.message) + '</p></div>';
-        });
-    };
-
-    window.addWallMessage = function(toUserId) {
-        const input = document.getElementById('wall-message-input');
-        const content = input.value.trim();
-        if (!content || !currentUser) return;
-
-        const wallMessages = JSON.parse(localStorage.getItem('wallMessages') || '[]');
-        wallMessages.push({
-            id: Date.now().toString(),
-            from_user_id: currentUser.id,
-            from_username: currentProfile?.username || currentUser.email,
-            to_user_id: toUserId,
-            content: content,
-            created_at: new Date().toISOString()
-        });
-        localStorage.setItem('wallMessages', JSON.stringify(wallMessages));
-        showToast('Message posted!', 'success');
-        loadUserWall(toUserId);
-    };
-
-    function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
+        }
     }
+}
 
-    // Type card selection handler
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.type-card').forEach(function(card) {
-            card.addEventListener('click', function(e) {
-                if (e.target.tagName === 'INPUT') return;
-                const radio = this.querySelector('input[type="radio"]');
-                if (radio) {
-                    document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
-                    this.classList.add('selected');
-                    radio.checked = true;
-                }
-            });
-        });
+// Initial hash check handled in loadPosts() after posts are ready
+
+document.getElementById('newPostForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const content = document.getElementById('postContent').value.trim();
+    let category = document.getElementById('postTopic').value || document.getElementById('postCategory').value;
+    const city = document.getElementById('postCity')?.value || 'unknown';
+    if (!content) return;
+    if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); return; }
+    const { error } = await supabaseClient.from('posts').insert({
+        user_id: currentUser.id,
+        content,
+        category,
+        city
     });
+    if (error) { showToast('Error posting'); return; }
+    document.getElementById('postContent').value = '';
+    removeImage();
+    navigateTo('home');
+    await loadPosts();
+    showToast(t('postShared') + ' 🎉');
+});
 
-    supabase.auth.onAuthStateChange((event, session) => {
-        if (event === 'SIGNED_IN' && session) {
-            currentUser = session.user;
-            loadCurrentUser();
-        } else if (event === 'SIGNED_OUT') {
-            currentUser = null;
-            currentProfile = null;
-            updateNavForAuth();
+function handleNavClick(navTarget) {
+    if (navTarget === 'home') {
+        currentCategory = 'all';
+        categoryPills.forEach(p => p.classList.remove('active'));
+        document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+        navigateTo('home');
+        renderPosts();
+    } else if (navTarget === 'stories') {
+        currentCategory = 'all';
+        categoryPills.forEach(p => p.classList.remove('active'));
+        document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+        navigateTo('stories');
+        renderPosts();
+    } else if (navTarget === 'explore') {
+        navigateTo('explore');
+    } else if (navTarget === 'newpost') {
+        currentCategory = 'all';
+        categoryPills.forEach(p => p.classList.remove('active'));
+        document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+        navigateTo('home');
+        renderPosts();
+    } else if (navTarget === 'topics') {
+        navigateTo('topics');
+    } else if (navTarget === 'about') {
+        navigateTo('about');
+    } else if (navTarget === 'profile') {
+        navigateTo('profile');
+    }
+}
+
+const allNavLinks = document.querySelectorAll('.nav-links a[data-nav], #mobileNav a[data-nav], .mobile-bottom-nav a[data-nav]');
+allNavLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleNavClick(link.dataset.nav);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
+
+const categoryPills = document.querySelectorAll('.category-pill');
+categoryPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+        const isStoriesPage = document.getElementById('storiesPage')?.classList.contains('active');
+        if (isStoriesPage) {
+            document.querySelectorAll('#storiesPage .category-pill').forEach(p => p.classList.remove('active'));
+        } else {
+            categoryPills.forEach(p => p.classList.remove('active'));
+        }
+        pill.classList.add('active');
+        currentCategory = pill.dataset.category;
+        renderPosts();
+    });
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        if (authModal.classList.contains('active')) closeModal();
+        const npPage = document.getElementById('newPostPage');
+        if (npPage && npPage.classList.contains('active')) closeNewPostModal();
+    }
+});
+
+let lastScrollTop = 0;
+const navbar = document.querySelector('.navbar');
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > 50) {
+        navbar.style.background = 'rgba(10, 10, 26, 0.95)';
+    } else {
+        navbar.style.background = 'rgba(10, 10, 26, 0.8)';
+    }
+    lastScrollTop = scrollTop;
+});
+
+const searchInput = document.querySelector('.search-container input');
+searchInput.addEventListener('focus', () => {
+    searchInput.parentElement.style.transform = 'scale(1.02)';
+});
+searchInput.addEventListener('blur', () => {
+    searchInput.parentElement.style.transform = 'scale(1)';
+});
+searchInput.addEventListener('input', () => {
+    searchQuery = searchInput.value;
+    renderPosts();
+});
+searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        searchQuery = searchInput.value;
+        navigateTo('home');
+        renderPosts();
+        if (searchQuery.trim()) {
+            showToast(`Searching for "${searchQuery}" 🔍`);
+        }
+    }
+});
+
+const categoryMapping = {
+    'Best districts in Shanghai': 'travel',
+    'Visa policy updates 2026': 'work',
+    'Chinese learning resources': 'study',
+    'Affordable healthcare tips': 'life',
+    'Remote work in China': 'work'
+};
+
+const trendingListItems = document.querySelectorAll('.trending-list .trending-item');
+trendingListItems.forEach(item => {
+    item.addEventListener('click', () => {
+        const number = item.querySelector('.trending-number');
+        if (!number) return;
+        const title = item.querySelector('.trending-title').textContent;
+        const category = categoryMapping[title];
+        if (category) {
+            navigateTo('home');
+            showToast(`Showing: ${title} 🔍`);
+            currentCategory = category;
+            categoryPills.forEach(p => p.classList.remove('active'));
+            const matchingPill = document.querySelector(`.category-pill[data-category="${category}"]`);
+            if (matchingPill) matchingPill.classList.add('active');
+            renderPosts();
         }
     });
+});
 
-    loadCurrentUser();
+/* ===== Micro-interactions ===== */
 
-    // Initialize demo profiles (always overwrite for demo)
-    {
-        const demoProfiles = [
-            { id: 'demo-requester-1', username: '张经理', role: 'requester', email: 'zhang@example.com' },
-            { id: 'demo-requester-2', username: '李设计师', role: 'requester', email: 'li@example.com' },
-            { id: 'demo-requester-3', username: '王总', role: 'requester', email: 'wang@example.com' },
-            { id: 'demo-requester-4', username: '陈营销', role: 'requester', email: 'chen@example.com' },
-            { id: 'demo-requester-5', username: '刘数据', role: 'requester', email: 'liu@example.com' },
-            { id: 'demo-requester-6', username: '赵老板', role: 'requester', email: 'zhao@example.com' },
-            { id: 'demo-requester-7', username: '孙创意', role: 'requester', email: 'sun@example.com' },
-            { id: 'demo-requester-8', username: '周运营', role: 'requester', email: 'zhou@example.com' },
-            { id: 'demo-receiver-1', username: '开发者小王', role: 'receiver', email: 'dev@example.com' },
-            { id: 'demo-receiver-2', username: '剪辑师小李', role: 'receiver', email: 'editor@example.com' },
-            { id: 'demo-receiver-3', username: '设计师小张', role: 'receiver', email: 'designer@example.com' }
-        ];
-        localStorage.setItem('profiles', JSON.stringify(demoProfiles));
+// 1. Navbar shrink on scroll
+const navbarEl = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+        navbarEl.classList.add('shrink');
+    } else {
+        navbarEl.classList.remove('shrink');
     }
+}, { passive: true });
 
-    // Always reset demo projects for fresh start
-    const demoProjects = [
-        {
-            id: 'demo-1',
-            title: '企业官网前端开发',
-            description: '需要开发一个响应式企业官网，使用React+TailwindCSS，包含首页、关于我们、产品服务、联系我们等页面。要求设计现代简洁，符合企业形象。需要响应式布局，兼容手机和平板。',
-            budget: '¥8,000-12,000',
-            deadline: '2026年6月30日',
-            contact: '微信：corp_web',
-            status: 'open',
-            project_type: '单人项目',
-            requester_id: 'demo-requester-1',
-            requester_name: '张经理',
-            created_at: new Date(Date.now() - 86400000 * 2).toISOString()
-        },
-        {
-            id: 'demo-2',
-            title: '移动端App UI设计',
-            description: '设计一款健身记录App的UI原型，包含首页、运动记录、社区、我的 四个主要Tab。需要提供Figma高保真原型和完整设计源文件，要求现代简约风格。',
-            budget: '¥5,000-8,000',
-            deadline: '2026年6月15日',
-            contact: '邮箱：design@fitapp.com',
-            status: 'open',
-            project_type: '单人项目',
-            requester_id: 'demo-requester-2',
-            requester_name: '李设计师',
-            created_at: new Date(Date.now() - 86400000).toISOString()
-        },
-        {
-            id: 'demo-3',
-            title: '电商后台管理系统开发',
-            description: '开发一个电商后台管理系统，包含商品管理、订单管理、用户管理、数据统计等功能。需要Node.js后端+React前端，数据库使用PostgreSQL。需要API文档和单元测试。',
-            budget: '¥15,000-25,000',
-            deadline: '2026年7月15日',
-            contact: '微信：ecom_admin',
-            status: 'in_progress',
-            project_type: '多人项目',
-            requester_id: 'demo-requester-3',
-            requester_name: '王总',
-            receiver_ids: ['demo-receiver-1'],
-            created_at: new Date(Date.now() - 86400000 * 5).toISOString()
-        },
-        {
-            id: 'demo-4',
-            title: '产品宣传视频剪辑',
-            description: '需要将一段20分钟的产品宣传视频剪辑成3分钟的精华版，配合字幕、配乐和转场效果。要求专业剪辑，节奏感强，符合品牌调性。',
-            budget: '¥2,000-3,500',
-            deadline: '2026年5月20日',
-            contact: '邮箱：video@brand.com',
-            status: 'completed',
-            project_type: '单人项目',
-            requester_id: 'demo-requester-4',
-            requester_name: '陈营销',
-            receiver_ids: ['demo-receiver-2'],
-            created_at: new Date(Date.now() - 86400000 * 10).toISOString()
-        },
-        {
-            id: 'demo-5',
-            title: 'Python数据爬虫开发',
-            description: '需要爬取多个电商平台的商品价格数据，支持定时任务、数据导出Excel功能。需要处理反爬机制，数据存储到MySQL数据库。',
-            budget: '¥3,000-5,000',
-            deadline: '2026年6月10日',
-            contact: '微信：data_spider',
-            status: 'open',
-            project_type: '单人项目',
-            requester_id: 'demo-requester-5',
-            requester_name: '刘数据',
-            created_at: new Date(Date.now() - 86400000 * 3).toISOString()
-        },
-        {
-            id: 'demo-6',
-            title: '小程序商城开发',
-            description: '开发一个微信小程序商城，包含商品展示、购物车、订单管理、支付功能。需要uni-app开发，适配微信和支付宝小程序。',
-            budget: '¥10,000-15,000',
-            deadline: '2026年7月1日',
-            contact: '邮箱：minipro@shop.com',
-            status: 'open',
-            project_type: '多人项目',
-            requester_id: 'demo-requester-6',
-            requester_name: '赵老板',
-            created_at: new Date(Date.now() - 86400000 * 4).toISOString()
-        },
-        {
-            id: 'demo-7',
-            title: 'Logo和品牌视觉设计',
-            description: '为一家新创立的咖啡品牌设计Logo和全套VI系统，包含名片、信封、工牌、包装等。要求简约现代，有品牌特色。',
-            budget: '¥4,000-6,000',
-            deadline: '2026年6月25日',
-            contact: '微信：cafe_brand',
-            status: 'in_progress',
-            project_type: '单人项目',
-            requester_id: 'demo-requester-7',
-            requester_name: '孙创意',
-            receiver_ids: ['demo-receiver-3'],
-            created_at: new Date(Date.now() - 86400000 * 7).toISOString()
-        },
-        {
-            id: 'demo-8',
-            title: 'SEO优化与推广方案',
-            description: '为一个资讯类网站提供SEO优化方案，包括关键词分析、内容优化、外链建设、技术SEO等。需要提供详细执行计划和预期效果。',
-            budget: '¥5,000-8,000',
-            deadline: '2026年6月5日',
-            contact: '邮箱：seo@news.com',
-            status: 'open',
-            project_type: '单人项目',
-            requester_id: 'demo-requester-8',
-            requester_name: '周运营',
-            created_at: new Date(Date.now() - 86400000 * 1).toISOString()
+// 2. Nav sliding indicator
+function updateNavIndicator() {
+    const activeLink = document.querySelector('.nav-links a.active');
+    const indicator = document.getElementById('navIndicator');
+    if (activeLink && indicator) {
+        indicator.style.left = activeLink.parentElement.offsetLeft + 'px';
+        indicator.style.width = activeLink.offsetWidth + 'px';
+    }
+}
+setTimeout(updateNavIndicator, 100);
+const origHighlightNavLink = highlightNavLink;
+highlightNavLink = function(page) {
+    origHighlightNavLink(page);
+    setTimeout(updateNavIndicator, 50);
+};
+
+// 3. Hero parallax blobs follow mouse
+const heroEl = document.querySelector('.hero');
+if (heroEl) {
+    heroEl.addEventListener('mousemove', (e) => {
+        const rect = heroEl.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        const blobs = heroEl.querySelectorAll('.blob');
+        blobs.forEach((blob, i) => {
+            const speed = (i + 1) * 15;
+            blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+        });
+    });
+}
+
+// 4. Cursor spotlight glow on cards
+document.addEventListener('mousemove', (e) => {
+    document.querySelectorAll('.spotlight-card').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mx', x + 'px');
+        card.style.setProperty('--my', y + 'px');
+        if (card.querySelector('::after') !== null) {
+            // CSS handles it via custom property
         }
-    ];
-    // Always overwrite projects for demo
-    {
-        localStorage.setItem('projects', JSON.stringify(demoProjects));
-    }
+    });
+});
+// Inject CSS for spotlight custom property
+const spotlightStyle = document.createElement('style');
+spotlightStyle.textContent = `.spotlight-card::after { left: var(--mx, 50%); top: var(--my, 50%); }`;
+document.head.appendChild(spotlightStyle);
 
-    // Seed demo wall messages (always overwrite for demo)
-    {
-        const demoWallMessages = [
-            { id: 'wm-1', from_user_id: 'demo-receiver-1', from_username: '开发者小王', to_user_id: 'demo-requester-1', content: '张经理，上次的官网项目合作非常愉快！代码质量您还满意吗？', created_at: new Date(Date.now() - 86400000 * 15).toISOString() },
-            { id: 'wm-2', from_user_id: 'demo-requester-1', from_username: '张经理', to_user_id: 'demo-receiver-1', content: '非常满意！代码规范、文档齐全，下次有项目还找你！👍', created_at: new Date(Date.now() - 86400000 * 14).toISOString() },
-            { id: 'wm-3', from_user_id: 'demo-requester-3', from_username: '王总', to_user_id: 'demo-receiver-1', content: '小王，后台管理系统开发进度如何？有什么问题随时沟通。', created_at: new Date(Date.now() - 86400000 * 3).toISOString() },
-            { id: 'wm-4', from_user_id: 'demo-receiver-1', from_username: '开发者小王', to_user_id: 'demo-requester-3', content: '王总放心，已完成70%，预计下周可以交付测试版。', created_at: new Date(Date.now() - 86400000 * 2).toISOString() },
-            { id: 'wm-5', from_user_id: 'demo-requester-4', from_username: '陈营销', to_user_id: 'demo-receiver-2', content: '小李，视频剪辑得太棒了！效果超出预期，已经发给老板看了。', created_at: new Date(Date.now() - 86400000 * 8).toISOString() },
-            { id: 'wm-6', from_user_id: 'demo-receiver-2', from_username: '剪辑师小李', to_user_id: 'demo-requester-4', content: '谢谢陈姐认可！如果需要修改随时说，免费调整三次。😊', created_at: new Date(Date.now() - 86400000 * 7).toISOString() },
-            { id: 'wm-7', from_user_id: 'demo-requester-7', from_username: '孙创意', to_user_id: 'demo-receiver-3', content: '小张，Logo初稿看了，配色方案很好，但字体能不能再现代一些？', created_at: new Date(Date.now() - 86400000 * 5).toISOString() },
-            { id: 'wm-8', from_user_id: 'demo-receiver-3', from_username: '设计师小张', to_user_id: 'demo-requester-7', content: '好的孙总，我重新调整字体风格，明天给您更新版本。', created_at: new Date(Date.now() - 86400000 * 4).toISOString() },
-            { id: 'wm-9', from_user_id: 'demo-requester-2', from_username: '李设计师', to_user_id: 'demo-receiver-3', content: '小张，看到你给孙总做的Logo了，设计水平很高！我们有个App UI项目想找你合作。', created_at: new Date(Date.now() - 86400000 * 6).toISOString() },
-            { id: 'wm-10', from_user_id: 'demo-receiver-3', from_username: '设计师小张', to_user_id: 'demo-requester-2', content: '李老师过奖了！很感兴趣，方便发一下需求文档吗？', created_at: new Date(Date.now() - 86400000 * 5).toISOString() }
-        ];
-        localStorage.setItem('wallMessages', JSON.stringify(demoWallMessages));
-    }
+// 5. Stat counter animation
+function animateCounters() {
+    document.querySelectorAll('[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const duration = 2000;
+        const start = performance.now();
+        function tick(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(target * eased);
+            if (target >= 10000) {
+                el.textContent = (current / 1000).toFixed(1) + 'K';
+            } else {
+                el.textContent = current.toLocaleString();
+            }
+            if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    });
+}
 
-    // Seed demo reviews/ratings (always overwrite for demo)
-    {
-        const demoReviews = [
-            { id: 'rv-1', project_id: 'demo-4', reviewer_id: 'demo-requester-4', reviewer_name: '陈营销', target_id: 'demo-receiver-2', target_name: '剪辑师小李', rating: 5, content: '剪辑技术一流，节奏把控非常好，交稿准时，沟通顺畅。强烈推荐！', created_at: new Date(Date.now() - 86400000 * 9).toISOString() },
-            { id: 'rv-2', project_id: 'demo-7', reviewer_id: 'demo-requester-7', reviewer_name: '孙创意', target_id: 'demo-receiver-3', target_name: '设计师小张', rating: 4, content: '设计水平很高，配色方案很满意。字体风格需要再调整，但整体不错。', created_at: new Date(Date.now() - 86400000 * 4).toISOString() },
-            { id: 'rv-3', project_id: 'demo-3', reviewer_id: 'demo-requester-3', reviewer_name: '王总', target_id: 'demo-receiver-1', target_name: '开发者小王', rating: 5, content: '代码质量非常高，架构设计合理，文档详细。合作体验极佳，五星好评！', created_at: new Date(Date.now() - 86400000 * 1).toISOString() },
-            { id: 'rv-4', project_id: 'demo-4', reviewer_id: 'demo-receiver-2', reviewer_name: '剪辑师小李', target_id: 'demo-requester-4', target_name: '陈营销', rating: 5, content: '需求描述清晰，沟通高效，付款及时。非常好的合作方！', created_at: new Date(Date.now() - 86400000 * 8).toISOString() },
-            { id: 'rv-5', project_id: 'demo-7', reviewer_id: 'demo-receiver-3', reviewer_name: '设计师小张', target_id: 'demo-requester-7', target_name: '孙创意', rating: 4, content: '需求有想法，反馈及时，审美在线。虽然修改意见多但都是有建设性的。', created_at: new Date(Date.now() - 86400000 * 3).toISOString() },
-            { id: 'rv-6', project_id: 'demo-3', reviewer_id: 'demo-receiver-1', reviewer_name: '开发者小王', target_id: 'demo-requester-3', target_name: '王总', rating: 5, content: '需求明确，沟通顺畅，付款爽快。非常愉快的合作经历！', created_at: new Date(Date.now() - 86400000 * 1).toISOString() }
-        ];
-        localStorage.setItem('reviews', JSON.stringify(demoReviews));
-    }
+// Add data-target to hero stats
+const statNumbers = document.querySelectorAll('.hero .stat-number');
+if (statNumbers.length >= 3) {
+    statNumbers[0].dataset.target = '12847';
+    statNumbers[1].dataset.target = '8234';
+    statNumbers[2].dataset.target = '156';
+    setTimeout(animateCounters, 500);
+}
 
-    // Seed demo comments (always overwrite for demo)
-    {
-        const demoComments = [
-            { id: 'c-1', project_id: 'demo-1', user_id: 'demo-receiver-1', username: '开发者小王', content: '张经理您好，我有5年React开发经验，之前做过类似的企业官网项目。可以私信详聊吗？', created_at: new Date(Date.now() - 86400000 * 1.5).toISOString() },
-            { id: 'c-2', project_id: 'demo-1', user_id: 'demo-receiver-3', username: '设计师小张', content: '如果需要UI设计配合，我也可以参与，我可以负责前端设计部分。', created_at: new Date(Date.now() - 86400000 * 1.2).toISOString() },
-            { id: 'c-3', project_id: 'demo-2', user_id: 'demo-receiver-3', username: '设计师小张', content: '李老师，这个健身App我很感兴趣！我之前做过类似项目的UI设计，可以看看我的作品集。', created_at: new Date(Date.now() - 86400000 * 0.8).toISOString() },
-            { id: 'c-4', project_id: 'demo-5', user_id: 'demo-receiver-1', username: '开发者小王', content: '刘总，Python爬虫我做过不少，反爬机制处理有经验。预算方面可以再商量。', created_at: new Date(Date.now() - 86400000 * 2.5).toISOString() },
-            { id: 'c-5', project_id: 'demo-6', user_id: 'demo-receiver-1', username: '开发者小王', content: '赵老板好，uni-app小程序商城我之前做过两个，可以提供案例参考。这个预算能接受的话我可以接。', created_at: new Date(Date.now() - 86400000 * 3.5).toISOString() },
-            { id: 'c-6', project_id: 'demo-8', user_id: 'demo-receiver-2', username: '剪辑师小李', content: '虽然我主要做视频剪辑，但SEO方面也有些了解。如果需要视频内容配合SEO策略，可以聊聊。', created_at: new Date(Date.now() - 86400000 * 0.5).toISOString() }
-        ];
-        localStorage.setItem('comments', JSON.stringify(demoComments));
-    }
+// 6. Ripple effect on buttons
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn, .category-pill, .action-btn');
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple-effect';
+    const size = Math.max(rect.width, rect.height) * 2;
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    btn.style.position = 'relative';
+    btn.style.overflow = 'hidden';
+    btn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+});
 
-    navigate('home');
-    translatePage(currentLang);
-})();
+// 7. Scroll reveal for sidebar elements
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.15 });
+
+function observeReveals() {
+    document.querySelectorAll('.sidebar-card, .footer-content > *').forEach(el => {
+        if (!el.classList.contains('reveal')) {
+            el.classList.add('reveal');
+            revealObserver.observe(el);
+        }
+    });
+}
+observeReveals();
+
+// 8. Re-observe after dynamic renders
+const origRenderPosts = renderPosts;
+renderPosts = function() {
+    origRenderPosts();
+    setTimeout(observeReveals, 100);
+};
+
+// 9. Scroll-to-top button
+const scrollTopBtn = document.createElement('button');
+scrollTopBtn.id = 'scrollTopBtn';
+scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+scrollTopBtn.style.cssText = `
+    position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px;
+    border-radius: 50%; background: var(--accent-gradient); border: none; color: white;
+    font-size: 1.1rem; cursor: pointer; z-index: 900; opacity: 0; pointer-events: none;
+    transform: translateY(20px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(255, 107, 91, 0.3); display: flex; align-items: center;
+    justify-content: center;
+`;
+document.body.appendChild(scrollTopBtn);
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+        scrollTopBtn.style.opacity = '1';
+        scrollTopBtn.style.pointerEvents = 'auto';
+        scrollTopBtn.style.transform = 'translateY(0)';
+    } else {
+        scrollTopBtn.style.opacity = '0';
+        scrollTopBtn.style.pointerEvents = 'none';
+        scrollTopBtn.style.transform = 'translateY(20px)';
+    }
+}, { passive: true });
+
+scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+scrollTopBtn.addEventListener('mouseenter', () => {
+    scrollTopBtn.style.transform = 'translateY(-3px)';
+    scrollTopBtn.style.boxShadow = '0 8px 30px rgba(255, 107, 91, 0.5)';
+});
+scrollTopBtn.addEventListener('mouseleave', () => {
+    scrollTopBtn.style.transform = 'translateY(0)';
+    scrollTopBtn.style.boxShadow = '0 4px 20px rgba(255, 107, 91, 0.3)';
+});
+
+// 10. Particle explosion on like
+function createParticles(x, y, container) {
+    const colors = ['#ff6b5b', '#ff9a5c', '#ffcc5c', '#ff6b6b', '#ffa07a'];
+    for (let i = 0; i < 12; i++) {
+        const particle = document.createElement('div');
+        const size = Math.random() * 8 + 4;
+        const angle = (Math.PI * 2 * i) / 12;
+        const velocity = Math.random() * 40 + 30;
+        const dx = Math.cos(angle) * velocity;
+        const dy = Math.sin(angle) * velocity;
+        particle.style.cssText = `
+            position: absolute; left: ${x}px; top: ${y}px;
+            width: ${size}px; height: ${size}px; border-radius: 50%;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            pointer-events: none; z-index: 100;
+            animation: particleBurst 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            --dx: ${dx}px; --dy: ${dy}px;
+        `;
+        container.appendChild(particle);
+        setTimeout(() => particle.remove(), 700);
+    }
+}
+
+const particleStyle = document.createElement('style');
+particleStyle.textContent = `
+    @keyframes particleBurst {
+        0% { transform: translate(0, 0) scale(1); opacity: 1; }
+        100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+    }
+`;
+document.head.appendChild(particleStyle);
+
+// Override toggleLike to add particles
+const origToggleLike = toggleLike;
+toggleLike = function(postId) {
+    const btn = document.querySelector(`.post-card[data-post-id="${postId}"] .action-btn`);
+    if (btn && !btn.classList.contains('liked')) {
+        const rect = btn.getBoundingClientRect();
+        createParticles(rect.width / 2, rect.height / 2, btn);
+    }
+    origToggleLike(postId);
+};
+
+// 11. Typing animation for hero title
+function animateHeroTitle() {
+    const heroH1 = document.querySelector('.hero h1');
+    if (!heroH1) return;
+    const originalHTML = heroH1.innerHTML;
+    const textBefore = 'Share Your ';
+    const textHighlight = 'China Story';
+    heroH1.innerHTML = `${textBefore}<span id="typingSpan"></span><span class="typing-cursor">|</span>`;
+
+    const typingStyle = document.createElement('style');
+    typingStyle.textContent = `
+        .typing-cursor {
+            color: var(--accent-coral);
+            animation: cursorBlink 0.8s step-end infinite;
+            font-weight: 300;
+        }
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    `;
+    document.head.appendChild(typingStyle);
+
+    const span = document.getElementById('typingSpan');
+    span.style.background = 'var(--accent-gradient)';
+    span.style.webkitBackgroundClip = 'text';
+    span.style.webkitTextFillColor = 'transparent';
+    span.style.backgroundClip = 'text';
+
+    let i = 0;
+    function typeNext() {
+        if (i < textHighlight.length) {
+            span.textContent += textHighlight[i];
+            i++;
+            setTimeout(typeNext, 80 + Math.random() * 60);
+        } else {
+            setTimeout(() => {
+                heroH1.innerHTML = originalHTML;
+            }, 1500);
+        }
+    }
+    setTimeout(typeNext, 800);
+}
+animateHeroTitle();
+
+// 12. Magnetic hover on primary buttons
+document.querySelectorAll('.btn-primary, .welcome-action-btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0, 0)';
+    });
+});
+
+// 13. Glowing border on post card hover
+document.addEventListener('mousemove', (e) => {
+    document.querySelectorAll('.post-card:hover').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--glow-x', x + 'px');
+        card.style.setProperty('--glow-y', y + 'px');
+    });
+});
+
+const glowStyle = document.createElement('style');
+glowStyle.textContent = `
+    .post-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        border-radius: 20px;
+        padding: 1px;
+        background: radial-gradient(200px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+            rgba(255, 107, 91, 0.3) 0%, transparent 100%);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .post-card { position: relative; }
+    .post-card:hover::before { opacity: 1; }
+`;
+document.head.appendChild(glowStyle);
+
+function sortByLatest() {
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.sort-btn').forEach(b => {
+        if (b.textContent.includes('Latest')) b.classList.add('active');
+    });
+    renderPosts();
+    showToast(currentLang === 'fr' ? 'Affichage des derniers messages' : 'Showing latest posts');
+}
+
+function sortByPopular() {
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.sort-btn').forEach(b => {
+        if (b.textContent.includes('Popular')) b.classList.add('active');
+    });
+    filteredPosts = currentCategory === 'all'
+        ? [...postsData]
+        : postsData.filter(post => post.category === currentCategory);
+    filteredPosts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+    const isStoriesPage = document.getElementById('storiesPage')?.classList.contains('active');
+    const storiesGrid = document.getElementById('storiesGrid');
+    const postsGrid = document.getElementById('postsGrid');
+    const targetGrid = isStoriesPage ? storiesGrid : postsGrid;
+    if (targetGrid) {
+        targetGrid.innerHTML = filteredPosts.map((post, i) => getPostHTML(post, i)).join('');
+    }
+    showToast(currentLang === 'fr' ? 'Affichage des messages populaires' : 'Showing popular posts');
+}
