@@ -4,6 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ChinaVoices - Share Your China Story</title>
+    <meta name="description" content="A community platform connecting foreigners across China through authentic stories and shared experiences. Join thousands of expats sharing their China journey.">
+    <meta name="keywords" content="China, expat, foreigner, stories, community, Shanghai, Beijing, life in China">
+    <meta name="author" content="ChinaVoices">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chris-topher-code.github.io/community/">
+    <meta property="og:title" content="ChinaVoices - Share Your China Story">
+    <meta property="og:description" content="Connect with foreigners across China. Share your experiences, discover authentic stories, and join a vibrant community of expats.">
+    <meta property="og:image" content="https://api.dicebear.com/7.x/identicon/svg?seed=ChinaVoices&backgroundColor=0a0a1a">
+    <meta property="og:site_name" content="ChinaVoices">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ChinaVoices">
+    <meta name="twitter:title" content="ChinaVoices - Share Your China Story">
+    <meta name="twitter:description" content="Connect with foreigners across China. Share your experiences and discover authentic stories.">
+    <meta name="twitter:image" content="https://api.dicebear.com/7.x/identicon/svg?seed=ChinaVoices&backgroundColor=0a0a1a">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -22,8 +45,8 @@
             <li><a href="#" data-nav="explore" data-i18n="explore">Explore</a></li>
             <li><a href="#" data-nav="topics" data-i18n="topics">Topics</a></li>
             <li><a href="#" data-nav="about" data-i18n="about">About</a></li>
-            <li><a href="#" onclick="openNewPostModal(); return false;" class="share-story-btn" data-i18n="shareStory">
-                <i class="fas fa-pen-to-square"></i> Share Story
+            <li><a href="#" onclick="openNewPostModal(); return false;" class="share-story-btn" data-i18n="shareStory" title="Share your China experience">
+                <i class="fas fa-pen-to-square"></i> Share Your Story
             </a></li>
             <div class="nav-indicator" id="navIndicator"></div>
         </ul>
@@ -32,6 +55,10 @@
                 <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
                 <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
             </div>
+            <button class="notification-btn" id="notificationBtn" onclick="toggleNotificationPanel()" style="display: none;">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+            </button>
                 <button class="btn btn-outline" id="loginBtn" data-i18n="signIn">Sign In</button>
                 <button class="btn btn-primary" id="registerBtn" data-i18n="joinNow">Join Now</button>
             <button class="profile-btn" id="profileBtn" onclick="navigateTo('profile')">
@@ -95,6 +122,16 @@
         </div>
     </div>
 
+    <div class="notification-panel" id="notificationPanel" style="display: none;">
+        <div class="notification-header">
+            <h4>Notifications</h4>
+            <button class="notification-close" onclick="toggleNotificationPanel()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="notification-list" id="notificationList">
+            <div class="notification-empty">No new notifications</div>
+        </div>
+    </div>
+
     <section class="hero">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
@@ -102,25 +139,25 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <i class="fas fa-sparkles"></i>
-                Welcome to the foreign community in China
+                Join <span id="heroMembersBadge">0</span>+ foreigners sharing China experiences
             </div>
             <h1>Share Your <span>China Story</span></h1>
-            <p>Connect with fellow foreigners, share experiences, ask questions, and discover the real China through authentic voices from around the world.</p>
+            <p>Help others discover the real China. Your experience matters — share it with our growing community of expats from <span id="heroCountriesBadge">0</span> countries.</p>
             <div class="search-container">
                 <i class="fas fa-search"></i>
                 <input type="text" data-i18n-placeholder="searchPlaceholder" placeholder="Search stories, topics, or people...">
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
-                    <div class="stat-number">12,847</div>
+                    <div class="stat-number" id="heroMembersCount" data-suffix="">0</div>
                     <div class="stat-label">Community Members</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">8,234</div>
+                    <div class="stat-number" id="heroStoriesCount" data-suffix="">0</div>
                     <div class="stat-label">Stories Shared</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">156</div>
+                    <div class="stat-number" id="heroCitiesCount" data-suffix="">0</div>
                     <div class="stat-label">Cities Covered</div>
                 </div>
             </div>
@@ -139,133 +176,34 @@
     </div>
 
     <section class="page-section" id="storiesPage">
-        <div class="stories-hero" style="display: none;">
-            <div class="stories-hero-content">
-                <h1>Community Stories</h1>
-                <p>Explore what the community is sharing</p>
-            </div>
-        </div>
-        <div class="filter-bar">
-            <div class="filter-row">
-                <button class="sort-btn active" onclick="sortByLatest()">
-                    <i class="fas fa-clock"></i> Latest
+        <div class="stories-header">
+            <div class="sort-buttons-row">
+                <button class="btn btn-secondary btn-sm sort-btn active" onclick="sortByLatest()">
+                    <i class="fas fa-clock"></i> <span>Latest</span>
                 </button>
-                <button class="sort-btn" onclick="sortByPopular()">
-                    <i class="fas fa-fire"></i> Popular
+                <button class="btn btn-secondary btn-sm sort-btn" onclick="sortByPopular()">
+                    <i class="fas fa-fire"></i> <span>Popular</span>
                 </button>
-            </div>
-            <div class="filter-row filter-row-categories">
-                <div class="category-pill active" data-category="all">All</div>
-                <div class="category-pill" data-category="travel">🧳 Travel</div>
-                <div class="category-pill" data-category="study">🎓 Study</div>
-                <div class="category-pill" data-category="work">👷 Work</div>
-                <div class="category-pill" data-category="entertainment">🎭 Entertainment</div>
-                <div class="category-pill" data-category="food">🍜 Food</div>
-                <div class="category-pill" data-category="life">🏙️ Life</div>
-                <div class="category-pill" data-category="business">💼 Business</div>
-            </div>
-        </div>
-        <div class="main-container">
-            <section class="posts-section">
-                <div class="stories-title-row">
-                    <h2><i class="fas fa-fire"></i> <span data-i18n="communityStories">Community Stories</span></h2>
-                </div>
-                <div class="posts-grid" id="storiesGrid">
-                </div>
-            </section>
-            <aside class="sidebar">
-                <div class="sidebar-card">
-                    <h3><i class="fas fa-chart-line"></i> <span data-i18n="trendingTopics">Trending Topics</span></h3>
-                    <ul class="trending-list">
-                        <li class="trending-item">
-                            <span class="trending-number">1</span>
-                            <div class="trending-info">
-                                <div class="trending-title">Best districts in Shanghai</div>
-                                <div class="trending-posts">324 posts</div>
-                            </div>
-                        </li>
-                        <li class="trending-item">
-                            <span class="trending-number">2</span>
-                            <div class="trending-info">
-                                <div class="trending-title">Visa policy updates 2026</div>
-                                <div class="trending-posts">289 posts</div>
-                            </div>
-                        </li>
-                        <li class="trending-item">
-                            <span class="trending-number">3</span>
-                            <div class="trending-info">
-                                <div class="trending-title">Chinese learning resources</div>
-                                <div class="trending-posts">256 posts</div>
-                            </div>
-                        </li>
-                        <li class="trending-item">
-                            <span class="trending-number">4</span>
-                            <div class="trending-info">
-                                <div class="trending-title">Affordable healthcare tips</div>
-                                <div class="trending-posts">198 posts</div>
-                            </div>
-                        </li>
-                        <li class="trending-item">
-                            <span class="trending-number">5</span>
-                            <div class="trending-info">
-                                <div class="trending-title">Remote work in China</div>
-                                <div class="trending-posts">167 posts</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sidebar-card">
-                    <h3><i class="fas fa-globe"></i> <span data-i18n="communityStats">Community Stats</span></h3>
-                    <div class="community-stats">
-                        <div class="community-stat">
-                            <i class="fas fa-users"></i>
-                            <div class="community-stat-value" data-target="12800" data-suffix="">0</div>
-                            <div class="community-stat-label" data-i18n="members">Members</div>
-                        </div>
-                        <div class="community-stat">
-                            <i class="fas fa-comments"></i>
-                            <div class="community-stat-value" data-target="45200" data-suffix="">0</div>
-                            <div class="community-stat-label" data-i18n="comments">Comments</div>
-                        </div>
-                        <div class="community-stat">
-                            <i class="fas fa-share"></i>
-                            <div class="community-stat-value" data-target="8100" data-suffix="">0</div>
-                            <div class="community-stat-label" data-i18n="shares">Shares</div>
-                        </div>
-                        <div class="community-stat">
-                            <i class="fas fa-flag"></i>
-                            <div class="community-stat-value" data-target="89" data-suffix="">0</div>
-                            <div class="community-stat-label" data-i18n="countries">Countries</div>
+                <div class="category-dropdown">
+                    <button class="btn btn-secondary btn-sm sort-btn" onclick="toggleCategoryDropdown()">
+                        <span id="currentCategoryLabel">All</span> <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="category-dropdown-menu" id="categoryDropdownMenu">
+                        <div class="category-pills-row">
+                            <div class="category-pill active" data-category="all" onclick="selectCategory('all')">All</div>
+                            <div class="category-pill" data-category="travel" onclick="selectCategory('travel')">🧳</div>
+                            <div class="category-pill" data-category="study" onclick="selectCategory('study')">🎓</div>
+                            <div class="category-pill" data-category="work" onclick="selectCategory('work')">👷</div>
+                            <div class="category-pill" data-category="entertainment" onclick="selectCategory('entertainment')">🎭</div>
+                            <div class="category-pill" data-category="food" onclick="selectCategory('food')">🍜</div>
+                            <div class="category-pill" data-category="life" onclick="selectCategory('life')">🏙️</div>
+                            <div class="category-pill" data-category="business" onclick="selectCategory('business')">💼</div>
                         </div>
                     </div>
                 </div>
-                <div class="sidebar-card">
-                    <h3><i class="fas fa-bolt"></i> <span data-i18n="quickLinks">Quick Links</span></h3>
-                    <ul class="trending-list">
-                        <li class="trending-item" onclick="navigateTo('about')">
-                            <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
-                            <div class="trending-info">
-                                <div class="trending-title" data-i18n="newcomerGuide">Newcomer Guide</div>
-                                <div class="trending-posts" data-i18n="essentialTips">Essential tips for China</div>
-                            </div>
-                        </li>
-                        <li class="trending-item" onclick="navigateTo('explore')">
-                            <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
-                            <div class="trending-info">
-                                <div class="trending-title" data-i18n="exploreCities">Explore Cities</div>
-                                <div class="trending-posts" data-i18n="discoverStories">Discover stories by city</div>
-                            </div>
-                        </li>
-                        <li class="trending-item" onclick="navigateTo('topics')">
-                            <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
-                            <div class="trending-info">
-                                <div class="trending-title" data-i18n="browseTopicsLink">Browse Topics</div>
-                                <div class="trending-posts" data-i18n="allTopics">All topic categories</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </aside>
+            </div>
+        </div>
+        <div class="posts-grid" id="storiesGrid">
         </div>
     </section>
 
@@ -303,9 +241,14 @@
         <section class="posts-section" id="postsSection">
             <div class="stories-title-row">
                 <h2><i class="fas fa-fire"></i> <span data-i18n="communityStories">Community Stories</span></h2>
-                <button class="btn btn-secondary btn-sm sort-btn" onclick="sortByLatest()">
-                    <i class="fas fa-clock"></i> <span>Latest</span>
-                </button>
+                <div class="sort-buttons-row">
+                    <button class="btn btn-secondary btn-sm sort-btn active" onclick="sortByLatest()">
+                        <i class="fas fa-clock"></i> <span>Latest</span>
+                    </button>
+                    <button class="btn btn-secondary btn-sm sort-btn" onclick="sortByPopular()">
+                        <i class="fas fa-fire"></i> <span>Popular</span>
+                    </button>
+                </div>
             </div>
             <div class="posts-grid" id="postsGrid">
             </div>
@@ -314,42 +257,8 @@
         <aside class="sidebar">
             <div class="sidebar-card">
                 <h3><i class="fas fa-chart-line"></i> <span data-i18n="trendingTopics">Trending Topics</span></h3>
-                <ul class="trending-list">
-                    <li class="trending-item">
-                        <span class="trending-number">1</span>
-                        <div class="trending-info">
-                            <div class="trending-title">Best districts in Shanghai</div>
-                            <div class="trending-posts">324 posts</div>
-                        </div>
-                    </li>
-                    <li class="trending-item">
-                        <span class="trending-number">2</span>
-                        <div class="trending-info">
-                            <div class="trending-title">Visa policy updates 2026</div>
-                            <div class="trending-posts">289 posts</div>
-                        </div>
-                    </li>
-                    <li class="trending-item">
-                        <span class="trending-number">3</span>
-                        <div class="trending-info">
-                            <div class="trending-title">Chinese learning resources</div>
-                            <div class="trending-posts">256 posts</div>
-                        </div>
-                    </li>
-                    <li class="trending-item">
-                        <span class="trending-number">4</span>
-                        <div class="trending-info">
-                            <div class="trending-title">Affordable healthcare tips</div>
-                            <div class="trending-posts">198 posts</div>
-                        </div>
-                    </li>
-                    <li class="trending-item">
-                        <span class="trending-number">5</span>
-                        <div class="trending-info">
-                            <div class="trending-title">Remote work in China</div>
-                            <div class="trending-posts">167 posts</div>
-                        </div>
-                    </li>
+                <ul class="trending-list" id="trendingList2">
+                    <li class="trending-item loading"><i class="fas fa-spinner fa-spin"></i> Loading...</li>
                 </ul>
             </div>
 
@@ -358,22 +267,22 @@
                 <div class="community-stats">
                     <div class="community-stat">
                         <i class="fas fa-users"></i>
-                        <div class="community-stat-value" data-target="12800" data-suffix="">0</div>
+                        <div class="community-stat-value" id="sidebarMembersCount2">0</div>
                         <div class="community-stat-label" data-i18n="members">Members</div>
                     </div>
                     <div class="community-stat">
                         <i class="fas fa-comments"></i>
-                        <div class="community-stat-value" data-target="45200" data-suffix="">0</div>
+                        <div class="community-stat-value" id="sidebarCommentsCount2">0</div>
                         <div class="community-stat-label" data-i18n="comments">Comments</div>
                     </div>
                     <div class="community-stat">
                         <i class="fas fa-share"></i>
-                        <div class="community-stat-value" data-target="8100" data-suffix="">0</div>
-                        <div class="community-stat-label" data-i18n="shares">Shares</div>
+                        <div class="community-stat-value" id="sidebarStoriesCount2">0</div>
+                        <div class="community-stat-label" data-i18n="storiesLabel">Stories</div>
                     </div>
                     <div class="community-stat">
                         <i class="fas fa-flag"></i>
-                        <div class="community-stat-value" data-target="89" data-suffix="">0</div>
+                        <div class="community-stat-value" id="sidebarCountriesCount2">0</div>
                         <div class="community-stat-label" data-i18n="countries">Countries</div>
                     </div>
                 </div>
@@ -445,7 +354,8 @@
         <div class="footer-bottom">
             <span>&copy; 2026 ChinaVoices. All rights reserved.</span>
             <div class="footer-social">
-                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#" onclick="shareWebsite(); return false;" title="Share and invite friends"><i class="fas fa-user-plus"></i></a>
+                <a href="#" onclick="shareWebsite(); return false;"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
                 <a href="#"><i class="fab fa-weibo"></i></a>
@@ -566,7 +476,7 @@
 
     <section class="profile-page" id="profilePage">
         <div class="profile-header-card">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile" class="profile-avatar-lg profile-avatar-upload" id="profileAvatar" onclick="triggerAvatarUpload()" title="Click to upload avatar">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile" class="profile-avatar-lg profile-avatar-upload" id="profileAvatar" onclick="triggerAvatarUpload()" title="Click to upload avatar" loading="lazy">
             <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;" onchange="handleAvatarUpload(this)">
             <div class="profile-info">
                 <div class="profile-name" id="profileDisplayName">Guest User</div>
@@ -651,6 +561,9 @@
             <div style="display: flex; flex-direction: column; gap: 16px;">
                 <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px;" onclick="showToast(t('passwordChanged'))">
                     <i class="fas fa-key"></i> <span data-i18n="changePassword">Change Password</span>
+                </button>
+                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; background: var(--accent-gradient); border: none; color: white;" onclick="copyReferralLink()">
+                    <i class="fas fa-user-plus"></i> <span>Invite Friends</span>
                 </button>
                 <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="handleLogout()">
                     <i class="fas fa-sign-out-alt"></i> <span data-i18n="logOut">Log Out</span>

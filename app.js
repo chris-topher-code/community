@@ -372,20 +372,8 @@ let exploreActive = false;
 let currentCityFilter = null;
 let searchQuery = '';
 let currentUser = null;
-let postsData = [
-    { id: 1, author: 'Sarah from USA', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah', country: 'United States', countryCode: 'US', time: '2 hours ago', createdAt: Date.now() - 2*60*60*1000, content: 'Just discovered the most amazing street food stall in Chengdu! The owner has been making the same recipe for 40 years. Sometimes the best experiences in China are the ones you stumble upon randomly.', tags: [], category: 'food', city: 'chengdu', likes: 12, comments: 5, shares: 2, liked: false, user_id: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890' },
-    { id: 2, author: 'Takeshi Yamamoto', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Takeshi', country: 'Japan', countryCode: 'JP', time: '3 hours ago', createdAt: Date.now() - 3*60*60*1000, content: 'Finally got my residence permit renewed after some stressful weeks! Pro tip: start the renewal process at least 2 months before expiration. The immigration office in Beijing has gotten much more efficient.', tags: [], category: 'life', city: 'beijing', likes: 18, comments: 8, shares: 3, liked: false, user_id: 'b2c3d4e5-f6a7-8901-bcde-f12345678901' },
-    { id: 3, author: 'Marie Dubois', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Marie', country: 'France', countryCode: 'FR', time: '5 hours ago', createdAt: Date.now() - 5*60*60*1000, content: 'As someone who grew up with French trains, the Beijing-Shanghai HSR feels like the future! And the food options on board are surprisingly good. 1,318 km in just 4.5 hours with impeccable service.', tags: [], category: 'travel', city: 'shanghai', likes: 24, comments: 12, shares: 6, liked: false, user_id: 'c3d4e5f6-a7b8-9012-cdef-123456789012' },
-    { id: 4, author: 'Hans Mueller', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Hans', country: 'Germany', countryCode: 'DE', time: '4 hours ago', createdAt: Date.now() - 4*60*60*1000, content: 'Germans love efficiency and order. Shenzhen tech parks remind me of Munich but with better weather and more entrepreneurial energy. The startup ecosystem here is incredible!', tags: [], category: 'work', city: 'shenzhen', likes: 15, comments: 7, shares: 4, liked: false, user_id: 'd4e5f6a7-b8c9-0123-defa-234567890123' },
-    { id: 5, author: 'Carlos from Brazil', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos', country: 'Brazil', countryCode: 'BR', time: '6 hours ago', createdAt: Date.now() - 6*60*60*1000, content: 'Missing Brazilian coffee but found an amazing specialty coffee shop in Shanghai! The owner even imports beans from Brazil. Small world. Price was reasonable too.', tags: [], category: 'food', city: 'shanghai', likes: 21, comments: 9, shares: 5, liked: false, user_id: 'e5f6a7b8-c9d0-1234-efab-345678901234' },
-    { id: 6, author: 'Sarah from USA', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah', country: 'United States', countryCode: 'US', time: '1 day ago', createdAt: Date.now() - 24*60*60*1000, content: 'Working remotely from Shanghai for 6 months now. The coworking scene here is incredible! Met so many interesting people from different industries. Anyone else doing remote work in China?', tags: [], category: 'work', city: 'shanghai', likes: 32, comments: 15, shares: 8, liked: false, user_id: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890' },
-    { id: 7, author: 'Takeshi Yamamoto', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Takeshi', country: 'Japan', countryCode: 'JP', time: '8 hours ago', createdAt: Date.now() - 8*60*60*1000, content: 'Photographer paradise! The karst landscape around Guilin is unlike anywhere else. Spent a week there and took over 2,000 photos. The morning mist over the Li River is pure magic.', tags: [], category: 'travel', city: 'guangzhou', likes: 45, comments: 20, shares: 12, liked: false, user_id: 'b2c3d4e5-f6a7-8901-bcde-f12345678901' },
-    { id: 8, author: 'Marie Dubois', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Marie', country: 'France', countryCode: 'FR', time: '2 days ago', createdAt: Date.now() - 2*24*60*60*1000, content: 'Learning to navigate Chinese bureaucracy as a foreigner. Today I successfully opened a bank account without speaking a word of Mandarin. Gestures work wonders!', tags: [], category: 'life', city: 'beijing', likes: 28, comments: 14, shares: 7, liked: false, user_id: 'c3d4e5f6-a7b8-9012-cdef-123456789012' },
-    { id: 9, author: 'Hans Mueller', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Hans', country: 'Germany', countryCode: 'DE', time: '10 hours ago', createdAt: Date.now() - 10*60*60*1000, content: 'Just bought my first e-scooter. The bike lanes in Guangzhou are so well organized! Much better than Berlin. Now I can explore the city freely and avoid the metro during rush hour.', tags: [], category: 'life', city: 'guangzhou', likes: 19, comments: 6, shares: 3, liked: false, user_id: 'd4e5f6a7-b8c9-0123-defa-234567890123' },
-    { id: 10, author: 'Carlos from Brazil', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos', country: 'Brazil', countryCode: 'BR', time: '14 hours ago', createdAt: Date.now() - 14*60*60*1000, content: 'The football culture in Guangzhou is incredible. Found a local futsal group that plays every weekend. Made some great friends already! They even have proper AstroTurf courts.', tags: [], category: 'life', city: 'guangzhou', likes: 22, comments: 11, shares: 4, liked: false, user_id: 'e5f6a7b8-c9d0-1234-efab-345678901234' }
-];
+let postsData = [];
 let userLikes = new Set();
-setTimeout(renderPosts, 0);
 
 /* ===== Data Loading ===== */
 async function loadPosts() {
@@ -441,6 +429,241 @@ async function loadCommentCounts() {
     const countMap = {};
     data.forEach(c => { countMap[c.post_id] = (countMap[c.post_id] || 0) + 1; });
     postsData.forEach(p => { p.comments = countMap[p.id] || 0; });
+}
+
+async function loadCommunityStats() {
+    const [{ count: membersCount }, { count: postsCount }, { count: commentsCount }, { data: profilesData }] = await Promise.all([
+        supabaseClient.from('profiles').select('*', { count: 'exact', head: true }),
+        supabaseClient.from('posts').select('*', { count: 'exact', head: true }),
+        supabaseClient.from('comments').select('*', { count: 'exact', head: true }),
+        supabaseClient.from('profiles').select('country_code')
+    ]);
+
+    const countries = new Set(profilesData?.map(p => p.country_code).filter(Boolean) || []);
+    const citiesWithPosts = new Set(postsData.map(p => p.city).filter(c => c && c !== 'unknown'));
+
+    const members = membersCount || 0;
+    const stories = postsCount || 0;
+    const comments = commentsCount || 0;
+    const countryNum = countries.size || 0;
+    const cities = citiesWithPosts.size || 0;
+
+    const heroMembers = document.getElementById('heroMembersCount');
+    const heroStories = document.getElementById('heroStoriesCount');
+    const heroCities = document.getElementById('heroCitiesCount');
+    if (heroMembers) heroMembers.textContent = formatStatNumber(members);
+    if (heroStories) heroStories.textContent = formatStatNumber(stories);
+    if (heroCities) heroCities.textContent = formatStatNumber(cities);
+
+    const heroMembersBadge = document.getElementById('heroMembersBadge');
+    const heroCountriesBadge = document.getElementById('heroCountriesBadge');
+    if (heroMembersBadge) heroMembersBadge.textContent = formatStatNumber(members);
+    if (heroCountriesBadge) heroCountriesBadge.textContent = countryNum;
+
+    const sidebarStats = [
+        ['sidebarMembersCount', 'sidebarMembersCount2', members],
+        ['sidebarCommentsCount', 'sidebarCommentsCount2', comments],
+        ['sidebarStoriesCount', 'sidebarStoriesCount2', stories],
+        ['sidebarCountriesCount', 'sidebarCountriesCount2', countryNum]
+    ];
+    sidebarStats.forEach(([id1, id2, value]) => {
+        const el1 = document.getElementById(id1);
+        const el2 = document.getElementById(id2);
+        if (el1) el1.textContent = formatStatNumber(value);
+        if (el2) el2.textContent = formatStatNumber(value);
+    });
+}
+
+function formatStatNumber(num) {
+    if (num >= 10000) {
+        return (num / 1000).toFixed(1) + 'K';
+    }
+    return num.toLocaleString();
+}
+
+function calculateTrendingTopics() {
+    const categoryCounts = {};
+    const cityCounts = {};
+    postsData.forEach(post => {
+        if (post.category) categoryCounts[post.category] = (categoryCounts[post.category] || 0) + 1;
+        if (post.city && post.city !== 'unknown') cityCounts[post.city] = (cityCounts[post.city] || 0) + 1;
+    });
+
+    const categoryLabels = {
+        travel: 'Travel in China',
+        study: 'Studying in China',
+        work: 'Working in China',
+        life: 'Daily Life in China',
+        food: 'Chinese Food',
+        entertainment: 'Entertainment',
+        business: 'Business in China'
+    };
+
+    const cityLabels = {
+        beijing: 'Beijing Life',
+        shanghai: 'Shanghai Life',
+        guangzhou: 'Guangzhou Life',
+        shenzhen: 'Shenzhen Life',
+        chengdu: 'Chengdu Life',
+        hangzhou: 'Hangzhou Life',
+        xian: "Xi'an Life"
+    };
+
+    const trending = [];
+
+    Object.entries(categoryCounts).forEach(([cat, count]) => {
+        if (categoryLabels[cat]) {
+            trending.push({ title: categoryLabels[cat], count, type: cat });
+        }
+    });
+
+    Object.entries(cityCounts).forEach(([city, count]) => {
+        if (cityLabels[city] && count >= 1) {
+            trending.push({ title: cityLabels[city], count, type: city });
+        }
+    });
+
+    trending.sort((a, b) => b.count - a.count);
+    return trending.slice(0, 5);
+}
+
+function renderTrendingTopics() {
+    const trending = calculateTrendingTopics();
+    const html = trending.length > 0
+        ? trending.map((item, i) => `
+            <li class="trending-item" onclick="filterByTopic('${item.type}')">
+                <span class="trending-number">${i + 1}</span>
+                <div class="trending-info">
+                    <div class="trending-title">${item.title}</div>
+                    <div class="trending-posts">${item.count} ${item.count === 1 ? 'story' : 'stories'}</div>
+                </div>
+            </li>
+        `).join('')
+        : '<li class="trending-item"><div class="trending-info"><div class="trending-title">No trending topics yet</div></div></li>';
+
+    const list1 = document.getElementById('trendingList1');
+    const list2 = document.getElementById('trendingList2');
+    if (list1) list1.innerHTML = html;
+    if (list2) list2.innerHTML = html;
+}
+
+let notifications = [];
+let lastNotificationCheck = Date.now();
+
+async function checkForNotifications() {
+    if (!currentUser) return;
+
+    try {
+        const myPostIds = postsData.filter(p => p.user_id === currentUser.id).map(p => p.id);
+        if (myPostIds.length === 0) return;
+
+        const [{ data: newLikes }, { data: newComments }] = await Promise.all([
+            supabaseClient.from('likes').select('*, profiles(name)').in('post_id', myPostIds).gt('created_at', new Date(lastNotificationCheck).toISOString()),
+            supabaseClient.from('comments').select('*, profiles(name)').in('post_id', myPostIds).gt('created_at', new Date(lastNotificationCheck).toISOString())
+        ]);
+
+        const newNotifications = [];
+        (newLikes || []).forEach(like => {
+            if (like.user_id !== currentUser.id) {
+                newNotifications.push({
+                    type: 'like',
+                    user: like.profiles?.name || 'Someone',
+                    time: getTimeAgo(like.created_at),
+                    postId: like.post_id
+                });
+            }
+        });
+        (newComments || []).forEach(comment => {
+            if (comment.user_id !== currentUser.id) {
+                newNotifications.push({
+                    type: 'comment',
+                    user: comment.profiles?.name || 'Someone',
+                    time: getTimeAgo(comment.created_at),
+                    postId: comment.post_id,
+                    content: comment.content.substring(0, 50)
+                });
+            }
+        });
+
+        if (newNotifications.length > 0) {
+            notifications = [...newNotifications, ...notifications].slice(0, 20);
+            updateNotificationBadge(newNotifications.length);
+            renderNotifications();
+
+            if (newNotifications.length === 1) {
+                const n = newNotifications[0];
+                showToast(n.type === 'like'
+                    ? `${n.user} liked your post! ❤️`
+                    : `${n.user} commented: "${n.content}..."`);
+            } else {
+                showToast(`${newNotifications.length} new notifications! 🔔`);
+            }
+        }
+
+        lastNotificationCheck = Date.now();
+    } catch (error) {
+        console.log('Notification check failed:', error);
+    }
+}
+
+function updateNotificationBadge(count) {
+    const badge = document.getElementById('notificationBadge');
+    const btn = document.getElementById('notificationBtn');
+    if (badge && btn) {
+        if (count > 0) {
+            badge.textContent = count > 9 ? '9+' : count;
+            badge.style.display = 'flex';
+            btn.style.display = 'block';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+}
+
+function renderNotifications() {
+    const list = document.getElementById('notificationList');
+    if (!list) return;
+
+    if (notifications.length === 0) {
+        list.innerHTML = '<div class="notification-empty">No new notifications</div>';
+        return;
+    }
+
+    list.innerHTML = notifications.map(n => `
+        <div class="notification-item ${n.read ? '' : 'unread'}" onclick="navigateToNotification(${n.postId})">
+            <div class="notification-item-content">
+                ${n.type === 'like'
+                    ? `<strong>${n.user}</strong> liked your post`
+                    : `<strong>${n.user}</strong> commented: "${n.content}..."`
+                }
+            </div>
+            <div class="notification-item-time">${n.time}</div>
+        </div>
+    `).join('');
+}
+
+function navigateToNotification(postId) {
+    toggleNotificationPanel();
+    navigateTo('home');
+    setTimeout(() => {
+        togglePostExpand(postId);
+        const postEl = document.querySelector(`.post-card[data-post-id="${postId}"]`);
+        if (postEl) postEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+}
+
+function toggleNotificationPanel() {
+    const panel = document.getElementById('notificationPanel');
+    if (!panel) return;
+
+    if (panel.style.display === 'none') {
+        panel.style.display = 'block';
+        notifications.forEach(n => n.read = true);
+        updateNotificationBadge(0);
+        renderNotifications();
+    } else {
+        panel.style.display = 'none';
+    }
 }
 
 function getTimeAgo(dateStr) {
@@ -500,7 +723,7 @@ function getPostHTML(post, idx) {
     return `
     <article class="post-card spotlight-card ${isExpanded ? 'expanded' : ''}" data-post-id="${post.id}" style="${delay}">
         <div class="post-header">
-            <img src="${post.avatar}" alt="${post.author}" class="post-avatar">
+            <img src="${post.avatar}" alt="${post.author}" class="post-avatar" loading="lazy">
             <div class="post-author-info">
                 <div class="post-author-name">
                     ${post.author}
@@ -538,6 +761,9 @@ function getPostHTML(post, idx) {
                     <button class="share-menu-item" onclick="shareToTwitter(${post.id})">
                         <i class="fab fa-twitter"></i> Twitter
                     </button>
+                    <button class="share-menu-item" onclick="shareToLinkedIn(${post.id})">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </button>
                     <button class="share-menu-item" onclick="shareToWeChat(${post.id})">
                         <i class="fab fa-weixin"></i> WeChat
                     </button>
@@ -570,6 +796,11 @@ function renderPosts() {
     const targetGrid = isStoriesPage ? storiesGrid : postsGrid;
     const gridToUse = targetGrid || postsGrid;
 
+    if (postsData.length === 0) {
+        gridToUse.innerHTML = getSkeletonHTML();
+        return;
+    }
+
     let filteredPosts = currentCategory === 'all'
         ? [...postsData]
         : postsData.filter(post => post.category === currentCategory);
@@ -588,16 +819,48 @@ function renderPosts() {
     filteredPosts.sort((a, b) => b.createdAt - a.createdAt);
 
     if (filteredPosts.length === 0) {
+        const ctaButton = currentUser
+            ? `<button class="empty-cta" onclick="openNewPostModal()"><i class="fas fa-pen"></i> Share the first story</button>`
+            : `<button class="empty-cta" onclick="openModal('register')"><i class="fas fa-user-plus"></i> Join to share</button>`;
         gridToUse.innerHTML = `
             <div class="empty-state">
-                <i class="fas fa-search"></i>
+                <i class="fas fa-inbox"></i>
                 <h3>${t('noStories')}</h3>
                 <p>${searchQuery.trim() ? t('tryDifferent') : t('noPostsCategory')}</p>
+                ${ctaButton}
             </div>`;
         return;
     }
 
     gridToUse.innerHTML = filteredPosts.map((post, i) => getPostHTML(post, i)).join('');
+}
+
+function getSkeletonHTML() {
+    return `
+        <div class="skeleton-grid">
+            ${[1,2,3,4].map(() => `
+                <div class="skeleton-card">
+                    <div class="skeleton-header">
+                        <div class="skeleton-avatar"></div>
+                        <div class="skeleton-info">
+                            <div class="skeleton-name"></div>
+                            <div class="skeleton-time"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton-content">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line"></div>
+                    </div>
+                    <div class="skeleton-actions">
+                        <div class="skeleton-btn"></div>
+                        <div class="skeleton-btn"></div>
+                        <div class="skeleton-btn"></div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
 }
 
 function getCityPostCount(cityId) {
@@ -733,7 +996,7 @@ async function loadCommentsIntoPost(postId) {
     } else {
         container.innerHTML = comments.map(c => `
             <div class="comment">
-                <div class="comment-avatar"><img src="${c.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest'}" style="width:36px;height:36px;border-radius:50%;object-fit:cover"></div>
+                <div class="comment-avatar"><img src="${c.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest'}" style="width:36px;height:36px;border-radius:50%;object-fit:cover" loading="lazy" alt="User avatar"></div>
                 <div class="comment-content">
                     <div class="comment-author">${c.profiles?.name || 'Guest'} <span>${getFlagEmoji(c.profiles?.country_code || 'UN')}</span></div>
                     <div class="comment-text">${c.content}</div>
@@ -756,6 +1019,37 @@ function toggleShareMenu(postId) {
     menu.classList.toggle('active');
 }
 
+function toggleCategoryDropdown() {
+    const dropdown = document.getElementById('categoryDropdownMenu');
+    dropdown.classList.toggle('active');
+}
+
+function selectCategory(category) {
+    currentCategory = category;
+
+    const dropdown = document.getElementById('categoryDropdownMenu');
+    dropdown.classList.remove('active');
+
+    const label = document.getElementById('currentCategoryLabel');
+    const categoryLabels = {
+        'all': 'All',
+        'travel': '🧳',
+        'study': '🎓',
+        'work': '👷',
+        'entertainment': '🎭',
+        'food': '🍜',
+        'life': '🏙️',
+        'business': '💼'
+    };
+    label.textContent = categoryLabels[category] || 'All';
+
+    document.querySelectorAll('.category-dropdown-menu .category-pill').forEach(pill => {
+        pill.classList.toggle('active', pill.dataset.category === category);
+    });
+
+    renderPosts();
+}
+
 function copyPostLink(postId) {
     const baseUrl = 'https://chris-topher-code.github.io/community/';
     const url = baseUrl + '#post-' + postId;
@@ -765,6 +1059,21 @@ function copyPostLink(postId) {
         showToast('Link copied! 📋');
     });
     document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
+}
+
+function copyReferralLink() {
+    if (!currentUser) {
+        showToast(currentLang === 'fr' ? 'Veuillez vous connecter' : 'Please sign in first');
+        return;
+    }
+    const baseUrl = 'https://chris-topher-code.github.io/community/';
+    const referralCode = btoa(currentUser.id).substring(0, 8);
+    const url = baseUrl + '?ref=' + referralCode;
+    navigator.clipboard.writeText(url).then(() => {
+        showToast(currentLang === 'fr' ? 'Lien d\'invitation copié ! 🎉' : 'Invite link copied! 🎉');
+    }).catch(() => {
+        showToast('Invite link copied! 🎉');
+    });
 }
 
 function shareToTwitter(postId) {
@@ -777,9 +1086,27 @@ function shareToTwitter(postId) {
     document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
 }
 
+function shareToLinkedIn(postId) {
+    const post = postsData.find(p => p.id === postId);
+    if (post) {
+        const baseUrl = 'https://chris-topher-code.github.io/community/';
+        const url = encodeURIComponent(baseUrl + '#post-' + postId);
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+    }
+    document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
+}
+
 function shareToWeChat(postId) {
     showToast(t('wechatShare') + ' 📱');
     copyPostLink(postId);
+}
+
+function shareWebsite() {
+    const baseUrl = 'https://chris-topher-code.github.io/community/';
+    const referralCode = currentUser ? btoa(currentUser.id).substring(0, 8) : '';
+    const url = referralCode ? baseUrl + '?ref=' + referralCode : baseUrl;
+    const text = encodeURIComponent('Check out ChinaVoices - a community for foreigners in China!');
+    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(url)}`, '_blank');
 }
 
 async function addComment(postId, inputEl) {
@@ -964,6 +1291,17 @@ document.addEventListener('click', (e) => {
     if (!e.target.closest('.share-dropdown')) {
         document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
     }
+    if (!e.target.closest('.category-dropdown')) {
+        const dropdown = document.getElementById('categoryDropdownMenu');
+        if (dropdown) dropdown.classList.remove('active');
+    }
+    const notifPanel = document.getElementById('notificationPanel');
+    const notifBtn = document.getElementById('notificationBtn');
+    if (notifPanel && notifPanel.style.display === 'block') {
+        if (!notifPanel.contains(e.target) && !notifBtn.contains(e.target)) {
+            notifPanel.style.display = 'none';
+        }
+    }
 });
 
 const loginBtn = document.getElementById('loginBtn');
@@ -1111,10 +1449,25 @@ async function checkSession() {
         const { data: { user } } = await supabaseClient.auth.getUser();
         const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', user.id).single();
         currentUser = profile || { id: user.id, name: user.user_metadata?.name || user.email.split('@')[0], avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest', country: 'Unknown', country_code: 'UN', identity: 'Member' };
+
+        const isNewUser = !localStorage.getItem('chinadoors_logged_in');
+        if (isNewUser) {
+            localStorage.setItem('chinadoors_logged_in', 'true');
+        }
+
         const welcomeEl = document.querySelector('.welcome-greeting');
         if (welcomeEl && currentUser) {
             const userName = currentUser.name || currentUser.email?.split('@')[0] || 'User';
-            welcomeEl.textContent = `Welcome back, ${userName}! 👋`;
+            if (isNewUser) {
+                welcomeEl.textContent = `Welcome to ChinaVoices, ${userName}! 🎉`;
+                setTimeout(() => {
+                    showToast(currentLang === 'fr'
+                        ? 'Astuce: Ajoutez votre photo de profil et remplissez votre bio!'
+                        : 'Tip: Add a profile photo and fill in your bio to connect better!');
+                }, 1500);
+            } else {
+                welcomeEl.textContent = `Welcome back, ${userName}! 👋`;
+            }
         }
         document.body.classList.add('logged-in');
         const hero = document.querySelector('.hero');
@@ -1131,6 +1484,11 @@ async function checkSession() {
         document.getElementById('profileBtn').querySelector('img').src = currentUser.avatar_url;
         document.getElementById('mobileProfileLink').style.display = 'block';
         document.getElementById('mobileSignOutLink').style.display = 'block';
+        const notifBtn = document.getElementById('notificationBtn');
+        if (notifBtn) notifBtn.style.display = 'block';
+        lastNotificationCheck = Date.now();
+        checkForNotifications();
+        setInterval(checkForNotifications, 60000);
     } else {
         isLoggedIn = false;
         currentUser = null;
@@ -1139,12 +1497,21 @@ async function checkSession() {
         if (hero) hero.style.display = 'block';
         document.getElementById('mobileProfileLink').style.display = 'none';
         document.getElementById('mobileSignOutLink').style.display = 'none';
+        const notifBtn = document.getElementById('notificationBtn');
+        if (notifBtn) notifBtn.style.display = 'none';
     }
     await loadPosts();
+    await loadCommunityStats();
+    renderTrendingTopics();
+    if (window.location.hash.startsWith('#post-')) {
+        handleHashChange();
+    }
     applyTranslations();
     document.body.classList.remove('loading');
     highlightNavLink('home');
 }
+
+checkSession();
 
 checkSession();
 // Failsafe: remove loading class after 5 seconds even if checkSession hangs
@@ -1374,53 +1741,7 @@ const spotlightStyle = document.createElement('style');
 spotlightStyle.textContent = `.spotlight-card::after { left: var(--mx, 50%); top: var(--my, 50%); }`;
 document.head.appendChild(spotlightStyle);
 
-// 5. Stat counter animation
-function animateCounters() {
-    document.querySelectorAll('[data-target]').forEach(el => {
-        const target = parseInt(el.dataset.target);
-        const duration = 2000;
-        const start = performance.now();
-        function tick(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = Math.floor(target * eased);
-            if (target >= 10000) {
-                el.textContent = (current / 1000).toFixed(1) + 'K';
-            } else {
-                el.textContent = current.toLocaleString();
-            }
-            if (progress < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-    });
-}
-
-// Add data-target to hero stats
-const statNumbers = document.querySelectorAll('.hero .stat-number');
-if (statNumbers.length >= 3) {
-    statNumbers[0].dataset.target = '12847';
-    statNumbers[1].dataset.target = '8234';
-    statNumbers[2].dataset.target = '156';
-    setTimeout(animateCounters, 500);
-}
-
-// 6. Ripple effect on buttons
-document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn, .category-pill, .action-btn');
-    if (!btn) return;
-    const rect = btn.getBoundingClientRect();
-    const ripple = document.createElement('span');
-    ripple.className = 'ripple-effect';
-    const size = Math.max(rect.width, rect.height) * 2;
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-    btn.style.position = 'relative';
-    btn.style.overflow = 'hidden';
-    btn.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
-});
+// 5. Stat counter animation (removed - now using real data from Supabase)
 
 // 7. Scroll reveal for sidebar elements
 const revealObserver = new IntersectionObserver((entries) => {
@@ -1474,6 +1795,21 @@ window.addEventListener('scroll', () => {
         scrollTopBtn.style.transform = 'translateY(20px)';
     }
 }, { passive: true });
+
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', () => {
+        const bottomNav = document.getElementById('mobileBottomNav');
+        if (bottomNav && bottomNav.classList.contains('active')) {
+            const viewportHeight = window.visualViewport.height;
+            const windowHeight = window.innerHeight;
+            if (viewportHeight < windowHeight * 0.8) {
+                bottomNav.style.display = 'none';
+            } else {
+                bottomNav.style.display = 'flex';
+            }
+        }
+    });
+}
 
 scrollTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
