@@ -146,13 +146,31 @@ function applyTranslations() {
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         el.placeholder = t(el.dataset.i18nPlaceholder);
     });
-    const catAll = document.querySelector('.category-pill[data-category="all"]');
+    // Translate home page category pills
+    const catAll = document.querySelector('.category-filter .category-pill[data-category="all"]');
     if (catAll) catAll.textContent = t('allCategory');
-    const catPills = document.querySelectorAll('.category-pill[data-category]');
+    const catPills = document.querySelectorAll('.category-filter .category-pill[data-category]');
     catPills.forEach(pill => {
         const cat = pill.dataset.category;
         const key = cat + 'Cat';
         if (i18n[currentLang][key]) pill.textContent = i18n[currentLang][key];
+    });
+    // Translate stories page category pills
+    const storiesCatAll = document.querySelector('.stories-cat-pill[data-category="all"]');
+    if (storiesCatAll) {
+        const icon = storiesCatAll.querySelector('.cat-icon');
+        const iconText = icon ? icon.textContent : '✨';
+        storiesCatAll.innerHTML = `<span class="cat-icon">${iconText}</span> ${t('allCategory') || 'All'}`;
+    }
+    const storiesCatPills = document.querySelectorAll('.stories-cat-pill[data-category]');
+    storiesCatPills.forEach(pill => {
+        const cat = pill.dataset.category;
+        const key = cat + 'Cat';
+        if (i18n[currentLang][key]) {
+            const icon = pill.querySelector('.cat-icon');
+            const iconText = icon ? icon.textContent : '';
+            pill.innerHTML = `<span class="cat-icon">${iconText}</span> ${i18n[currentLang][key]}`;
+        }
     });
     document.querySelectorAll('#postsGrid .post-category, #cityPostsGrid .post-category, .my-post-mini-cat.post-category').forEach(el => {
         const categoryClass = el.classList[1];
@@ -367,6 +385,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_QMiUjV4HukLdaKGmlbyXXg_BCv4qNhk';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let currentCategory = 'all';
+let currentSortMode = 'latest';
 let isLoggedIn = false;
 let exploreActive = false;
 let currentCityFilter = null;
@@ -816,7 +835,11 @@ function renderPosts() {
         );
     }
 
-    filteredPosts.sort((a, b) => b.createdAt - a.createdAt);
+    if (currentSortMode === 'popular') {
+        filteredPosts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+    } else {
+        filteredPosts.sort((a, b) => b.createdAt - a.createdAt);
+    }
 
     if (filteredPosts.length === 0) {
         const ctaButton = currentUser
@@ -1019,31 +1042,17 @@ function toggleShareMenu(postId) {
     menu.classList.toggle('active');
 }
 
-function toggleCategoryDropdown() {
-    const dropdown = document.getElementById('categoryDropdownMenu');
-    dropdown.classList.toggle('active');
-}
 
 function selectCategory(category) {
     currentCategory = category;
 
-    const dropdown = document.getElementById('categoryDropdownMenu');
-    dropdown.classList.remove('active');
+    // Update stories page category pills
+    document.querySelectorAll('.stories-cat-pill').forEach(pill => {
+        pill.classList.toggle('active', pill.dataset.category === category);
+    });
 
-    const label = document.getElementById('currentCategoryLabel');
-    const categoryLabels = {
-        'all': 'All',
-        'travel': '🧳',
-        'study': '🎓',
-        'work': '👷',
-        'entertainment': '🎭',
-        'food': '🍜',
-        'life': '🏙️',
-        'business': '💼'
-    };
-    label.textContent = categoryLabels[category] || 'All';
-
-    document.querySelectorAll('.category-dropdown-menu .category-pill').forEach(pill => {
+    // Update home page category pills (legacy)
+    document.querySelectorAll('.category-filter .category-pill').forEach(pill => {
         pill.classList.toggle('active', pill.dataset.category === category);
     });
 
@@ -1248,15 +1257,17 @@ function navigateTo(page) {
 function filterByTopic(category) {
     navigateTo('stories');
     currentCategory = category;
-    categoryPills.forEach(p => p.classList.remove('active'));
-    const matchingPill = document.querySelector(`.category-pill[data-category="${category}"]`);
-    if (matchingPill) {
-        matchingPill.classList.add('active');
-    } else {
-        document.querySelector('.category-pill[data-category="all"]').classList.add('active');
-        currentCategory = 'all';
-        showToast(`Browsing "${category}" topic 🔍`);
-    }
+
+    // Update stories page category pills
+    document.querySelectorAll('.stories-cat-pill').forEach(pill => {
+        pill.classList.toggle('active', pill.dataset.category === category);
+    });
+
+    // Update home page category pills (legacy)
+    document.querySelectorAll('.category-filter .category-pill').forEach(pill => {
+        pill.classList.toggle('active', pill.dataset.category === category);
+    });
+
     renderPosts();
 }
 
@@ -1291,10 +1302,7 @@ document.addEventListener('click', (e) => {
     if (!e.target.closest('.share-dropdown')) {
         document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
     }
-    if (!e.target.closest('.category-dropdown')) {
-        const dropdown = document.getElementById('categoryDropdownMenu');
-        if (dropdown) dropdown.classList.remove('active');
-    }
+
     const notifPanel = document.getElementById('notificationPanel');
     const notifBtn = document.getElementById('notificationBtn');
     if (notifPanel && notifPanel.style.display === 'block') {
@@ -1567,13 +1575,21 @@ function handleNavClick(navTarget) {
     if (navTarget === 'home') {
         currentCategory = 'all';
         categoryPills.forEach(p => p.classList.remove('active'));
-        document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+        const allPill = document.querySelector('.category-filter .category-pill[data-category="all"]');
+        if (allPill) allPill.classList.add('active');
+        document.querySelectorAll('.stories-cat-pill').forEach(p => p.classList.remove('active'));
+        const storiesAllPill = document.querySelector('.stories-cat-pill[data-category="all"]');
+        if (storiesAllPill) storiesAllPill.classList.add('active');
         navigateTo('home');
         renderPosts();
     } else if (navTarget === 'stories') {
         currentCategory = 'all';
         categoryPills.forEach(p => p.classList.remove('active'));
-        document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+        const allPill = document.querySelector('.category-filter .category-pill[data-category="all"]');
+        if (allPill) allPill.classList.add('active');
+        document.querySelectorAll('.stories-cat-pill').forEach(p => p.classList.remove('active'));
+        const storiesAllPill = document.querySelector('.stories-cat-pill[data-category="all"]');
+        if (storiesAllPill) storiesAllPill.classList.add('active');
         navigateTo('stories');
         renderPosts();
     } else if (navTarget === 'explore') {
@@ -1581,7 +1597,11 @@ function handleNavClick(navTarget) {
     } else if (navTarget === 'newpost') {
         currentCategory = 'all';
         categoryPills.forEach(p => p.classList.remove('active'));
-        document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+        const allPill = document.querySelector('.category-filter .category-pill[data-category="all"]');
+        if (allPill) allPill.classList.add('active');
+        document.querySelectorAll('.stories-cat-pill').forEach(p => p.classList.remove('active'));
+        const storiesAllPill = document.querySelector('.stories-cat-pill[data-category="all"]');
+        if (storiesAllPill) storiesAllPill.classList.add('active');
         navigateTo('home');
         renderPosts();
     } else if (navTarget === 'topics') {
@@ -1602,17 +1622,16 @@ allNavLinks.forEach(link => {
     });
 });
 
-const categoryPills = document.querySelectorAll('.category-pill');
+const categoryPills = document.querySelectorAll('.category-filter .category-pill');
 categoryPills.forEach(pill => {
     pill.addEventListener('click', () => {
-        const isStoriesPage = document.getElementById('storiesPage')?.classList.contains('active');
-        if (isStoriesPage) {
-            document.querySelectorAll('#storiesPage .category-pill').forEach(p => p.classList.remove('active'));
-        } else {
-            categoryPills.forEach(p => p.classList.remove('active'));
-        }
+        categoryPills.forEach(p => p.classList.remove('active'));
         pill.classList.add('active');
         currentCategory = pill.dataset.category;
+        // Sync stories page pills
+        document.querySelectorAll('.stories-cat-pill').forEach(p => {
+            p.classList.toggle('active', p.dataset.category === currentCategory);
+        });
         renderPosts();
     });
 });
@@ -1677,12 +1696,17 @@ trendingListItems.forEach(item => {
         const title = item.querySelector('.trending-title').textContent;
         const category = categoryMapping[title];
         if (category) {
-            navigateTo('home');
+            navigateTo('stories');
             showToast(`Showing: ${title} 🔍`);
             currentCategory = category;
+            // Update home page pills
             categoryPills.forEach(p => p.classList.remove('active'));
-            const matchingPill = document.querySelector(`.category-pill[data-category="${category}"]`);
+            const matchingPill = document.querySelector(`.category-filter .category-pill[data-category="${category}"]`);
             if (matchingPill) matchingPill.classList.add('active');
+            // Update stories page pills
+            document.querySelectorAll('.stories-cat-pill').forEach(p => p.classList.remove('active'));
+            const storiesMatchingPill = document.querySelector(`.stories-cat-pill[data-category="${category}"]`);
+            if (storiesMatchingPill) storiesMatchingPill.classList.add('active');
             renderPosts();
         }
     });
@@ -1959,29 +1983,17 @@ glowStyle.textContent = `
 document.head.appendChild(glowStyle);
 
 function sortByLatest() {
+    currentSortMode = 'latest';
     document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.sort-btn').forEach(b => {
-        if (b.textContent.includes('Latest')) b.classList.add('active');
-    });
+    document.querySelectorAll('.sort-btn[data-sort="latest"]').forEach(b => b.classList.add('active'));
     renderPosts();
     showToast(currentLang === 'fr' ? 'Affichage des derniers messages' : 'Showing latest posts');
 }
 
 function sortByPopular() {
+    currentSortMode = 'popular';
     document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.sort-btn').forEach(b => {
-        if (b.textContent.includes('Popular')) b.classList.add('active');
-    });
-    filteredPosts = currentCategory === 'all'
-        ? [...postsData]
-        : postsData.filter(post => post.category === currentCategory);
-    filteredPosts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-    const isStoriesPage = document.getElementById('storiesPage')?.classList.contains('active');
-    const storiesGrid = document.getElementById('storiesGrid');
-    const postsGrid = document.getElementById('postsGrid');
-    const targetGrid = isStoriesPage ? storiesGrid : postsGrid;
-    if (targetGrid) {
-        targetGrid.innerHTML = filteredPosts.map((post, i) => getPostHTML(post, i)).join('');
-    }
-    showToast(currentLang === 'fr' ? 'Affichage des messages populaires' : 'Showing popular posts');
+    document.querySelectorAll('.sort-btn[data-sort="popular"]').forEach(b => b.classList.add('active'));
+    renderPosts();
+    showToast(currentLang === 'fr' ? 'Affichage des plus populaires' : 'Showing popular posts');
 }

@@ -89,7 +89,7 @@
             <i class="fas fa-book-open"></i>
             <span>Stories</span>
         </a>
-        <a href="#" onclick="openNewPostModal(); return false;" class="bottom-nav-item share-story-bottom" data-i18n="shareStory">
+        <a href="#" onclick="openNewPostModal(); return false;" class="bottom-nav-item share-story-bottom">
             <i class="fas fa-pen-to-square"></i>
         </a>
         <a href="#" data-nav="explore" class="bottom-nav-item" data-i18n="explore">
@@ -176,31 +176,40 @@
     </div>
 
     <section class="page-section" id="storiesPage">
-        <div class="stories-header">
-            <div class="sort-buttons-row">
-                <button class="btn btn-secondary btn-sm sort-btn active" onclick="sortByLatest()">
+        <div class="stories-filter-bar">
+            <div class="stories-sort-row">
+                <button class="sort-btn active" data-sort="latest" onclick="sortByLatest()">
                     <i class="fas fa-clock"></i> <span>Latest</span>
                 </button>
-                <button class="btn btn-secondary btn-sm sort-btn" onclick="sortByPopular()">
+                <button class="sort-btn" data-sort="popular" onclick="sortByPopular()">
                     <i class="fas fa-fire"></i> <span>Popular</span>
                 </button>
-                <div class="category-dropdown">
-                    <button class="btn btn-secondary btn-sm sort-btn" onclick="toggleCategoryDropdown()">
-                        <span id="currentCategoryLabel">All</span> <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="category-dropdown-menu" id="categoryDropdownMenu">
-                        <div class="category-pills-row">
-                            <div class="category-pill active" data-category="all" onclick="selectCategory('all')">All</div>
-                            <div class="category-pill" data-category="travel" onclick="selectCategory('travel')">🧳</div>
-                            <div class="category-pill" data-category="study" onclick="selectCategory('study')">🎓</div>
-                            <div class="category-pill" data-category="work" onclick="selectCategory('work')">👷</div>
-                            <div class="category-pill" data-category="entertainment" onclick="selectCategory('entertainment')">🎭</div>
-                            <div class="category-pill" data-category="food" onclick="selectCategory('food')">🍜</div>
-                            <div class="category-pill" data-category="life" onclick="selectCategory('life')">🏙️</div>
-                            <div class="category-pill" data-category="business" onclick="selectCategory('business')">💼</div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <div class="stories-categories-row" id="storiesCategoriesRow">
+                <button class="stories-cat-pill active" data-category="all" onclick="selectCategory('all')">
+                    <span class="cat-icon">✨</span> All
+                </button>
+                <button class="stories-cat-pill" data-category="travel" onclick="selectCategory('travel')">
+                    <span class="cat-icon">🧳</span> Travel
+                </button>
+                <button class="stories-cat-pill" data-category="study" onclick="selectCategory('study')">
+                    <span class="cat-icon">🎓</span> Study
+                </button>
+                <button class="stories-cat-pill" data-category="work" onclick="selectCategory('work')">
+                    <span class="cat-icon">👷</span> Work
+                </button>
+                <button class="stories-cat-pill" data-category="entertainment" onclick="selectCategory('entertainment')">
+                    <span class="cat-icon">🎭</span> Entertainment
+                </button>
+                <button class="stories-cat-pill" data-category="food" onclick="selectCategory('food')">
+                    <span class="cat-icon">🍜</span> Food
+                </button>
+                <button class="stories-cat-pill" data-category="life" onclick="selectCategory('life')">
+                    <span class="cat-icon">🏙️</span> Life
+                </button>
+                <button class="stories-cat-pill" data-category="business" onclick="selectCategory('business')">
+                    <span class="cat-icon">💼</span> Business
+                </button>
             </div>
         </div>
         <div class="posts-grid" id="storiesGrid">
@@ -242,10 +251,10 @@
             <div class="stories-title-row">
                 <h2><i class="fas fa-fire"></i> <span data-i18n="communityStories">Community Stories</span></h2>
                 <div class="sort-buttons-row">
-                    <button class="btn btn-secondary btn-sm sort-btn active" onclick="sortByLatest()">
+                    <button class="btn btn-secondary btn-sm sort-btn active" data-sort="latest" onclick="sortByLatest()">
                         <i class="fas fa-clock"></i> <span>Latest</span>
                     </button>
-                    <button class="btn btn-secondary btn-sm sort-btn" onclick="sortByPopular()">
+                    <button class="btn btn-secondary btn-sm sort-btn" data-sort="popular" onclick="sortByPopular()">
                         <i class="fas fa-fire"></i> <span>Popular</span>
                     </button>
                 </div>
