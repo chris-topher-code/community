@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cdiscovery - Share Your Story</title>
+    <meta name="description" content="A community platform connecting foreigners across China through authentic stories and shared experiences. Join thousands of expats sharing their China journey.">
+    <meta name="keywords" content="China, expat, foreigner, stories, community, Shanghai, Beijing, life in China">
+    <meta name="author" content="Cdiscovery">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chris-topher-code.github.io/community/">
+    <meta property="og:title" content="Cdiscovery - Share Your Story">
+    <meta property="og:description" content="Connect with foreigners across China. Share your experiences, discover authentic stories, and join a vibrant community of expats.">
+    <meta property="og:image" content="https://api.dicebear.com/7.x/identicon/svg?seed=Cdiscovery&backgroundColor=0a0a1a">
+    <meta property="og:site_name" content="Cdiscovery">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Cdiscovery">
+    <meta name="twitter:title" content="Cdiscovery - Share Your Story">
+    <meta name="twitter:description" content="Connect with foreigners across China. Share your experiences and discover authentic stories.">
+    <meta name="twitter:image" content="https://api.dicebear.com/7.x/identicon/svg?seed=Cdiscovery&backgroundColor=0a0a1a">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body class="loading">
+    <!-- Global Background Image -->
+    <div class="global-bg" id="globalBg">
+        <img src="1.png" alt="" class="global-bg-img" id="globalBgImg">
+    </div>
+    <nav class="navbar">
+        <div class="nav-logo">
+            <i class="fas fa-comments"></i>
+            Cdiscovery
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" data-nav="home" data-i18n="home">Home</a></li>
+            <li><a href="#" data-nav="stories" data-i18n="stories">Stories</a></li>
+            <li><a href="#" data-nav="explore" data-i18n="explore">Explore</a></li>
+            <li><a href="#" data-nav="topics" data-i18n="topics">Topics</a></li>
+            <li><a href="#" data-nav="about" data-i18n="about">About</a></li>
+            <li><a href="#" onclick="openNewPostModal(); return false;" class="share-story-btn" data-i18n="shareStory" title="Share your China experience">
+                <i class="fas fa-pen-to-square"></i> Share Your Story
+            </a></li>
+            <li><a href="#" onclick="navigateTo('groupchat'); return false;" class="share-story-btn group-chat-btn" data-i18n="groupChat" title="Join your group chat">
+                <i class="fas fa-users"></i> <span data-i18n="groupChat">Group Chat</span>
+            </a></li>
+            <div class="nav-indicator" id="navIndicator"></div>
+        </ul>
+        <div class="nav-actions">
+            <div class="lang-switch">
+                <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+            </div>
+            <button class="notification-btn" id="notificationBtn" onclick="toggleNotificationPanel()" style="display: none;">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+            </button>
+                <button class="btn btn-outline" id="loginBtn" data-i18n="signIn">Sign In</button>
+                <button class="btn btn-primary" id="registerBtn" data-i18n="joinNow">Join Now</button>
+            <button class="profile-btn" id="profileBtn" onclick="navigateTo('profile')">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile">
+                <span data-i18n="profile">Profile</span>
+            </button>
+            <button class="btn btn-outline" id="signOutBtn" onclick="handleLogout()" data-i18n="logOut">Sign Out</button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#" data-nav="home" data-i18n="home">Home</a>
+        <a href="#" data-nav="stories" data-i18n="stories">Stories</a>
+        <a href="#" data-nav="explore" data-i18n="explore">Explore</a>
+        <a href="#" data-nav="topics" data-i18n="topics">Topics</a>
+        <a href="#" data-nav="about" data-i18n="about">About</a>
+        <a href="#" id="mobileProfileLink" data-nav="profile" style="display: none;">Profile</a>
+        <a href="#" id="mobileSignOutLink" onclick="handleLogout()" style="display: none;">Sign Out</a>
+    </div>
+
+    <div class="mobile-bottom-nav" id="mobileBottomNav">
+        <a href="#" data-nav="home" class="bottom-nav-item" data-i18n="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" data-nav="stories" class="bottom-nav-item" data-i18n="stories">
+            <i class="fas fa-book-open"></i>
+            <span>Stories</span>
+        </a>
+        <a href="#" onclick="openNewPostModal(); return false;" class="bottom-nav-item share-story-bottom">
+            <i class="fas fa-pen-to-square"></i>
+        </a>
+        <a href="#" data-nav="explore" class="bottom-nav-item" data-i18n="explore">
+            <i class="fas fa-compass"></i>
+            <span>Explore</span>
+        </a>
+        <a href="#" data-nav="about" class="bottom-nav-item" data-i18n="about">
+            <i class="fas fa-info-circle"></i>
+            <span>About</span>
+        </a>
+    </div>
+
+    <div class="welcome-banner" id="welcomeBanner">
+        <div class="welcome-inner">
+            <div class="welcome-content">
+                <div class="welcome-greeting" data-i18n="welcomeBack">Welcome back, Guest! 👋</div>
+                <div class="welcome-sub" data-i18n="readyToShare">Ready to share your next story?</div>
+                <div class="welcome-actions">
+                    <button class="welcome-action-btn" onclick="openNewPostModal()">
+                        <i class="fas fa-pen"></i> <span data-i18n="shareAStory">Share a Story</span>
+                    </button>
+                    <button class="welcome-action-btn" onclick="navigateTo('explore')">
+                        <i class="fas fa-compass"></i> <span data-i18n="exploreCities">Explore Cities</span>
+                    </button>
+                    <button class="welcome-action-btn" onclick="navigateTo('topics')">
+                        <i class="fas fa-hashtag"></i> <span data-i18n="browseTopics">Browse Topics</span>
+                    </button>
+                    <button class="welcome-action-btn" onclick="window.open('https://chris-topher-code.github.io/-chinese-apps-guide/', '_blank')">
+                        <i class="fas fa-external-link-alt"></i> <span data-i18n="chineseAppsGuide">Chinese Apps Guide</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification-panel" id="notificationPanel" style="display: none;">
+        <div class="notification-header">
+            <h4>Notifications</h4>
+            <button class="notification-close" onclick="toggleNotificationPanel()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="notification-list" id="notificationList">
+            <div class="notification-empty">No new notifications</div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-sparkles"></i>
+                Join <span id="heroMembersBadge">0</span>+ foreigners sharing China experiences
+            </div>
+            <h1>Share Your <span>Story</span></h1>
+            <p>Help others discover the real China. Your experience matters — share it with our growing community of expats from <span id="heroCountriesBadge">0</span> countries.</p>
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" data-i18n-placeholder="searchPlaceholder" placeholder="Search stories, topics, or people...">
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="heroMembersCount" data-suffix="">0</div>
+                    <div class="stat-label">Community Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="heroStoriesCount" data-suffix="">0</div>
+                    <div class="stat-label">Stories Shared</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="heroCitiesCount" data-suffix="">0</div>
+                    <div class="stat-label">Cities Covered</div>
+                </div>
+                <a class="stat-item hero-apps-guide-btn" href="https://chris-topher-code.github.io/-chinese-apps-guide/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;cursor:pointer;">
+                    <div class="stat-number"><i class="fas fa-external-link-alt" style="font-size:1.4rem;"></i></div>
+                    <div class="stat-label">Chinese Apps Guide</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="category-filter category-scroll-hint" style="display: none;">
+        <div class="category-pill active" data-category="all" data-i18n="allCategory">All</div>
+        <div class="category-pill" data-category="travel" data-i18n="travelCat">🧳 Travel</div>
+        <div class="category-pill" data-category="study" data-i18n="studyCat">🎓 Study</div>
+        <div class="category-pill" data-category="work" data-i18n="workCat">👷 Work</div>
+        <div class="category-pill" data-category="entertainment" data-i18n="entertainmentCat">🎭 Entertainment</div>
+        <div class="category-pill" data-category="food" data-i18n="foodCat">🍜 Food</div>
+        <div class="category-pill" data-category="life" data-i18n="lifeCat">🏙️ Life</div>
+        <div class="category-pill" data-category="business" data-i18n="businessCat">💼 Business</div>
+    </div>
+
+    <section class="page-section" id="storiesPage">
+        <div class="stories-filter-bar">
+            <div class="stories-sort-row">
+                <button class="sort-btn active" data-sort="latest" onclick="sortByLatest()">
+                    <i class="fas fa-clock"></i> <span>Latest</span>
+                </button>
+                <button class="sort-btn" data-sort="popular" onclick="sortByPopular()">
+                    <i class="fas fa-fire"></i> <span>Popular</span>
+                </button>
+            </div>
+            <div class="stories-categories-row" id="storiesCategoriesRow">
+                <button class="stories-cat-pill active" data-category="all" onclick="selectCategory('all')">
+                    <span class="cat-icon">✨</span> All
+                </button>
+                <button class="stories-cat-pill" data-category="travel" onclick="selectCategory('travel')">
+                    <span class="cat-icon">🧳</span> Travel
+                </button>
+                <button class="stories-cat-pill" data-category="study" onclick="selectCategory('study')">
+                    <span class="cat-icon">🎓</span> Study
+                </button>
+                <button class="stories-cat-pill" data-category="work" onclick="selectCategory('work')">
+                    <span class="cat-icon">👷</span> Work
+                </button>
+                <button class="stories-cat-pill" data-category="entertainment" onclick="selectCategory('entertainment')">
+                    <span class="cat-icon">🎭</span> Entertainment
+                </button>
+                <button class="stories-cat-pill" data-category="food" onclick="selectCategory('food')">
+                    <span class="cat-icon">🍜</span> Food
+                </button>
+                <button class="stories-cat-pill" data-category="life" onclick="selectCategory('life')">
+                    <span class="cat-icon">🏙️</span> Life
+                </button>
+                <button class="stories-cat-pill" data-category="business" onclick="selectCategory('business')">
+                    <span class="cat-icon">💼</span> Business
+                </button>
+            </div>
+        </div>
+        <div class="posts-grid" id="storiesGrid">
+        </div>
+    </section>
+
+    <section class="explore-section" id="exploreSection">
+        <div id="citiesView">
+            <div class="cities-hero-banner">
+                <div class="cities-hero-blob cities-hero-blob-1"></div>
+                <div class="cities-hero-blob cities-hero-blob-2"></div>
+                <div class="cities-hero-blob cities-hero-blob-3"></div>
+                <div class="cities-hero-content">
+                    <div class="cities-hero-icon">🌏</div>
+                    <h1 class="cities-hero-title">Explore Cities</h1>
+                    <p class="cities-hero-subtitle">Discover authentic stories from every corner of China</p>
+                </div>
+            </div>
+            <div class="cities-grid" id="citiesGrid"></div>
+        </div>
+        <div id="cityPostsView" style="display: none;">
+            <div class="city-hero-banner" id="cityHeroBanner">
+                <!-- Will be populated by JS -->
+            </div>
+            <div class="city-posts-container">
+                <div class="city-posts-header">
+                    <button class="back-btn" onclick="backToCities()">
+                        <i class="fas fa-arrow-left"></i> Back to Cities
+                    </button>
+                    <h2 id="cityPostsTitle"></h2>
+                </div>
+                <div class="posts-grid" id="cityPostsGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-container" id="mainContainer">
+        <section class="posts-section" id="postsSection">
+            <div class="stories-title-row">
+                <h2><i class="fas fa-fire"></i> <span data-i18n="communityStories">Community Stories</span></h2>
+                <div class="sort-buttons-row">
+                    <button class="btn btn-secondary btn-sm sort-btn active" data-sort="latest" onclick="sortByLatest()">
+                        <i class="fas fa-clock"></i> <span>Latest</span>
+                    </button>
+                    <button class="btn btn-secondary btn-sm sort-btn" data-sort="popular" onclick="sortByPopular()">
+                        <i class="fas fa-fire"></i> <span>Popular</span>
+                    </button>
+                </div>
+            </div>
+            <div class="posts-grid" id="postsGrid">
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3><i class="fas fa-chart-line"></i> <span data-i18n="trendingTopics">Trending Topics</span></h3>
+                <ul class="trending-list" id="trendingList2">
+                    <li class="trending-item loading"><i class="fas fa-spinner fa-spin"></i> Loading...</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-card">
+                <h3><i class="fas fa-globe"></i> <span data-i18n="communityStats">Community Stats</span></h3>
+                <div class="community-stats">
+                    <div class="community-stat">
+                        <i class="fas fa-users"></i>
+                        <div class="community-stat-value" id="sidebarMembersCount2">0</div>
+                        <div class="community-stat-label" data-i18n="members">Members</div>
+                    </div>
+                    <div class="community-stat">
+                        <i class="fas fa-comments"></i>
+                        <div class="community-stat-value" id="sidebarCommentsCount2">0</div>
+                        <div class="community-stat-label" data-i18n="comments">Comments</div>
+                    </div>
+                    <div class="community-stat">
+                        <i class="fas fa-share"></i>
+                        <div class="community-stat-value" id="sidebarStoriesCount2">0</div>
+                        <div class="community-stat-label" data-i18n="storiesLabel">Stories</div>
+                    </div>
+                    <div class="community-stat">
+                        <i class="fas fa-flag"></i>
+                        <div class="community-stat-value" id="sidebarCountriesCount2">0</div>
+                        <div class="community-stat-label" data-i18n="countries">Countries</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h3><i class="fas fa-bolt"></i> <span data-i18n="quickLinks">Quick Links</span></h3>
+                <ul class="trending-list">
+                    <li class="trending-item" onclick="navigateTo('about')">
+                        <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
+                        <div class="trending-info">
+                            <div class="trending-title" data-i18n="newcomerGuide">Newcomer Guide</div>
+                            <div class="trending-posts" data-i18n="essentialTips">Essential tips for China</div>
+                        </div>
+                    </li>
+                    <li class="trending-item" onclick="navigateTo('explore')">
+                        <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
+                        <div class="trending-info">
+                            <div class="trending-title" data-i18n="exploreCities">Explore Cities</div>
+                            <div class="trending-posts" data-i18n="discoverStories">Discover stories by city</div>
+                        </div>
+                    </li>
+                    <li class="trending-item" onclick="navigateTo('topics')">
+                        <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
+                        <div class="trending-info">
+                            <div class="trending-title" data-i18n="browseTopicsLink">Browse Topics</div>
+                            <div class="trending-posts" data-i18n="allTopics">All topic categories</div>
+                        </div>
+                    </li>
+                    <li class="trending-item" onclick="window.open('https://chris-topher-code.github.io/-chinese-apps-guide/', '_blank')">
+                        <i class="fas fa-external-link-alt" style="color: var(--accent-coral);"></i>
+                        <div class="trending-info">
+                            <div class="trending-title" data-i18n="chineseAppsGuide">Chinese Apps Guide</div>
+                            <div class="trending-posts" data-i18n="chineseAppsGuideDesc">Essential guide to Chinese apps</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Cdiscovery</h3>
+                <p>A vibrant community connecting foreigners across China. Share your experiences, make friends, and discover the real China together.</p>
+            </div>
+            <div class="footer-links">
+                <h4 data-i18n="community">Community</h4>
+                <ul>
+                    <li><a href="#" onclick="handleNavClick('Stories'); return false;">Stories</a></li>
+                    <li><a href="#" onclick="navigateTo('explore'); return false;">Explore Cities</a></li>
+                    <li><a href="#" onclick="navigateTo('topics'); return false;">Topics</a></li>
+                    <li><a href="#" onclick="openNewPostModal(); return false;">New Post</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-i18n="resources">Resources</h4>
+                <ul>
+                    <li><a href="#" onclick="navigateTo('about'); return false;">Newcomer Guide</a></li>
+                    <li><a href="#" onclick="filterByTopic('work'); return false;">Visa Information</a></li>
+                    <li><a href="#" onclick="filterByTopic('life'); return false;">Healthcare</a></li>
+                    <li><a href="#" onclick="navigateTo('topics'); return false;">Language Tips</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-i18n="company">Company</h4>
+                <ul>
+                    <li><a href="#" onclick="navigateTo('about'); return false;" data-i18n="aboutUs">About Us</a></li>
+                    <li><a href="#" onclick="navigateTo('about'); return false;" data-i18n="contact">Contact</a></li>
+                    <li><a href="#" onclick="return false;">Privacy Policy</a></li>
+                    <li><a href="#" onclick="return false;">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Cdiscovery. All rights reserved.</span>
+            <div class="footer-social">
+                <a href="#" onclick="shareWebsite(); return false;" title="Share and invite friends"><i class="fas fa-user-plus"></i></a>
+                <a href="#" onclick="shareWebsite(); return false;"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <section class="page-section" id="topicsPage">
+        <div class="page-hero" id="topicsHero">
+            <h1>Topics</h1>
+            <p>Explore conversations organized by what matters to you</p>
+        </div>
+        <div class="topics-grid">
+            <div class="topic-card spotlight-card" onclick="filterByTopic('study')">
+                <div class="topic-card-icon">🎓</div>
+                <h3>Student Life</h3>
+                <p>Share university experiences, study tips, and connect with fellow international students across China.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,234 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('work')">
+                <div class="topic-card-icon">👷</div>
+                <h3>Working in China</h3>
+                <p>Career opportunities, work culture insights, visa processes, and professional networking.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 987 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('travel')">
+                <div class="topic-card-icon">🧳</div>
+                <h3>Travel & Adventure</h3>
+                <p>Hidden gems, travel itineraries, photography spots, and must-visit destinations across China.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 2,156 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('food')">
+                <div class="topic-card-icon">🍜</div>
+                <h3>Food & Dining</h3>
+                <p>Restaurant reviews, street food discoveries, cooking tips, and regional cuisine exploration.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,891 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('life')">
+                <div class="topic-card-icon">🏙️</div>
+                <h3>Daily Life</h3>
+                <p>Healthcare, housing, transportation, and everyday life hacks for foreigners in China.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,567 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('entertainment')">
+                <div class="topic-card-icon">🎭</div>
+                <h3>Entertainment</h3>
+                <p>Movies, music, nightlife, festivals, and fun activities to enjoy in your city.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 743 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('business')">
+                <div class="topic-card-icon">💼</div>
+                <h3>Business & Entrepreneurship</h3>
+                <p>Startups, business culture, networking events, and opportunities in China's dynamic market.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 456 posts</div>
+            </div>
+            <div class="topic-card spotlight-card" onclick="filterByTopic('language')">
+                <div class="topic-card-icon">🗣️</div>
+                <h3>Language Learning</h3>
+                <p>Mandarin tips, language exchange partners, resources, and practice opportunities.</p>
+                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,023 posts</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="aboutPage">
+        <div class="page-hero" id="aboutHero">
+            <h1>About Cdiscovery</h1>
+            <p>Connecting foreigners across China through authentic stories and shared experiences</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-card">
+                <h3><i class="fas fa-heart"></i> Our Mission</h3>
+                <p>Cdiscovery is a vibrant community platform designed to connect foreigners living, working, studying, and traveling across China. We believe in the power of authentic storytelling to bridge cultures, foster understanding, and create lasting connections.</p>
+                <p style="margin-top: 12px;">Founded in 2024, we've grown into a thriving community spanning 156 cities with members from over 89 countries.</p>
+            </div>
+            <div class="about-card">
+                <h3><i class="fas fa-star"></i> What We Offer</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> Share your China experiences and stories</li>
+                    <li><i class="fas fa-check"></i> Connect with foreigners in your city</li>
+                    <li><i class="fas fa-check"></i> Discover local tips and hidden gems</li>
+                    <li><i class="fas fa-check"></i> Get answers to your China questions</li>
+                    <li><i class="fas fa-check"></i> Join topic-based discussions</li>
+                    <li><i class="fas fa-check"></i> Access curated resources and guides</li>
+                </ul>
+            </div>
+            <div class="about-card">
+                <h3><i class="fas fa-users"></i> Community Guidelines</h3>
+                <ul>
+                    <li><i class="fas fa-hand-holding-heart"></i> Be respectful and inclusive</li>
+                    <li><i class="fas fa-shield-alt"></i> Share authentic experiences</li>
+                    <li><i class="fas fa-lock"></i> Protect privacy and personal info</li>
+                    <li><i class="fas fa-ban"></i> No spam or self-promotion</li>
+                    <li><i class="fas fa-flag"></i> Report inappropriate content</li>
+                    <li><i class="fas fa-lightbulb"></i> Help newcomers feel welcome</li>
+                </ul>
+            </div>
+            <div class="about-card">
+                <h3><i class="fas fa-envelope"></i> Get Involved</h3>
+                <p>Want to contribute to Cdiscovery? We're always looking for community ambassadors, content creators, and volunteers to help grow our platform.</p>
+                <div class="about-stats-row">
+                    <div class="about-stat">
+                        <div class="about-stat-num">12.8K</div>
+                        <div class="about-stat-label">Members</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-num">8.2K</div>
+                        <div class="about-stat-label">Stories</div>
+                    </div>
+                    <div class="about-stat">
+                        <div class="about-stat-num">89</div>
+                        <div class="about-stat-label">Countries</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="profile-page" id="profilePage">
+        <div class="profile-header-card" id="profileHeaderCard">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile" class="profile-avatar-lg profile-avatar-upload" id="profileAvatar" onclick="triggerAvatarUpload()" title="Click to upload avatar" loading="lazy">
+            <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;" onchange="handleAvatarUpload(this)">
+            <div class="profile-info">
+                <div class="profile-name" id="profileDisplayName">Guest User</div>
+                <div class="profile-meta">
+                    <span><i class="fas fa-globe"></i> <span id="profileCountry">Unknown</span></span>
+                    <span><i class="fas fa-user-tag"></i> <span id="profileIdentity">Member</span></span>
+                    <span><i class="fas fa-calendar"></i> <span data-i18n="joinedRecently">Joined recently</span></span>
+                </div>
+                <div class="profile-stats-row">
+                    <div class="profile-stat">
+                        <div class="profile-stat-num" id="profilePostsCount">0</div>
+                        <div class="profile-stat-label" data-i18n="posts">Posts</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-num" id="profileLikesCount">0</div>
+                        <div class="profile-stat-label" data-i18n="likesReceived">Likes Received</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-num" id="profileCommentsCount">0</div>
+                        <div class="profile-stat-label" data-i18n="commentsMade">Comments</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <button class="profile-tab active" data-ptab="myposts" onclick="switchProfileTab('myposts')">
+                <i class="fas fa-file-alt"></i> <span data-i18n="myPosts">My Posts</span>
+            </button>
+            <button class="profile-tab" data-ptab="edit" onclick="switchProfileTab('edit')">
+                <i class="fas fa-cog"></i> <span data-i18n="editProfile">Edit Profile</span>
+            </button>
+            <button class="profile-tab" data-ptab="settings" onclick="switchProfileTab('settings')">
+                <i class="fas fa-sliders-h"></i> <span data-i18n="settings">Settings</span>
+            </button>
+        </div>
+
+        <div id="profileTabMyposts" class="profile-tab-content">
+            <div class="my-posts-list" id="myPostsList">
+                <div class="empty-profile">
+                    <i class="fas fa-pen-nib"></i>
+                    <h3 data-i18n="noPostsYet">No posts yet</h3>
+                    <p data-i18n="startSharing">Start sharing your story!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="profileTabEdit" class="profile-tab-content edit-form">
+            <h3 class="profile-section-title"><i class="fas fa-user-edit"></i> <span data-i18n="editProfile">Edit Profile</span></h3>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label data-i18n="displayName">Display Name</label>
+                    <input type="text" id="editName" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="countryOrigin">Country of Origin</label>
+                    <select id="editCountry">
+                        <option value="">Select your country...</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                        <option value="AU">Australia</option>
+                        <option value="DE">Germany</option>
+                        <option value="FR">France</option>
+                        <option value="JP">Japan</option>
+                        <option value="KR">South Korea</option>
+                        <option value="IN">India</option>
+                        <option value="BR">Brazil</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="bio">Bio</label>
+                    <textarea class="composer-textarea" id="editBio" placeholder="Tell us about yourself..." style="min-height: 80px;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;" data-i18n="saveChanges">Save Changes</button>
+            </form>
+        </div>
+
+        <div id="profileTabSettings" class="profile-tab-content edit-form">
+            <h3 class="profile-section-title"><i class="fas fa-image"></i> <span data-i18n="backgroundSettings">Background Image</span></h3>
+            <div class="bg-settings-panel">
+                <div class="bg-preview-box">
+                    <img src="1.png" alt="" class="bg-preview-img" id="bgPreviewImg">
+                </div>
+                <div class="bg-controls">
+                    <button class="btn btn-outline bg-upload-btn" onclick="triggerBgUpload()" style="justify-content: center; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-upload"></i> <span data-i18n="uploadBackground">Upload Background</span>
+                    </button>
+                    <button class="btn btn-outline bg-reset-btn" id="bgResetBtn" onclick="resetBgImage()" style="justify-content: center; display: flex; align-items: center; gap: 8px; display: none;">
+                        <i class="fas fa-undo"></i> <span data-i18n="resetBackground">Reset to Default</span>
+                    </button>
+                    <input type="file" id="bgUploadInput" accept="image/*" style="display: none;" onchange="handleBgUpload(this)">
+                    <div class="bg-opacity-control">
+                        <label><i class="fas fa-adjust"></i> <span data-i18n="opacity">Opacity</span>: <span id="opacityValue">30</span>%</label>
+                        <input type="range" id="bgOpacitySlider" min="5" max="80" value="30" oninput="updateBgOpacity(this.value)">
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="profile-section-title" style="margin-top: 24px;"><i class="fas fa-shield-alt"></i> <span data-i18n="accountSettings">Account Settings</span></h3>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px;" onclick="showToast(t('passwordChanged'))">
+                    <i class="fas fa-key"></i> <span data-i18n="changePassword">Change Password</span>
+                </button>
+                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; background: var(--accent-gradient); border: none; color: white;" onclick="copyReferralLink()">
+                    <i class="fas fa-user-plus"></i> <span>Invite Friends</span>
+                </button>
+                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="logOut">Log Out</span>
+                </button>
+                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="showToast(t('accountDeleted'))">
+                    <i class="fas fa-trash-alt"></i> <span data-i18n="deleteAccount">Delete Account</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Profile Page (Other Users) -->
+    <section class="user-profile-page" id="userProfilePage">
+        <div class="user-profile-header">
+            <img src="" alt="" class="user-profile-avatar" id="userProfileAvatar">
+            <div class="user-profile-info">
+                <div class="user-profile-name" id="userProfileName"></div>
+                <div class="user-profile-meta">
+                    <span><i class="fas fa-globe"></i> <span id="userProfileCountry"></span></span>
+                    <span><i class="fas fa-user-tag"></i> <span id="userProfileIdentity"></span></span>
+                </div>
+                <div class="user-profile-bio" id="userProfileBio"></div>
+                <div class="user-profile-stats">
+                    <div class="user-profile-stat">
+                        <div class="user-profile-stat-num" id="userProfilePostsCount">0</div>
+                        <div class="user-profile-stat-label" data-i18n="posts">Posts</div>
+                    </div>
+                    <div class="user-profile-stat">
+                        <div class="user-profile-stat-num" id="userProfileLikesCount">0</div>
+                        <div class="user-profile-stat-label" data-i18n="likesReceived">Likes Received</div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-profile-actions">
+                <button class="btn-message" id="btnSendMessage" onclick="openMessageModal()">
+                    <i class="fas fa-envelope"></i> <span data-i18n="sendMessage">Send Message</span>
+                </button>
+                <button class="btn-back-profile" onclick="navigateBackFromUser()">
+                    <i class="fas fa-arrow-left"></i> <span data-i18n="back">Back</span>
+                </button>
+            </div>
+        </div>
+        <div class="user-profile-posts-title"><i class="fas fa-file-alt"></i> <span data-i18n="userPosts">Posts</span></div>
+        <div class="user-posts-grid" id="userPostsGrid"></div>
+    </section>
+
+    <!-- Message Modal -->
+    <div class="msg-modal-overlay" id="msgModalOverlay">
+        <div class="msg-modal">
+            <div class="msg-modal-header">
+                <img src="" alt="" class="msg-modal-header-avatar" id="msgModalAvatar">
+                <div class="msg-modal-header-info">
+                    <div class="msg-modal-header-name" id="msgModalName"></div>
+                    <div class="msg-modal-header-status" data-i18n="directMessage">Direct Message</div>
+                </div>
+                <button class="msg-modal-close" onclick="closeMessageModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="msg-body" id="msgBody">
+                <div class="msg-empty" id="msgEmpty">
+                    <div>
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-i18n="noMessages">No messages yet. Say hello!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="msg-input-area">
+                <input type="file" id="msgImageInput" accept="image/*" style="display:none" onchange="handleMsgImageSelect(this)">
+                <button class="msg-img-btn" id="msgImgBtn" onclick="document.getElementById('msgImageInput').click()" title="Send Image">
+                    <i class="fas fa-image"></i>
+                </button>
+                <input type="text" class="msg-input" id="msgInput" data-i18n-placeholder="typeMessage" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMessage()">
+                <button class="msg-send-btn" id="msgSendBtn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i> <span data-i18n="send">Send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Chat Page -->
+    <section class="group-chat-page" id="groupChatPage">
+        <div class="gc-layout">
+            <!-- Left Sidebar: Group List -->
+            <aside class="gc-sidebar" id="gcSidebar">
+                <div class="gc-sidebar-header">
+                    <i class="fas fa-users"></i>
+                    <span data-i18n="groupChat">Group Chat</span>
+                </div>
+                <div class="gc-sidebar-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="gcSearchInput" data-i18n-placeholder="searchGroups" placeholder="Search groups..." oninput="filterGroupList(this.value)">
+                </div>
+                <div class="gc-group-list" id="gcGroupList">
+                    <!-- Group items populated by JS -->
+                </div>
+            </aside>
+            <!-- Right: Chat Area -->
+            <div class="gc-main">
+                <div class="gc-chat-header" id="gcChatHeader">
+                    <div class="gc-chat-header-info">
+                        <div class="gc-chat-title" id="gcChatTitle"><i class="fas fa-comments"></i> <span data-i18n="selectGroup">Select a group chat</span></div>
+                        <div class="gc-chat-subtitle" id="gcChatSubtitle"></div>
+                    </div>
+                </div>
+                <div class="gc-chat-body" id="gcChatBody">
+                    <div class="gc-placeholder" id="gcPlaceholder">
+                        <i class="fas fa-hand-pointer"></i>
+                        <p data-i18n="selectGroup">Select a group chat from the left to start chatting</p>
+                    </div>
+                </div>
+                <div class="gc-input-area" id="gcInputArea" style="display:none;">
+                    <input type="file" id="groupChatImageInput" accept="image/*" style="display:none" onchange="handleGroupImageSelect(this)">
+                    <button class="msg-img-btn" onclick="document.getElementById('groupChatImageInput').click()" title="Send Image">
+                        <i class="fas fa-image"></i>
+                    </button>
+                    <input type="text" class="msg-input" id="groupChatInput" data-i18n-placeholder="typeMessage" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendGroupMessage()">
+                    <button class="msg-send-btn" onclick="sendGroupMessage()">
+                        <i class="fas fa-paper-plane"></i> <span data-i18n="send">Send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="authModal">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h2 id="modalTitle">Welcome Back</h2>
+                <p id="modalSubtitle">Log in to continue your China journey</p>
+            </div>
+            <div class="modal-tabs">
+                <div class="modal-tab active" data-tab="login" data-i18n="logIn">Log In</div>
+                <div class="modal-tab" data-tab="register" data-i18n="createAccount">Register</div>
+            </div>
+            <div class="modal-body">
+                <form id="authForm">
+                    <div class="form-group">
+                        <label data-i18n="emailAddress">Email Address</label>
+                        <input type="email" id="emailInput" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="password">Password</label>
+                        <input type="password" id="passwordInput" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                        <label data-i18n="confirmPassword">Confirm Password</label>
+                        <input type="password" placeholder="Confirm your password">
+                    </div>
+                    <div class="form-group" id="countryGroup" style="display: none;">
+                        <label data-i18n="countryOrigin">Country of Origin</label>
+                        <select id="countrySelect">
+                            <option value="" data-i18n="selectCountry">Select your country...</option>
+                            <option value="US">United States</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="CA">Canada</option>
+                            <option value="AU">Australia</option>
+                            <option value="DE">Germany</option>
+                            <option value="FR">France</option>
+                            <option value="ES">Spain</option>
+                            <option value="IT">Italy</option>
+                            <option value="NL">Netherlands</option>
+                            <option value="BE">Belgium</option>
+                            <option value="CH">Switzerland</option>
+                            <option value="AT">Austria</option>
+                            <option value="SE">Sweden</option>
+                            <option value="NO">Norway</option>
+                            <option value="DK">Denmark</option>
+                            <option value="FI">Finland</option>
+                            <option value="PL">Poland</option>
+                            <option value="CZ">Czech Republic</option>
+                            <option value="HU">Hungary</option>
+                            <option value="RO">Romania</option>
+                            <option value="RU">Russia</option>
+                            <option value="UA">Ukraine</option>
+                            <option value="TR">Turkey</option>
+                            <option value="JP">Japan</option>
+                            <option value="KR">South Korea</option>
+                            <option value="IN">India</option>
+                            <option value="SG">Singapore</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="TH">Thailand</option>
+                            <option value="VN">Vietnam</option>
+                            <option value="PH">Philippines</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="BR">Brazil</option>
+                            <option value="MX">Mexico</option>
+                            <option value="AR">Argentina</option>
+                            <option value="CL">Chile</option>
+                            <option value="CO">Colombia</option>
+                            <option value="ZA">South Africa</option>
+                            <option value="NG">Nigeria</option>
+                            <option value="EG">Egypt</option>
+                            <option value="AE">United Arab Emirates</option>
+                            <option value="SA">Saudi Arabia</option>
+                            <option value="IL">Israel</option>
+                            <option value="NZ">New Zealand</option>
+                            <option value="IE">Ireland</option>
+                            <option value="PT">Portugal</option>
+                            <option value="GR">Greece</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="identityGroup" style="display: none;">
+                        <label data-i18n="whatDescribes">What best describes you?</label>
+                        <div class="identity-options">
+                            <div class="identity-card" data-identity="student">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span data-i18n="student">Student</span>
+                            </div>
+                            <div class="identity-card" data-identity="worker">
+                                <i class="fas fa-briefcase"></i>
+                                <span data-i18n="worker">Worker</span>
+                            </div>
+                            <div class="identity-card" data-identity="tourist">
+                                <i class="fas fa-camera"></i>
+                                <span data-i18n="tourist">Tourist</span>
+                            </div>
+                            <div class="identity-card" data-identity="business">
+                                <i class="fas fa-chart-line"></i>
+                                <span data-i18n="business">Business</span>
+                            </div>
+                            <div class="identity-card" data-identity="researcher">
+                                <i class="fas fa-microscope"></i>
+                                <span data-i18n="researcher">Researcher</span>
+                            </div>
+                            <div class="identity-card" data-identity="other">
+                                <i class="fas fa-ellipsis-h"></i>
+                                <span data-i18n="other">Other</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary modal-btn" id="submitBtn">Log In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <section class="new-post-page" id="newPostPage">
+        <div class="new-post-card">
+            <div class="new-post-header">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Avatar" id="newPostAvatar">
+                <div class="new-post-header-info">
+                    <h3 data-i18n="shareYourStory">Share Your Story</h3>
+                    <p data-i18n="tellCommunity">Tell the community about your experience in China</p>
+                </div>
+                <button class="back-btn" onclick="navigateTo('home')" style="margin-left:auto;">
+                    <i class="fas fa-arrow-left"></i> <span data-i18n="backToCities">Back</span>
+                </button>
+            </div>
+            <form id="newPostForm">
+                <textarea class="new-post-textarea" id="postContent" data-i18n-placeholder="postPlaceholder" placeholder="Share your story..." required maxlength="5000" oninput="updateCharCount(this)"></textarea>
+                <div class="char-count" id="charCount">0 / 5000</div>
+                <div class="new-post-preview" id="imagePreview">
+                    <img src="" alt="Preview" id="previewImg">
+                    <button type="button" class="remove-img" onclick="removeImage()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="new-post-bottom">
+                    <div class="new-post-options">
+                        <select class="new-post-select" id="postCategory">
+                            <option value="travel">🧳 Travel</option>
+                            <option value="study">🎓 Study</option>
+                            <option value="work">👷 Work</option>
+                            <option value="entertainment">🎭 Entertainment</option>
+                            <option value="food">🍜 Food</option>
+                            <option value="life">🏙️ Life</option>
+                            <option value="business">💼 Business</option>
+                        </select>
+                        <select class="new-post-select" id="postCity">
+                            <option value="unknown">📍 Select city...</option>
+                            <option value="beijing">🏯 Beijing</option>
+                            <option value="shanghai">🌆 Shanghai</option>
+                            <option value="guangzhou">🏙️ Guangzhou</option>
+                            <option value="shenzhen">🚀 Shenzhen</option>
+                            <option value="chengdu">🐼 Chengdu</option>
+                            <option value="hangzhou">🏝️ Hangzhou</option>
+                            <option value="xian">🏺 Xi'an</option>
+                            <option value="suzhou">🌸 Suzhou</option>
+                            <option value="wuhan">🌉 Wuhan</option>
+                            <option value="chongqing">🌶️ Chongqing</option>
+                            <option value="nanjing">🦚 Nanjing</option>
+                            <option value="tianjin">⚓ Tianjin</option>
+                        </select>
+                        <select class="new-post-select" id="postTopic">
+                            <option value="">📌 Select topic...</option>
+                            <option value="study">🎓 Student Life</option>
+                            <option value="work">👷 Working in China</option>
+                            <option value="travel">🧳 Travel & Adventure</option>
+                            <option value="food">🍜 Food & Dining</option>
+                            <option value="life">🏙️ Daily Life</option>
+                            <option value="entertainment">🎭 Entertainment</option>
+                            <option value="business">💼 Business & Entrepreneurship</option>
+                            <option value="language">🗣️ Language Learning</option>
+                        </select>
+                        <label class="new-post-img-btn" for="imageUpload">
+                            <i class="fas fa-image"></i> <span data-i18n="addPhoto">Add Photo</span>
+                        </label>
+                        <input type="file" id="imageUpload" accept="image/*" style="display:none" onchange="previewImage(this)">
+                    </div>
+                    <button type="submit" class="btn btn-primary new-post-submit" data-i18n="postBtn">Post</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
