@@ -4,7 +4,7 @@ const i18n = {
         home: 'Home', stories: 'Stories', explore: 'Explore', newPost: 'New Post', shareStory: 'Share Story',
         topics: 'Topics', about: 'About', profile: 'Profile',
         signIn: 'Sign In', joinNow: 'Join Now',
-        welcomeBack: 'Welcome back, Guest!', readyToShare: 'Ready to share your next China story?',
+        welcomeBack: 'Welcome back, Guest!', readyToShare: 'Ready to share your next story?',
         shareAStory: 'Share a Story', exploreCities: 'Explore Cities', browseTopics: 'Browse Topics',
         communityStories: 'Community Stories', showComments: 'Show Comments', hideComments: 'Hide Comments',
         translate: 'Translate', translated: 'Translated', copyLink: 'Copy Link',
@@ -19,7 +19,7 @@ const i18n = {
         discoverStories: 'Discover authentic stories from every corner of China',
         posts: 'posts', backToCities: 'Back to Cities', storiesLabel: 'Stories',
         topicsTitle: 'Topics', topicsSubtitle: 'Explore conversations organized by what matters to you',
-        aboutTitle: 'About ChinaVoices', aboutSubtitle: 'Connecting foreigners across China through authentic stories and shared experiences',
+        aboutTitle: 'About Cdiscovery', aboutSubtitle: 'Connecting foreigners across China through authentic stories and shared experiences',
         ourMission: 'Our Mission', whatWeOffer: 'What We Offer', communityGuidelines: 'Community Guidelines',
         getInvolved: 'Get Involved', shareExperience: 'Share your China experiences and stories',
         connectForeigners: 'Connect with foreigners in your city', discoverTips: 'Discover local tips and hidden gems',
@@ -29,7 +29,7 @@ const i18n = {
         noSpam: 'No spam or self-promotion', reportContent: 'Report inappropriate content',
         helpNewcomers: 'Help newcomers feel welcome',
         myPosts: 'My Posts', editProfile: 'Edit Profile', settings: 'Settings',
-        noPostsYet: 'No posts yet', startSharing: 'Start sharing your China story!',
+        noPostsYet: 'No posts yet', startSharing: 'Start sharing your story!',
         displayName: 'Display Name', countryOrigin: 'Country of Origin', bio: 'Bio',
         saveChanges: 'Save Changes', accountSettings: 'Account Settings',
         changePassword: 'Change Password', logOut: 'Log Out', deleteAccount: 'Delete Account',
@@ -58,13 +58,19 @@ const i18n = {
         workCat: '👷 Work', entertainmentCat: '🎭 Entertainment',
         foodCat: '🍜 Food', lifeCat: '🏙️ Life', businessCat: '💼 Business',
         postsIn: 'Posts in', searchPlaceholder: 'Search stories, topics, or people...',
-        addPhoto: 'Add Photo', selectCity: 'Select city...', back: 'Back'
+        addPhoto: 'Add Photo', selectCity: 'Select city...', back: 'Back',
+        changeBackground: 'Change Background', resetBackground: 'Reset to Default', bgUpdated: 'Background image updated!', bgReset: 'Background reset to default',
+        backgroundSettings: 'Background Image', uploadBackground: 'Upload Background', opacity: 'Opacity',
+        sendMessage: 'Send Message', userPosts: 'Posts', directMessage: 'Direct Message',
+        noMessages: 'No messages yet. Say hello!', typeMessage: 'Type a message...',
+        groupChat: 'Group Chat', noGroupMessages: 'No messages yet. Be the first to say hello!', searchGroups: 'Search groups...', selectGroup: 'Select a group chat',
+        chineseAppsGuide: 'Chinese Apps Guide', chineseAppsGuideDesc: 'Essential guide to Chinese apps',
     },
     fr: {
         home: 'Accueil', stories: 'Récits', explore: 'Explorer', newPost: 'Nouveau Post', shareStory: 'Partager une histoire',
         topics: 'Sujets', about: 'À propos', profile: 'Profil',
         signIn: 'Se connecter', joinNow: "S'inscrire",
-        welcomeBack: 'Bienvenue, Invité !', readyToShare: 'Prêt à partager votre prochaine histoire de Chine ?',
+        welcomeBack: 'Bienvenue, Invité !', readyToShare: 'Prêt à partager votre prochaine histoire ?',
         shareAStory: 'Partager une histoire', exploreCities: 'Explorer les villes', browseTopics: 'Parcourir les sujets',
         communityStories: 'Récits de la communauté', showComments: 'Afficher les commentaires', hideComments: 'Masquer les commentaires',
         translate: 'Traduire', translated: 'Traduit', copyLink: 'Copier le lien',
@@ -79,7 +85,7 @@ const i18n = {
         discoverStories: 'Découvrez des récits authentiques de chaque coin de Chine',
         posts: 'publications', backToCities: 'Retour aux villes', storiesLabel: 'Récits',
         topicsTitle: 'Sujets', topicsSubtitle: 'Explorez les conversations organisées par ce qui vous intéresse',
-        aboutTitle: 'À propos de ChinaVoices', aboutSubtitle: 'Connecter les étrangers à travers la Chine grâce à des récits authentiques',
+        aboutTitle: 'À propos de Cdiscovery', aboutSubtitle: 'Connecter les étrangers à travers la Chine grâce à des récits authentiques',
         ourMission: 'Notre mission', whatWeOffer: 'Ce que nous offrons', communityGuidelines: 'Règles de la communauté',
         getInvolved: 'Participez', shareExperience: 'Partagez vos expériences en Chine',
         connectForeigners: 'Connectez-vous avec des étrangers dans votre ville', discoverTips: 'Découvrez des conseils locaux et des trésors cachés',
@@ -89,7 +95,7 @@ const i18n = {
         noSpam: 'Pas de spam ni d\'autopromotion', reportContent: 'Signalez le contenu inapproprié',
         helpNewcomers: 'Aidez les nouveaux arrivants à se sentir les bienvenus',
         myPosts: 'Mes posts', editProfile: 'Modifier le profil', settings: 'Paramètres',
-        noPostsYet: 'Pas encore de posts', startSharing: 'Commencez à partager votre histoire de Chine !',
+        noPostsYet: 'Pas encore de posts', startSharing: 'Commencez à partager votre histoire !',
         displayName: 'Nom d\'affichage', countryOrigin: 'Pays d\'origine', bio: 'Bio',
         saveChanges: 'Enregistrer les modifications', accountSettings: 'Paramètres du compte',
         changePassword: 'Changer le mot de passe', logOut: 'Se déconnecter', deleteAccount: 'Supprimer le compte',
@@ -118,7 +124,13 @@ const i18n = {
         workCat: '👷 Travail', entertainmentCat: '🎭 Divertissement',
         foodCat: '🍜 Nourriture', lifeCat: '🏙️ Vie', businessCat: '💼 Affaires',
         postsIn: 'Posts à', searchPlaceholder: 'Rechercher des récits, sujets ou personnes...',
-        addPhoto: 'Ajouter une photo', selectCity: 'Choisir une ville...', back: 'Retour'
+        addPhoto: 'Ajouter une photo', selectCity: 'Choisir une ville...', back: 'Retour',
+        changeBackground: 'Changer l\'arrière-plan', resetBackground: 'Réinitialiser par défaut', bgUpdated: 'Image d\'arrière-plan mise à jour !', bgReset: 'Arrière-plan réinitialisé',
+        backgroundSettings: 'Image d\'arrière-plan', uploadBackground: 'Télécharger une image', opacity: 'Opacité',
+        sendMessage: 'Envoyer un message', userPosts: 'Publications', directMessage: 'Message privé',
+        noMessages: 'Pas encore de messages. Dites bonjour !', typeMessage: 'Écrivez un message...',
+        groupChat: 'Chat de groupe', noGroupMessages: 'Pas encore de messages. Soyez le premier !', searchGroups: 'Rechercher un groupe...', selectGroup: 'Sélectionnez un chat de groupe',
+        chineseAppsGuide: 'Guide des apps chinoises', chineseAppsGuideDesc: 'Guide essentiel des applications chinoises',
     }
 };
 
@@ -251,6 +263,22 @@ function loadProfile() {
     document.getElementById('editName').value = currentUser.name || '';
     document.getElementById('editCountry').value = currentUser.country_code || '';
     document.getElementById('editBio').value = currentUser.bio || '';
+    // Load background settings
+    const bgPreview = document.getElementById('bgPreviewImg');
+    const bgResetBtnEl = document.getElementById('bgResetBtn');
+    const opacitySlider = document.getElementById('bgOpacitySlider');
+    const opacityVal = document.getElementById('opacityValue');
+    if (currentUser.background_url) {
+        bgPreview.src = currentUser.background_url;
+        bgResetBtnEl.style.display = 'flex';
+    } else {
+        bgPreview.src = '1.png';
+        bgResetBtnEl.style.display = 'none';
+    }
+    const savedOpacity = currentUser.background_opacity != null ? currentUser.background_opacity : 30;
+    opacitySlider.value = savedOpacity;
+    opacityVal.textContent = savedOpacity;
+    applyGlobalBg();
     updateProfileStats();
     renderMyPosts();
 }
@@ -319,6 +347,105 @@ async function handleAvatarUpload(input) {
     document.getElementById('newPostAvatar').src = avatarUrl;
 
     showToast(currentLang === 'fr' ? 'Photo de profil mise à jour !' : 'Profile photo updated!');
+}
+
+function triggerBgUpload() {
+    if (!currentUser) {
+        showToast(currentLang === 'fr' ? 'Veuillez vous connecter' : 'Please sign in first');
+        return;
+    }
+    document.getElementById('bgUploadInput').click();
+}
+
+async function handleBgUpload(input) {
+    if (!input.files || !input.files[0]) return;
+    const file = input.files[0];
+
+    if (!file.type.startsWith('image/')) {
+        showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        showToast(currentLang === 'fr' ? 'Image trop grande (max 5MB)' : 'Image too large (max 5MB)');
+        return;
+    }
+
+    showToast(currentLang === 'fr' ? 'Téléchargement...' : 'Uploading...');
+
+    const bgUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const maxW = 1200;
+                const ratio = Math.min(maxW / img.width, maxW / img.height, 1);
+                canvas.width = img.width * ratio;
+                canvas.height = img.height * ratio;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                resolve(canvas.toDataURL('image/jpeg', 0.8));
+            };
+            img.onerror = reject;
+            img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+
+    const { error } = await supabaseClient.from('profiles').update({ background_url: bgUrl }).eq('id', currentUser.id);
+
+    if (error) {
+        console.error('Background save error:', error);
+        showToast(currentLang === 'fr' ? 'Échec de la sauvegarde' : 'Save failed');
+        return;
+    }
+
+    currentUser.background_url = bgUrl;
+    const bgPreview = document.getElementById('bgPreviewImg');
+    bgPreview.src = bgUrl;
+    document.getElementById('bgResetBtn').style.display = 'flex';
+    applyGlobalBg();
+    showToast(t('bgUpdated') || 'Background updated!');
+}
+
+async function resetBgImage() {
+    if (!currentUser) return;
+    const { error } = await supabaseClient.from('profiles').update({ background_url: null }).eq('id', currentUser.id);
+    if (error) {
+        console.error('Background reset error:', error);
+        showToast('Reset failed');
+        return;
+    }
+    currentUser.background_url = null;
+    document.getElementById('bgPreviewImg').src = '1.png';
+    document.getElementById('bgResetBtn').style.display = 'none';
+    applyGlobalBg();
+    showToast(t('bgReset') || 'Background reset to default');
+}
+
+function applyGlobalBg() {
+    const globalBgImg = document.getElementById('globalBgImg');
+    if (currentUser && currentUser.background_url) {
+        globalBgImg.src = currentUser.background_url;
+    } else {
+        globalBgImg.src = '1.png';
+    }
+    const opacity = (currentUser && currentUser.background_opacity != null) ? currentUser.background_opacity : 30;
+    globalBgImg.style.opacity = opacity / 100;
+}
+
+async function updateBgOpacity(value) {
+    const val = parseInt(value);
+    document.getElementById('opacityValue').textContent = val;
+    const globalBgImg = document.getElementById('globalBgImg');
+    globalBgImg.style.opacity = val / 100;
+    if (currentUser) {
+        currentUser.background_opacity = val;
+        const { error } = await supabaseClient.from('profiles').update({ background_opacity: val }).eq('id', currentUser.id);
+        if (error) console.error('Opacity save error:', error);
+    }
 }
 
 async function deletePost(postId) {
@@ -410,6 +537,7 @@ async function loadPosts() {
             time: getTimeAgo(p.created_at),
             createdAt: new Date(p.created_at).getTime(),
             content: p.content,
+            image_url: p.image_url || null,
             tags: [],
             category: p.category || 'life',
             city: p.city || 'unknown',
@@ -742,7 +870,7 @@ function getPostHTML(post, idx) {
     return `
     <article class="post-card spotlight-card ${isExpanded ? 'expanded' : ''}" data-post-id="${post.id}" style="${delay}">
         <div class="post-header">
-            <img src="${post.avatar}" alt="${post.author}" class="post-avatar" loading="lazy">
+            <img src="${post.avatar}" alt="${post.author}" class="post-avatar" loading="lazy" onclick="openUserProfile('${post.user_id}')" title="${post.author}">
             <div class="post-author-info">
                 <div class="post-author-name">
                     ${post.author}
@@ -756,6 +884,7 @@ function getPostHTML(post, idx) {
             <span class="post-category ${cat.class}">${t(post.category + 'Cat')}</span>
         </div>
         <p class="post-content">${post.content}</p>
+        ${post.image_url ? `<div class="post-image-wrap"><img src="${post.image_url}" alt="Post image" class="post-image" loading="lazy" onclick="window.open('${post.image_url}', '_blank')"></div>` : ''}
         <div class="post-tags">
             ${post.tags.map(tag => `<span class="post-tag">${tag}</span>`).join('')}
         </div>
@@ -1019,7 +1148,7 @@ async function loadCommentsIntoPost(postId) {
     } else {
         container.innerHTML = comments.map(c => `
             <div class="comment">
-                <div class="comment-avatar"><img src="${c.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest'}" style="width:36px;height:36px;border-radius:50%;object-fit:cover" loading="lazy" alt="User avatar"></div>
+                <div class="comment-avatar"><img src="${c.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest'}" class="comment-avatar-img" style="width:36px;height:36px;border-radius:50%;object-fit:cover" loading="lazy" alt="User avatar" onclick="openUserProfile('${c.user_id}')" title="${c.profiles?.name || 'Guest'}"></div>
                 <div class="comment-content">
                     <div class="comment-author">${c.profiles?.name || 'Guest'} <span>${getFlagEmoji(c.profiles?.country_code || 'UN')}</span></div>
                     <div class="comment-text">${c.content}</div>
@@ -1114,7 +1243,7 @@ function shareWebsite() {
     const baseUrl = 'https://chris-topher-code.github.io/community/';
     const referralCode = currentUser ? btoa(currentUser.id).substring(0, 8) : '';
     const url = referralCode ? baseUrl + '?ref=' + referralCode : baseUrl;
-    const text = encodeURIComponent('Check out ChinaVoices - a community for foreigners in China!');
+    const text = encodeURIComponent('Check out Cdiscovery - a community for foreigners in China!');
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(url)}`, '_blank');
 }
 
@@ -1148,7 +1277,7 @@ function highlightNavLink(pageName) {
 }
 
 function navigateTo(page) {
-    ['topicsPage', 'aboutPage', 'profilePage', 'newPostPage', 'storiesPage'].forEach(p => {
+    ['topicsPage', 'aboutPage', 'profilePage', 'newPostPage', 'storiesPage', 'userProfilePage', 'groupChatPage'].forEach(p => {
         const el = document.getElementById(p);
         if (el) el.classList.remove('active');
     });
@@ -1161,6 +1290,23 @@ function navigateTo(page) {
         toggleExplore(true);
         highlightNavLink('explore');
         closeMobileNav();
+        return;
+    }
+
+    if (page === 'groupchat') {
+        const gcEl = document.getElementById('groupChatPage');
+        gcEl.classList.add('active', 'page-transition');
+        mainContainer.style.display = 'none';
+        categoryFilter.style.display = 'none';
+        hero.style.display = 'none';
+        document.getElementById('welcomeBanner').style.display = 'none';
+        document.querySelector('.footer').style.display = 'none';
+        highlightNavLink('groupchat');
+        closeMobileNav();
+        loadGroupList();
+        setTimeout(() => {
+            gcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
         return;
     }
 
@@ -1218,6 +1364,17 @@ function navigateTo(page) {
         switchProfileTab('myposts');
         setTimeout(() => {
             profileEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+    } else if (page === 'userprofile') {
+        const userProfileEl = document.getElementById('userProfilePage');
+        userProfileEl.classList.add('active', 'page-transition');
+        mainContainer.style.display = 'none';
+        categoryFilter.style.display = 'none';
+        hero.style.display = 'none';
+        document.getElementById('welcomeBanner').style.display = 'none';
+        document.querySelector('.footer').style.display = 'none';
+        setTimeout(() => {
+            userProfileEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50);
     } else if (page === 'newpost') {
         const newPostEl = document.getElementById('newPostPage');
@@ -1467,7 +1624,7 @@ async function checkSession() {
         if (welcomeEl && currentUser) {
             const userName = currentUser.name || currentUser.email?.split('@')[0] || 'User';
             if (isNewUser) {
-                welcomeEl.textContent = `Welcome to ChinaVoices, ${userName}! 🎉`;
+                welcomeEl.textContent = `Welcome to Cdiscovery, ${userName}! 🎉`;
                 setTimeout(() => {
                     showToast(currentLang === 'fr'
                         ? 'Astuce: Ajoutez votre photo de profil et remplissez votre bio!'
@@ -1497,6 +1654,7 @@ async function checkSession() {
         lastNotificationCheck = Date.now();
         checkForNotifications();
         setInterval(checkForNotifications, 60000);
+        applyGlobalBg();
     } else {
         isLoggedIn = false;
         currentUser = null;
@@ -1507,6 +1665,7 @@ async function checkSession() {
         document.getElementById('mobileSignOutLink').style.display = 'none';
         const notifBtn = document.getElementById('notificationBtn');
         if (notifBtn) notifBtn.style.display = 'none';
+        applyGlobalBg();
     }
     await loadPosts();
     await loadCommunityStats();
@@ -1557,12 +1716,34 @@ document.getElementById('newPostForm').addEventListener('submit', async (e) => {
     const city = document.getElementById('postCity')?.value || 'unknown';
     if (!content) return;
     if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); return; }
-    const { error } = await supabaseClient.from('posts').insert({
-        user_id: currentUser.id,
-        content,
-        category,
-        city
-    });
+
+    let imageUrl = null;
+    if (selectedImageFile) {
+        imageUrl = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 800;
+                    const ratio = Math.min(maxW / img.width, maxW / img.height, 1);
+                    canvas.width = img.width * ratio;
+                    canvas.height = img.height * ratio;
+                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                    resolve(canvas.toDataURL('image/jpeg', 0.7));
+                };
+                img.onerror = () => resolve(null);
+                img.src = ev.target.result;
+            };
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(selectedImageFile);
+        });
+    }
+
+    const insertData = { user_id: currentUser.id, content, category, city };
+    if (imageUrl) insertData.image_url = imageUrl;
+
+    const { error } = await supabaseClient.from('posts').insert(insertData);
     if (error) { showToast('Error posting'); return; }
     document.getElementById('postContent').value = '';
     removeImage();
@@ -1895,10 +2076,10 @@ toggleLike = function(postId) {
 function animateHeroTitle() {
     const heroH1 = document.querySelector('.hero h1');
     if (!heroH1) return;
-    const originalHTML = heroH1.innerHTML;
     const textBefore = 'Share Your ';
-    const textHighlight = 'China Story';
-    heroH1.innerHTML = `${textBefore}<span id="typingSpan"></span><span class="typing-cursor">|</span>`;
+    const textHighlight = 'Story';
+    const fullText = textBefore + textHighlight;
+    heroH1.innerHTML = '<span id="typingSpan"></span><span class="typing-cursor">|</span>';
 
     const typingStyle = document.createElement('style');
     typingStyle.textContent = `
@@ -1915,20 +2096,30 @@ function animateHeroTitle() {
     document.head.appendChild(typingStyle);
 
     const span = document.getElementById('typingSpan');
-    span.style.background = 'var(--accent-gradient)';
-    span.style.webkitBackgroundClip = 'text';
-    span.style.webkitTextFillColor = 'transparent';
-    span.style.backgroundClip = 'text';
 
     let i = 0;
     function typeNext() {
-        if (i < textHighlight.length) {
-            span.textContent += textHighlight[i];
+        if (i < fullText.length) {
+            const ch = fullText[i];
+            if (i < textBefore.length) {
+                span.textContent += ch;
+            } else {
+                if (i === textBefore.length) {
+                    const highlightSpan = document.createElement('span');
+                    highlightSpan.style.background = 'var(--accent-gradient)';
+                    highlightSpan.style.webkitBackgroundClip = 'text';
+                    highlightSpan.style.webkitTextFillColor = 'transparent';
+                    highlightSpan.style.backgroundClip = 'text';
+                    highlightSpan.id = 'highlightSpan';
+                    span.appendChild(highlightSpan);
+                }
+                document.getElementById('highlightSpan').textContent += ch;
+            }
             i++;
             setTimeout(typeNext, 80 + Math.random() * 60);
         } else {
             setTimeout(() => {
-                heroH1.innerHTML = originalHTML;
+                heroH1.innerHTML = 'Share Your <span>Story</span>';
             }, 1500);
         }
     }
@@ -1996,4 +2187,576 @@ function sortByPopular() {
     document.querySelectorAll('.sort-btn[data-sort="popular"]').forEach(b => b.classList.add('active'));
     renderPosts();
     showToast(currentLang === 'fr' ? 'Affichage des plus populaires' : 'Showing popular posts');
+}
+
+/* ===== User Profile Page ===== */
+let viewingUserId = null;
+let viewingUserData = null;
+let previousPage = 'home';
+let messageTargetUserId = null;
+let messagePollingInterval = null;
+
+async function openUserProfile(userId) {
+    if (!userId) return;
+    
+    const pageSections = ['topicsPage', 'aboutPage', 'profilePage', 'newPostPage', 'storiesPage'];
+    for (const p of pageSections) {
+        const el = document.getElementById(p);
+        if (el && el.classList.contains('active')) {
+            previousPage = p.replace('Page', '').toLowerCase();
+            break;
+        }
+    }
+    const mainContainer = document.getElementById('mainContainer');
+    if (mainContainer && mainContainer.style.display !== 'none') {
+        previousPage = 'home';
+    }
+    
+    viewingUserId = userId;
+    
+    if (currentUser && userId === currentUser.id) {
+        navigateTo('profile');
+        return;
+    }
+    
+    const { data: profile, error } = await supabaseClient
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+    
+    if (error || !profile) {
+        showToast(currentLang === 'fr' ? 'Utilisateur introuvable' : 'User not found');
+        return;
+    }
+    
+    viewingUserData = profile;
+    
+    document.getElementById('userProfileAvatar').src = profile.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
+    document.getElementById('userProfileName').textContent = profile.name || 'Guest User';
+    document.getElementById('userProfileCountry').textContent = profile.country || 'Unknown';
+    document.getElementById('userProfileIdentity').textContent = profile.identity || 'Member';
+    document.getElementById('userProfileBio').textContent = profile.bio || '';
+    document.getElementById('userProfileBio').style.display = profile.bio ? 'block' : 'none';
+    
+    const userPosts = postsData.filter(p => p.user_id === userId);
+    document.getElementById('userProfilePostsCount').textContent = userPosts.length;
+    
+    const { count: likesCount } = await supabaseClient
+        .from('likes')
+        .select('*', { count: 'exact', head: true })
+        .in('post_id', userPosts.map(p => p.id));
+    document.getElementById('userProfileLikesCount').textContent = likesCount || 0;
+    
+    const grid = document.getElementById('userPostsGrid');
+    if (userPosts.length === 0) {
+        grid.innerHTML = `<div class="empty-profile"><i class="fas fa-pen-nib"></i><h3>${currentLang === 'fr' ? 'Aucun post' : 'No posts yet'}</h3></div>`;
+    } else {
+        grid.innerHTML = userPosts.map((post, i) => getPostHTML(post, i)).join('');
+    }
+    
+    const msgBtn = document.getElementById('btnSendMessage');
+    if (currentUser) {
+        msgBtn.style.display = 'flex';
+    } else {
+        msgBtn.style.display = 'none';
+    }
+    
+    navigateTo('userprofile');
+}
+
+function navigateBackFromUser() {
+    if (previousPage === 'home') {
+        navigateTo('home');
+    } else if (previousPage === 'stories') {
+        navigateTo('stories');
+    } else if (previousPage === 'topics') {
+        navigateTo('topics');
+    } else if (previousPage === 'about') {
+        navigateTo('about');
+    } else {
+        navigateTo('home');
+    }
+}
+
+/* ===== Message / DM Functions ===== */
+function openMessageModal() {
+    if (!currentUser) {
+        showToast(currentLang === 'fr' ? 'Connectez-vous pour envoyer un message' : 'Please sign in to send messages');
+        return;
+    }
+    if (!viewingUserId || !viewingUserData) return;
+    
+    messageTargetUserId = viewingUserId;
+    
+    document.getElementById('msgModalAvatar').src = viewingUserData.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
+    document.getElementById('msgModalName').textContent = viewingUserData.name || 'Guest User';
+    document.getElementById('msgInput').value = '';
+    
+    const overlay = document.getElementById('msgModalOverlay');
+    overlay.classList.add('active');
+    
+    loadMessages();
+    
+    if (messagePollingInterval) clearInterval(messagePollingInterval);
+    messagePollingInterval = setInterval(loadMessages, 5000);
+    
+    setTimeout(() => document.getElementById('msgInput').focus(), 100);
+}
+
+function closeMessageModal() {
+    const overlay = document.getElementById('msgModalOverlay');
+    overlay.classList.remove('active');
+    if (messagePollingInterval) {
+        clearInterval(messagePollingInterval);
+        messagePollingInterval = null;
+    }
+    messageTargetUserId = null;
+}
+
+async function loadMessages() {
+    if (!currentUser || !messageTargetUserId) return;
+    
+    const { data: messages, error } = await supabaseClient
+        .from('messages')
+        .select('*')
+        .or(`and(sender_id.eq.${currentUser.id},receiver_id.eq.${messageTargetUserId}),and(sender_id.eq.${messageTargetUserId},receiver_id.eq.${currentUser.id})`)
+        .order('created_at', { ascending: true });
+    
+    if (error) {
+        console.error('Error loading messages:', error);
+        return;
+    }
+    
+    const msgBody = document.getElementById('msgBody');
+    const msgEmpty = document.getElementById('msgEmpty');
+    
+    if (!messages || messages.length === 0) {
+        msgBody.innerHTML = '';
+        msgBody.appendChild(msgEmpty);
+        msgEmpty.style.display = 'flex';
+        return;
+    }
+    
+    msgEmpty.style.display = 'none';
+    
+    const currentCount = msgBody.querySelectorAll('.msg-bubble').length;
+    if (currentCount === messages.length) return;
+    
+    msgBody.innerHTML = messages.map(m => {
+        const isSent = m.sender_id === currentUser.id;
+        const time = formatMessageTime(m.created_at);
+        let contentHtml = '';
+        if (m.image_url) {
+            contentHtml = `<img src="${m.image_url}" class="msg-image" onclick="window.open('${m.image_url}','_blank')">`;
+        }
+        if (m.content) {
+            contentHtml += `<div class="msg-text">${escapeHtml(m.content)}</div>`;
+        }
+        return `<div class="msg-bubble ${isSent ? 'sent' : 'received'}">
+            ${contentHtml}
+            <div class="msg-bubble-time">${time}</div>
+        </div>`;
+    }).join('');
+    
+    msgBody.scrollTop = msgBody.scrollHeight;
+    
+    const unreadIds = messages.filter(m => m.receiver_id === currentUser.id && !m.is_read).map(m => m.id);
+    if (unreadIds.length > 0) {
+        await supabaseClient
+            .from('messages')
+            .update({ is_read: true })
+            .in('id', unreadIds);
+    }
+}
+
+async function sendMessage() {
+    const input = document.getElementById('msgInput');
+    const content = input.value.trim();
+    if (!content || !currentUser || !messageTargetUserId) return;
+    
+    const sendBtn = document.getElementById('msgSendBtn');
+    sendBtn.disabled = true;
+    
+    const { error } = await supabaseClient
+        .from('messages')
+        .insert({
+            sender_id: currentUser.id,
+            receiver_id: messageTargetUserId,
+            content: content,
+            image_url: null
+        });
+    
+    sendBtn.disabled = false;
+    
+    if (error) {
+        console.error('Error sending message:', error);
+        showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send message');
+        return;
+    }
+    
+    input.value = '';
+    loadMessages();
+}
+
+let selectedMsgImage = null;
+
+function handleMsgImageSelect(input) {
+    if (!input.files || !input.files[0]) return;
+    const file = input.files[0];
+    if (!file.type.startsWith('image/')) {
+        showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
+        return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+        showToast(currentLang === 'fr' ? 'Image trop volumineuse (max 5 Mo)' : 'Image too large (max 5MB)');
+        return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        selectedMsgImage = e.target.result;
+        sendImageMessage();
+    };
+    reader.readAsDataURL(file);
+    input.value = '';
+}
+
+async function sendImageMessage() {
+    if (!selectedMsgImage || !currentUser || !messageTargetUserId) return;
+    
+    const sendBtn = document.getElementById('msgSendBtn');
+    sendBtn.disabled = true;
+    showToast(currentLang === 'fr' ? 'Envoi de l\'image...' : 'Sending image...');
+    
+    const { error } = await supabaseClient
+        .from('messages')
+        .insert({
+            sender_id: currentUser.id,
+            receiver_id: messageTargetUserId,
+            content: '',
+            image_url: selectedMsgImage
+        });
+    
+    sendBtn.disabled = false;
+    selectedMsgImage = null;
+    
+    if (error) {
+        console.error('Error sending image:', error);
+        showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send image');
+        return;
+    }
+    
+    loadMessages();
+}
+
+function formatMessageTime(dateStr) {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+    
+    if (diffMins < 1) return currentLang === 'fr' ? 'À l\'instant' : 'Just now';
+    if (diffMins < 60) return `${diffMins}m`;
+    if (diffHours < 24) return `${diffHours}h`;
+    if (diffDays < 7) return `${diffDays}d`;
+    return date.toLocaleDateString();
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+document.getElementById('msgModalOverlay')?.addEventListener('click', function(e) {
+    if (e.target === this) closeMessageModal();
+});
+
+/* ===== Group Chat ===== */
+let groupChatPollingInterval = null;
+let activeGroupKey = null;
+
+const identityEmojis = {
+    'student': '🎓',
+    'worker': '👷',
+    'tourist': '📸',
+    'business': '💼',
+    'researcher': '🔬',
+    'other': '🏷️'
+};
+
+const identityLabels = {
+    en: {
+        'student': 'Student', 'worker': 'Worker', 'tourist': 'Tourist',
+        'business': 'Business', 'researcher': 'Researcher', 'other': 'Other'
+    },
+    fr: {
+        'student': 'Étudiant', 'worker': 'Travailleur', 'tourist': 'Touriste',
+        'business': 'Entrepreneur', 'researcher': 'Chercheur', 'other': 'Autre'
+    }
+};
+
+function getIdentityEmoji(identity) {
+    return identityEmojis[(identity || 'other').toLowerCase()] || '👤';
+}
+
+function getIdentityName(identity) {
+    const key = (identity || 'other').toLowerCase();
+    return (identityLabels[currentLang] && identityLabels[currentLang][key]) || identityLabels.en[key] || identity;
+}
+
+function getCountryName(code) {
+    const names = {
+        'US': 'United States', 'UK': 'United Kingdom', 'CA': 'Canada', 'AU': 'Australia',
+        'DE': 'Germany', 'FR': 'France', 'ES': 'Spain', 'IT': 'Italy',
+        'NL': 'Netherlands', 'BE': 'Belgium', 'CH': 'Switzerland', 'AT': 'Austria',
+        'SE': 'Sweden', 'NO': 'Norway', 'DK': 'Denmark', 'FI': 'Finland',
+        'PL': 'Poland', 'CZ': 'Czech Republic', 'HU': 'Hungary', 'RO': 'Romania',
+        'RU': 'Russia', 'UA': 'Ukraine', 'TR': 'Turkey', 'JP': 'Japan',
+        'KR': 'South Korea', 'IN': 'India', 'SG': 'Singapore', 'MY': 'Malaysia',
+        'TH': 'Thailand', 'VN': 'Vietnam', 'PH': 'Philippines', 'ID': 'Indonesia',
+        'BR': 'Brazil', 'MX': 'Mexico', 'AR': 'Argentina', 'CL': 'Chile',
+        'CO': 'Colombia', 'ZA': 'South Africa', 'NG': 'Nigeria'
+    };
+    return names[code] || code || 'Unknown';
+}
+
+async function loadGroupList() {
+    if (!currentUser) return;
+
+    const listEl = document.getElementById('gcGroupList');
+    listEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted)"><i class="fas fa-spinner fa-spin"></i></div>';
+
+    const { data: profiles, error } = await supabaseClient
+        .from('profiles')
+        .select('country_code, identity');
+
+    if (error) {
+        console.error('Error loading group list:', error);
+        listEl.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted)">Failed to load groups</div>';
+        return;
+    }
+
+    const groupMap = {};
+    (profiles || []).forEach(p => {
+        const cc = p.country_code || 'UN';
+        const id = (p.identity || 'other').toLowerCase();
+        const key = `${cc}|${id}`;
+        if (!groupMap[key]) {
+            groupMap[key] = { country_code: cc, identity: id, count: 0 };
+        }
+        groupMap[key].count++;
+    });
+
+    const userCC = currentUser.country_code || 'UN';
+    const userIdentity = (currentUser.identity || 'other').toLowerCase();
+    const userKey = `${userCC}|${userIdentity}`;
+
+    const groups = Object.values(groupMap).sort((a, b) => {
+        const aKey = `${a.country_code}|${a.identity}`;
+        const bKey = `${b.country_code}|${b.identity}`;
+        if (aKey === userKey) return -1;
+        if (bKey === userKey) return 1;
+        return b.count - a.count;
+    });
+
+    listEl.innerHTML = groups.map(g => {
+        const key = `${g.country_code}|${g.identity}`;
+        const isOwn = key === userKey;
+        const flag = getFlagEmoji(g.country_code);
+        const emoji = getIdentityEmoji(g.identity);
+        const countryName = getCountryName(g.country_code);
+        const identityName = getIdentityName(g.identity);
+        return `<div class="gc-group-item ${key === activeGroupKey ? 'active' : ''}" data-group-key="${key}" onclick="selectGroupChat('${g.country_code}', '${g.identity}')">
+            <div class="gc-group-icon">${emoji}</div>
+            <div class="gc-group-info">
+                <div class="gc-group-name">${flag} ${countryName} · ${identityName}${isOwn ? ' ⭐' : ''}</div>
+                <div class="gc-group-desc">${g.count} ${currentLang === 'fr' ? 'membres' : 'members'}</div>
+            </div>
+        </div>`;
+    }).join('');
+
+    if (!activeGroupKey || !groupMap[activeGroupKey]) {
+        selectGroupChat(userCC, userIdentity);
+    } else {
+        const parts = activeGroupKey.split('|');
+        selectGroupChat(parts[0], parts[1]);
+    }
+}
+
+async function selectGroupChat(countryCode, identity) {
+    activeGroupKey = `${countryCode}|${identity}`;
+
+    document.querySelectorAll('.gc-group-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.groupKey === activeGroupKey);
+    });
+
+    const flag = getFlagEmoji(countryCode);
+    const emoji = getIdentityEmoji(identity);
+    const countryName = getCountryName(countryCode);
+    const identityName = getIdentityName(identity);
+    document.getElementById('gcChatTitle').innerHTML = `${emoji} ${flag} ${countryName} · ${identityName}`;
+
+    document.getElementById('gcPlaceholder').style.display = 'none';
+    document.getElementById('gcInputArea').style.display = 'flex';
+    document.getElementById('gcChatBody').innerHTML = '';
+
+    loadGroupMessages();
+}
+
+async function loadGroupMessages() {
+    if (!currentUser || !activeGroupKey) return;
+
+    const parts = activeGroupKey.split('|');
+    const cc = parts[0];
+    const identity = parts[1];
+
+    const { data: messages, error } = await supabaseClient
+        .from('group_messages')
+        .select('*, profiles(name, avatar_url, country_code)')
+        .eq('country_code', cc)
+        .eq('identity', identity)
+        .order('created_at', { ascending: true })
+        .limit(200);
+
+    if (error) {
+        console.error('Error loading group messages:', error);
+        return;
+    }
+
+    const body = document.getElementById('gcChatBody');
+
+    if (!messages || messages.length === 0) {
+        body.innerHTML = `<div class="gc-placeholder"><i class="fas fa-comments"></i><p>${currentLang === 'fr' ? 'Pas encore de messages. Soyez le premier !' : 'No messages yet. Be the first to say hello!'}</p></div>`;
+        return;
+    }
+
+    const currentCount = body.querySelectorAll('.gc-msg').length;
+    if (currentCount === messages.length) return;
+
+    body.innerHTML = messages.map(m => {
+        const isOwn = m.user_id === currentUser.id;
+        const avatar = m.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
+        const name = m.profiles?.name || 'Guest';
+        const flag = getFlagEmoji(m.profiles?.country_code || 'UN');
+        const time = formatMessageTime(m.created_at);
+
+        let contentHtml = '';
+        if (m.image_url) {
+            contentHtml = `<img src="${m.image_url}" class="msg-image" onclick="window.open('${m.image_url}','_blank')">`;
+        }
+        if (m.content) {
+            contentHtml += `<span>${escapeHtml(m.content)}</span>`;
+        }
+
+        return `<div class="gc-msg ${isOwn ? 'own' : ''}">
+            <img src="${avatar}" class="gc-msg-avatar" onclick="openUserProfile('${m.user_id}')" title="${name}">
+            <div class="gc-msg-body">
+                <div class="gc-msg-header">
+                    <span class="gc-msg-name">${flag} ${name}</span>
+                    <span class="gc-msg-time">${time}</span>
+                </div>
+                <div class="gc-msg-content">${contentHtml}</div>
+            </div>
+        </div>`;
+    }).join('');
+
+    body.scrollTop = body.scrollHeight;
+}
+
+async function sendGroupMessage() {
+    const input = document.getElementById('groupChatInput');
+    const content = input.value.trim();
+    if (!content || !currentUser || !activeGroupKey) return;
+
+    const parts = activeGroupKey.split('|');
+    const cc = parts[0];
+    const identity = parts[1];
+
+    const { error } = await supabaseClient
+        .from('group_messages')
+        .insert({
+            user_id: currentUser.id,
+            country_code: cc,
+            identity: identity,
+            content: content,
+            image_url: null
+        });
+
+    if (error) {
+        console.error('Error sending group message:', error);
+        showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send message');
+        return;
+    }
+
+    input.value = '';
+    const body = document.getElementById('gcChatBody');
+    body.querySelectorAll('.gc-msg').length && (body.innerHTML = '');
+    loadGroupMessages();
+}
+
+let selectedGroupImage = null;
+
+function handleGroupImageSelect(input) {
+    if (!input.files || !input.files[0]) return;
+    const file = input.files[0];
+    if (!file.type.startsWith('image/')) {
+        showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
+        return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+        showToast(currentLang === 'fr' ? 'Image trop volumineuse (max 5 Mo)' : 'Image too large (max 5MB)');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        selectedGroupImage = e.target.result;
+        sendGroupImageMessage();
+    };
+    reader.readAsDataURL(file);
+    input.value = '';
+}
+
+async function sendGroupImageMessage() {
+    if (!selectedGroupImage || !currentUser || !activeGroupKey) return;
+
+    const parts = activeGroupKey.split('|');
+    const cc = parts[0];
+    const identity = parts[1];
+
+    showToast(currentLang === 'fr' ? 'Envoi de l\'image...' : 'Sending image...');
+
+    const { error } = await supabaseClient
+        .from('group_messages')
+        .insert({
+            user_id: currentUser.id,
+            country_code: cc,
+            identity: identity,
+            content: '',
+            image_url: selectedGroupImage
+        });
+
+    selectedGroupImage = null;
+
+    if (error) {
+        console.error('Error sending group image:', error);
+        showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send image');
+        return;
+    }
+
+    const body = document.getElementById('gcChatBody');
+    body.querySelectorAll('.gc-msg').length && (body.innerHTML = '');
+    loadGroupMessages();
+}
+
+function filterGroupList(query) {
+    const q = query.toLowerCase().trim();
+    document.querySelectorAll('.gc-group-item').forEach(el => {
+        const name = el.querySelector('.gc-group-name').textContent.toLowerCase();
+        el.style.display = (!q || name.includes(q)) ? 'flex' : 'none';
+    });
 }

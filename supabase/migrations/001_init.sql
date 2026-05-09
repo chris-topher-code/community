@@ -7,6 +7,8 @@ CREATE TABLE public.profiles (
   country_code text DEFAULT 'UN'::text,
   identity text DEFAULT 'Member'::text,
   bio text,
+  background_url text,
+  background_opacity integer DEFAULT 30,
   created_at timestamp with time zone DEFAULT now(),
   CONSTRAINT profiles_pkey PRIMARY KEY (id),
   CONSTRAINT profiles_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE
@@ -81,11 +83,13 @@ LANGUAGE plpgsql
 SECURITY DEFINER SET search_path = public
 AS $$
 BEGIN
-  INSERT INTO public.profiles (id, name, avatar_url)
+  INSERT INTO public.profiles (id, name, avatar_url, background_url, background_opacity)
   VALUES (
     new.id,
     new.raw_user_meta_data->>'name',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=' || (new.raw_user_meta_data->>'name')
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=' || (new.raw_user_meta_data->>'name'),
+    NULL,
+    30
   );
   RETURN new;
 END;

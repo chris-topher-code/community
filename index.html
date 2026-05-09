@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ChinaVoices - Share Your China Story</title>
+    <title>Cdiscovery - Share Your Story</title>
     <meta name="description" content="A community platform connecting foreigners across China through authentic stories and shared experiences. Join thousands of expats sharing their China journey.">
     <meta name="keywords" content="China, expat, foreigner, stories, community, Shanghai, Beijing, life in China">
-    <meta name="author" content="ChinaVoices">
+    <meta name="author" content="Cdiscovery">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://chris-topher-code.github.io/community/">
-    <meta property="og:title" content="ChinaVoices - Share Your China Story">
+    <meta property="og:title" content="Cdiscovery - Share Your Story">
     <meta property="og:description" content="Connect with foreigners across China. Share your experiences, discover authentic stories, and join a vibrant community of expats.">
-    <meta property="og:image" content="https://api.dicebear.com/7.x/identicon/svg?seed=ChinaVoices&backgroundColor=0a0a1a">
-    <meta property="og:site_name" content="ChinaVoices">
+    <meta property="og:image" content="https://api.dicebear.com/7.x/identicon/svg?seed=Cdiscovery&backgroundColor=0a0a1a">
+    <meta property="og:site_name" content="Cdiscovery">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@ChinaVoices">
-    <meta name="twitter:title" content="ChinaVoices - Share Your China Story">
+    <meta name="twitter:site" content="@Cdiscovery">
+    <meta name="twitter:title" content="Cdiscovery - Share Your Story">
     <meta name="twitter:description" content="Connect with foreigners across China. Share your experiences and discover authentic stories.">
-    <meta name="twitter:image" content="https://api.dicebear.com/7.x/identicon/svg?seed=ChinaVoices&backgroundColor=0a0a1a">
+    <meta name="twitter:image" content="https://api.dicebear.com/7.x/identicon/svg?seed=Cdiscovery&backgroundColor=0a0a1a">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
@@ -34,10 +34,14 @@
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body class="loading">
+    <!-- Global Background Image -->
+    <div class="global-bg" id="globalBg">
+        <img src="1.png" alt="" class="global-bg-img" id="globalBgImg">
+    </div>
     <nav class="navbar">
         <div class="nav-logo">
             <i class="fas fa-comments"></i>
-            ChinaVoices
+            Cdiscovery
         </div>
         <ul class="nav-links">
             <li><a href="#" data-nav="home" data-i18n="home">Home</a></li>
@@ -47,6 +51,9 @@
             <li><a href="#" data-nav="about" data-i18n="about">About</a></li>
             <li><a href="#" onclick="openNewPostModal(); return false;" class="share-story-btn" data-i18n="shareStory" title="Share your China experience">
                 <i class="fas fa-pen-to-square"></i> Share Your Story
+            </a></li>
+            <li><a href="#" onclick="navigateTo('groupchat'); return false;" class="share-story-btn group-chat-btn" data-i18n="groupChat" title="Join your group chat">
+                <i class="fas fa-users"></i> <span data-i18n="groupChat">Group Chat</span>
             </a></li>
             <div class="nav-indicator" id="navIndicator"></div>
         </ul>
@@ -62,7 +69,7 @@
                 <button class="btn btn-outline" id="loginBtn" data-i18n="signIn">Sign In</button>
                 <button class="btn btn-primary" id="registerBtn" data-i18n="joinNow">Join Now</button>
             <button class="profile-btn" id="profileBtn" onclick="navigateTo('profile')">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile" onclick="triggerAvatarUpload(); event.stopPropagation();">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile">
                 <span data-i18n="profile">Profile</span>
             </button>
             <button class="btn btn-outline" id="signOutBtn" onclick="handleLogout()" data-i18n="logOut">Sign Out</button>
@@ -106,7 +113,7 @@
         <div class="welcome-inner">
             <div class="welcome-content">
                 <div class="welcome-greeting" data-i18n="welcomeBack">Welcome back, Guest! 👋</div>
-                <div class="welcome-sub" data-i18n="readyToShare">Ready to share your next China story?</div>
+                <div class="welcome-sub" data-i18n="readyToShare">Ready to share your next story?</div>
                 <div class="welcome-actions">
                     <button class="welcome-action-btn" onclick="openNewPostModal()">
                         <i class="fas fa-pen"></i> <span data-i18n="shareAStory">Share a Story</span>
@@ -116,6 +123,9 @@
                     </button>
                     <button class="welcome-action-btn" onclick="navigateTo('topics')">
                         <i class="fas fa-hashtag"></i> <span data-i18n="browseTopics">Browse Topics</span>
+                    </button>
+                    <button class="welcome-action-btn" onclick="window.open('https://chris-topher-code.github.io/-chinese-apps-guide/', '_blank')">
+                        <i class="fas fa-external-link-alt"></i> <span data-i18n="chineseAppsGuide">Chinese Apps Guide</span>
                     </button>
                 </div>
             </div>
@@ -141,7 +151,7 @@
                 <i class="fas fa-sparkles"></i>
                 Join <span id="heroMembersBadge">0</span>+ foreigners sharing China experiences
             </div>
-            <h1>Share Your <span>China Story</span></h1>
+            <h1>Share Your <span>Story</span></h1>
             <p>Help others discover the real China. Your experience matters — share it with our growing community of expats from <span id="heroCountriesBadge">0</span> countries.</p>
             <div class="search-container">
                 <i class="fas fa-search"></i>
@@ -160,6 +170,10 @@
                     <div class="stat-number" id="heroCitiesCount" data-suffix="">0</div>
                     <div class="stat-label">Cities Covered</div>
                 </div>
+                <a class="stat-item hero-apps-guide-btn" href="https://chris-topher-code.github.io/-chinese-apps-guide/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;cursor:pointer;">
+                    <div class="stat-number"><i class="fas fa-external-link-alt" style="font-size:1.4rem;"></i></div>
+                    <div class="stat-label">Chinese Apps Guide</div>
+                </a>
             </div>
         </div>
     </section>
@@ -321,6 +335,13 @@
                             <div class="trending-posts" data-i18n="allTopics">All topic categories</div>
                         </div>
                     </li>
+                    <li class="trending-item" onclick="window.open('https://chris-topher-code.github.io/-chinese-apps-guide/', '_blank')">
+                        <i class="fas fa-external-link-alt" style="color: var(--accent-coral);"></i>
+                        <div class="trending-info">
+                            <div class="trending-title" data-i18n="chineseAppsGuide">Chinese Apps Guide</div>
+                            <div class="trending-posts" data-i18n="chineseAppsGuideDesc">Essential guide to Chinese apps</div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </aside>
@@ -329,7 +350,7 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <h3>ChinaVoices</h3>
+                <h3>Cdiscovery</h3>
                 <p>A vibrant community connecting foreigners across China. Share your experiences, make friends, and discover the real China together.</p>
             </div>
             <div class="footer-links">
@@ -361,7 +382,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <span>&copy; 2026 ChinaVoices. All rights reserved.</span>
+            <span>&copy; 2026 Cdiscovery. All rights reserved.</span>
             <div class="footer-social">
                 <a href="#" onclick="shareWebsite(); return false;" title="Share and invite friends"><i class="fas fa-user-plus"></i></a>
                 <a href="#" onclick="shareWebsite(); return false;"><i class="fab fa-twitter"></i></a>
@@ -431,13 +452,13 @@
 
     <section class="page-section" id="aboutPage">
         <div class="page-hero" id="aboutHero">
-            <h1>About ChinaVoices</h1>
+            <h1>About Cdiscovery</h1>
             <p>Connecting foreigners across China through authentic stories and shared experiences</p>
         </div>
         <div class="about-grid">
             <div class="about-card">
                 <h3><i class="fas fa-heart"></i> Our Mission</h3>
-                <p>ChinaVoices is a vibrant community platform designed to connect foreigners living, working, studying, and traveling across China. We believe in the power of authentic storytelling to bridge cultures, foster understanding, and create lasting connections.</p>
+                <p>Cdiscovery is a vibrant community platform designed to connect foreigners living, working, studying, and traveling across China. We believe in the power of authentic storytelling to bridge cultures, foster understanding, and create lasting connections.</p>
                 <p style="margin-top: 12px;">Founded in 2024, we've grown into a thriving community spanning 156 cities with members from over 89 countries.</p>
             </div>
             <div class="about-card">
@@ -464,7 +485,7 @@
             </div>
             <div class="about-card">
                 <h3><i class="fas fa-envelope"></i> Get Involved</h3>
-                <p>Want to contribute to ChinaVoices? We're always looking for community ambassadors, content creators, and volunteers to help grow our platform.</p>
+                <p>Want to contribute to Cdiscovery? We're always looking for community ambassadors, content creators, and volunteers to help grow our platform.</p>
                 <div class="about-stats-row">
                     <div class="about-stat">
                         <div class="about-stat-num">12.8K</div>
@@ -484,7 +505,7 @@
     </section>
 
     <section class="profile-page" id="profilePage">
-        <div class="profile-header-card">
+        <div class="profile-header-card" id="profileHeaderCard">
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile" class="profile-avatar-lg profile-avatar-upload" id="profileAvatar" onclick="triggerAvatarUpload()" title="Click to upload avatar" loading="lazy">
             <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;" onchange="handleAvatarUpload(this)">
             <div class="profile-info">
@@ -528,7 +549,7 @@
                 <div class="empty-profile">
                     <i class="fas fa-pen-nib"></i>
                     <h3 data-i18n="noPostsYet">No posts yet</h3>
-                    <p data-i18n="startSharing">Start sharing your China story!</p>
+                    <p data-i18n="startSharing">Start sharing your story!</p>
                 </div>
             </div>
         </div>
@@ -566,7 +587,27 @@
         </div>
 
         <div id="profileTabSettings" class="profile-tab-content edit-form">
-            <h3 class="profile-section-title"><i class="fas fa-shield-alt"></i> <span data-i18n="accountSettings">Account Settings</span></h3>
+            <h3 class="profile-section-title"><i class="fas fa-image"></i> <span data-i18n="backgroundSettings">Background Image</span></h3>
+            <div class="bg-settings-panel">
+                <div class="bg-preview-box">
+                    <img src="1.png" alt="" class="bg-preview-img" id="bgPreviewImg">
+                </div>
+                <div class="bg-controls">
+                    <button class="btn btn-outline bg-upload-btn" onclick="triggerBgUpload()" style="justify-content: center; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-upload"></i> <span data-i18n="uploadBackground">Upload Background</span>
+                    </button>
+                    <button class="btn btn-outline bg-reset-btn" id="bgResetBtn" onclick="resetBgImage()" style="justify-content: center; display: flex; align-items: center; gap: 8px; display: none;">
+                        <i class="fas fa-undo"></i> <span data-i18n="resetBackground">Reset to Default</span>
+                    </button>
+                    <input type="file" id="bgUploadInput" accept="image/*" style="display: none;" onchange="handleBgUpload(this)">
+                    <div class="bg-opacity-control">
+                        <label><i class="fas fa-adjust"></i> <span data-i18n="opacity">Opacity</span>: <span id="opacityValue">30</span>%</label>
+                        <input type="range" id="bgOpacitySlider" min="5" max="80" value="30" oninput="updateBgOpacity(this.value)">
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="profile-section-title" style="margin-top: 24px;"><i class="fas fa-shield-alt"></i> <span data-i18n="accountSettings">Account Settings</span></h3>
             <div style="display: flex; flex-direction: column; gap: 16px;">
                 <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px;" onclick="showToast(t('passwordChanged'))">
                     <i class="fas fa-key"></i> <span data-i18n="changePassword">Change Password</span>
@@ -580,6 +621,120 @@
                 <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="showToast(t('accountDeleted'))">
                     <i class="fas fa-trash-alt"></i> <span data-i18n="deleteAccount">Delete Account</span>
                 </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Profile Page (Other Users) -->
+    <section class="user-profile-page" id="userProfilePage">
+        <div class="user-profile-header">
+            <img src="" alt="" class="user-profile-avatar" id="userProfileAvatar">
+            <div class="user-profile-info">
+                <div class="user-profile-name" id="userProfileName"></div>
+                <div class="user-profile-meta">
+                    <span><i class="fas fa-globe"></i> <span id="userProfileCountry"></span></span>
+                    <span><i class="fas fa-user-tag"></i> <span id="userProfileIdentity"></span></span>
+                </div>
+                <div class="user-profile-bio" id="userProfileBio"></div>
+                <div class="user-profile-stats">
+                    <div class="user-profile-stat">
+                        <div class="user-profile-stat-num" id="userProfilePostsCount">0</div>
+                        <div class="user-profile-stat-label" data-i18n="posts">Posts</div>
+                    </div>
+                    <div class="user-profile-stat">
+                        <div class="user-profile-stat-num" id="userProfileLikesCount">0</div>
+                        <div class="user-profile-stat-label" data-i18n="likesReceived">Likes Received</div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-profile-actions">
+                <button class="btn-message" id="btnSendMessage" onclick="openMessageModal()">
+                    <i class="fas fa-envelope"></i> <span data-i18n="sendMessage">Send Message</span>
+                </button>
+                <button class="btn-back-profile" onclick="navigateBackFromUser()">
+                    <i class="fas fa-arrow-left"></i> <span data-i18n="back">Back</span>
+                </button>
+            </div>
+        </div>
+        <div class="user-profile-posts-title"><i class="fas fa-file-alt"></i> <span data-i18n="userPosts">Posts</span></div>
+        <div class="user-posts-grid" id="userPostsGrid"></div>
+    </section>
+
+    <!-- Message Modal -->
+    <div class="msg-modal-overlay" id="msgModalOverlay">
+        <div class="msg-modal">
+            <div class="msg-modal-header">
+                <img src="" alt="" class="msg-modal-header-avatar" id="msgModalAvatar">
+                <div class="msg-modal-header-info">
+                    <div class="msg-modal-header-name" id="msgModalName"></div>
+                    <div class="msg-modal-header-status" data-i18n="directMessage">Direct Message</div>
+                </div>
+                <button class="msg-modal-close" onclick="closeMessageModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="msg-body" id="msgBody">
+                <div class="msg-empty" id="msgEmpty">
+                    <div>
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-i18n="noMessages">No messages yet. Say hello!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="msg-input-area">
+                <input type="file" id="msgImageInput" accept="image/*" style="display:none" onchange="handleMsgImageSelect(this)">
+                <button class="msg-img-btn" id="msgImgBtn" onclick="document.getElementById('msgImageInput').click()" title="Send Image">
+                    <i class="fas fa-image"></i>
+                </button>
+                <input type="text" class="msg-input" id="msgInput" data-i18n-placeholder="typeMessage" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMessage()">
+                <button class="msg-send-btn" id="msgSendBtn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i> <span data-i18n="send">Send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Chat Page -->
+    <section class="group-chat-page" id="groupChatPage">
+        <div class="gc-layout">
+            <!-- Left Sidebar: Group List -->
+            <aside class="gc-sidebar" id="gcSidebar">
+                <div class="gc-sidebar-header">
+                    <i class="fas fa-users"></i>
+                    <span data-i18n="groupChat">Group Chat</span>
+                </div>
+                <div class="gc-sidebar-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="gcSearchInput" data-i18n-placeholder="searchGroups" placeholder="Search groups..." oninput="filterGroupList(this.value)">
+                </div>
+                <div class="gc-group-list" id="gcGroupList">
+                    <!-- Group items populated by JS -->
+                </div>
+            </aside>
+            <!-- Right: Chat Area -->
+            <div class="gc-main">
+                <div class="gc-chat-header" id="gcChatHeader">
+                    <div class="gc-chat-header-info">
+                        <div class="gc-chat-title" id="gcChatTitle"><i class="fas fa-comments"></i> <span data-i18n="selectGroup">Select a group chat</span></div>
+                        <div class="gc-chat-subtitle" id="gcChatSubtitle"></div>
+                    </div>
+                </div>
+                <div class="gc-chat-body" id="gcChatBody">
+                    <div class="gc-placeholder" id="gcPlaceholder">
+                        <i class="fas fa-hand-pointer"></i>
+                        <p data-i18n="selectGroup">Select a group chat from the left to start chatting</p>
+                    </div>
+                </div>
+                <div class="gc-input-area" id="gcInputArea" style="display:none;">
+                    <input type="file" id="groupChatImageInput" accept="image/*" style="display:none" onchange="handleGroupImageSelect(this)">
+                    <button class="msg-img-btn" onclick="document.getElementById('groupChatImageInput').click()" title="Send Image">
+                        <i class="fas fa-image"></i>
+                    </button>
+                    <input type="text" class="msg-input" id="groupChatInput" data-i18n-placeholder="typeMessage" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendGroupMessage()">
+                    <button class="msg-send-btn" onclick="sendGroupMessage()">
+                        <i class="fas fa-paper-plane"></i> <span data-i18n="send">Send</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
