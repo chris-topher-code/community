@@ -1,4 +1,4 @@
-# ChinaVoices
+# Cdiscovery
 
 > 🇫🇷 Une plateforme communautaire connectant les étrangers en Chine à travers des histoires authentiques.
 

@@ -1,0 +1,850 @@
+/* ===== style-mobile.css ===== */
+/* Loaded only on screens ≤ 768px via link[media] attribute */
+/* Extracted from style.css to isolate mobile from desktop */
+
+/* bg-settings mobile */
+.bg-settings-panel {
+    flex-direction: column;
+}
+.bg-preview-box {
+    width: 100%;
+    height: 100px;
+}
+
+/* category scroll hint */
+.category-scroll-hint::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, transparent, var(--bg-dark));
+    pointer-events: none;
+}
+
+/* post card mobile */
+.post-card {
+    padding: 14px;
+    margin-bottom: 10px;
+    border-radius: 14px;
+}
+.post-card .post-header {
+    margin-bottom: 10px;
+}
+.post-card .post-avatar {
+    width: 36px;
+    height: 36px;
+}
+.post-header {
+    flex-wrap: wrap;
+}
+.post-author-name {
+    font-size: 0.85rem;
+}
+.post-time {
+    font-size: 0.7rem;
+}
+.post-content {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+.post-category {
+    margin-left: 0;
+    margin-top: 8px;
+    font-size: 0.65rem;
+    padding: 3px 8px;
+}
+.post-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.post-actions .action-btn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+}
+.action-btn {
+    font-size: 0.85rem;
+    gap: 5px;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px 12px;
+}
+.share-menu {
+    left: auto;
+    right: 0;
+    transform: none;
+}
+.share-menu-item {
+    padding: 14px 16px;
+    min-height: 48px;
+}
+
+/* welcome banner mobile */
+.welcome-banner {
+    padding: 16px 16px 0;
+}
+.welcome-inner {
+    padding: 20px 16px;
+}
+.welcome-greeting {
+    font-size: 1.2rem;
+}
+.welcome-sub {
+    font-size: 0.9rem;
+}
+.welcome-actions {
+    gap: 8px;
+    flex-direction: column;
+}
+.welcome-action-btn {
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    min-height: 44px;
+    justify-content: center;
+}
+
+/* hero mobile */
+.hero {
+    padding: 90px 16px 50px;
+    min-height: 85vh;
+}
+.hero h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+.hero p {
+    font-size: 0.95rem;
+    padding: 0 10px;
+}
+.hero-stats {
+    gap: 30px;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.stat-number {
+    font-size: 1.5rem;
+}
+.stat-label {
+    font-size: 0.75rem;
+}
+.search-container input {
+    padding: 14px 20px 14px 48px;
+    font-size: 16px;
+}
+
+/* sidebar mobile */
+.sidebar {
+    position: static;
+}
+.sidebar-card {
+    padding: 16px;
+}
+
+/* main container mobile */
+.main-container {
+    padding: 16px;
+    gap: 20px;
+}
+
+/* navbar mobile */
+.navbar {
+    padding: 0 8px;
+    height: 56px;
+    gap: 4px;
+}
+
+/* hide Cdiscovery logo on mobile */
+.nav-logo {
+    display: none;
+}
+
+/* hide regular nav links but keep container visible for Group Chat */
+.nav-links {
+    display: flex !important;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* hide Home, Stories, Explore, Topics, About, Share Your Story */
+.nav-links li:not(:last-of-type) {
+    display: none !important;
+}
+
+/* hide the nav-indicator div */
+.nav-links .nav-indicator {
+    display: none !important;
+}
+
+/* show Group button (shorter text on mobile) */
+.nav-links .group-chat-btn {
+    font-size: 0.65rem;
+    padding: 4px 6px;
+    white-space: nowrap;
+}
+.nav-text-full {
+    display: none !important;
+}
+.nav-text-short {
+    display: inline !important;
+}
+
+.nav-actions {
+    display: flex !important;
+    gap: 4px;
+    flex-shrink: 0;
+    justify-content: flex-end;
+    align-items: center;
+}
+.profile-btn span {
+    display: none;
+}
+.profile-btn img {
+    width: 28px;
+    height: 28px;
+}
+#signOutBtn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+}
+#loginBtn, #registerBtn, #signOutBtn, #profileBtn {
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    border-radius: 10px;
+}
+#profileBtn {
+    padding: 6px 10px;
+}
+.mobile-menu-btn {
+    display: none !important;
+}
+
+/* lang switch - show on mobile */
+.lang-switch {
+    display: flex !important;
+    padding: 2px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+.lang-btn {
+    padding: 4px 6px;
+    font-size: 0.6rem;
+}
+
+/* show Sign In / Join Now on mobile */
+#loginBtn,
+#registerBtn {
+    display: inline-flex !important;
+    padding: 4px 8px;
+    font-size: 0.65rem;
+    min-height: 32px;
+    white-space: nowrap;
+}
+
+/* buttons mobile */
+.btn {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    border-radius: 10px;
+}
+
+/* comment input mobile */
+.comment-input-row {
+    flex-direction: column;
+}
+.comment-input-row input {
+    width: 100%;
+}
+.comment-input-row button {
+    width: 100%;
+    text-align: center;
+}
+
+/* tags mobile */
+.post-tags {
+    gap: 6px;
+}
+.post-tag {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+}
+
+/* trending mobile */
+.trending-item {
+    padding: 14px 0;
+    min-height: 48px;
+}
+
+/* community stats mobile */
+.community-stats {
+    gap: 10px;
+}
+.community-stat {
+    padding: 12px;
+}
+.community-stat-value {
+    font-size: 1.1rem;
+}
+
+/* page sections mobile */
+.page-hero {
+    padding: 40px 24px;
+}
+.page-hero h1 {
+    font-size: 2rem;
+}
+.page-section {
+    padding: 20px;
+}
+
+/* explore section mobile */
+.explore-section {
+    padding: 20px;
+}
+.cities-hero-banner {
+    padding: 40px 20px;
+}
+.cities-hero-title {
+    font-size: 2rem;
+}
+.cities-hero-subtitle {
+    font-size: 1rem;
+}
+.cities-hero-icon {
+    font-size: 3rem;
+}
+.cities-grid {
+    grid-template-columns: 1fr;
+}
+.city-posts-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+.city-posts-header h2 {
+    font-size: 1.4rem;
+}
+.city-posts-container {
+    padding: 10px 0;
+}
+
+/* profile mobile */
+.profile-page {
+    padding: 16px;
+}
+.profile-header-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 16px;
+}
+.profile-avatar-lg {
+    width: 60px;
+    height: 60px;
+}
+.profile-name {
+    font-size: 1.3rem;
+}
+.profile-meta {
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.profile-stats-row {
+    justify-content: center;
+}
+
+/* footer mobile */
+.footer {
+    padding: 30px 16px;
+    margin-bottom: 70px;
+}
+.footer-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 4px;
+}
+
+/* modal mobile */
+.modal-overlay {
+    padding: 10px;
+    align-items: flex-end;
+}
+.modal {
+    max-height: 85vh;
+    border-radius: 20px 20px 0 0;
+    max-width: 100%;
+}
+.modal-header {
+    padding: 24px 20px 16px;
+}
+.modal-header h2 {
+    font-size: 1.5rem;
+}
+.modal-tabs {
+    padding: 0 20px;
+}
+.modal-tab {
+    padding: 12px;
+    font-size: 0.9rem;
+}
+.modal-body {
+    padding: 20px;
+}
+.form-group {
+    margin-bottom: 16px;
+}
+.form-group input,
+.form-group select {
+    padding: 12px 14px;
+    font-size: 16px !important;
+    min-height: 48px;
+    border-radius: 10px;
+}
+.identity-options {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+.identity-card {
+    padding: 12px 8px;
+}
+.identity-card i {
+    font-size: 1.2rem;
+}
+.modal-btn {
+    margin-top: 16px;
+    padding: 14px;
+    font-size: 1rem;
+}
+
+/* input font size fix for iOS */
+input, select, textarea {
+    font-size: 16px !important;
+}
+.new-post-textarea {
+    font-size: 16px !important;
+}
+.composer-textarea {
+    font-size: 16px !important;
+}
+.modal-input {
+    font-size: 16px !important;
+}
+
+/* category filter mobile */
+.category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 16px;
+    padding-bottom: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.category-pill {
+    flex: 0 0 calc(50% - 5px);
+    max-width: calc(50% - 5px);
+    padding: 12px 8px;
+    font-size: 0.85rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 12px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* topics & about mobile */
+.topics-grid {
+    grid-template-columns: 1fr;
+}
+.about-grid {
+    grid-template-columns: 1fr;
+}
+.about-stats-row {
+    grid-template-columns: 1fr;
+}
+
+/* new post page mobile */
+.new-post-page {
+    padding: 16px;
+}
+.new-post-card {
+    padding: 20px 16px;
+}
+.new-post-select {
+    min-height: 44px;
+    font-size: 16px;
+}
+.new-post-submit {
+    min-height: 48px;
+    width: 100%;
+}
+
+/* expand toggle mobile */
+.expand-toggle {
+    min-height: 48px;
+    width: 100%;
+    justify-content: center;
+    font-size: 0.85rem;
+}
+.comment-section {
+    padding: 12px 0;
+}
+
+/* section titles */
+.posts-section h2 {
+    flex-wrap: wrap;
+}
+#postsSection h2 {
+    display: none;
+}
+#mainContainer #postsSection {
+    display: none;
+}
+
+/* stories page mobile */
+#storiesPage {
+    display: none;
+    padding: 12px 12px 90px 12px;
+}
+#storiesPage.active {
+    display: block;
+}
+.stories-filter-bar {
+    padding: 14px 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+.stories-sort-row {
+    gap: 8px;
+}
+.sort-btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    flex: 1;
+    justify-content: center;
+    min-height: 44px;
+    border-radius: 12px;
+}
+
+/* categories row mobile: horizontal scroll */
+.stories-categories-row {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 2px;
+    margin: 0 -2px;
+}
+.stories-categories-row::-webkit-scrollbar {
+    display: none;
+}
+.stories-cat-pill {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 8px 6px;
+    font-size: 0;
+    border-radius: 12px;
+    gap: 0;
+    justify-content: center;
+}
+.stories-cat-pill .cat-icon {
+    font-size: 1.3rem;
+}
+
+/* stories title row mobile */
+.stories-title-row {
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.sort-buttons-row {
+    width: 100%;
+    justify-content: center;
+}
+.sort-buttons-row .sort-btn {
+    flex: 1;
+    justify-content: center;
+}
+
+/* hide elements not needed on mobile */
+#storiesPage .filter-bar,
+#storiesPage .main-container,
+#storiesPage .sidebar,
+#storiesPage .posts-section {
+    display: none !important;
+}
+
+/* posts grid single column on mobile */
+#storiesPage .posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0;
+}
+
+/* compact post cards on mobile stories */
+#storiesPage .post-card {
+    padding: 14px;
+    border-radius: 14px;
+    margin-bottom: 0;
+}
+#storiesPage .post-header {
+    margin-bottom: 10px;
+}
+#storiesPage .post-avatar {
+    width: 36px;
+    height: 36px;
+}
+#storiesPage .post-author-name {
+    font-size: 0.85rem;
+}
+#storiesPage .post-time {
+    font-size: 0.7rem;
+}
+#storiesPage .post-content {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+#storiesPage .post-actions {
+    gap: 8px;
+    padding-top: 10px;
+}
+#storiesPage .action-btn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+}
+
+/* bottom nav mobile */
+.mobile-bottom-nav {
+    display: flex;
+}
+
+/* hide old hamburger menu nav */
+.mobile-nav {
+    display: none !important;
+}
+
+/* add padding for bottom nav */
+body {
+    padding-bottom: 80px;
+}
+
+/* user profile mobile */
+.user-profile-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 20px;
+}
+.user-profile-actions {
+    margin-left: 0;
+    margin-top: 16px;
+}
+.user-profile-stats {
+    justify-content: center;
+}
+
+/* msg modal mobile */
+.msg-modal {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+}
+
+/* group chat mobile - sidebar slides from right */
+.gc-layout {
+    position: relative;
+    overflow: hidden;
+}
+
+.gc-sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    bottom: 0;
+    width: 85%;
+    max-width: 320px;
+    z-index: 20;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(100%);
+    background: rgba(10, 10, 26, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.4);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+.gc-sidebar.visible {
+    transform: translateX(0);
+}
+
+/* overlay behind sidebar */
+.gc-sidebar-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 15;
+}
+.gc-sidebar-overlay.visible {
+    display: block;
+}
+
+.gc-main {
+    width: 100%;
+    min-height: 100%;
+}
+
+/* toggle button for group list */
+.gc-toggle-btn {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.gc-toggle-btn:hover,
+.gc-toggle-btn.active {
+    background: rgba(255, 107, 91, 0.15);
+    border-color: rgba(255, 107, 91, 0.4);
+    color: var(--accent-coral);
+}
+
+.gc-chat-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px !important;
+}
+
+/* Push toggle button to the right */
+.gc-chat-header-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.gc-chat-body {
+    padding: 12px 16px;
+}
+
+.gc-msg-body {
+    max-width: 85%;
+}
+
+
+/* ===== @media (max-width: 400px) ===== */
+@media (max-width: 400px) {
+    .category-pill {
+        flex: 0 0 calc(50% - 6px);
+        max-width: calc(50% - 6px);
+        padding: 10px 6px;
+        font-size: 0.8rem;
+    }
+    .category-filter {
+        gap: 8px;
+        padding: 12px;
+    }
+    .stories-filter-bar {
+        padding: 12px 14px;
+    }
+    .stories-cat-pill {
+        padding: 7px 4px;
+        font-size: 0;
+    }
+    .stories-cat-pill .cat-icon {
+        font-size: 1.1rem;
+    }
+    .sort-btn {
+        padding: 9px 14px;
+        font-size: 0.82rem;
+    }
+    .bottom-nav-item {
+        min-width: 60px;
+        padding: 6px 10px;
+        font-size: 0.65rem;
+    }
+    .bottom-nav-item i {
+        font-size: 1rem;
+    }
+}
+
+
+/* ===== @media (max-width: 375px) ===== */
+@media (max-width: 375px) {
+    .navbar {
+        padding: 0 12px;
+        height: 56px;
+    }
+    .mobile-nav {
+        top: 56px;
+    }
+    .nav-logo {
+        font-size: 1.2rem;
+    }
+    .nav-logo i {
+        font-size: 1rem;
+    }
+    .nav-actions {
+        gap: 6px;
+    }
+    .lang-switch {
+        display: none !important;
+    }
+    .btn {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+        min-height: 36px;
+    }
+    #loginBtn, #registerBtn, #signOutBtn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        min-height: 36px;
+    }
+    .mobile-menu-btn {
+        width: 36px;
+        height: 36px;
+    }
+    .sort-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    .stories-cat-pill {
+        padding: 6px 3px;
+        font-size: 0;
+    }
+    .stories-cat-pill .cat-icon {
+        font-size: 1rem;
+    }
+}

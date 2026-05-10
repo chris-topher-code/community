@@ -1,4 +1,4 @@
-# ChinaVoices
+# Cdiscovery
 
 > 🇬🇧 A community platform connecting foreigners across China through authentic stories and shared experiences.
 

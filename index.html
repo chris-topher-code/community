@@ -31,6 +31,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-desktop.css" media="(min-width: 769px)">
+    <link rel="stylesheet" href="style-mobile.css" media="(max-width: 768px)">
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body class="loading">
@@ -53,7 +55,7 @@
                 <i class="fas fa-pen-to-square"></i> Share Your Story
             </a></li>
             <li><a href="#" onclick="navigateTo('groupchat'); return false;" class="share-story-btn group-chat-btn" data-i18n="groupChat" title="Join your group chat">
-                <i class="fas fa-users"></i> <span data-i18n="groupChat">Group Chat</span>
+                <i class="fas fa-users"></i> <span data-i18n="groupChat" class="nav-text-full">Group Chat</span><span class="nav-text-short">Group</span>
             </a></li>
             <div class="nav-indicator" id="navIndicator"></div>
         </ul>
@@ -697,6 +699,8 @@
     <!-- Group Chat Page -->
     <section class="group-chat-page" id="groupChatPage">
         <div class="gc-layout">
+            <!-- Overlay for sidebar -->
+            <div class="gc-sidebar-overlay" id="gcSidebarOverlay" onclick="toggleGcSidebar()"></div>
             <!-- Left Sidebar: Group List -->
             <aside class="gc-sidebar" id="gcSidebar">
                 <div class="gc-sidebar-header">
@@ -718,6 +722,9 @@
                         <div class="gc-chat-title" id="gcChatTitle"><i class="fas fa-comments"></i> <span data-i18n="selectGroup">Select a group chat</span></div>
                         <div class="gc-chat-subtitle" id="gcChatSubtitle"></div>
                     </div>
+                    <button class="gc-toggle-btn" id="gcToggleBtn" onclick="toggleGcSidebar()">
+                        <i class="fas fa-users"></i> <span>Select Group</span>
+                    </button>
                 </div>
                 <div class="gc-chat-body" id="gcChatBody">
                     <div class="gc-placeholder" id="gcPlaceholder">
@@ -738,6 +745,19 @@
             </div>
         </div>
     </section>
+
+    <!-- Group Members Modal -->
+    <div class="gm-overlay" id="gmOverlay">
+        <div class="gm-modal">
+            <div class="gm-header">
+                <h4 id="gmTitle">Group Members</h4>
+                <button class="gm-close" onclick="closeGroupMembers()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="gm-list" id="gmList">
+                <div style="text-align:center;padding:20px;color:var(--text-muted)"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal-overlay" id="authModal">
         <div class="modal">

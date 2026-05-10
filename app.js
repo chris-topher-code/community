@@ -826,6 +826,7 @@ function getTimeAgo(dateStr) {
 
 function showToast(message) {
     const container = document.getElementById('toastContainer');
+    if (!container) { alert(message); return; }
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
@@ -1282,6 +1283,10 @@ function navigateTo(page) {
         if (el) el.classList.remove('active');
     });
 
+    // Also hide explore section when switching pages
+    const exploreSection = document.getElementById('exploreSection');
+    if (exploreSection) exploreSection.classList.remove('active');
+
     const mainContainer = document.getElementById('mainContainer');
     const categoryFilter = document.querySelector('.category-filter');
     const hero = document.querySelector('.hero');
@@ -1296,17 +1301,10 @@ function navigateTo(page) {
     if (page === 'groupchat') {
         const gcEl = document.getElementById('groupChatPage');
         gcEl.classList.add('active', 'page-transition');
-        mainContainer.style.display = 'none';
-        categoryFilter.style.display = 'none';
-        hero.style.display = 'none';
-        document.getElementById('welcomeBanner').style.display = 'none';
-        document.querySelector('.footer').style.display = 'none';
+        document.body.classList.add('groupchat-active');
         highlightNavLink('groupchat');
         closeMobileNav();
         loadGroupList();
-        setTimeout(() => {
-            gcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 50);
         return;
     }
 
@@ -1393,6 +1391,10 @@ function navigateTo(page) {
         }, 50);
     } else {
         // home page
+        document.body.classList.remove('groupchat-active');
+        if (groupMessagePollingInterval) { clearInterval(groupMessagePollingInterval); groupMessagePollingInterval = null; }
+        if (exploreSection) exploreSection.style.display = '';
+        document.body.style.overflow = '';
         document.querySelector('.footer').style.display = 'block';
         if (isLoggedIn) {
             hero.style.display = 'none';
@@ -2299,7 +2301,7 @@ function openMessageModal() {
     loadMessages();
     
     if (messagePollingInterval) clearInterval(messagePollingInterval);
-    messagePollingInterval = setInterval(loadMessages, 5000);
+    messagePollingInterval = setInterval(loadMessages, 3000);
     
     setTimeout(() => document.getElementById('msgInput').focus(), 100);
 }
@@ -2340,8 +2342,7 @@ async function loadMessages() {
     
     msgEmpty.style.display = 'none';
     
-    const currentCount = msgBody.querySelectorAll('.msg-bubble').length;
-    if (currentCount === messages.length) return;
+    // Always re-render to show new messages
     
     msgBody.innerHTML = messages.map(m => {
         const isSent = m.sender_id === currentUser.id;
@@ -2524,6 +2525,8 @@ function getCountryName(code) {
     return names[code] || code || 'Unknown';
 }
 
+let groupMessagePollingInterval = null;
+
 async function loadGroupList() {
     if (!currentUser) return;
 
@@ -2540,85 +2543,199 @@ async function loadGroupList() {
         return;
     }
 
-    const groupMap = {};
+    // Count members per country group
+    const countryMap = {};
+    // Count members per identity group
+    const identityMap = {};
+
     (profiles || []).forEach(p => {
         const cc = p.country_code || 'UN';
         const id = (p.identity || 'other').toLowerCase();
-        const key = `${cc}|${id}`;
-        if (!groupMap[key]) {
-            groupMap[key] = { country_code: cc, identity: id, count: 0 };
-        }
-        groupMap[key].count++;
+        if (!countryMap[cc]) countryMap[cc] = { type: 'country', value: cc, count: 0 };
+        countryMap[cc].count++;
+        if (!identityMap[id]) identityMap[id] = { type: 'identity', value: id, count: 0 };
+        identityMap[id].count++;
     });
 
     const userCC = currentUser.country_code || 'UN';
     const userIdentity = (currentUser.identity || 'other').toLowerCase();
-    const userKey = `${userCC}|${userIdentity}`;
 
-    const groups = Object.values(groupMap).sort((a, b) => {
-        const aKey = `${a.country_code}|${a.identity}`;
-        const bKey = `${b.country_code}|${b.identity}`;
-        if (aKey === userKey) return -1;
-        if (bKey === userKey) return 1;
+    // Build group list: country groups first, then identity groups
+    const countryGroups = Object.values(countryMap).sort((a, b) => {
+        if (a.value === userCC) return -1;
+        if (b.value === userCC) return 1;
+        return b.count - a.count;
+    });
+    const identityGroups = Object.values(identityMap).sort((a, b) => {
+        if (a.value === userIdentity) return -1;
+        if (b.value === userIdentity) return 1;
         return b.count - a.count;
     });
 
-    listEl.innerHTML = groups.map(g => {
-        const key = `${g.country_code}|${g.identity}`;
-        const isOwn = key === userKey;
-        const flag = getFlagEmoji(g.country_code);
-        const emoji = getIdentityEmoji(g.identity);
-        const countryName = getCountryName(g.country_code);
-        const identityName = getIdentityName(g.identity);
-        return `<div class="gc-group-item ${key === activeGroupKey ? 'active' : ''}" data-group-key="${key}" onclick="selectGroupChat('${g.country_code}', '${g.identity}')">
-            <div class="gc-group-icon">${emoji}</div>
+    const allGroups = [...countryGroups, ...identityGroups];
+
+    function renderGroupItem(g) {
+        const key = `${g.type}|${g.value}`;
+        const isOwn = (g.type === 'country' && g.value === userCC) || (g.type === 'identity' && g.value === userIdentity);
+        let icon, name;
+        if (g.type === 'country') {
+            icon = getFlagEmoji(g.value);
+            name = getCountryName(g.value);
+        } else {
+            icon = getIdentityEmoji(g.value);
+            name = getIdentityName(g.value);
+        }
+        const label = g.type === 'country'
+            ? (currentLang === 'fr' ? 'Pays' : 'Country')
+            : (currentLang === 'fr' ? 'Identité' : 'Identity');
+        return `<div class="gc-group-item ${key === activeGroupKey ? 'active' : ''}" data-group-key="${key}" onclick="selectGroupChat('${g.type}', '${g.value}')">
+            <div class="gc-group-icon">${icon}</div>
             <div class="gc-group-info">
-                <div class="gc-group-name">${flag} ${countryName} · ${identityName}${isOwn ? ' ⭐' : ''}</div>
-                <div class="gc-group-desc">${g.count} ${currentLang === 'fr' ? 'membres' : 'members'}</div>
+                <div class="gc-group-name">${name}${isOwn ? ' ⭐' : ''}</div>
+                <div class="gc-group-desc"><span style="opacity:0.5;font-size:0.7em;">${label}</span> · ${g.count} ${currentLang === 'fr' ? 'membres' : 'members'}</div>
             </div>
         </div>`;
-    }).join('');
+    }
 
-    if (!activeGroupKey || !groupMap[activeGroupKey]) {
-        selectGroupChat(userCC, userIdentity);
+    // Render with section headers
+    let html = `<div class="gc-section-header">${currentLang === 'fr' ? '🌍 Groupes par pays' : '🌍 Country Groups'}</div>`;
+    html += countryGroups.map(renderGroupItem).join('');
+    html += `<div class="gc-section-header" style="margin-top:12px;">${currentLang === 'fr' ? '🏷️ Groupes par identité' : '🏷️ Identity Groups'}</div>`;
+    html += identityGroups.map(renderGroupItem).join('');
+    listEl.innerHTML = html;
+
+    if (!activeGroupKey || !allGroups.find(g => `${g.type}|${g.value}` === activeGroupKey)) {
+        selectGroupChat('country', userCC);
     } else {
         const parts = activeGroupKey.split('|');
         selectGroupChat(parts[0], parts[1]);
     }
 }
 
-async function selectGroupChat(countryCode, identity) {
-    activeGroupKey = `${countryCode}|${identity}`;
+function toggleGcSidebar() {
+    const sidebar = document.getElementById('gcSidebar');
+    const overlay = document.getElementById('gcSidebarOverlay');
+    const btn = document.getElementById('gcToggleBtn');
+    const isOpen = sidebar.classList.contains('visible');
+    if (isOpen) {
+        sidebar.classList.remove('visible');
+        overlay.classList.remove('visible');
+        if (btn) btn.classList.remove('active');
+    } else {
+        sidebar.classList.add('visible');
+        overlay.classList.add('visible');
+        if (btn) btn.classList.add('active');
+    }
+}
+
+async function openGroupMembers() {
+    if (!activeGroupKey) return;
+    const overlay = document.getElementById('gmOverlay');
+    const list = document.getElementById('gmList');
+    const title = document.getElementById('gmTitle');
+    
+    const parts = activeGroupKey.split('|');
+    const groupType = parts[0];
+    const groupValue = parts[1];
+    
+    let icon, name;
+    if (groupType === 'country') {
+        icon = getFlagEmoji(groupValue);
+        name = getCountryName(groupValue);
+    } else {
+        icon = getIdentityEmoji(groupValue);
+        name = getIdentityName(groupValue);
+    }
+    title.textContent = `${icon} ${name}`;
+    
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    list.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-muted)"><i class="fas fa-spinner fa-spin"></i></div>';
+    
+    let query = supabaseClient.from('profiles').select('id, name, avatar_url, country_code, identity, country');
+    if (groupType === 'country') {
+        query = query.eq('country_code', groupValue);
+    } else {
+        query = query.ilike('identity', groupValue);
+    }
+    const { data: profiles, error } = await query;
+    
+    if (error || !profiles || profiles.length === 0) {
+        list.innerHTML = `<div class="gm-empty"><i class="fas fa-users"></i><p>${currentLang === 'fr' ? 'Aucun membre trouvé' : 'No members found'}</p></div>`;
+        return;
+    }
+    
+    list.innerHTML = profiles.map(p => {
+        const avatar = p.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
+        const name = p.name || 'User';
+        const pCountry = getCountryName(p.country_code || 'UN');
+        const pFlag = getFlagEmoji(p.country_code || 'UN');
+        const isMe = currentUser && p.id === currentUser.id;
+        return `<div class="gm-item" onclick="closeGroupMembers(); ${isMe ? "navigateTo('profile')" : "openUserProfile('" + p.id + "')"}">
+            <img src="${avatar}" alt="${name}" class="gm-item-avatar" loading="lazy">
+            <div class="gm-item-info">
+                <div class="gm-item-name">${name}</div>
+                <div class="gm-item-country">${pFlag} ${pCountry}</div>
+            </div>
+            ${isMe ? '<span class="gm-item-badge">You</span>' : ''}
+        </div>`;
+    }).join('');
+}
+
+function closeGroupMembers() {
+    const overlay = document.getElementById('gmOverlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+async function selectGroupChat(groupType, groupValue) {
+    activeGroupKey = `${groupType}|${groupValue}`;
 
     document.querySelectorAll('.gc-group-item').forEach(el => {
         el.classList.toggle('active', el.dataset.groupKey === activeGroupKey);
     });
 
-    const flag = getFlagEmoji(countryCode);
-    const emoji = getIdentityEmoji(identity);
-    const countryName = getCountryName(countryCode);
-    const identityName = getIdentityName(identity);
-    document.getElementById('gcChatTitle').innerHTML = `${emoji} ${flag} ${countryName} · ${identityName}`;
+    // Close sidebar on mobile after selecting a group
+    const sidebar = document.getElementById('gcSidebar');
+    if (sidebar && sidebar.classList.contains('visible')) {
+        toggleGcSidebar();
+    }
+
+    let icon, name;
+    if (groupType === 'country') {
+        icon = getFlagEmoji(groupValue);
+        name = getCountryName(groupValue);
+    } else {
+        icon = getIdentityEmoji(groupValue);
+        name = getIdentityName(groupValue);
+    }
+    const label = groupType === 'country'
+        ? (currentLang === 'fr' ? 'Pays' : 'Country')
+        : (currentLang === 'fr' ? 'Identité' : 'Identity');
+    document.getElementById('gcChatTitle').innerHTML = `<span onclick="openGroupMembers()" style="cursor:pointer;">${icon} ${name} <span style="opacity:0.4;font-size:0.75em;">(${label})</span> <i class="fas fa-users" style="font-size:0.75em;opacity:0.6;margin-left:4px;"></i></span>`;
 
     document.getElementById('gcPlaceholder').style.display = 'none';
     document.getElementById('gcInputArea').style.display = 'flex';
     document.getElementById('gcChatBody').innerHTML = '';
 
+    // Clear old polling and start new one
+    if (groupMessagePollingInterval) clearInterval(groupMessagePollingInterval);
     loadGroupMessages();
+    groupMessagePollingInterval = setInterval(loadGroupMessages, 3000);
 }
 
 async function loadGroupMessages() {
     if (!currentUser || !activeGroupKey) return;
 
     const parts = activeGroupKey.split('|');
-    const cc = parts[0];
-    const identity = parts[1];
+    const groupType = parts[0];
+    const groupValue = parts[1];
 
     const { data: messages, error } = await supabaseClient
         .from('group_messages')
         .select('*, profiles(name, avatar_url, country_code)')
-        .eq('country_code', cc)
-        .eq('identity', identity)
+        .eq('country_code', groupType)
+        .eq('identity', groupValue)
         .order('created_at', { ascending: true })
         .limit(200);
 
@@ -2634,8 +2751,7 @@ async function loadGroupMessages() {
         return;
     }
 
-    const currentCount = body.querySelectorAll('.gc-msg').length;
-    if (currentCount === messages.length) return;
+    // Always re-render to show new messages from others
 
     body.innerHTML = messages.map(m => {
         const isOwn = m.user_id === currentUser.id;
@@ -2673,15 +2789,15 @@ async function sendGroupMessage() {
     if (!content || !currentUser || !activeGroupKey) return;
 
     const parts = activeGroupKey.split('|');
-    const cc = parts[0];
-    const identity = parts[1];
+    const groupType = parts[0];
+    const groupValue = parts[1];
 
     const { error } = await supabaseClient
         .from('group_messages')
         .insert({
             user_id: currentUser.id,
-            country_code: cc,
-            identity: identity,
+            country_code: groupType,
+            identity: groupValue,
             content: content,
             image_url: null
         });
@@ -2693,8 +2809,6 @@ async function sendGroupMessage() {
     }
 
     input.value = '';
-    const body = document.getElementById('gcChatBody');
-    body.querySelectorAll('.gc-msg').length && (body.innerHTML = '');
     loadGroupMessages();
 }
 
