@@ -409,393 +409,584 @@
         </div>
 
         <!-- Study Topic -->
-        <div class="info-section">
-            <div class="info-header" onclick="toggleInfoSection('study')">
-                <div class="info-icon">🎓</div>
-                <div class="info-title">
-                    <h2>Study in China</h2>
-                    <p>University experiences, study tips, and academic resources</p>
-                </div>
-                <i class="fas fa-chevron-down info-toggle"></i>
+        <div class="info-section topic-card" data-topic="study">
+            <div class="topic-cover" style="background: linear-gradient(135deg, rgba(26,115,232,0.85), rgba(230,67,53,0.85));">
+                <div class="topic-icon">🎓</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Study in China</h2>
+                <p class="topic-subtitle">University experiences, study tips, and academic resources</p>
             </div>
-            <div class="info-content" id="studyContent">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4><i class="fas fa-university"></i> Top Universities</h4>
-                        <p>Peking University, Tsinghua, Fudan, and more world-renowned institutions welcome international students.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-graduation-cap"></i> Scholarships</h4>
-                        <p>Chinese Government Scholarship (CSC), Confucius Institute Scholarships, and university-specific grants available.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-language"></i> Language Requirements</h4>
-                        <p>HSK 4-5 for Chinese programs. Many universities offer English-taught programs (IELTS 6.0+ or TOEFL 80+).</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-file-alt"></i> Application Process</h4>
-                        <p>Apply through CSC portal or directly to universities (March-June for fall semester).</p>
+            <div class="topic-body">
+                <p class="topic-teaser">China welcomes 200,000+ international students annually. Explore scholarships, application processes, and campus life at top universities.</p>
+                <button class="topic-read-btn" onclick="toggleInfoSection('study')">
+                    Read Full Guide ↓
+                </button>
+                <div class="topic-full-content" id="studyContent">
+                    <p style="margin-bottom: 20px; line-height: 1.8;">China has emerged as one of the world's most attractive study destinations, with over 200,000 international students enrolled annually across more than 700 universities. The Chinese Government Scholarship (CSC) program, administered through the Ministry of Education, offers full tuition coverage, accommodation allowances, and living stipends to qualified international students. Universities like Peking University, Tsinghua, Fudan, and Shanghai Jiao Tong University consistently rank among Asia's top institutions, with QS World rankings placing them in the global top 100.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">The application process typically opens in November for the following academic year, with most universities accepting applications through the CSC portal (csc.edu.cn) between December and March. For English-taught programs, the requirements vary: undergraduate programs typically require IELTS 6.0 or TOEFL 80+, while graduate programs may require GPA 3.0+ alongside English proficiency scores. Chinese language programs require HSK 4 (180+ score) for admission to degree programs, though foundation programs are available for beginners.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">International students can work part-time (up to 20 hours per week) with a valid student residence permit. Most universities offer career services including resume writing workshops, interview preparation, and connections to multinational companies in China. Recent graduates have successfully transitioned to work visas (Z-visa) through the Foreign Employment Service center, with many finding opportunities in tech, finance, education, and healthcare sectors.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;"><strong>Official Resources:</strong></p>
+                    <ul style="margin-bottom: 20px; line-height: 1.8;">
+                        <li><a href="https://www.csc.edu.cn" target="_blank">CSC Scholarship Portal</a> - Official Chinese Government Scholarship applications</li>
+                        <li><a href="http://www.moe.gov.cn" target="_blank">Ministry of Education</a> - Official education policies and regulations</li>
+                        <li><a href="https://www.jsj.edu.cn" target="_blank">Chinese Education Exchange Center</a> - Verified university directories</li>
+                    </ul>
+                    <p style="margin-bottom: 25px; line-height: 1.8;">Living costs vary significantly by city: Beijing and Shanghai average ¥2,000-3,500/month for shared housing, while smaller cities like Chengdu, Xi'an, or Kunming offer more affordable options at ¥1,200-2,000/month. Most universities provide on-campus dormitories at ¥600-1,500/month, often including utilities and internet access.</p>
+                    <div class="info-grid">
+                        <div class="info-card" onclick="openTopicDetail('Top Universities', 'study')">
+                            <h4><i class="fas fa-university"></i> Top Universities</h4>
+                            <p>Peking University, Tsinghua, Fudan, and more world-renowned institutions welcome international students.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Scholarships', 'study')">
+                            <h4><i class="fas fa-graduation-cap"></i> Scholarships</h4>
+                            <p>Chinese Government Scholarship (CSC), Confucius Institute Scholarships, and university-specific grants available.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Language Requirements', 'study')">
+                            <h4><i class="fas fa-language"></i> Language Requirements</h4>
+                            <p>HSK 4-5 for Chinese programs. Many universities offer English-taught programs (IELTS 6.0+ or TOEFL 80+).</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Application Process', 'study')">
+                            <h4><i class="fas fa-file-alt"></i> Application Process</h4>
+                            <p>Apply through CSC portal or directly to universities (March-June for fall semester).</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Education</span>
+                <span class="topic-related-link" onclick="openTopicStories('study')">
+                    💬 View Community →
+                </span>
             </div>
         </div>
 
         <!-- School Topic -->
-        <div class="info-section">
-            <div class="info-header" onclick="toggleInfoSection('school')">
-                <div class="info-icon">🏫</div>
-                <div class="info-title">
-                    <h2>School Life in China</h2>
-                    <p>Campus life, K-12 education, and student experiences</p>
-                </div>
-                <i class="fas fa-chevron-down info-toggle"></i>
+        <div class="info-section topic-card" data-topic="school">
+            <div class="topic-cover" style="background: linear-gradient(135deg, rgba(156,39,176,0.85), rgba(103,58,183,0.85));">
+                <div class="topic-icon">🏫</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>School Life in China</h2>
+                <p class="topic-subtitle">Campus life, K-12 education, and student experiences</p>
             </div>
-            <div class="info-content" id="schoolContent">
-                <h4 style="color:#1a73e8; margin-bottom:15px;">Top Chinese Universities for International Students<br><small style="color:#666; font-weight:normal;">Ranked by number of international students (2022-2024 data)</small></h4>
-                <div class="university-list">
-                    <div class="university-item">
-                        <h5>Beijing (10 Universities)</h5>
-                        <div class="uni-grid">
-                            <div class="uni-card">
-                                <a href="https://www.pku.edu.cn" target="_blank" class="uni-name">1. Peking University</a>
-                                <div class="uni-stats">4,000+ students</div>
-                                <div class="uni-majors">Top 5: Chinese Language & Literature, Economics, International Relations, Computer Science, Law</div>
+            <div class="topic-body">
+                <p class="topic-teaser">Campus life blends traditional Chinese values with modern academic excellence—100+ student organizations, subsidized meals (¥15-30/day), and dorms from ¥800/year.</p>
+                <button class="topic-read-btn" onclick="toggleInfoSection('school')">
+                    Read Full Guide ↓
+                </button>
+                <div class="topic-full-content" id="schoolContent">
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Campus life in China offers a unique blend of traditional Chinese values and modern academic excellence. Universities typically operate on a semester system with 16-18 weeks of instruction per term. The academic year runs from September to January (Fall) and February to June (Spring), with most students residing in dormitories that cost between ¥800-2,500 per year depending on the institution and room type.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Student life extends far beyond academics, with over 100 student organizations covering interests from robotics and AI to traditional Chinese calligraphy and folk music. Most universities maintain extensive sports facilities including swimming pools, basketball courts, and fitness centers available to students at minimal cost. Campus canteens offer subsidized meals averaging ¥15-30 per day, with international student dining halls in major cities providing more diverse food options.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">For K-12 education, international families can choose between public schools with dedicated expatriate classes, private international schools (annual tuition ¥80,000-300,000 RMB), or bilingual schools offering both Chinese and international curricula. The Beijing and Shanghai education commissions maintain updated lists of schools licensed to enroll foreign students, with enrollment typically taking place in May-June for the following academic year.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;"><strong>Official Resources:</strong></p>
+                    <ul style="margin-bottom: 20px; line-height: 1.8;">
+                        <li><a href="http://www.moe.gov.cn" target="_blank">Ministry of Education</a> - Official education policies and school accreditation</li>
+                        <li><a href="http://www.bnu.edu.cn" target="_blank">Beijing Normal University</a> - Teacher training and education research</li>
+                        <li><a href="http://www.ecnu.edu.cn" target="_blank">East China Normal University</a> - Education development and international programs</li>
+                    </ul>
+                    <h4 style="color:#1a73e8; margin-bottom:15px;">Top Chinese Universities for International Students<br><small style="color:#666; font-weight:normal;">Ranked by number of international students (2022-2024 data)</small></h4>
+                    <div class="university-list">
+                        <div class="university-item">
+                            <h5>Beijing (10 Universities)</h5>
+                            <div class="uni-grid">
+                                <div class="uni-card">
+                                    <a href="https://www.pku.edu.cn" target="_blank" class="uni-name">1. Peking University</a>
+                                    <div class="uni-stats">4,000+ students</div>
+                                    <div class="uni-majors">Top 5: Chinese Language & Literature, Economics, International Relations, Computer Science, Law</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.tsinghua.edu.cn" target="_blank" class="uni-name">2. Tsinghua University</a>
+                                    <div class="uni-stats">3,500+ students</div>
+                                    <div class="uni-majors">Top 5: Engineering Technology, Architecture, Business Administration, Environmental Science, Materials Science</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.bnu.edu.cn" target="_blank" class="uni-name">3. Beijing Normal University</a>
+                                    <div class="uni-stats">2,800+ students</div>
+                                    <div class="uni-majors">Top 5: Education, Chinese Language & Literature, Psychology, Environmental Science, Chinese History</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.buaa.edu.cn" target="_blank" class="uni-name">4. Beihang University</a>
+                                    <div class="uni-stats">2,200+ students</div>
+                                    <div class="uni-majors">Top 5: Aerospace Engineering, Computer Science, Mechanical Engineering, Automation, Artificial Intelligence</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.ruc.edu.cn" target="_blank" class="uni-name">5. Renmin University of China</a>
+                                    <div class="uni-stats">2,800+ students</div>
+                                    <div class="uni-majors">Top 5: Economics, Law, Journalism & Communication, Finance, Sociology</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.bit.edu.cn" target="_blank" class="uni-name">6. Beijing Institute of Technology</a>
+                                    <div class="uni-stats">1,900+ students</div>
+                                    <div class="uni-majors">Top 5: Weaponry Science, Mechanical Engineering, Information & Communication Engineering, Management Science & Engineering</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.bjtu.edu.cn" target="_blank" class="uni-name">7. Beijing Jiaotong University</a>
+                                    <div class="uni-stats">1,600+ students</div>
+                                    <div class="uni-majors">Top 5: Transportation Engineering, Civil Engineering, Signal & Communication Engineering, Logistics Management</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.uibe.edu.cn" target="_blank" class="uni-name">8. University of International Business and Economics</a>
+                                    <div class="uni-stats">2,000+ students</div>
+                                    <div class="uni-majors">Top 5: International Trade, Finance, Business Studies, Law, English</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.cuc.edu.cn" target="_blank" class="uni-name">9. Communication University of China</a>
+                                    <div class="uni-stats">1,500+ students</div>
+                                    <div class="uni-majors">Top 5: Journalism & Communication, Radio & TV Editing, Broadcasting & Hosting, Drama & Film Studies</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.bucm.edu.cn" target="_blank" class="uni-name">10. Beijing University of Chinese Medicine</a>
+                                    <div class="uni-stats">2,300+ students</div>
+                                    <div class="uni-majors">Top 5: Traditional Chinese Medicine, Chinese Pharmacy, Acupuncture & Massage, Rehabilitation Therapy, Nursing</div>
+                                </div>
                             </div>
-                            <div class="uni-card">
-                                <a href="https://www.tsinghua.edu.cn" target="_blank" class="uni-name">2. Tsinghua University</a>
-                                <div class="uni-stats">3,500+ students</div>
-                                <div class="uni-majors">Top 5: Engineering Technology, Architecture, Business Administration, Environmental Science, Materials Science</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.bnu.edu.cn" target="_blank" class="uni-name">3. Beijing Normal University</a>
-                                <div class="uni-stats">2,800+ students</div>
-                                <div class="uni-majors">Top 5: Education, Chinese Language & Literature, Psychology, Environmental Science, Chinese History</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.buaa.edu.cn" target="_blank" class="uni-name">4. Beihang University</a>
-                                <div class="uni-stats">2,200+ students</div>
-                                <div class="uni-majors">Top 5: Aerospace Engineering, Computer Science, Mechanical Engineering, Automation, Artificial Intelligence</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.ruc.edu.cn" target="_blank" class="uni-name">5. Renmin University of China</a>
-                                <div class="uni-stats">2,800+ students</div>
-                                <div class="uni-majors">Top 5: Economics, Law, Journalism & Communication, Finance, Sociology</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.bit.edu.cn" target="_blank" class="uni-name">6. Beijing Institute of Technology</a>
-                                <div class="uni-stats">1,900+ students</div>
-                                <div class="uni-majors">Top 5: Weaponry Science, Mechanical Engineering, Information & Communication Engineering, Management Science & Engineering</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.bjtu.edu.cn" target="_blank" class="uni-name">7. Beijing Jiaotong University</a>
-                                <div class="uni-stats">1,600+ students</div>
-                                <div class="uni-majors">Top 5: Transportation Engineering, Civil Engineering, Signal & Communication Engineering, Logistics Management</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.uibe.edu.cn" target="_blank" class="uni-name">8. University of International Business and Economics</a>
-                                <div class="uni-stats">2,000+ students</div>
-                                <div class="uni-majors">Top 5: International Trade, Finance, Business Studies, Law, English</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.cuc.edu.cn" target="_blank" class="uni-name">9. Communication University of China</a>
-                                <div class="uni-stats">1,500+ students</div>
-                                <div class="uni-majors">Top 5: Journalism & Communication, Radio & TV Editing, Broadcasting & Hosting, Drama & Film Studies</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.bucm.edu.cn" target="_blank" class="uni-name">10. Beijing University of Chinese Medicine</a>
-                                <div class="uni-stats">2,300+ students</div>
-                                <div class="uni-majors">Top 5: Traditional Chinese Medicine, Chinese Pharmacy, Acupuncture & Massage, Rehabilitation Therapy, Nursing</div>
+                        </div>
+                        <div class="university-item" style="margin-top:20px;">
+                            <h5>Shanghai (5 Universities)</h5>
+                            <div class="uni-grid">
+                                <div class="uni-card">
+                                    <a href="https://www.fudan.edu.cn" target="_blank" class="uni-name">1. Fudan University</a>
+                                    <div class="uni-stats">4,500+ students</div>
+                                    <div class="uni-majors">Top 5: Journalism & Communication, Medicine, Economics, Management, Law</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.sjtu.edu.cn" target="_blank" class="uni-name">2. Shanghai Jiao Tong University</a>
+                                    <div class="uni-stats">3,000+ students</div>
+                                    <div class="uni-majors">Top 5: Naval Architecture & Ocean Engineering, Artificial Intelligence, Biomedical Engineering, Business Studies, Engineering</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.tongji.edu.cn" target="_blank" class="uni-name">3. Tongji University</a>
+                                    <div class="uni-stats">2,800+ students</div>
+                                    <div class="uni-majors">Top 5: Architecture, Civil Engineering, Urban & Rural Planning, Automotive Engineering, Design</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.ecnu.edu.cn" target="_blank" class="uni-name">4. East China Normal University</a>
+                                    <div class="uni-stats">2,200+ students</div>
+                                    <div class="uni-majors">Top 5: Education, Chinese Language & Literature, Psychology, Geography, Chinese Literature</div>
+                                </div>
+                                <div class="uni-card">
+                                    <a href="https://www.shisu.edu.cn" target="_blank" class="uni-name">5. Shanghai International Studies University</a>
+                                    <div class="uni-stats">1,800+ students</div>
+                                    <div class="uni-majors">Top 5: English Language & Literature, French, Translation & Interpreting, International Relations, Journalism</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="university-item" style="margin-top:20px;">
-                        <h5>Shanghai (5 Universities)</h5>
-                        <div class="uni-grid">
-                            <div class="uni-card">
-                                <a href="https://www.fudan.edu.cn" target="_blank" class="uni-name">1. Fudan University</a>
-                                <div class="uni-stats">4,500+ students</div>
-                                <div class="uni-majors">Top 5: Journalism & Communication, Medicine, Economics, Management, Law</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.sjtu.edu.cn" target="_blank" class="uni-name">2. Shanghai Jiao Tong University</a>
-                                <div class="uni-stats">3,000+ students</div>
-                                <div class="uni-majors">Top 5: Naval Architecture & Ocean Engineering, Artificial Intelligence, Biomedical Engineering, Business Studies, Engineering</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.tongji.edu.cn" target="_blank" class="uni-name">3. Tongji University</a>
-                                <div class="uni-stats">2,800+ students</div>
-                                <div class="uni-majors">Top 5: Architecture, Civil Engineering, Urban & Rural Planning, Automotive Engineering, Design</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.ecnu.edu.cn" target="_blank" class="uni-name">4. East China Normal University</a>
-                                <div class="uni-stats">2,200+ students</div>
-                                <div class="uni-majors">Top 5: Education, Chinese Language & Literature, Psychology, Geography, Chinese Literature</div>
-                            </div>
-                            <div class="uni-card">
-                                <a href="https://www.shisu.edu.cn" target="_blank" class="uni-name">5. Shanghai International Studies University</a>
-                                <div class="uni-stats">1,800+ students</div>
-                                <div class="uni-majors">Top 5: English Language & Literature, French, Translation & Interpreting, International Relations, Journalism</div>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="info-note">Beijing and Shanghai account for ~40% of all international students in China. Popular majors: Chinese Language, Business, Engineering, Medicine.</p>
                 </div>
-                <p class="info-note">Beijing and Shanghai account for ~40% of all international students in China. Popular majors: Chinese Language, Business, Engineering, Medicine.</p>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Education</span>
+                <span class="topic-related-link" onclick="openTopicStories('school')">
+                    💬 View Community →
+                </span>
             </div>
         </div>
 
         <!-- Work Topic -->
-        <div class="info-section">
-            <div class="info-header" onclick="toggleInfoSection('work')">
-                <div class="info-icon">👷</div>
-                <div class="info-title">
-                    <h2>Working in China</h2>
-                    <p>Career opportunities, work culture, and professional development</p>
-                </div>
-                <i class="fas fa-chevron-down info-toggle"></i>
+        <div class="info-section topic-card" data-topic="work">
+            <div class="topic-cover" style="background: linear-gradient(135deg, rgba(76,175,80,0.85), rgba(56,142,60,0.85));">
+                <div class="topic-icon">👷</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Working in China</h2>
+                <p class="topic-subtitle">Career opportunities, work culture, and professional development</p>
             </div>
-            <div class="info-content" id="workContent">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4><i class="fas fa-briefcase"></i> Job Market</h4>
-                        <p>Multinational companies in Shanghai, Beijing, Guangzhou. Growing opportunities in tech, finance, and education sectors.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-file-contract"></i> Work Visa (Z Visa)</h4>
-                        <p>Requires: Bachelor degree+, 2+ years experience, valid job offer. Processing time: 5-10 working days.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-building"></i> Work Permit</h4>
-                        <p>Foreign Expert Permit required. Categories: A (high talent), B (professional), C (temporary).</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-chart-line"></i> Salary Guide</h4>
-                        <p>Average expat salary: ¥20,000-50,000/month. Tech/Finance roles typically higher. Tax: 3-45% progressive.</p>
+            <div class="topic-body">
+                <p class="topic-teaser">China's job market offers expat salaries of ¥20,000-80,000/month in tech, finance, and education—with Z-visa processing taking 5-10 working days for qualified applicants.</p>
+                <button class="topic-read-btn" onclick="toggleInfoSection('work')">
+                    Read Full Guide ↓
+                </button>
+                <div class="topic-full-content" id="workContent">
+                    <p style="margin-bottom: 20px; line-height: 1.8;">China's job market for foreigners has evolved significantly, with multinational companies in Shanghai, Beijing, Guangzhou, and Shenzhen seeking international talent, particularly in technology, finance, healthcare, and education sectors. The average expat salary ranges from ¥20,000 to 80,000/month depending on industry and experience, with tech and finance roles commanding the highest compensation. Income tax is calculated on a progressive scale from 3% to 45%, with a standard deduction of ¥60,000/year for residents.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">To work legally in China, foreign nationals require a Z-visa (Work Visa), which begins with securing employment from a licensed company. The process involves: 1) Job offer from employer with Foreign Employment License, 2) Work Permit notification from the Ministry of Human Resources and Social Security, 3) Invitation letter for Z-visa application at Chinese embassies, 4) Arrival conversion to residence permit within 30 days. Processing typically takes 5-10 working days for the work permit and 4-5 days for the visa.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">The Foreign Expert Permit system categorizes workers into three tiers: Category A (High-end talent - points-based scoring over 85 points including age, qualifications, salary level, and Chinese language proficiency), Category B (Professional - meets specific educational or professional requirements), and Category C (Temporary - short-term specialized positions). The recently updated regulations in 2023 have made it easier for Category A applicants to receive longer-term residence permits (up to 5 years).</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;"><strong>Official Resources:</strong></p>
+                    <ul style="margin-bottom: 20px; line-height: 1.8;">
+                        <li><a href="http://www.mohrss.gov.cn" target="_blank">Ministry of Human Resources</a> - Work permit policies and foreign expert regulations</li>
+                        <li><a href="http://www.safea.gov.cn" target="_blank">State Administration of Foreign Expert Affairs</a> - Official procedures and requirements</li>
+                        <li><a href="http://www.china-administrative affairs.gov.cn" target="_blank">Administrative Services</a> - Visa and permit application guides</li>
+                    </ul>
+                    <div class="info-grid">
+                        <div class="info-card" onclick="openTopicDetail('Job Market', 'work')">
+                            <h4><i class="fas fa-briefcase"></i> Job Market</h4>
+                            <p>Multinational companies in Shanghai, Beijing, Guangzhou. Growing opportunities in tech, finance, and education sectors.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Work Visa (Z Visa)', 'work')">
+                            <h4><i class="fas fa-file-contract"></i> Work Visa (Z Visa)</h4>
+                            <p>Requires: Bachelor degree+, 2+ years experience, valid job offer. Processing time: 5-10 working days.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Work Permit', 'work')">
+                            <h4><i class="fas fa-building"></i> Work Permit</h4>
+                            <p>Foreign Expert Permit required. Categories: A (high talent), B (professional), C (temporary).</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Salary Guide', 'work')">
+                            <h4><i class="fas fa-chart-line"></i> Salary Guide</h4>
+                            <p>Average expat salary: ¥20,000-50,000/month. Tech/Finance roles typically higher. Tax: 3-45% progressive.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Career</span>
+                <span class="topic-related-link" onclick="openTopicStories('work')">
+                    💬 View Community →
+                </span>
             </div>
         </div>
 
         <!-- Visa Topic -->
-        <div class="info-section">
-            <div class="info-header" onclick="toggleInfoSection('visa')">
-                <div class="info-icon">📋</div>
-                <div class="info-title">
-                    <h2>Visa & Work Permits</h2>
-                    <p>Visa processes, requirements, and legal information</p>
-                </div>
-                <i class="fas fa-chevron-down info-toggle"></i>
+        <div class="info-section topic-card" data-topic="visa">
+            <div class="topic-cover" style="background: linear-gradient(135deg, rgba(255,152,0,0.85), rgba(245,124,0,0.85));">
+                <div class="topic-icon">📋</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Visa & Work Permits</h2>
+                <p class="topic-subtitle">Visa processes, requirements, and legal information</p>
             </div>
-            <div class="info-content" id="visaContent">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4><i class="fas fa-passport"></i> Visa Types</h4>
-                        <p><strong>L:</strong> Tourism | <strong>M:</strong> Business | <strong>X:</strong> Study | <strong>Z:</strong> Work | <strong>R:</strong> Talent</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-clock"></i> Processing Times</h4>
-                        <p>Standard: 4-5 days | Rush: 2-3 days | Express: same day (with additional fees)</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-calendar-check"></i> Validity Period</h4>
-                        <p>Single entry: 3 months | Double entry: 6 months | Multiple: 1-5 years (based on nationality)</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-exclamation-triangle"></i> Common Issues</h4>
-                        <p>Incomplete documents, insufficient funds proof, unclear purpose. Always check current regulations.</p>
+            <div class="topic-body">
+                <p class="topic-teaser">China offers L (tourist), M (business), X (student), Z (work), and R (talent) visas—with standard processing taking 4-5 days and 144-hour transit available at major airports.</p>
+                <button class="topic-read-btn" onclick="toggleInfoSection('visa')">
+                    Read Full Guide ↓
+                </button>
+                <div class="topic-full-content" id="visaContent">
+                    <p style="margin-bottom: 20px; line-height: 1.8;">China offers multiple visa categories tailored to different purposes of travel, each with specific requirements and permitted activities. The L-visa (Tourist) allows stays up to 30-60 days depending on nationality, with single, double, and multiple entry options. The M-visa (Business/Trade) permits stays up to 90 days with multiple entry options for frequent business travelers. The X-visa (Student) is issued for programs exceeding 180 days, with duration matching the enrollment period.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">For long-term residence, the Z-visa (Work) remains the most common pathway, requiring a Foreign Expert Permit or Work Permit notification from a licensed employer. Recent regulations allow foreign nationals with a bachelor's degree and 2+ years of relevant experience to qualify, with simplified documentation for those earning above ¥60,000 annually. The R-visa (Talent) offers extended validity for high-level foreign talent with streamlined application procedures.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Key application documents include valid passport (6+ months validity), completed visa application form, passport photos (48x33mm on white background), invitation letter or documentation of purpose, and proof of sufficient financial means. Processing times range from 4 days standard to same-day express service at additional cost. Note that visa validity differs from permitted stay duration - overstaying results in daily fines (¥500-1,000) and potential entry bans.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;"><strong>Official Resources:</strong></p>
+                    <ul style="margin-bottom: 20px; line-height: 1.8;">
+                        <li><a href="http://www.visa.gov.cn" target="_blank">China Visa Online</a> - Official visa information and application portal</li>
+                        <li><a href="https://www.mfa.gov.cn" target="_blank">Ministry of Foreign Affairs</a> - Consular services and travel advisories</li>
+                        <li><a href="http://cs.mfa.gov.cn" target="_blank">Chinese Consular Affairs</a> - Document authentication and legalization</li>
+                    </ul>
+                    <div class="info-grid">
+                        <div class="info-card" onclick="openTopicDetail('Visa Types', 'visa')">
+                            <h4><i class="fas fa-passport"></i> Visa Types</h4>
+                            <p><strong>L:</strong> Tourism | <strong>M:</strong> Business | <strong>X:</strong> Study | <strong>Z:</strong> Work | <strong>R:</strong> Talent</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Processing Times', 'visa')">
+                            <h4><i class="fas fa-clock"></i> Processing Times</h4>
+                            <p>Standard: 4-5 days | Rush: 2-3 days | Express: same day (with additional fees)</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Validity Period', 'visa')">
+                            <h4><i class="fas fa-calendar-check"></i> Validity Period</h4>
+                            <p>Single entry: 3 months | Double entry: 6 months | Multiple: 1-5 years (based on nationality)</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Common Issues', 'visa')">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Common Issues</h4>
+                            <p>Incomplete documents, insufficient funds proof, unclear purpose. Always check current regulations.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Travel</span>
+                <span class="topic-related-link" onclick="openTopicStories('visa')">
+                    💬 View Community →
+                </span>
             </div>
         </div>
 
         <!-- Travel Topic -->
-        <div class="info-section">
-            <div class="info-header" onclick="toggleInfoSection('travel')">
-                <div class="info-icon">🧳</div>
-                <div class="info-title">
-                    <h2>Travel & Adventure</h2>
-                    <p>Hidden gems, travel tips, and must-visit destinations</p>
-                </div>
-                <i class="fas fa-chevron-down info-toggle"></i>
+        <div class="info-section topic-card" data-topic="travel">
+            <div class="topic-cover" style="background: linear-gradient(135deg, rgba(0,188,212,0.85), rgba(0,150,136,0.85));">
+                <div class="topic-icon">🧳</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Travel & Adventure</h2>
+                <p class="topic-subtitle">Hidden gems, travel tips, and must-visit destinations</p>
             </div>
-            <div class="info-content" id="travelContent">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4><i class="fas fa-map-marker-alt"></i> Top Destinations</h4>
-                        <p>Great Wall, Terracotta Army (Xi'an), Zhangjiajie, Guilin karsts, Shanghai skyline, Tibetan plateau.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-train"></i> Transportation</h4>
-                        <p>High-speed rail network (world's longest). Didi for taxis. Metro systems in 40+ cities. Air travel affordable.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-camera"></i> Photography Spots</h4>
-                        <p>Zhangjiajie Avatar mountains, Jiuzhaigou lakes, Huangshan sunrise, Yuanyang rice terraces, Bund at night.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-heart"></i> Best Seasons</h4>
-                        <p>Spring (Mar-May): Flowers, mild weather | Autumn (Sep-Nov): Golden foliage, comfortable temps</p>
+            <div class="topic-body">
+                <p class="topic-teaser">China spans 42,000+ km of high-speed rail—world's longest—connecting UNESCO sites from the Great Wall to the Terracotta Army. 144-hour visa-free transit available at major airports.</p>
+                <button class="topic-read-btn" onclick="toggleInfoSection('travel')">
+                    Read Full Guide ↓
+                </button>
+                <div class="topic-full-content" id="travelContent">
+                    <p style="margin-bottom: 20px; line-height: 1.8;">China's vast territory encompasses diverse landscapes from the karst peaks of Guilin to the alpine meadows of Tibet, offering extraordinary experiences for adventurous travelers. The country's high-speed rail network spans over 42,000 kilometers - the world's longest - making destinations accessible with tickets starting from ¥55 for second-class seats on most routes. Domestic flights are often affordable (¥300-800 for main routes), though rail is frequently more convenient for distances under 1,000 kilometers.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Top UNESCO World Heritage sites include the Great Wall (best visited at Mutianyu or Jinshanling for less crowds), the Terracotta Army in Xi'an (over 8,000 warrior sculptures from 210 BC), the Imperial Palace in Beijing (690 hectares of preserved Ming and Qing architecture), and the Historic Centre of Lijiang in Yunnan (Naxi minority culture and traditional architecture). Mount Huangshan (Yellow Mountain) offers some of China's most dramatic scenery with sea-of-clouds formations visible from the光明顶 summit.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Practical travel considerations include the 144-hour visa-free transit policy available at major airports in Beijing, Shanghai, Guangzhou, Chengdu, and 20+ other cities for travelers from 54 countries. China uses a unified timezone (UTC+8) despite spanning 5 geographical time zones. Major tourist destinations accept international credit cards at hotels and larger restaurants, though cash (RMB) remains essential for street markets and smaller vendors. The tourism administration recommends booking through licensed agencies for Tibet travel, which requires special permits.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;"><strong>Official Resources:</strong></p>
+                    <ul style="margin-bottom: 20px; line-height: 1.8;">
+                        <li><a href="http://www.cnta.gov.cn" target="_blank">China National Tourism Administration</a> - Official tourism policies and licensed operators</li>
+                        <li><a href="http://whj.beijing.gov.cn" target="_blank">Beijing Municipal Culture and Tourism</a> - City attractions and event information</li>
+                        <li><a href="http://www.shanghaitourist.net" target="_blank">Shanghai Tourism</a> - Metropolitan travel guides and booking services</li>
+                    </ul>
+                    <div class="info-grid">
+                        <div class="info-card" onclick="openTopicDetail('Top Destinations', 'travel')">
+                            <h4><i class="fas fa-map-marker-alt"></i> Top Destinations</h4>
+                            <p>Great Wall, Terracotta Army (Xi'an), Zhangjiajie, Guilin karsts, Shanghai skyline, Tibetan plateau.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Transportation', 'travel')">
+                            <h4><i class="fas fa-train"></i> Transportation</h4>
+                            <p>High-speed rail network (world's longest). Didi for taxis. Metro systems in 40+ cities. Air travel affordable.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Photography Spots', 'travel')">
+                            <h4><i class="fas fa-camera"></i> Photography Spots</h4>
+                            <p>Zhangjiajie Avatar mountains, Jiuzhaigou lakes, Huangshan sunrise, Yuanyang rice terraces, Bund at night.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Best Seasons', 'travel')">
+                            <h4><i class="fas fa-heart"></i> Best Seasons</h4>
+                            <p>Spring (Mar-May): Flowers, mild weather | Autumn (Sep-Nov): Golden foliage, comfortable temps</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Travel</span>
+                <span class="topic-related-link" onclick="openTopicStories('travel')">
+                    💬 View Community →
+                </span>
             </div>
         </div>
 
         <!-- Food Topic -->
-        <div class="info-section">
-            <div class="info-header" onclick="toggleInfoSection('food')">
-                <div class="info-icon">🍜</div>
-                <div class="info-title">
-                    <h2>Food & Dining</h2>
-                    <p>Chinese cuisine, restaurant recommendations, cooking tips</p>
-                </div>
-                <i class="fas fa-chevron-down info-toggle"></i>
+        <div class="info-section topic-card" data-topic="food">
+            <div class="topic-cover" style="background: linear-gradient(135deg, rgba(244,67,54,0.85), rgba(211,47,47,0.85));">
+                <div class="topic-icon">🍜</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Food & Dining</h2>
+                <p class="topic-subtitle">Chinese cuisine, restaurant recommendations, cooking tips</p>
             </div>
-            <div class="info-content" id="foodContent">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4><i class="fas fa-utensils"></i> Regional Cuisines</h4>
-                        <p>Cantonese (dim sum), Sichuan (spicy), Beijing (Peking duck), Shanghai (soup dumplings), Xi'an (biangbiang面)</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-coffee"></i> Food Budget</h4>
-                        <p>Street food: ¥15-30 | Casual restaurant: ¥50-100 | Mid-range: ¥150-300 | Fine dining: ¥500+</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-star"></i> Must-Try Dishes</h4>
-                        <p>Peking duck, hot pot, mapo tofu, xiaolongbao, Cantonese dim sum, hand-pulled noodles, mooncakes.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-shopping-cart"></i> Ordering Tips</h4>
-                        <p>Use Meituan/Ele.me apps. Show photo of dish. "Zhong da Lao" = medium spicy. "Bu yao" = don't want.</p>
+            <div class="topic-body">
+                <p class="topic-teaser">Chinese cuisine spans 8 regional traditions—from Cantonese dim sum to Sichuan's mala (numbing-spicy) dishes—with street food at ¥10-30 and fine dining at ¥300-1000+ per person.</p>
+                <button class="topic-read-btn" onclick="toggleInfoSection('food')">
+                    Read Full Guide ↓
+                </button>
+                <div class="topic-full-content" id="foodContent">
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Chinese cuisine spans eight major regional traditions, each with distinct characteristics: Cantonese (Guangdong) emphasizes fresh ingredients and dim sum; Sichuan cuisine features the characteristic mala (numbing-spicy) flavor from Sichuan peppercorns; Beijing cuisine centers on imperial-style dishes like Peking duck and Mongolian hot pot; Shanghai cuisine offers delicate, slightly sweet flavors with extensive seafood options. The Ministry of Commerce maintains standards for traditional cooking techniques, with several methods now protected as intangible cultural heritage.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Budget planning varies significantly by dining style: street food vendors (¥10-30 per dish) provide authentic local experiences in morning markets and night bazaars; casual restaurants (¥40-80 per person) serve standard dishes like mapo tofu and Kung Pao chicken; mid-range establishments (¥100-200 per person) offer regional specialties in comfortable settings; high-end restaurants (¥300-1000+ per person) feature tasting menus showcasing culinary mastery in cities like Shanghai, Chengdu, and Hangzhou.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Food safety standards in China are enforced by the State Administration of Market Regulation, which conducts regular inspections and publishes ratings for restaurants. Look for the green (A/B) or red (C) grading stickers displayed near restaurant entrances. Supermarkets and wet markets offer fresh produce, with imported goods available at higher prices. The custom of placing used chopstick rests (筷架) on the table when not eating is considered good manners. Tipping is not customary in local establishments but is appreciated in international hotels.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;"><strong>Official Resources:</strong></p>
+                    <ul style="margin-bottom: 20px; line-height: 1.8;">
+                        <li><a href="http://www.mofcom.gov.cn" target="_blank">Ministry of Commerce</a> - Trade and consumer protection policies</li>
+                        <li><a href="http://samr.saic.gov.cn" target="_blank">State Administration of Market Regulation</a> - Food safety standards and inspections</li>
+                        <li><a href="http://www.chinadaily.com.cn" target="_blank">China Daily Food & Culture</a> - Culinary guides and restaurant reviews</li>
+                    </ul>
+                    <div class="info-grid">
+                        <div class="info-card" onclick="openTopicDetail('Regional Cuisines', 'food')">
+                            <h4><i class="fas fa-utensils"></i> Regional Cuisines</h4>
+                            <p>Cantonese (dim sum), Sichuan (spicy), Beijing (Peking duck), Shanghai (soup dumplings), Xi'an (biangbiang面)</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Food Budget', 'food')">
+                            <h4><i class="fas fa-coffee"></i> Food Budget</h4>
+                            <p>Street food: ¥15-30 | Casual restaurant: ¥50-100 | Mid-range: ¥150-300 | Fine dining: ¥500+</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Must-Try Dishes', 'food')">
+                            <h4><i class="fas fa-star"></i> Must-Try Dishes</h4>
+                            <p>Peking duck, hot pot, mapo tofu, xiaolongbao, Cantonese dim sum, hand-pulled noodles, mooncakes.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Ordering Tips', 'food')">
+                            <h4><i class="fas fa-shopping-cart"></i> Ordering Tips</h4>
+                            <p>Use Meituan/Ele.me apps. Show photo of dish. "Zhong da Lao" = medium spicy. "Bu yao" = don't want.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Food</span>
+                <span class="topic-related-link" onclick="openTopicStories('food')">
+                    💬 View Community →
+                </span>
             </div>
         </div>
 
         <!-- Life Topic -->
-        <div class="info-section">
-            <div class="info-header" onclick="toggleInfoSection('life')">
-                <div class="info-icon">🏙️</div>
-                <div class="info-title">
-                    <h2>Daily Life in China</h2>
-                    <p>Housing, healthcare, transportation, and practical tips</p>
-                </div>
-                <i class="fas fa-chevron-down info-toggle"></i>
+        <div class="info-section topic-card" data-topic="life">
+            <div class="topic-cover" style="background: linear-gradient(135deg, rgba(33,150,243,0.85), rgba(25,118,210,0.85));">
+                <div class="topic-icon">🏙️</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Daily Life in China</h2>
+                <p class="topic-subtitle">Housing, healthcare, transportation, and practical tips</p>
             </div>
-            <div class="info-content" id="lifeContent">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4><i class="fas fa-home"></i> Housing</h4>
-                        <p>Rent ranges: ¥3,000-15,000/month (major cities). Apps: Ziroom, Livere. Require 1-3 months deposit.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-hospital"></i> Healthcare</h4>
-                        <p>Public hospitals: ¥50-200 for consultation. International clinics in major cities. Insurance essential.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-mobile-alt"></i> Must-Have Apps</h4>
-                        <p>WeChat (everything), Alipay (payments), Meituan (delivery), Didi (taxi), Diandian (bike sharing).</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-wifi"></i> Utilities</h4>
-                        <p>Mobile: China Mobile/Unicom/Telecom (¥50-200/month). Internet: ¥60-150/month. Electricity: ¥0.6-1/kWh.</p>
+            <div class="topic-body">
+                <p class="topic-teaser">WeChat and Alipay handle everything from payments to metro cards. Housing costs ¥1,800-12,000/month by city. Public hospitals (¥50-200) vs international clinics (¥300-800) for healthcare.</p>
+                <button class="topic-read-btn" onclick="toggleInfoSection('life')">
+                    Read Full Guide ↓
+                </button>
+                <div class="topic-full-content" id="lifeContent">
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Daily life in China's major cities offers a combination of ultra-modern conveniences and traditional cultural elements. WeChat (over 1.3 billion users) serves as the essential super-app for messaging, payments (WeChat Pay), transportation (metro cards, Didi), food delivery, and even medical appointments. Alipay performs similar functions and is accepted virtually everywhere, with both platforms integrated into the national digital payment infrastructure supporting QR code transactions.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Housing costs constitute the largest monthly expense: Shanghai and Beijing average ¥3,500-12,000/month for one-bedroom apartments in central locations, while cities like Chengdu, Wuhan, and Xi'an offer similar quality at ¥1,800-4,500/month. Standard deposits range from 1-3 months rent, with agents typically charging 50-100% of one month's rent as commission. Platforms like Ziroom, Livere, and Fangtianxia provide verified listings with English-language support in major cities.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Healthcare accessibility varies significantly: public hospitals (¥50-200 consultation fee) handle major cases but often involve long queues; international clinics (¥300-800 consultation) offer English-speaking staff and Western medicine; private hospitals provide premium care at higher costs. Urban Employee Basic Medical Insurance covers approximately 70-85% of costs for registered employees, though foreign visitors typically require private travel insurance or local commercial policies (¥300-600/month for comprehensive coverage).</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;"><strong>Official Resources:</strong></p>
+                    <ul style="margin-bottom: 20px; line-height: 1.8;">
+                        <li><a href="http://www.mohrss.gov.cn" target="_blank">Ministry of Human Resources</a> - Social insurance and employment regulations</li>
+                        <li><a href="http://www.nhc.gov.cn" target="_blank">National Health Commission</a> - Healthcare policies and hospital directories</li>
+                        <li><a href="https://www.gov.cn" target="_blank">Government Services Portal</a> - Utility payments and administrative procedures</li>
+                    </ul>
+                    <div class="info-grid">
+                        <div class="info-card" onclick="openTopicDetail('Housing', 'life')">
+                            <h4><i class="fas fa-home"></i> Housing</h4>
+                            <p>Rent ranges: ¥3,000-15,000/month (major cities). Apps: Ziroom, Livere. Require 1-3 months deposit.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Healthcare', 'life')">
+                            <h4><i class="fas fa-hospital"></i> Healthcare</h4>
+                            <p>Public hospitals: ¥50-200 for consultation. International clinics in major cities. Insurance essential.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Must-Have Apps', 'life')">
+                            <h4><i class="fas fa-mobile-alt"></i> Must-Have Apps</h4>
+                            <p>WeChat (everything), Alipay (payments), Meituan (delivery), Didi (taxi), Diandian (bike sharing).</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Utilities', 'life')">
+                            <h4><i class="fas fa-wifi"></i> Utilities</h4>
+                            <p>Mobile: China Mobile/Unicom/Telecom (¥50-200/month). Internet: ¥60-150/month. Electricity: ¥0.6-1/kWh.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Lifestyle</span>
+                <span class="topic-related-link" onclick="openTopicStories('life')">
+                    💬 View Community →
+                </span>
             </div>
         </div>
 
         <!-- Entertainment Topic -->
-        <div class="info-section">
-            <div class="info-header" onclick="toggleInfoSection('entertainment')">
-                <div class="info-icon">🎭</div>
-                <div class="info-title">
-                    <h2>Entertainment & Fun</h2>
-                    <p>Movies, nightlife, festivals, and activities</p>
-                </div>
-                <i class="fas fa-chevron-down info-toggle"></i>
+        <div class="info-section topic-card" data-topic="entertainment">
+            <div class="topic-cover" style="background: linear-gradient(135deg, rgba(233,30,99,0.85), rgba(194,24,91,0.85));">
+                <div class="topic-icon">🎭</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Entertainment & Fun</h2>
+                <p class="topic-subtitle">Movies, nightlife, festivals, and activities</p>
             </div>
-            <div class="info-content" id="entertainmentContent">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4><i class="fas fa-film"></i> Movies & Shows</h4>
-                        <p>Major film industry (Hollywood co-productions). KTV everywhere. Live theater in Beijing/Shanghai.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-moon"></i> Nightlife</h4>
-                        <p>Shanghai (Bund, Former French Concession), Beijing (Sanlitun), Chengdu (339). Bars, clubs, late-night eateries.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-calendar-alt"></i> Major Festivals</h4>
-                        <p>Chinese New Year (Jan/Feb), Mid-Autumn Festival, National Day (Oct 1-7), Qingming, Dragon Boat.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-gamepad"></i> Activities</h4>
-                        <p>KTV, escape rooms, mahjong, tai chi in parks, hiking, calligraphy, Chinese chess (Xiangqi).</p>
+            <div class="topic-body">
+                <p class="topic-teaser">Major festivals (Chinese New Year, Mid-Autumn) and nightlife districts (Shanghai Bund, Beijing Sanlitun) offer diverse entertainment—from KTV (¥30-80/hr) to traditional opera performances.</p>
+                <button class="topic-read-btn" onclick="toggleInfoSection('entertainment')">
+                    Read Full Guide ↓
+                </button>
+                <div class="topic-full-content" id="entertainmentContent">
+                    <p style="margin-bottom: 20px; line-height: 1.8;">China's entertainment landscape offers diverse options from traditional performing arts to cutting-edge technology experiences. Major festivals mark the calendar: Chinese New Year (late January to February) triggers the world's largest annual migration with 30+ days of celebration including dragon dances, temple fairs, and family reunions. The Mid-Autumn Festival (September-October) features mooncake exchanges and lantern displays. National Day (October 1-7) transforms cities into patriotic displays with flower shows and cultural performances in major squares.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Nightlife concentrates in designated entertainment districts: Shanghai's Bund and Former French Concession offer rooftop bars and jazz clubs; Beijing's Sanlitun and Houhai districts cater to diverse crowds; Chengdu's 339 tower and猛追湾 areas showcase local electronic music scenes. KTV (karaoke) remains a beloved social activity with venues ranging from budget-friendly rooms (¥30-80/hour) to luxury suites with full catering service. Movie theaters are ubiquitous with both Chinese and Hollywood releases, often premiering simultaneously with global releases.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Cultural activities abound including traditional Chinese opera performances (Peking opera, Kunqu), calligraphy workshops, tea ceremonies, and tai chi sessions in public parks (typically free, with instructors ¥50-150/session). Escape rooms,剧本杀 (murder mystery social role-playing), and indoor skydiving represent newer entertainment options popular among young professionals. Sports facilities include public tennis courts (¥20-60/hour), swimming pools (¥30-80 per session), and hiking clubs organizing weekend trips to nearby mountains.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;"><strong>Official Resources:</strong></p>
+                    <ul style="margin-bottom: 20px; line-height: 1.8;">
+                        <li><a href="http://www.cnta.gov.cn" target="_blank">China National Tourism Administration</a> - Festival calendars and event schedules</li>
+                        <li><a href="http://whj.beijing.gov.cn" target="_blank">Beijing Culture & Tourism</a> - Arts performances and cultural venues</li>
+                        <li><a href="http://www.sport.gov.cn" target="_blank">General Administration of Sport</a> - Sports facilities and event information</li>
+                    </ul>
+                    <div class="info-grid">
+                        <div class="info-card" onclick="openTopicDetail('Movies & Shows', 'entertainment')">
+                            <h4><i class="fas fa-film"></i> Movies & Shows</h4>
+                            <p>Major film industry (Hollywood co-productions). KTV everywhere. Live theater in Beijing/Shanghai.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Nightlife', 'entertainment')">
+                            <h4><i class="fas fa-moon"></i> Nightlife</h4>
+                            <p>Shanghai (Bund, Former French Concession), Beijing (Sanlitun), Chengdu (339). Bars, clubs, late-night eateries.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Major Festivals', 'entertainment')">
+                            <h4><i class="fas fa-calendar-alt"></i> Major Festivals</h4>
+                            <p>Chinese New Year (Jan/Feb), Mid-Autumn Festival, National Day (Oct 1-7), Qingming, Dragon Boat.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Activities', 'entertainment')">
+                            <h4><i class="fas fa-gamepad"></i> Activities</h4>
+                            <p>KTV, escape rooms, mahjong, tai chi in parks, hiking, calligraphy, Chinese chess (Xiangqi).</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Entertainment</span>
+                <span class="topic-related-link" onclick="openTopicStories('entertainment')">
+                    💬 View Community →
+                </span>
             </div>
         </div>
 
         <!-- Business Topic -->
-        <div class="info-section">
-            <div class="info-header" onclick="toggleInfoSection('business')">
-                <div class="info-icon">💼</div>
-                <div class="info-title">
-                    <h2>Business & Entrepreneurship</h2>
-                    <p>Startups, networking, and business culture</p>
-                </div>
-                <i class="fas fa-chevron-down info-toggle"></i>
+        <div class="info-section topic-card" data-topic="business">
+            <div class="topic-cover" style="background: linear-gradient(135deg, rgba(255,193,7,0.85), rgba(255,160,0,0.85));">
+                <div class="topic-icon">💼</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Business & Entrepreneurship</h2>
+                <p class="topic-subtitle">Startups, networking, and business culture</p>
             </div>
-            <div class="info-content" id="businessContent">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4><i class="fas fa-rocket"></i> Startup Hubs</h4>
-                        <p>Shenzhen (hardware), Beijing (tech/AI), Shanghai (fintech), Hangzhou (e-commerce). Free trade zones expanding.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-handshake"></i> Business Culture</h4>
-                        <p>Guanxi (relationships) crucial. Face (mianzi) important. Hierarchy respected. Business cards exchanged with two hands.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-users"></i> Networking</h4>
-                        <p> chambers of commerce, industry events, WeChat groups. Learning Mandarin greatly appreciated.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-coins"></i> Funding</h4>
-                        <p>Venture capital active. Government grants available. Crowdfunding platforms growing. Bank loans possible with collateral.</p>
+            <div class="topic-body">
+                <p class="topic-teaser">China ranks #2 globally for VC investment—with startup hubs in Shenzhen (hardware), Beijing (AI), and Shanghai (fintech). Free trade zones offer preferential tax treatment (15% corporate rate).</p>
+                <button class="topic-read-btn" onclick="toggleInfoSection('business')">
+                    Read Full Guide ↓
+                </button>
+                <div class="topic-full-content" id="businessContent">
+                    <p style="margin-bottom: 20px; line-height: 1.8;">China has emerged as a global innovation hub with startup ecosystems in Shenzhen (hardware and electronics manufacturing), Beijing (AI, internet platforms, and IT services), Shanghai (fintech, e-commerce, and biomed), and Hangzhou (e-commerce giant Alibaba and cloud computing). The country ranks second globally for venture capital investment, with significant funding available for AI, semiconductor, biotech, and green energy ventures. Free trade zones in Shanghai, Shenzhen, Hainan, and 21 other locations offer preferential tax treatment, simplified customs procedures, and relaxed foreign investment restrictions.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Business culture in China emphasizes personal relationships (guanxi), hierarchical respect, and the concept of "face" (mianzi). Initial meetings focus on relationship building over transactional discussions, typically involving tea ceremonies and formal introductions. Business cards are exchanged with both hands, reading the card carefully before storing. Decisions often require approval from multiple stakeholders, with patience essential throughout negotiations. The Ministry of Commerce reports that relationship-building activities may precede actual business discussions by months.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Entrepreneurial support includes government grants (up to ¥500,000 for tech startups meeting certain criteria), tax incentives for high-tech enterprises (15% corporate tax vs standard 25%), and specialized incubators in major science parks. The company registration process has been streamlined significantly, with e-registration platforms allowing completion within 3-5 working days for most private limited companies. Foreign investment in most sectors no longer requires joint venture arrangements, though certain industries retain restrictions under the Foreign Investment Law.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;"><strong>Official Resources:</strong></p>
+                    <ul style="margin-bottom: 20px; line-height: 1.8;">
+                        <li><a href="http://www.mofcom.gov.cn" target="_blank">Ministry of Commerce</a> - Investment policies and business registration</li>
+                        <li><a href="http://www.most.gov.cn" target="_blank">Ministry of Science & Technology</a> - Innovation support and tech enterprise programs</li>
+                        <li><a href="http://www.chinatax.gov.cn" target="_blank">State Taxation Administration</a> - Tax regulations and compliance guides</li>
+                    </ul>
+                    <div class="info-grid">
+                        <div class="info-card" onclick="openTopicDetail('Startup Hubs', 'business')">
+                            <h4><i class="fas fa-rocket"></i> Startup Hubs</h4>
+                            <p>Shenzhen (hardware), Beijing (tech/AI), Shanghai (fintech), Hangzhou (e-commerce). Free trade zones expanding.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Business Culture', 'business')">
+                            <h4><i class="fas fa-handshake"></i> Business Culture</h4>
+                            <p>Guanxi (relationships) crucial. Face (mianzi) important. Hierarchy respected. Business cards exchanged with two hands.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Networking', 'business')">
+                            <h4><i class="fas fa-users"></i> Networking</h4>
+                            <p> chambers of commerce, industry events, WeChat groups. Learning Mandarin greatly appreciated.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Funding', 'business')">
+                            <h4><i class="fas fa-coins"></i> Funding</h4>
+                            <p>Venture capital active. Government grants available. Crowdfunding platforms growing. Bank loans possible with collateral.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Business</span>
+                <span class="topic-related-link" onclick="openTopicStories('business')">
+                    💬 View Community →
+                </span>
             </div>
         </div>
 
         <!-- Language Topic -->
-        <div class="info-section">
-            <div class="info-header" onclick="toggleInfoSection('language')">
-                <div class="info-icon">🗣️</div>
-                <div class="info-title">
-                    <h2>Language Learning</h2>
-                    <p>Mandarin tips, resources, and language exchange</p>
-                </div>
-                <i class="fas fa-chevron-down info-toggle"></i>
+        <div class="info-section topic-card" data-topic="language">
+            <div class="topic-cover" style="background: linear-gradient(135deg, rgba(0,188,212,0.85), rgba(0,172,193,0.85));">
+                <div class="topic-icon">🗣️</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Language Learning</h2>
+                <p class="topic-subtitle">Mandarin tips, resources, and language exchange</p>
             </div>
-            <div class="info-content" id="languageContent">
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h4><i class="fas fa-book"></i> Learning Resources</h4>
-                        <p>HSK textbooks, Du Chinese app, Pleco dictionary, HelloChinese, YouTube channels (ChinesePod, YoyoChinese).</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-users"></i> Language Exchange</h4>
-                        <p>italki (online tutors), Tandem/HelloTalk apps, university language partners, WeChat groups.</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-star-half-alt"></i> HSK Levels</h4>
-                        <p>HSK 1-2: Basic | HSK 3-4: Intermediate (student visa) | HSK 5-6: Advanced (scholarship/work)</p>
-                    </div>
-                    <div class="info-card">
-                        <h4><i class="fas fa-pen"></i> Practice Tips</h4>
-                        <p>Label objects at home, think in Chinese, practice daily (30 min minimum), watch Chinese shows with subtitles.</p>
+            <div class="topic-body">
+                <p class="topic-teaser">HSK exam has 6 levels (basic to advanced). Apps like HelloChinese, Du Chinese, and Pleco supplement textbooks from Beijing Language University. Language exchange via italki (¥60-200/hr tutors).</p>
+                <button class="topic-read-btn" onclick="toggleInfoSection('language')">
+                    Read Full Guide ↓
+                </button>
+                <div class="topic-full-content" id="languageContent">
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Standard Chinese (Putonghua/ Mandarin) is the official national language, spoken by over 1 billion people as a native or second language. The HSK (Hanyu Shuiping Kaoshi) proficiency exam serves as the internationally recognized benchmark with six levels: HSK 1-2 (basic, approximately 300-600 characters), HSK 3-4 (intermediate, 1,200-2,500 characters), and HSK 5-6 (advanced, 5,000+ characters). Most Chinese university programs require HSK 4 for admission to degree programs in Chinese, while scholarships often require HSK 5 minimum.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Learning resources span both traditional and digital formats: textbooks from Beijing Language and Culture University (BLCU) provide structured curricula; apps like HelloChinese, Du Chinese, and Pleco (with its renowned dictionary function) offer mobile learning; YouTube channels such as ChinesePod, YoyoChinese, and Mandarin Corner provide video lessons. The Confucius Institute headquarters (hanban.org) coordinates over 500 institutes worldwide offering official certification and standardized materials.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Language exchange opportunities are abundant in major cities, with platforms like italki (connecting with online tutors at ¥60-200/hour), Tandem and HelloTalk (finding language partners locally), and university language partner programs providing varied options. Exposure through media—watching Chinese dramas on iQIYI/Vimeo, listening to Chinese music, following Weibo accounts of interest—accelerates comprehension and cultural understanding beyond textbook materials.</p>
+                    <p style="margin-bottom: 20px; line-height: 1.8;"><strong>Official Resources:</strong></p>
+                    <ul style="margin-bottom: 20px; line-height: 1.8;">
+                        <li><a href="http://www.hanban.org" target="_blank">Confucius Institute Headquarters</a> - Official HSK tests and learning materials</li>
+                        <li><a href="http://www.chinesetests.cn" target="_blank">HSK Official Registration</a> - Test dates and score inquiry</li>
+                        <li><a href="http://www.blcup.com" target="_blank">Beijing Language University Press</a> - Standard textbooks and study guides</li>
+                    </ul>
+                    <div class="info-grid">
+                        <div class="info-card" onclick="openTopicDetail('Learning Resources', 'language')">
+                            <h4><i class="fas fa-book"></i> Learning Resources</h4>
+                            <p>HSK textbooks, Du Chinese app, Pleco dictionary, HelloChinese, YouTube channels (ChinesePod, YoyoChinese).</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Language Exchange', 'language')">
+                            <h4><i class="fas fa-users"></i> Language Exchange</h4>
+                            <p>italki (online tutors), Tandem/HelloTalk apps, university language partners, WeChat groups.</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('HSK Levels', 'language')">
+                            <h4><i class="fas fa-star-half-alt"></i> HSK Levels</h4>
+                            <p>HSK 1-2: Basic | HSK 3-4: Intermediate (student visa) | HSK 5-6: Advanced (scholarship/work)</p>
+                        </div>
+                        <div class="info-card" onclick="openTopicDetail('Practice Tips', 'language')">
+                            <h4><i class="fas fa-pen"></i> Practice Tips</h4>
+                            <p>Label objects at home, think in Chinese, practice daily (30 min minimum), watch Chinese shows with subtitles.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Language</span>
+                <span class="topic-related-link" onclick="openTopicStories('language')">
+                    💬 View Community →
+                </span>
             </div>
         </div>
     </section>
@@ -1320,6 +1511,18 @@
     </section>
 
     <div class="toast-container" id="toastContainer"></div>
+
+    <div id="topicDetailModal" class="modal-overlay" onclick="closeTopicModal()">
+        <div class="topic-modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close-btn" onclick="closeTopicModal()"><i class="fas fa-times"></i></button>
+            <div id="topicModalHeader"></div>
+            <div id="topicModalGuide"></div>
+            <div id="topicModalStories">
+                <h3>💬 Community Q&A</h3>
+                <div id="topicStoriesList" class="topic-stories-grid"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>

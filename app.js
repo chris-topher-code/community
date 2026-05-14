@@ -1537,6 +1537,10 @@ function toggleInfoSection(section) {
                 toggle.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : '';
             }
         }
+        const fullContent = content.querySelector('.topic-full-content');
+        if (fullContent) {
+            fullContent.classList.toggle('open', content.classList.contains('open'));
+        }
     }
 }
 
@@ -2999,4 +3003,68 @@ function filterGroupList(query) {
         const name = el.querySelector('.gc-group-name').textContent.toLowerCase();
         el.style.display = (!q || name.includes(q)) ? 'flex' : 'none';
     });
+}
+
+/* ===== Topic Detail Modal ===== */
+function openTopicDetail(topicName, topicKey) {
+    const modal = document.getElementById('topicDetailModal');
+    const header = document.getElementById('topicModalHeader');
+    const guide = document.getElementById('topicModalGuide');
+    
+    header.innerHTML = `<h2>${topicName}</h2>`;
+    
+    guide.innerHTML = '';
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    renderTopicStories(topicKey);
+}
+
+function closeTopicModal() {
+    const modal = document.getElementById('topicDetailModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function renderTopicStories(category) {
+    const storiesList = document.getElementById('topicStoriesList');
+    const filteredPosts = postsData.filter(post => post.category === category);
+    
+    if (filteredPosts.length === 0) {
+        storiesList.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+                <i class="fas fa-comments"></i>
+                <h3>No stories yet</h3>
+                <p>Be the first to share about this topic!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    storiesList.innerHTML = filteredPosts.slice(0, 6).map((post, i) => getPostHTML(post, i)).join('');
+}
+
+function openTopicStories(category) {
+    const modal = document.getElementById('topicDetailModal');
+    const header = document.getElementById('topicModalHeader');
+    const guide = document.getElementById('topicModalGuide');
+    const categoryNames = {
+        study: 'Study in China',
+        school: 'School Life in China',
+        work: 'Working in China',
+        visa: 'Visa & Work Permits',
+        travel: 'Travel & Adventure',
+        food: 'Food & Dining',
+        life: 'Daily Life in China',
+        entertainment: 'Entertainment & Fun',
+        business: 'Business & Entrepreneurship',
+        language: 'Language Learning'
+    };
+    
+    header.innerHTML = `<h2>💬 ${categoryNames[category] || category} Community</h2><p style="color:var(--text-secondary);margin-top:5px;">Join the conversation about this topic</p>`;
+    guide.style.display = 'none';
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    renderTopicStories(category);
 }

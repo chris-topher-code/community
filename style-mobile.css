@@ -801,6 +801,67 @@ body {
 }
 
 
+/* ===== @media (max-width: 1024px) - Topics mobile (show original expand/collapse) ===== */
+@media (max-width: 1024px) {
+    #topicsPage .info-section {
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        margin-bottom: 16px;
+    }
+    
+    #topicsPage .info-header {
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        cursor: pointer;
+    }
+    
+    #topicsPage .info-content {
+        display: none;
+        padding: 0 16px 16px;
+    }
+    
+    #topicsPage .info-content.open {
+        display: block;
+    }
+    
+    #topicsPage .info-toggle {
+        display: block;
+        transition: transform 0.3s;
+        margin-left: auto;
+        color: var(--text-muted);
+    }
+    
+    #topicsPage .info-header[aria-expanded="true"] + .info-content .topic-full-content {
+        display: block;
+    }
+    
+    #topicsPage .info-grid {
+        display: none;
+    }
+    
+    #topicsPage .topic-cover .topic-badge {
+        display: none;
+    }
+    
+    #topicsPage .topic-footer {
+        display: none;
+    }
+    
+    #topicsPage .topic-card {
+        display: none;
+    }
+    
+    #topicsPage .topic-summary {
+        display: block;
+    }
+    
+    #topicsPage .read-more-link {
+        display: inline;
+    }
+}
+
 /* ===== @media (max-width: 375px) ===== */
 @media (max-width: 375px) {
     .navbar {
