@@ -169,6 +169,23 @@ body:not(.logged-in) .profile-btn {
     display: none;
 }
 
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.profile-badge {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+    line-height: 1.2;
+}
+
 .btn {
     padding: 10px 24px;
     border-radius: 12px;
@@ -474,6 +491,16 @@ body.logged-in .category-filter {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.post-author-identity {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    background: var(--accent-gradient);
+    border-radius: 10px;
+    color: white;
+    text-transform: capitalize;
 }
 
 .post-author-country {
@@ -2330,6 +2357,154 @@ body.logged-in .welcome-banner {
     color: var(--accent-coral);
 }
 
+/* Info Section (Topics Page) */
+.info-section {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.info-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.info-header:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.info-icon {
+    font-size: 2rem;
+    margin-right: 16px;
+}
+
+.info-title {
+    flex: 1;
+}
+
+.info-title h2 {
+    font-size: 1.2rem;
+    margin: 0 0 4px 0;
+    font-family: 'Playfair Display', serif;
+}
+
+.info-title p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.info-toggle {
+    color: var(--text-muted);
+    transition: transform 0.3s;
+}
+
+.info-content {
+    display: none;
+    padding: 20px 24px;
+    border-top: 1px solid var(--glass-border);
+}
+
+.info-content.open {
+    display: block;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.info-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.info-card h4 {
+    font-size: 0.95rem;
+    margin: 0 0 8px 0;
+    color: var(--accent-coral);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-card h4 i {
+    font-size: 1rem;
+}
+
+.info-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* University List Styles */
+.university-list {
+    margin-top: 20px;
+}
+
+.university-item h5 {
+    color: var(--accent-coral);
+    font-size: 1rem;
+    margin: 0 0 12px 0;
+}
+
+.uni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.uni-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.uni-name {
+    color: var(--accent-coral);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.uni-name:hover {
+    text-decoration: underline;
+}
+
+.uni-stats {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.uni-majors {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+.info-note {
+    margin-top: 20px;
+    padding: 12px;
+    background: rgba(26, 115, 232, 0.1);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
 .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -2876,6 +3051,62 @@ body.logged-in .welcome-banner {
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.profile-tab-content.active {
+    display: block;
+}
+
+.my-groups-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.my-group-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.my-group-item:hover {
+    border-color: var(--accent-coral);
+    transform: translateX(4px);
+}
+
+.my-group-icon {
+    font-size: 2rem;
+    width: 50px;
+    text-align: center;
+}
+
+.my-group-info {
+    flex: 1;
+}
+
+.my-group-name {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.my-group-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.my-group-badge {
+    padding: 6px 12px;
+    background: var(--accent-gradient);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: white;
 }
 
 .my-post-mini {

@@ -4,7 +4,7 @@ const i18n = {
         home: 'Home', stories: 'Stories', explore: 'Explore', newPost: 'New Post', shareStory: 'Share Story',
         topics: 'Topics', about: 'About', profile: 'Profile',
         signIn: 'Sign In', joinNow: 'Join Now',
-        welcomeBack: 'Welcome back, Guest!', readyToShare: 'Ready to share your next story?',
+        welcomeBack: 'Welcome back', readyToShare: 'Ready to share your next story?',
         shareAStory: 'Share a Story', exploreCities: 'Explore Cities', browseTopics: 'Browse Topics',
         communityStories: 'Community Stories', showComments: 'Show Comments', hideComments: 'Hide Comments',
         translate: 'Translate', translated: 'Translated', copyLink: 'Copy Link',
@@ -28,15 +28,15 @@ const i18n = {
         authentic: 'Share authentic experiences', protectPrivacy: 'Protect privacy and personal info',
         noSpam: 'No spam or self-promotion', reportContent: 'Report inappropriate content',
         helpNewcomers: 'Help newcomers feel welcome',
-        myPosts: 'My Posts', editProfile: 'Edit Profile', settings: 'Settings',
-        noPostsYet: 'No posts yet', startSharing: 'Start sharing your story!',
+        myPosts: 'My Posts', editProfile: 'Edit Profile', settings: 'Settings', edit: 'Edit',
+        noPostsYet: 'No posts yet', startSharing: 'Start sharing your story!', postUpdated: 'Post updated!',
         displayName: 'Display Name', countryOrigin: 'Country of Origin', bio: 'Bio',
         saveChanges: 'Save Changes', accountSettings: 'Account Settings',
         changePassword: 'Change Password', logOut: 'Log Out', deleteAccount: 'Delete Account',
         passwordChanged: 'Password change is not available in demo mode',
         accountDeleted: 'Account deletion is not available in demo mode',
         joinedRecently: 'Joined recently', likesReceived: 'Likes Received', commentsMade: 'Comments',
-        welcomeGuest: 'Welcome back, Guest!', postCategory: 'Category',
+        welcomeGuest: 'Welcome back', postCategory: 'Category',
         shareYourStory: 'Share Your Story', tellCommunity: 'Tell the community about your experience in China',
         postPlaceholder: 'Share your story...', postBtn: 'Post',
         welcomeBackTitle: 'Welcome Back', loginSubtitle: 'Log in to continue your China journey',
@@ -47,6 +47,7 @@ const i18n = {
         selectCountry: 'Select your country...', whatDescribes: 'What best describes you?',
         student: 'Student', worker: 'Worker', tourist: 'Tourist',
         business: 'Business', researcher: 'Researcher', other: 'Other',
+        identity: 'Identity',
         newcomerGuide: 'Newcomer Guide', essentialTips: 'Essential tips for China',
         allTopics: 'All topic categories', browseTopicsLink: 'Browse Topics',
         aboutUs: 'About Us', contact: 'Contact', privacyPolicy: 'Privacy Policy',
@@ -54,8 +55,8 @@ const i18n = {
         company: 'Company', storiesLink: 'Stories', exploreCitiesLink: 'Explore Cities',
         topicsLink: 'Topics', newPostLink: 'New Post', visaInfo: 'Visa Information',
         healthcare: 'Healthcare', languageTips: 'Language Tips',
-        allCategory: 'All', travelCat: '🧳 Travel', studyCat: '🎓 Study',
-        workCat: '👷 Work', entertainmentCat: '🎭 Entertainment',
+        allCategory: 'All', travelCat: '🧳 Travel', studyCat: '🎓 Study', schoolCat: '🏫 School',
+        workCat: '👷 Work', visaCat: '📋 Visa', entertainmentCat: '🎭 Entertainment',
         foodCat: '🍜 Food', lifeCat: '🏙️ Life', businessCat: '💼 Business',
         postsIn: 'Posts in', searchPlaceholder: 'Search stories, topics, or people...',
         addPhoto: 'Add Photo', selectCity: 'Select city...', back: 'Back',
@@ -70,7 +71,7 @@ const i18n = {
         home: 'Accueil', stories: 'Récits', explore: 'Explorer', newPost: 'Nouveau Post', shareStory: 'Partager une histoire',
         topics: 'Sujets', about: 'À propos', profile: 'Profil',
         signIn: 'Se connecter', joinNow: "S'inscrire",
-        welcomeBack: 'Bienvenue, Invité !', readyToShare: 'Prêt à partager votre prochaine histoire ?',
+        welcomeBack: 'Bienvenue', readyToShare: 'Prêt à partager votre prochaine histoire ?',
         shareAStory: 'Partager une histoire', exploreCities: 'Explorer les villes', browseTopics: 'Parcourir les sujets',
         communityStories: 'Récits de la communauté', showComments: 'Afficher les commentaires', hideComments: 'Masquer les commentaires',
         translate: 'Traduire', translated: 'Traduit', copyLink: 'Copier le lien',
@@ -94,15 +95,15 @@ const i18n = {
         authentic: 'Partagez des expériences authentiques', protectPrivacy: 'Protégez la vie privée et les informations personnelles',
         noSpam: 'Pas de spam ni d\'autopromotion', reportContent: 'Signalez le contenu inapproprié',
         helpNewcomers: 'Aidez les nouveaux arrivants à se sentir les bienvenus',
-        myPosts: 'Mes posts', editProfile: 'Modifier le profil', settings: 'Paramètres',
-        noPostsYet: 'Pas encore de posts', startSharing: 'Commencez à partager votre histoire !',
+        myPosts: 'Mes posts', editProfile: 'Modifier le profil', settings: 'Paramètres', edit: 'Modifier',
+        noPostsYet: 'Pas encore de posts', startSharing: 'Commencez à partager votre histoire !', postUpdated: 'Post mis à jour !',
         displayName: 'Nom d\'affichage', countryOrigin: 'Pays d\'origine', bio: 'Bio',
         saveChanges: 'Enregistrer les modifications', accountSettings: 'Paramètres du compte',
         changePassword: 'Changer le mot de passe', logOut: 'Se déconnecter', deleteAccount: 'Supprimer le compte',
         passwordChanged: 'Le changement de mot de passe n\'est pas disponible en mode démo',
         accountDeleted: 'La suppression de compte n\'est pas disponible en mode démo',
         joinedRecently: 'Inscrit récemment', likesReceived: 'J\'aime reçus', commentsMade: 'Commentaires',
-        welcomeGuest: 'Bienvenue, Invité !', postCategory: 'Catégorie',
+        welcomeGuest: 'Bienvenue', postCategory: 'Catégorie',
         shareYourStory: 'Partagez votre histoire', tellCommunity: 'Racontez votre expérience en Chine',
         postPlaceholder: 'Partagez votre histoire...', postBtn: 'Publier',
         welcomeBackTitle: 'Bon retour', loginSubtitle: 'Connectez-vous pour continuer votre aventure en Chine',
@@ -113,6 +114,7 @@ const i18n = {
         selectCountry: 'Sélectionnez votre pays...', whatDescribes: 'Qui êtes-vous ?',
         student: 'Étudiant', worker: 'Travailleur', tourist: 'Touriste',
         business: 'Entrepreneur', researcher: 'Chercheur', other: 'Autre',
+        identity: 'Identité',
         newcomerGuide: 'Guide du nouveau venu', essentialTips: 'Conseils essentiels pour la Chine',
         allTopics: 'Toutes les catégories de sujets', browseTopicsLink: 'Parcourir les sujets',
         aboutUs: 'À propos', contact: 'Contact', privacyPolicy: 'Politique de confidentialité',
@@ -120,8 +122,8 @@ const i18n = {
         company: 'Entreprise', storiesLink: 'Récits', exploreCitiesLink: 'Explorer les villes',
         topicsLink: 'Sujets', newPostLink: 'Nouveau post', visaInfo: 'Informations visa',
         healthcare: 'Santé', languageTips: 'Conseils linguistiques',
-        allCategory: 'Tout', travelCat: '🧳 Voyage', studyCat: '🎓 Études',
-        workCat: '👷 Travail', entertainmentCat: '🎭 Divertissement',
+        allCategory: 'Tout', travelCat: '🧳 Voyage', studyCat: '🎓 Études', schoolCat: '🏫 École',
+        workCat: '👷 Travail', visaCat: '📋 Visa', entertainmentCat: '🎭 Divertissement',
         foodCat: '🍜 Nourriture', lifeCat: '🏙️ Vie', businessCat: '💼 Affaires',
         postsIn: 'Posts à', searchPlaceholder: 'Rechercher des récits, sujets ou personnes...',
         addPhoto: 'Ajouter une photo', selectCity: 'Choisir une ville...', back: 'Retour',
@@ -151,6 +153,7 @@ function setLang(lang) {
 
 function applyTranslations() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
+        if (el.classList.contains('welcome-greeting')) return;
         const key = el.dataset.i18n;
         const translated = t(key);
         if (translated) el.textContent = translated;
@@ -204,7 +207,7 @@ async function handleLogout() {
     document.getElementById('mobileProfileLink').style.display = 'none';
     document.getElementById('mobileSignOutLink').style.display = 'none';
     navigateTo('home');
-    showToast(currentLang === 'fr' ? 'Déconnecté avec succès' : 'Logged out successfully');
+    // showToast(currentLang === 'fr' ? 'Déconnecté avec succès' : 'Logged out successfully');
     await loadPosts();
 }
 
@@ -220,6 +223,47 @@ function switchProfileTab(tab) {
         target.style.display = 'block';
         target.classList.add('active');
     }
+}
+
+function loadUserGroups() {
+    const listEl = document.getElementById('myGroupsList');
+    if (!listEl || !currentUser) return;
+
+    const userCC = currentUser.country_code || 'UN';
+    const userIdentity = (currentUser.identity || 'other').toLowerCase();
+
+    const groups = [];
+
+    const countryName = getCountryName(userCC);
+    const countryFlag = getFlagEmoji(userCC);
+    groups.push({
+        type: 'country',
+        value: userCC,
+        name: countryName,
+        icon: countryFlag,
+        label: currentLang === 'fr' ? 'Pays' : 'Country'
+    });
+
+    const identityName = getIdentityName(userIdentity);
+    const identityIcon = getIdentityEmoji(userIdentity);
+    groups.push({
+        type: 'identity',
+        value: userIdentity,
+        name: identityName,
+        icon: identityIcon,
+        label: currentLang === 'fr' ? 'Identité' : 'Identity'
+    });
+
+    listEl.innerHTML = groups.map(g => `
+        <div class="my-group-item" onclick="navigateTo('groupchat'); setTimeout(() => selectGroupChat('${g.type}', '${g.value}'), 100);">
+            <div class="my-group-icon">${g.icon}</div>
+            <div class="my-group-info">
+                <div class="my-group-name">${g.name} ⭐</div>
+                <div class="my-group-meta">${g.label}</div>
+            </div>
+            <div class="my-group-badge">${currentLang === 'fr' ? 'Rejoindre' : 'Join'}</div>
+        </div>
+    `).join('');
 }
 
 function renderMyPosts() {
@@ -238,10 +282,25 @@ function renderMyPosts() {
             <span class="my-post-mini-content">${post.content.substring(0, 80)}...</span>
             <span class="my-post-mini-time">${post.time}</span>
             <div class="my-post-mini-actions">
+                <button onclick="event.stopPropagation(); openEditModal(${post.id})" title="${t('edit')}"><i class="fas fa-edit"></i></button>
                 <button onclick="event.stopPropagation(); deletePost(${post.id})" title="Delete"><i class="fas fa-trash"></i></button>
             </div>
         </div>`;
     }).join('');
+}
+
+function updateHeaderProfile() {
+    // Removed - header no longer shows country/identity badges
+    // if (!currentUser) return;
+    // const avatarEl = document.getElementById('headerAvatar');
+    // if (avatarEl) avatarEl.src = currentUser.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
+    // const countryEl = document.getElementById('headerCountry');
+    // if (countryEl) {
+    //     const flag = getFlagEmoji(currentUser.country_code || 'UN');
+    //     countryEl.textContent = flag || '';
+    // }
+    // const identityEl = document.getElementById('headerIdentity');
+    // if (identityEl) identityEl.textContent = currentUser.identity || 'Member';
 }
 
 function updateProfileStats() {
@@ -257,7 +316,7 @@ function updateProfileStats() {
 function loadProfile() {
     if (!currentUser) return;
     document.getElementById('profileDisplayName').textContent = currentUser.name || 'Guest User';
-    document.getElementById('profileCountry').textContent = currentUser.country || 'Unknown';
+    document.getElementById('profileCountry').textContent = getFlagEmoji(currentUser.country_code || 'UN');
     document.getElementById('profileIdentity').textContent = currentUser.identity || 'Member';
     document.getElementById('profileAvatar').src = currentUser.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
     document.getElementById('editName').value = currentUser.name || '';
@@ -285,7 +344,7 @@ function loadProfile() {
 
 function triggerAvatarUpload() {
     if (!currentUser) {
-        showToast(currentLang === 'fr' ? 'Veuillez vous connecter' : 'Please sign in first');
+        // showToast(currentLang === 'fr' ? 'Veuillez vous connecter' : 'Please sign in first');
         return;
     }
     document.getElementById('avatarUploadInput').click();
@@ -296,16 +355,16 @@ async function handleAvatarUpload(input) {
     const file = input.files[0];
 
     if (!file.type.startsWith('image/')) {
-        showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
+        // showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
         return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-        showToast(currentLang === 'fr' ? 'Image trop grande (max 5MB)' : 'Image too large (max 5MB)');
+        // showToast(currentLang === 'fr' ? 'Image trop grande (max 5MB)' : 'Image too large (max 5MB)');
         return;
     }
 
-    showToast(currentLang === 'fr' ? 'Téléchargement...' : 'Uploading...');
+    // showToast(currentLang === 'fr' ? 'Téléchargement...' : 'Uploading...');
 
     // Read file, resize to 200x200, convert to base64
     const avatarUrl = await new Promise((resolve, reject) => {
@@ -336,7 +395,7 @@ async function handleAvatarUpload(input) {
 
     if (error) {
         console.error('Avatar save error:', error);
-        showToast(currentLang === 'fr' ? 'Échec de la sauvegarde' : 'Save failed');
+        // showToast(currentLang === 'fr' ? 'Échec de la sauvegarde' : 'Save failed');
         return;
     }
 
@@ -346,12 +405,12 @@ async function handleAvatarUpload(input) {
     document.getElementById('profileBtn').querySelector('img').src = avatarUrl;
     document.getElementById('newPostAvatar').src = avatarUrl;
 
-    showToast(currentLang === 'fr' ? 'Photo de profil mise à jour !' : 'Profile photo updated!');
+    // showToast(currentLang === 'fr' ? 'Photo de profil mise à jour !' : 'Profile photo updated!');
 }
 
 function triggerBgUpload() {
     if (!currentUser) {
-        showToast(currentLang === 'fr' ? 'Veuillez vous connecter' : 'Please sign in first');
+        // showToast(currentLang === 'fr' ? 'Veuillez vous connecter' : 'Please sign in first');
         return;
     }
     document.getElementById('bgUploadInput').click();
@@ -362,16 +421,16 @@ async function handleBgUpload(input) {
     const file = input.files[0];
 
     if (!file.type.startsWith('image/')) {
-        showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
+        // showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
         return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-        showToast(currentLang === 'fr' ? 'Image trop grande (max 5MB)' : 'Image too large (max 5MB)');
+        // showToast(currentLang === 'fr' ? 'Image trop grande (max 5MB)' : 'Image too large (max 5MB)');
         return;
     }
 
-    showToast(currentLang === 'fr' ? 'Téléchargement...' : 'Uploading...');
+    // showToast(currentLang === 'fr' ? 'Téléchargement...' : 'Uploading...');
 
     const bgUrl = await new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -398,7 +457,7 @@ async function handleBgUpload(input) {
 
     if (error) {
         console.error('Background save error:', error);
-        showToast(currentLang === 'fr' ? 'Échec de la sauvegarde' : 'Save failed');
+        // showToast(currentLang === 'fr' ? 'Échec de la sauvegarde' : 'Save failed');
         return;
     }
 
@@ -407,7 +466,7 @@ async function handleBgUpload(input) {
     bgPreview.src = bgUrl;
     document.getElementById('bgResetBtn').style.display = 'flex';
     applyGlobalBg();
-    showToast(t('bgUpdated') || 'Background updated!');
+    // showToast(t('bgUpdated') || 'Background updated!');
 }
 
 async function resetBgImage() {
@@ -415,14 +474,14 @@ async function resetBgImage() {
     const { error } = await supabaseClient.from('profiles').update({ background_url: null }).eq('id', currentUser.id);
     if (error) {
         console.error('Background reset error:', error);
-        showToast('Reset failed');
+        // showToast('Reset failed');
         return;
     }
     currentUser.background_url = null;
     document.getElementById('bgPreviewImg').src = '1.png';
     document.getElementById('bgResetBtn').style.display = 'none';
     applyGlobalBg();
-    showToast(t('bgReset') || 'Background reset to default');
+    // showToast(t('bgReset') || 'Background reset to default');
 }
 
 function applyGlobalBg() {
@@ -452,11 +511,52 @@ async function deletePost(postId) {
     const msg = currentLang === 'fr' ? 'Supprimer ce post ?' : 'Delete this post?';
     if (!confirm(msg)) return;
     const { error } = await supabaseClient.from('posts').delete().eq('id', postId);
-    if (error) { showToast('Error deleting'); return; }
+    if (error) { /* showToast('Error deleting'); */ return; }
     await loadPosts();
     renderMyPosts();
     updateProfileStats();
-    showToast(currentLang === 'fr' ? 'Post supprimé' : 'Post deleted');
+    // showToast(currentLang === 'fr' ? 'Post supprimé' : 'Post deleted');
+}
+
+function openEditModal(postId) {
+    const post = postsData.find(p => p.id === postId);
+    if (!post) return;
+    
+    document.getElementById('postContent').value = post.content;
+    document.getElementById('postCategory').value = post.category || 'life';
+    document.getElementById('postCity').value = post.city || 'unknown';
+    
+    navigateTo('newpost');
+    
+    const form = document.getElementById('newPostForm');
+    const originalHandler = form.onsubmit;
+    
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        const content = document.getElementById('postContent').value.trim();
+        const category = document.getElementById('postCategory').value;
+        const city = document.getElementById('postCity').value;
+        
+        if (!content) return;
+        
+        const { error } = await supabaseClient.from('posts').update({
+            content, category, city
+        }).eq('id', postId);
+        
+        if (error) { /* showToast('Error updating post'); */ return; }
+        
+        form.onsubmit = originalHandler;
+        
+        document.getElementById('postContent').value = '';
+        removeImage();
+        updateCharCount(document.getElementById('postContent'));
+        
+        await loadPosts();
+        renderMyPosts();
+        updateProfileStats();
+        navigateTo('profile');
+        // showToast(currentLang === 'fr' ? t('postUpdated') : 'Post updated!');
+    };
 }
 
 
@@ -465,25 +565,28 @@ document.getElementById('editProfileForm').addEventListener('submit', async (e) 
     if (!currentUser) return;
     const name = document.getElementById('editName').value || currentUser.name;
     const country = document.getElementById('editCountry').value || currentUser.country_code;
+    const identity = document.getElementById('editIdentity').value || currentUser.identity;
     const bio = document.getElementById('editBio').value;
     const avatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}`;
     const { error } = await supabaseClient.from('profiles').update({
-        name, country_code: country, country, bio, avatar_url: avatarUrl
+        name, country_code: country, country, bio, avatar_url: avatarUrl, identity
     }).eq('id', currentUser.id);
-    if (error) { showToast('Error updating profile'); return; }
+    if (error) { console.error('Error updating profile'); return; }
     currentUser.name = name;
     currentUser.country = country;
+    currentUser.identity = identity;
     currentUser.bio = bio;
     currentUser.avatar_url = avatarUrl;
-    document.getElementById('profileBtn').querySelector('img').src = avatarUrl;
     loadProfile();
-    showToast(currentLang === 'fr' ? 'Profil mis à jour !' : 'Profile updated!');
+    // showToast(currentLang === 'fr' ? 'Profil mis à jour !' : 'Profile updated!');
 });
 
 const categories = {
     travel: { label: '🧳 Travel', class: 'travel' },
     study: { label: '🎓 Study', class: 'study' },
+    school: { label: '🏫 School', class: 'school' },
     work: { label: '👷 Work', class: 'work' },
+    visa: { label: '📋 Visa', class: 'visa' },
     entertainment: { label: '🎭 Entertainment', class: 'entertainment' },
     food: { label: '🍜 Food', class: 'food' },
     life: { label: '🏙️ Life', class: 'life' },
@@ -523,10 +626,13 @@ let userLikes = new Set();
 
 /* ===== Data Loading ===== */
 async function loadPosts() {
+    console.log('loadPosts called');
     const { data, error } = await supabaseClient
         .from('posts')
-        .select('*, profiles(name, avatar_url, country, country_code)')
+        .select('*, profiles(name, avatar_url, country, country_code, identity)')
         .order('created_at', { ascending: false });
+    console.log('Supabase response:', { error, data });
+    if (error) console.error('Load posts error:', error);
     if (!error && data && data.length > 0) {
         postsData = data.map(p => ({
             id: p.id,
@@ -534,6 +640,7 @@ async function loadPosts() {
             avatar: p.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest',
             country: p.profiles?.country || 'Unknown',
             countryCode: p.profiles?.country_code || 'UN',
+            identity: p.profiles?.identity || null,
             time: getTimeAgo(p.created_at),
             createdAt: new Date(p.created_at).getTime(),
             content: p.content,
@@ -548,8 +655,10 @@ async function loadPosts() {
             user_id: p.user_id
         }));
     }
+    console.log('postsData after mapping:', postsData);
     await loadLikes();
     await loadCommentCounts();
+    console.log('renderPosts called, postsData length:', postsData.length);
     renderPosts();
     if (window.location.hash.startsWith('#post-')) {
         handleHashChange();
@@ -640,6 +749,7 @@ function calculateTrendingTopics() {
         travel: 'Travel in China',
         study: 'Studying in China',
         work: 'Working in China',
+        visa: 'Visa & Work Permits',
         life: 'Daily Life in China',
         food: 'Chinese Food',
         entertainment: 'Entertainment',
@@ -739,11 +849,11 @@ async function checkForNotifications() {
 
             if (newNotifications.length === 1) {
                 const n = newNotifications[0];
-                showToast(n.type === 'like'
-                    ? `${n.user} liked your post! ❤️`
-                    : `${n.user} commented: "${n.content}..."`);
+                // showToast(n.type === 'like'
+                //     ? `${n.user} liked your post! ❤️`
+                //     : `${n.user} commented: "${n.content}..."`);
             } else {
-                showToast(`${newNotifications.length} new notifications! 🔔`);
+                // showToast(`${newNotifications.length} new notifications! 🔔`);
             }
         }
 
@@ -845,7 +955,7 @@ function getFlagEmoji(countryCode) {
 }
 
 async function toggleLike(postId) {
-    if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour aimer' : 'Please sign in to like'); return; }
+    if (!currentUser) { /* showToast(currentLang === 'fr' ? 'Connectez-vous pour aimer' : 'Please sign in to like'); */ return; }
     const liked = userLikes.has(postId);
     if (liked) {
         await supabaseClient.from('likes').delete().eq('post_id', postId).eq('user_id', currentUser.id);
@@ -861,7 +971,13 @@ async function toggleLike(postId) {
 }
 
 function translatePost(postId, lang) {
-    showToast(currentLang === 'fr' ? 'Traduction bientôt disponible' : 'Translation coming soon');
+    // showToast(currentLang === 'fr' ? 'Traduction bientôt disponible' : 'Translation coming soon');
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 function getPostHTML(post, idx) {
@@ -875,16 +991,16 @@ function getPostHTML(post, idx) {
             <div class="post-author-info">
                 <div class="post-author-name">
                     ${post.author}
+                    ${post.identity ? `<span class="post-author-identity">${post.identity}</span>` : ''}
                     <span class="post-author-country">
                         <span class="flag-icon">${getFlagEmoji(post.countryCode)}</span>
-                        ${post.country}
                     </span>
                 </div>
                 <div class="post-time">${post.time}</div>
             </div>
             <span class="post-category ${cat.class}">${t(post.category + 'Cat')}</span>
         </div>
-        <p class="post-content">${post.content}</p>
+        <p class="post-content">${escapeHtml(post.content).replace(/\n/g, '<br>')}</p>
         ${post.image_url ? `<div class="post-image-wrap"><img src="${post.image_url}" alt="Post image" class="post-image" loading="lazy" onclick="window.open('${post.image_url}', '_blank')"></div>` : ''}
         <div class="post-tags">
             ${post.tags.map(tag => `<span class="post-tag">${tag}</span>`).join('')}
@@ -1175,13 +1291,11 @@ function toggleShareMenu(postId) {
 
 function selectCategory(category) {
     currentCategory = category;
-
-    // Update stories page category pills
+    
     document.querySelectorAll('.stories-cat-pill').forEach(pill => {
         pill.classList.toggle('active', pill.dataset.category === category);
     });
 
-    // Update home page category pills (legacy)
     document.querySelectorAll('.category-filter .category-pill').forEach(pill => {
         pill.classList.toggle('active', pill.dataset.category === category);
     });
@@ -1193,25 +1307,23 @@ function copyPostLink(postId) {
     const baseUrl = 'https://chris-topher-code.github.io/community/';
     const url = baseUrl + '#post-' + postId;
     navigator.clipboard.writeText(url).then(() => {
-        showToast('Link copied to clipboard! 📋');
     }).catch(() => {
-        showToast('Link copied! 📋');
     });
     document.querySelectorAll('.share-menu').forEach(m => m.classList.remove('active'));
 }
 
 function copyReferralLink() {
     if (!currentUser) {
-        showToast(currentLang === 'fr' ? 'Veuillez vous connecter' : 'Please sign in first');
+        // showToast(currentLang === 'fr' ? 'Veuillez vous connecter' : 'Please sign in first');
         return;
     }
     const baseUrl = 'https://chris-topher-code.github.io/community/';
     const referralCode = btoa(currentUser.id).substring(0, 8);
     const url = baseUrl + '?ref=' + referralCode;
     navigator.clipboard.writeText(url).then(() => {
-        showToast(currentLang === 'fr' ? 'Lien d\'invitation copié ! 🎉' : 'Invite link copied! 🎉');
+        // showToast(currentLang === 'fr' ? 'Lien d\'invitation copié ! 🎉' : 'Invite link copied! 🎉');
     }).catch(() => {
-        showToast('Invite link copied! 🎉');
+        // showToast('Invite link copied! 🎉');
     });
 }
 
@@ -1236,7 +1348,7 @@ function shareToLinkedIn(postId) {
 }
 
 function shareToWeChat(postId) {
-    showToast(t('wechatShare') + ' 📱');
+    // showToast(t('wechatShare') + ' 📱');
     copyPostLink(postId);
 }
 
@@ -1251,11 +1363,11 @@ function shareWebsite() {
 async function addComment(postId, inputEl) {
     const text = inputEl.value.trim();
     if (!text) return;
-    if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour commenter' : 'Please sign in to comment'); return; }
+    if (!currentUser) { /* showToast(currentLang === 'fr' ? 'Connectez-vous pour commenter' : 'Please sign in to comment'); */ return; }
     const { error } = await supabaseClient.from('comments').insert({ post_id: postId, user_id: currentUser.id, content: text });
-    if (error) { showToast('Error posting comment'); return; }
+    if (error) { /* showToast('Error posting comment'); */ return; }
     inputEl.value = '';
-    showToast(t('commentPosted') + ' 💬');
+    // showToast(t('commentPosted') + ' 💬');
     await loadPosts();
 }
 
@@ -1413,6 +1525,21 @@ function navigateTo(page) {
     closeMobileNav();
 }
 
+function toggleInfoSection(section) {
+    const contentId = section + 'Content';
+    const content = document.getElementById(contentId);
+    if (content) {
+        content.classList.toggle('open');
+        const header = content.previousElementSibling;
+        if (header && header.classList.contains('info-header')) {
+            const toggle = header.querySelector('.info-toggle');
+            if (toggle) {
+                toggle.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : '';
+            }
+        }
+    }
+}
+
 function filterByTopic(category) {
     navigateTo('stories');
     currentCategory = category;
@@ -1519,7 +1646,7 @@ function closeModal() {
 }
 
 function openNewPostModal() {
-    if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); return; }
+    if (!currentUser) { /* showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); */ return; }
     navigateTo('newpost');
 }
 
@@ -1543,7 +1670,7 @@ let selectedImageFile = null;
 function previewImage(input) {
     const file = input.files[0];
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { showToast('Image too large (max 5MB)'); return; }
+    if (file.size > 5 * 1024 * 1024) { /* showToast('Image too large (max 5MB)'); */ return; }
     selectedImageFile = file;
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -1598,12 +1725,12 @@ document.getElementById('authForm').addEventListener('submit', async (e) => {
             email, password,
             options: { data: { name, country: countrySelect?.value || 'UN', identity: selectedIdentity?.querySelector('span')?.textContent || 'Member' } }
         });
-        if (error) { showToast(error.message); return; }
-        showToast(t('welcomeGuest') + ' 🎉');
+        if (error) { console.error(error.message); return; }
+        // showToast(t('welcomeGuest') + ' 🎉');
     } else {
         const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-        if (error) { showToast(error.message); return; }
-        showToast(t('welcomeGuest') + ' 🎉');
+        if (error) { console.error(error.message); return; }
+        // showToast(t('welcomeGuest') + ' 🎉');
     }
     closeModal();
     await checkSession();
@@ -1628,9 +1755,9 @@ async function checkSession() {
             if (isNewUser) {
                 welcomeEl.textContent = `Welcome to Cdiscovery, ${userName}! 🎉`;
                 setTimeout(() => {
-                    showToast(currentLang === 'fr'
-                        ? 'Astuce: Ajoutez votre photo de profil et remplissez votre bio!'
-                        : 'Tip: Add a profile photo and fill in your bio to connect better!');
+                    // showToast(currentLang === 'fr'
+                    //     ? 'Astuce: Ajoutez votre photo de profil et remplissez votre bio!'
+                    //     : 'Tip: Add a profile photo and fill in your bio to connect better!');
                 }, 1500);
             } else {
                 welcomeEl.textContent = `Welcome back, ${userName}! 👋`;
@@ -1648,9 +1775,9 @@ async function checkSession() {
         const footer = document.querySelector('.footer');
         if (footer) footer.style.display = 'block';
         window.scrollTo({ top: 0 });
-        document.getElementById('profileBtn').querySelector('img').src = currentUser.avatar_url;
         document.getElementById('mobileProfileLink').style.display = 'block';
-        document.getElementById('mobileSignOutLink').style.display = 'block';
+        const mobileSignOutLink = document.getElementById('mobileSignOutLink');
+        if (mobileSignOutLink) mobileSignOutLink.style.display = 'block';
         const notifBtn = document.getElementById('notificationBtn');
         if (notifBtn) notifBtn.style.display = 'block';
         lastNotificationCheck = Date.now();
@@ -1682,7 +1809,6 @@ async function checkSession() {
 
 checkSession();
 
-checkSession();
 // Failsafe: remove loading class after 5 seconds even if checkSession hangs
 setTimeout(() => document.body.classList.remove('loading'), 5000);
 
@@ -1717,7 +1843,7 @@ document.getElementById('newPostForm').addEventListener('submit', async (e) => {
     let category = document.getElementById('postTopic').value || document.getElementById('postCategory').value;
     const city = document.getElementById('postCity')?.value || 'unknown';
     if (!content) return;
-    if (!currentUser) { showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); return; }
+    if (!currentUser) { /* showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); */ return; }
 
     let imageUrl = null;
     if (selectedImageFile) {
@@ -1746,12 +1872,12 @@ document.getElementById('newPostForm').addEventListener('submit', async (e) => {
     if (imageUrl) insertData.image_url = imageUrl;
 
     const { error } = await supabaseClient.from('posts').insert(insertData);
-    if (error) { showToast('Error posting'); return; }
+    if (error) { console.error('Error posting'); return; }
     document.getElementById('postContent').value = '';
     removeImage();
     navigateTo('home');
     await loadPosts();
-    showToast(t('postShared') + ' 🎉');
+    // showToast(t('postShared') + ' 🎉');
 });
 
 function handleNavClick(navTarget) {
@@ -1858,7 +1984,7 @@ searchInput.addEventListener('keydown', (e) => {
         navigateTo('home');
         renderPosts();
         if (searchQuery.trim()) {
-            showToast(`Searching for "${searchQuery}" 🔍`);
+            // showToast(`Searching for "${searchQuery}" 🔍`);
         }
     }
 });
@@ -1880,7 +2006,7 @@ trendingListItems.forEach(item => {
         const category = categoryMapping[title];
         if (category) {
             navigateTo('stories');
-            showToast(`Showing: ${title} 🔍`);
+            // showToast(`Showing: ${title} 🔍`);
             currentCategory = category;
             // Update home page pills
             categoryPills.forEach(p => p.classList.remove('active'));
@@ -2180,7 +2306,7 @@ function sortByLatest() {
     document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.sort-btn[data-sort="latest"]').forEach(b => b.classList.add('active'));
     renderPosts();
-    showToast(currentLang === 'fr' ? 'Affichage des derniers messages' : 'Showing latest posts');
+    // showToast(currentLang === 'fr' ? 'Affichage des derniers messages' : 'Showing latest posts');
 }
 
 function sortByPopular() {
@@ -2188,7 +2314,7 @@ function sortByPopular() {
     document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.sort-btn[data-sort="popular"]').forEach(b => b.classList.add('active'));
     renderPosts();
-    showToast(currentLang === 'fr' ? 'Affichage des plus populaires' : 'Showing popular posts');
+    // showToast(currentLang === 'fr' ? 'Affichage des plus populaires' : 'Showing popular posts');
 }
 
 /* ===== User Profile Page ===== */
@@ -2228,7 +2354,7 @@ async function openUserProfile(userId) {
         .single();
     
     if (error || !profile) {
-        showToast(currentLang === 'fr' ? 'Utilisateur introuvable' : 'User not found');
+        // showToast(currentLang === 'fr' ? 'Utilisateur introuvable' : 'User not found');
         return;
     }
     
@@ -2236,7 +2362,7 @@ async function openUserProfile(userId) {
     
     document.getElementById('userProfileAvatar').src = profile.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
     document.getElementById('userProfileName').textContent = profile.name || 'Guest User';
-    document.getElementById('userProfileCountry').textContent = profile.country || 'Unknown';
+    document.getElementById('userProfileCountry').textContent = getFlagEmoji(profile.country_code || 'UN');
     document.getElementById('userProfileIdentity').textContent = profile.identity || 'Member';
     document.getElementById('userProfileBio').textContent = profile.bio || '';
     document.getElementById('userProfileBio').style.display = profile.bio ? 'block' : 'none';
@@ -2284,7 +2410,7 @@ function navigateBackFromUser() {
 /* ===== Message / DM Functions ===== */
 function openMessageModal() {
     if (!currentUser) {
-        showToast(currentLang === 'fr' ? 'Connectez-vous pour envoyer un message' : 'Please sign in to send messages');
+        // showToast(currentLang === 'fr' ? 'Connectez-vous pour envoyer un message' : 'Please sign in to send messages');
         return;
     }
     if (!viewingUserId || !viewingUserData) return;
@@ -2392,7 +2518,7 @@ async function sendMessage() {
     
     if (error) {
         console.error('Error sending message:', error);
-        showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send message');
+        // showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send message');
         return;
     }
     
@@ -2406,11 +2532,11 @@ function handleMsgImageSelect(input) {
     if (!input.files || !input.files[0]) return;
     const file = input.files[0];
     if (!file.type.startsWith('image/')) {
-        showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
+        // showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
         return;
     }
     if (file.size > 5 * 1024 * 1024) {
-        showToast(currentLang === 'fr' ? 'Image trop volumineuse (max 5 Mo)' : 'Image too large (max 5MB)');
+        // showToast(currentLang === 'fr' ? 'Image trop volumineuse (max 5 Mo)' : 'Image too large (max 5MB)');
         return;
     }
     
@@ -2428,7 +2554,7 @@ async function sendImageMessage() {
     
     const sendBtn = document.getElementById('msgSendBtn');
     sendBtn.disabled = true;
-    showToast(currentLang === 'fr' ? 'Envoi de l\'image...' : 'Sending image...');
+    // showToast(currentLang === 'fr' ? 'Envoi de l\'image...' : 'Sending image...');
     
     const { error } = await supabaseClient
         .from('messages')
@@ -2444,7 +2570,7 @@ async function sendImageMessage() {
     
     if (error) {
         console.error('Error sending image:', error);
-        showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send image');
+        // showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send image');
         return;
     }
     
@@ -2675,7 +2801,7 @@ async function openGroupMembers() {
             <img src="${avatar}" alt="${name}" class="gm-item-avatar" loading="lazy">
             <div class="gm-item-info">
                 <div class="gm-item-name">${name}</div>
-                <div class="gm-item-country">${pFlag} ${pCountry}</div>
+                <div class="gm-item-country">${pFlag}</div>
             </div>
             ${isMe ? '<span class="gm-item-badge">You</span>' : ''}
         </div>`;
@@ -2804,7 +2930,7 @@ async function sendGroupMessage() {
 
     if (error) {
         console.error('Error sending group message:', error);
-        showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send message');
+        // showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send message');
         return;
     }
 
@@ -2818,11 +2944,11 @@ function handleGroupImageSelect(input) {
     if (!input.files || !input.files[0]) return;
     const file = input.files[0];
     if (!file.type.startsWith('image/')) {
-        showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
+        // showToast(currentLang === 'fr' ? 'Veuillez sélectionner une image' : 'Please select an image file');
         return;
     }
     if (file.size > 5 * 1024 * 1024) {
-        showToast(currentLang === 'fr' ? 'Image trop volumineuse (max 5 Mo)' : 'Image too large (max 5MB)');
+        // showToast(currentLang === 'fr' ? 'Image trop volumineuse (max 5 Mo)' : 'Image too large (max 5MB)');
         return;
     }
 
@@ -2842,7 +2968,7 @@ async function sendGroupImageMessage() {
     const cc = parts[0];
     const identity = parts[1];
 
-    showToast(currentLang === 'fr' ? 'Envoi de l\'image...' : 'Sending image...');
+    // showToast(currentLang === 'fr' ? 'Envoi de l\'image...' : 'Sending image...');
 
     const { error } = await supabaseClient
         .from('group_messages')
@@ -2858,7 +2984,7 @@ async function sendGroupImageMessage() {
 
     if (error) {
         console.error('Error sending group image:', error);
-        showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send image');
+        // showToast(currentLang === 'fr' ? 'Erreur lors de l\'envoi' : 'Failed to send image');
         return;
     }
 

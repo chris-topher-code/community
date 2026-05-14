@@ -71,10 +71,10 @@
                 <button class="btn btn-outline" id="loginBtn" data-i18n="signIn">Sign In</button>
                 <button class="btn btn-primary" id="registerBtn" data-i18n="joinNow">Join Now</button>
             <button class="profile-btn" id="profileBtn" onclick="navigateTo('profile')">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile" id="headerAvatar">
                 <span data-i18n="profile">Profile</span>
             </button>
-            <button class="btn btn-outline" id="signOutBtn" onclick="handleLogout()" data-i18n="logOut">Sign Out</button>
+
             <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
         </div>
     </nav>
@@ -86,7 +86,6 @@
         <a href="#" data-nav="topics" data-i18n="topics">Topics</a>
         <a href="#" data-nav="about" data-i18n="about">About</a>
         <a href="#" id="mobileProfileLink" data-nav="profile" style="display: none;">Profile</a>
-        <a href="#" id="mobileSignOutLink" onclick="handleLogout()" style="display: none;">Sign Out</a>
     </div>
 
     <div class="mobile-bottom-nav" id="mobileBottomNav">
@@ -184,7 +183,9 @@
         <div class="category-pill active" data-category="all" data-i18n="allCategory">All</div>
         <div class="category-pill" data-category="travel" data-i18n="travelCat">🧳 Travel</div>
         <div class="category-pill" data-category="study" data-i18n="studyCat">🎓 Study</div>
+        <div class="category-pill" data-category="school" data-i18n="schoolCat">🏫 School</div>
         <div class="category-pill" data-category="work" data-i18n="workCat">👷 Work</div>
+        <div class="category-pill" data-category="visa" data-i18n="visaCat">📋 Visa</div>
         <div class="category-pill" data-category="entertainment" data-i18n="entertainmentCat">🎭 Entertainment</div>
         <div class="category-pill" data-category="food" data-i18n="foodCat">🍜 Food</div>
         <div class="category-pill" data-category="life" data-i18n="lifeCat">🏙️ Life</div>
@@ -211,8 +212,14 @@
                 <button class="stories-cat-pill" data-category="study" onclick="selectCategory('study')">
                     <span class="cat-icon">🎓</span> Study
                 </button>
+                <button class="stories-cat-pill" data-category="school" onclick="selectCategory('school')">
+                    <span class="cat-icon">🏫</span> School
+                </button>
                 <button class="stories-cat-pill" data-category="work" onclick="selectCategory('work')">
                     <span class="cat-icon">👷</span> Work
+                </button>
+                <button class="stories-cat-pill" data-category="visa" onclick="selectCategory('visa')">
+                    <span class="cat-icon">📋</span> Visa
                 </button>
                 <button class="stories-cat-pill" data-category="entertainment" onclick="selectCategory('entertainment')">
                     <span class="cat-icon">🎭</span> Entertainment
@@ -397,57 +404,398 @@
 
     <section class="page-section" id="topicsPage">
         <div class="page-hero" id="topicsHero">
-            <h1>Topics</h1>
-            <p>Explore conversations organized by what matters to you</p>
+            <h1>📚 Topics Guide</h1>
+            <p>Your comprehensive resource for living and exploring in China</p>
         </div>
-        <div class="topics-grid">
-            <div class="topic-card spotlight-card" onclick="filterByTopic('study')">
-                <div class="topic-card-icon">🎓</div>
-                <h3>Student Life</h3>
-                <p>Share university experiences, study tips, and connect with fellow international students across China.</p>
-                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,234 posts</div>
+
+        <!-- Study Topic -->
+        <div class="info-section">
+            <div class="info-header" onclick="toggleInfoSection('study')">
+                <div class="info-icon">🎓</div>
+                <div class="info-title">
+                    <h2>Study in China</h2>
+                    <p>University experiences, study tips, and academic resources</p>
+                </div>
+                <i class="fas fa-chevron-down info-toggle"></i>
             </div>
-            <div class="topic-card spotlight-card" onclick="filterByTopic('work')">
-                <div class="topic-card-icon">👷</div>
-                <h3>Working in China</h3>
-                <p>Career opportunities, work culture insights, visa processes, and professional networking.</p>
-                <div class="topic-card-count"><i class="fas fa-comment"></i> 987 posts</div>
+            <div class="info-content" id="studyContent">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-university"></i> Top Universities</h4>
+                        <p>Peking University, Tsinghua, Fudan, and more world-renowned institutions welcome international students.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-graduation-cap"></i> Scholarships</h4>
+                        <p>Chinese Government Scholarship (CSC), Confucius Institute Scholarships, and university-specific grants available.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-language"></i> Language Requirements</h4>
+                        <p>HSK 4-5 for Chinese programs. Many universities offer English-taught programs (IELTS 6.0+ or TOEFL 80+).</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-file-alt"></i> Application Process</h4>
+                        <p>Apply through CSC portal or directly to universities (March-June for fall semester).</p>
+                    </div>
+                </div>
             </div>
-            <div class="topic-card spotlight-card" onclick="filterByTopic('travel')">
-                <div class="topic-card-icon">🧳</div>
-                <h3>Travel & Adventure</h3>
-                <p>Hidden gems, travel itineraries, photography spots, and must-visit destinations across China.</p>
-                <div class="topic-card-count"><i class="fas fa-comment"></i> 2,156 posts</div>
+        </div>
+
+        <!-- School Topic -->
+        <div class="info-section">
+            <div class="info-header" onclick="toggleInfoSection('school')">
+                <div class="info-icon">🏫</div>
+                <div class="info-title">
+                    <h2>School Life in China</h2>
+                    <p>Campus life, K-12 education, and student experiences</p>
+                </div>
+                <i class="fas fa-chevron-down info-toggle"></i>
             </div>
-            <div class="topic-card spotlight-card" onclick="filterByTopic('food')">
-                <div class="topic-card-icon">🍜</div>
-                <h3>Food & Dining</h3>
-                <p>Restaurant reviews, street food discoveries, cooking tips, and regional cuisine exploration.</p>
-                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,891 posts</div>
+            <div class="info-content" id="schoolContent">
+                <h4 style="color:#1a73e8; margin-bottom:15px;">Top Chinese Universities for International Students<br><small style="color:#666; font-weight:normal;">Ranked by number of international students (2022-2024 data)</small></h4>
+                <div class="university-list">
+                    <div class="university-item">
+                        <h5>Beijing (10 Universities)</h5>
+                        <div class="uni-grid">
+                            <div class="uni-card">
+                                <a href="https://www.pku.edu.cn" target="_blank" class="uni-name">1. Peking University</a>
+                                <div class="uni-stats">4,000+ students</div>
+                                <div class="uni-majors">Top 5: Chinese Language & Literature, Economics, International Relations, Computer Science, Law</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.tsinghua.edu.cn" target="_blank" class="uni-name">2. Tsinghua University</a>
+                                <div class="uni-stats">3,500+ students</div>
+                                <div class="uni-majors">Top 5: Engineering Technology, Architecture, Business Administration, Environmental Science, Materials Science</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.bnu.edu.cn" target="_blank" class="uni-name">3. Beijing Normal University</a>
+                                <div class="uni-stats">2,800+ students</div>
+                                <div class="uni-majors">Top 5: Education, Chinese Language & Literature, Psychology, Environmental Science, Chinese History</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.buaa.edu.cn" target="_blank" class="uni-name">4. Beihang University</a>
+                                <div class="uni-stats">2,200+ students</div>
+                                <div class="uni-majors">Top 5: Aerospace Engineering, Computer Science, Mechanical Engineering, Automation, Artificial Intelligence</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.ruc.edu.cn" target="_blank" class="uni-name">5. Renmin University of China</a>
+                                <div class="uni-stats">2,800+ students</div>
+                                <div class="uni-majors">Top 5: Economics, Law, Journalism & Communication, Finance, Sociology</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.bit.edu.cn" target="_blank" class="uni-name">6. Beijing Institute of Technology</a>
+                                <div class="uni-stats">1,900+ students</div>
+                                <div class="uni-majors">Top 5: Weaponry Science, Mechanical Engineering, Information & Communication Engineering, Management Science & Engineering</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.bjtu.edu.cn" target="_blank" class="uni-name">7. Beijing Jiaotong University</a>
+                                <div class="uni-stats">1,600+ students</div>
+                                <div class="uni-majors">Top 5: Transportation Engineering, Civil Engineering, Signal & Communication Engineering, Logistics Management</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.uibe.edu.cn" target="_blank" class="uni-name">8. University of International Business and Economics</a>
+                                <div class="uni-stats">2,000+ students</div>
+                                <div class="uni-majors">Top 5: International Trade, Finance, Business Studies, Law, English</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.cuc.edu.cn" target="_blank" class="uni-name">9. Communication University of China</a>
+                                <div class="uni-stats">1,500+ students</div>
+                                <div class="uni-majors">Top 5: Journalism & Communication, Radio & TV Editing, Broadcasting & Hosting, Drama & Film Studies</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.bucm.edu.cn" target="_blank" class="uni-name">10. Beijing University of Chinese Medicine</a>
+                                <div class="uni-stats">2,300+ students</div>
+                                <div class="uni-majors">Top 5: Traditional Chinese Medicine, Chinese Pharmacy, Acupuncture & Massage, Rehabilitation Therapy, Nursing</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="university-item" style="margin-top:20px;">
+                        <h5>Shanghai (5 Universities)</h5>
+                        <div class="uni-grid">
+                            <div class="uni-card">
+                                <a href="https://www.fudan.edu.cn" target="_blank" class="uni-name">1. Fudan University</a>
+                                <div class="uni-stats">4,500+ students</div>
+                                <div class="uni-majors">Top 5: Journalism & Communication, Medicine, Economics, Management, Law</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.sjtu.edu.cn" target="_blank" class="uni-name">2. Shanghai Jiao Tong University</a>
+                                <div class="uni-stats">3,000+ students</div>
+                                <div class="uni-majors">Top 5: Naval Architecture & Ocean Engineering, Artificial Intelligence, Biomedical Engineering, Business Studies, Engineering</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.tongji.edu.cn" target="_blank" class="uni-name">3. Tongji University</a>
+                                <div class="uni-stats">2,800+ students</div>
+                                <div class="uni-majors">Top 5: Architecture, Civil Engineering, Urban & Rural Planning, Automotive Engineering, Design</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.ecnu.edu.cn" target="_blank" class="uni-name">4. East China Normal University</a>
+                                <div class="uni-stats">2,200+ students</div>
+                                <div class="uni-majors">Top 5: Education, Chinese Language & Literature, Psychology, Geography, Chinese Literature</div>
+                            </div>
+                            <div class="uni-card">
+                                <a href="https://www.shisu.edu.cn" target="_blank" class="uni-name">5. Shanghai International Studies University</a>
+                                <div class="uni-stats">1,800+ students</div>
+                                <div class="uni-majors">Top 5: English Language & Literature, French, Translation & Interpreting, International Relations, Journalism</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="info-note">Beijing and Shanghai account for ~40% of all international students in China. Popular majors: Chinese Language, Business, Engineering, Medicine.</p>
             </div>
-            <div class="topic-card spotlight-card" onclick="filterByTopic('life')">
-                <div class="topic-card-icon">🏙️</div>
-                <h3>Daily Life</h3>
-                <p>Healthcare, housing, transportation, and everyday life hacks for foreigners in China.</p>
-                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,567 posts</div>
+        </div>
+
+        <!-- Work Topic -->
+        <div class="info-section">
+            <div class="info-header" onclick="toggleInfoSection('work')">
+                <div class="info-icon">👷</div>
+                <div class="info-title">
+                    <h2>Working in China</h2>
+                    <p>Career opportunities, work culture, and professional development</p>
+                </div>
+                <i class="fas fa-chevron-down info-toggle"></i>
             </div>
-            <div class="topic-card spotlight-card" onclick="filterByTopic('entertainment')">
-                <div class="topic-card-icon">🎭</div>
-                <h3>Entertainment</h3>
-                <p>Movies, music, nightlife, festivals, and fun activities to enjoy in your city.</p>
-                <div class="topic-card-count"><i class="fas fa-comment"></i> 743 posts</div>
+            <div class="info-content" id="workContent">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-briefcase"></i> Job Market</h4>
+                        <p>Multinational companies in Shanghai, Beijing, Guangzhou. Growing opportunities in tech, finance, and education sectors.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-file-contract"></i> Work Visa (Z Visa)</h4>
+                        <p>Requires: Bachelor degree+, 2+ years experience, valid job offer. Processing time: 5-10 working days.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-building"></i> Work Permit</h4>
+                        <p>Foreign Expert Permit required. Categories: A (high talent), B (professional), C (temporary).</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-chart-line"></i> Salary Guide</h4>
+                        <p>Average expat salary: ¥20,000-50,000/month. Tech/Finance roles typically higher. Tax: 3-45% progressive.</p>
+                    </div>
+                </div>
             </div>
-            <div class="topic-card spotlight-card" onclick="filterByTopic('business')">
-                <div class="topic-card-icon">💼</div>
-                <h3>Business & Entrepreneurship</h3>
-                <p>Startups, business culture, networking events, and opportunities in China's dynamic market.</p>
-                <div class="topic-card-count"><i class="fas fa-comment"></i> 456 posts</div>
+        </div>
+
+        <!-- Visa Topic -->
+        <div class="info-section">
+            <div class="info-header" onclick="toggleInfoSection('visa')">
+                <div class="info-icon">📋</div>
+                <div class="info-title">
+                    <h2>Visa & Work Permits</h2>
+                    <p>Visa processes, requirements, and legal information</p>
+                </div>
+                <i class="fas fa-chevron-down info-toggle"></i>
             </div>
-            <div class="topic-card spotlight-card" onclick="filterByTopic('language')">
-                <div class="topic-card-icon">🗣️</div>
-                <h3>Language Learning</h3>
-                <p>Mandarin tips, language exchange partners, resources, and practice opportunities.</p>
-                <div class="topic-card-count"><i class="fas fa-comment"></i> 1,023 posts</div>
+            <div class="info-content" id="visaContent">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-passport"></i> Visa Types</h4>
+                        <p><strong>L:</strong> Tourism | <strong>M:</strong> Business | <strong>X:</strong> Study | <strong>Z:</strong> Work | <strong>R:</strong> Talent</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-clock"></i> Processing Times</h4>
+                        <p>Standard: 4-5 days | Rush: 2-3 days | Express: same day (with additional fees)</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-calendar-check"></i> Validity Period</h4>
+                        <p>Single entry: 3 months | Double entry: 6 months | Multiple: 1-5 years (based on nationality)</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Common Issues</h4>
+                        <p>Incomplete documents, insufficient funds proof, unclear purpose. Always check current regulations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Travel Topic -->
+        <div class="info-section">
+            <div class="info-header" onclick="toggleInfoSection('travel')">
+                <div class="info-icon">🧳</div>
+                <div class="info-title">
+                    <h2>Travel & Adventure</h2>
+                    <p>Hidden gems, travel tips, and must-visit destinations</p>
+                </div>
+                <i class="fas fa-chevron-down info-toggle"></i>
+            </div>
+            <div class="info-content" id="travelContent">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-map-marker-alt"></i> Top Destinations</h4>
+                        <p>Great Wall, Terracotta Army (Xi'an), Zhangjiajie, Guilin karsts, Shanghai skyline, Tibetan plateau.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-train"></i> Transportation</h4>
+                        <p>High-speed rail network (world's longest). Didi for taxis. Metro systems in 40+ cities. Air travel affordable.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-camera"></i> Photography Spots</h4>
+                        <p>Zhangjiajie Avatar mountains, Jiuzhaigou lakes, Huangshan sunrise, Yuanyang rice terraces, Bund at night.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-heart"></i> Best Seasons</h4>
+                        <p>Spring (Mar-May): Flowers, mild weather | Autumn (Sep-Nov): Golden foliage, comfortable temps</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Food Topic -->
+        <div class="info-section">
+            <div class="info-header" onclick="toggleInfoSection('food')">
+                <div class="info-icon">🍜</div>
+                <div class="info-title">
+                    <h2>Food & Dining</h2>
+                    <p>Chinese cuisine, restaurant recommendations, cooking tips</p>
+                </div>
+                <i class="fas fa-chevron-down info-toggle"></i>
+            </div>
+            <div class="info-content" id="foodContent">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-utensils"></i> Regional Cuisines</h4>
+                        <p>Cantonese (dim sum), Sichuan (spicy), Beijing (Peking duck), Shanghai (soup dumplings), Xi'an (biangbiang面)</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-coffee"></i> Food Budget</h4>
+                        <p>Street food: ¥15-30 | Casual restaurant: ¥50-100 | Mid-range: ¥150-300 | Fine dining: ¥500+</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-star"></i> Must-Try Dishes</h4>
+                        <p>Peking duck, hot pot, mapo tofu, xiaolongbao, Cantonese dim sum, hand-pulled noodles, mooncakes.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-shopping-cart"></i> Ordering Tips</h4>
+                        <p>Use Meituan/Ele.me apps. Show photo of dish. "Zhong da Lao" = medium spicy. "Bu yao" = don't want.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Life Topic -->
+        <div class="info-section">
+            <div class="info-header" onclick="toggleInfoSection('life')">
+                <div class="info-icon">🏙️</div>
+                <div class="info-title">
+                    <h2>Daily Life in China</h2>
+                    <p>Housing, healthcare, transportation, and practical tips</p>
+                </div>
+                <i class="fas fa-chevron-down info-toggle"></i>
+            </div>
+            <div class="info-content" id="lifeContent">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-home"></i> Housing</h4>
+                        <p>Rent ranges: ¥3,000-15,000/month (major cities). Apps: Ziroom, Livere. Require 1-3 months deposit.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-hospital"></i> Healthcare</h4>
+                        <p>Public hospitals: ¥50-200 for consultation. International clinics in major cities. Insurance essential.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-mobile-alt"></i> Must-Have Apps</h4>
+                        <p>WeChat (everything), Alipay (payments), Meituan (delivery), Didi (taxi), Diandian (bike sharing).</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-wifi"></i> Utilities</h4>
+                        <p>Mobile: China Mobile/Unicom/Telecom (¥50-200/month). Internet: ¥60-150/month. Electricity: ¥0.6-1/kWh.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entertainment Topic -->
+        <div class="info-section">
+            <div class="info-header" onclick="toggleInfoSection('entertainment')">
+                <div class="info-icon">🎭</div>
+                <div class="info-title">
+                    <h2>Entertainment & Fun</h2>
+                    <p>Movies, nightlife, festivals, and activities</p>
+                </div>
+                <i class="fas fa-chevron-down info-toggle"></i>
+            </div>
+            <div class="info-content" id="entertainmentContent">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-film"></i> Movies & Shows</h4>
+                        <p>Major film industry (Hollywood co-productions). KTV everywhere. Live theater in Beijing/Shanghai.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-moon"></i> Nightlife</h4>
+                        <p>Shanghai (Bund, Former French Concession), Beijing (Sanlitun), Chengdu (339). Bars, clubs, late-night eateries.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-calendar-alt"></i> Major Festivals</h4>
+                        <p>Chinese New Year (Jan/Feb), Mid-Autumn Festival, National Day (Oct 1-7), Qingming, Dragon Boat.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-gamepad"></i> Activities</h4>
+                        <p>KTV, escape rooms, mahjong, tai chi in parks, hiking, calligraphy, Chinese chess (Xiangqi).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Business Topic -->
+        <div class="info-section">
+            <div class="info-header" onclick="toggleInfoSection('business')">
+                <div class="info-icon">💼</div>
+                <div class="info-title">
+                    <h2>Business & Entrepreneurship</h2>
+                    <p>Startups, networking, and business culture</p>
+                </div>
+                <i class="fas fa-chevron-down info-toggle"></i>
+            </div>
+            <div class="info-content" id="businessContent">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-rocket"></i> Startup Hubs</h4>
+                        <p>Shenzhen (hardware), Beijing (tech/AI), Shanghai (fintech), Hangzhou (e-commerce). Free trade zones expanding.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-handshake"></i> Business Culture</h4>
+                        <p>Guanxi (relationships) crucial. Face (mianzi) important. Hierarchy respected. Business cards exchanged with two hands.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-users"></i> Networking</h4>
+                        <p> chambers of commerce, industry events, WeChat groups. Learning Mandarin greatly appreciated.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-coins"></i> Funding</h4>
+                        <p>Venture capital active. Government grants available. Crowdfunding platforms growing. Bank loans possible with collateral.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Topic -->
+        <div class="info-section">
+            <div class="info-header" onclick="toggleInfoSection('language')">
+                <div class="info-icon">🗣️</div>
+                <div class="info-title">
+                    <h2>Language Learning</h2>
+                    <p>Mandarin tips, resources, and language exchange</p>
+                </div>
+                <i class="fas fa-chevron-down info-toggle"></i>
+            </div>
+            <div class="info-content" id="languageContent">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="fas fa-book"></i> Learning Resources</h4>
+                        <p>HSK textbooks, Du Chinese app, Pleco dictionary, HelloChinese, YouTube channels (ChinesePod, YoyoChinese).</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-users"></i> Language Exchange</h4>
+                        <p>italki (online tutors), Tandem/HelloTalk apps, university language partners, WeChat groups.</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-star-half-alt"></i> HSK Levels</h4>
+                        <p>HSK 1-2: Basic | HSK 3-4: Intermediate (student visa) | HSK 5-6: Advanced (scholarship/work)</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fas fa-pen"></i> Practice Tips</h4>
+                        <p>Label objects at home, think in Chinese, practice daily (30 min minimum), watch Chinese shows with subtitles.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -538,6 +886,9 @@
             <button class="profile-tab active" data-ptab="myposts" onclick="switchProfileTab('myposts')">
                 <i class="fas fa-file-alt"></i> <span data-i18n="myPosts">My Posts</span>
             </button>
+            <button class="profile-tab" data-ptab="mygroups" onclick="switchProfileTab('mygroups'); loadUserGroups();">
+                <i class="fas fa-users"></i> <span>My Groups</span>
+            </button>
             <button class="profile-tab" data-ptab="edit" onclick="switchProfileTab('edit')">
                 <i class="fas fa-cog"></i> <span data-i18n="editProfile">Edit Profile</span>
             </button>
@@ -552,6 +903,17 @@
                     <i class="fas fa-pen-nib"></i>
                     <h3 data-i18n="noPostsYet">No posts yet</h3>
                     <p data-i18n="startSharing">Start sharing your story!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="profileTabMygroups" class="profile-tab-content">
+            <h3 class="profile-section-title"><i class="fas fa-users"></i> My Group Chats</h3>
+            <div class="my-groups-list" id="myGroupsList">
+                <div class="empty-profile">
+                    <i class="fas fa-comments"></i>
+                    <h3>No groups yet</h3>
+                    <p>Join group chats based on your country and identity!</p>
                 </div>
             </div>
         </div>
@@ -578,6 +940,18 @@
                         <option value="IN">India</option>
                         <option value="BR">Brazil</option>
                         <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="identity">Identity</label>
+                    <select id="editIdentity">
+                        <option value="">Select your identity...</option>
+                        <option value="student">Student</option>
+                        <option value="worker">Worker</option>
+                        <option value="tourist">Tourist</option>
+                        <option value="business">Business</option>
+                        <option value="researcher">Researcher</option>
+                        <option value="other">Other</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -611,18 +985,18 @@
 
             <h3 class="profile-section-title" style="margin-top: 24px;"><i class="fas fa-shield-alt"></i> <span data-i18n="accountSettings">Account Settings</span></h3>
             <div style="display: flex; flex-direction: column; gap: 16px;">
-                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px;" onclick="showToast(t('passwordChanged'))">
+                <!-- <!-- <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px;" onclick="showToast(t('passwordChanged'))">
                     <i class="fas fa-key"></i> <span data-i18n="changePassword">Change Password</span>
-                </button>
+                </button> --> -->
                 <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; background: var(--accent-gradient); border: none; color: white;" onclick="copyReferralLink()">
                     <i class="fas fa-user-plus"></i> <span>Invite Friends</span>
                 </button>
                 <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="handleLogout()">
                     <i class="fas fa-sign-out-alt"></i> <span data-i18n="logOut">Log Out</span>
                 </button>
-                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="showToast(t('accountDeleted'))">
+                <!-- <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="showToast(t('accountDeleted'))">
                     <i class="fas fa-trash-alt"></i> <span data-i18n="deleteAccount">Delete Account</span>
-                </button>
+                </button> -->
             </div>
         </div>
     </section>
@@ -899,7 +1273,9 @@
                         <select class="new-post-select" id="postCategory">
                             <option value="travel">🧳 Travel</option>
                             <option value="study">🎓 Study</option>
+                            <option value="school">🏫 School</option>
                             <option value="work">👷 Work</option>
+                            <option value="visa">📋 Visa</option>
                             <option value="entertainment">🎭 Entertainment</option>
                             <option value="food">🍜 Food</option>
                             <option value="life">🏙️ Life</option>
@@ -924,6 +1300,7 @@
                             <option value="">📌 Select topic...</option>
                             <option value="study">🎓 Student Life</option>
                             <option value="work">👷 Working in China</option>
+                            <option value="visa">📋 Visa & Work Permits</option>
                             <option value="travel">🧳 Travel & Adventure</option>
                             <option value="food">🍜 Food & Dining</option>
                             <option value="life">🏙️ Daily Life</option>
