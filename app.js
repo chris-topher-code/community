@@ -1544,6 +1544,42 @@ function toggleInfoSection(section) {
     }
 }
 
+// 打开 Topic 详情页面
+function openTopicDetailPage(topicName) {
+    const detailPage = document.getElementById('topicDetailPage');
+    const contentEl = document.getElementById(topicName + 'Content');
+    
+    if (!detailPage || !contentEl) return;
+    
+    // 获取图标和标题
+    const topicCard = document.querySelector(`.topic-card[data-topic="${topicName}"]`);
+    if (topicCard) {
+        const icon = topicCard.querySelector('.topic-icon');
+        const title = topicCard.querySelector('.topic-cover h2');
+        document.getElementById('topicDetailIcon').textContent = icon ? icon.textContent : '';
+        document.getElementById('topicDetailTitle').textContent = title ? title.textContent : topicName;
+    }
+    
+    // 复制内容
+    document.getElementById('topicDetailContent').innerHTML = contentEl.innerHTML;
+    
+    // 显示详情页
+    detailPage.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // 滚动到顶部
+    detailPage.scrollTop = 0;
+}
+
+// 关闭 Topic 详情页面
+function closeTopicDetail() {
+    const detailPage = document.getElementById('topicDetailPage');
+    if (detailPage) {
+        detailPage.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
 function filterByTopic(category) {
     navigateTo('stories');
     currentCategory = category;

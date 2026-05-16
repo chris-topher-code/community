@@ -823,7 +823,7 @@ body {
     }
     
     #topicsPage .info-content.open {
-        display: block;
+        display: block !important;
     }
     
     #topicsPage .info-toggle {
@@ -833,8 +833,9 @@ body {
         color: var(--text-muted);
     }
     
-    #topicsPage .info-header[aria-expanded="true"] + .info-content .topic-full-content {
-        display: block;
+    #topicsPage .info-header[aria-expanded="true"] + .info-content .topic-full-content,
+    #topicsPage .topic-full-content.open {
+        display: block !important;
     }
     
     #topicsPage .info-grid {
@@ -849,16 +850,125 @@ body {
         display: none;
     }
     
-    #topicsPage .topic-card {
-        display: none;
-    }
-    
     #topicsPage .topic-summary {
         display: block;
     }
     
     #topicsPage .read-more-link {
         display: inline;
+    }
+    
+    #topicsPage .info-section.topic-card,
+    #topicsPage .topic-card {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    #topicsPage .topic-cover {
+        display: block !important;
+        visibility: visible !important;
+    }
+    
+    #topicsPage .topic-body {
+        display: block !important;
+        visibility: visible !important;
+    }
+    
+    /* 移动端 Topics 卡片优化 - 只显示图标和标题 */
+    #topicsPage .topic-cover {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 12px !important;
+        padding: 16px !important;
+        text-align: left !important;
+    }
+    
+    #topicsPage .topic-icon {
+        font-size: 1.5rem !important;
+        margin-bottom: 0 !important;
+        flex-shrink: 0 !important;
+    }
+    
+    #topicsPage .topic-cover h2 {
+        font-size: 1rem !important;
+        text-shadow: none !important;
+        margin: 0 !important;
+    }
+    
+    #topicsPage .topic-badge,
+    #topicsPage .topic-subtitle {
+        display: none !important;
+    }
+    
+    /* #topicsPage .topic-body {
+        display: none !important;
+        padding: 16px !important;
+    }
+    
+    #topicsPage .topic-body.open {
+        display: block !important;
+    } */
+    
+    #topicsPage .topic-read-btn {
+        display: none !important;
+    }
+    
+    #topicsPage .topic-full-content {
+        display: none !important;
+        font-size: 0.85rem !important;
+        line-height: 1.6 !important;
+    }
+    
+    #topicsPage .topic-full-content.open {
+        display: block !important;
+    }
+    
+    #topicsPage .info-section.topic-card,
+    #topicsPage .topic-card {
+        padding: 0 !important;
+        margin-bottom: 12px !important;
+    }
+    
+    #topicsPage .topic-cover {
+        cursor: pointer !important;
+    }
+    
+    /* 缩小 Topics 背景模块 */
+    #topicsPage .topic-cover {
+        padding: 12px 14px !important;
+        min-height: auto !important;
+    }
+    
+    #topicsPage .topic-icon {
+        font-size: 1.2rem !important;
+        margin-right: 8px !important;
+    }
+    
+    #topicsPage .topic-cover h2 {
+        font-size: 0.95rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    #topicsPage .info-section.topic-card,
+    #topicsPage .topic-card {
+        margin-bottom: 10px !important;
+        border-radius: 12px !important;
+    }
+    
+    #topicsPage .page-hero {
+        padding: 20px 16px !important;
+        margin-bottom: 16px !important;
+    }
+    
+    #topicsPage .page-hero h1 {
+        font-size: 1.4rem !important;
+    }
+    
+    #topicsPage .page-hero p {
+        font-size: 0.85rem !important;
     }
 }
 
@@ -908,4 +1018,78 @@ body {
     .stories-cat-pill .cat-icon {
         font-size: 1rem;
     }
+}
+
+/* Topic Detail Page - Mobile */
+.topic-detail-page {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-dark);
+    z-index: 1001;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.topic-detail-page.active {
+    display: block;
+}
+
+.topic-detail-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--accent-coral), var(--accent-orange));
+    min-height: 120px;
+}
+
+.topic-detail-back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.topic-detail-icon {
+    font-size: 2.5rem;
+}
+
+.topic-detail-title {
+    font-size: 1.4rem;
+    color: white;
+    margin: 0;
+}
+
+.topic-detail-content {
+    padding: 20px 16px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.topic-detail-content p {
+    margin-bottom: 16px;
+}
+
+.topic-detail-content ul {
+    margin-bottom: 16px;
+    padding-left: 20px;
+}
+
+.topic-detail-content li {
+    margin-bottom: 8px;
+}
+
+.topic-detail-content a {
+    color: var(--accent-coral);
 }
