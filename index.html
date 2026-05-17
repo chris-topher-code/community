@@ -1579,33 +1579,27 @@
     </div>
 
     <script src="app.js"></script>
-    <!-- Click Sound Effect -->
+    <!-- Auto-play Sound Effect -->
     <script>
         (function() {
             var clickAudio = new Audio('click-sound.mp3');
             clickAudio.preload = 'auto';
-            var audioUnlocked = false;
+            clickAudio.volume = 1.0;
 
-            function unlockAudio() {
-                if (audioUnlocked) return;
-                audioUnlocked = true;
-                clickAudio.play().then(function() {
-                    clickAudio.pause();
-                    clickAudio.currentTime = 0;
-                }).catch(function() {});
-            }
-
-            function playClickSound() {
-                if (!audioUnlocked) {
-                    unlockAudio();
-                    return;
-                }
-                clickAudio.currentTime = 0;
+            function tryPlay() {
                 clickAudio.play().catch(function() {});
             }
 
-            document.addEventListener('click', playClickSound);
-            document.addEventListener('touchstart', playClickSound, { passive: true });
+            if (document.readyState === 'complete') {
+                tryPlay();
+            } else {
+                window.addEventListener('load', tryPlay);
+            }
+
+            document.addEventListener('click', function onFirstClick() {
+                tryPlay();
+                document.removeEventListener('click', onFirstClick);
+            });
         })();
     </script>
 </body>
