@@ -1,6 +1,96 @@
 /* ===== style-desktop.css ===== */
 /* Loaded only on screens ≥ 769px via media attribute */
-/* Add desktop-specific overrides here */
+/* Desktop-specific enhancements */
 
-/* Example: uncomment to customize desktop layout */
-/* .main-container { max-width: 1400px; } */
+/* Navbar desktop refinements */
+.navbar {
+    padding: 0 48px;
+}
+
+/* .navbar.scrolled replaced by .navbar.nav-scrolled in style.css */
+
+/* Main container desktop */
+.main-container {
+    grid-template-columns: 1fr 340px;
+    gap: 32px;
+    padding: 32px 48px;
+}
+
+/* Post cards desktop hover effects */
+.post-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Sidebar sticky positioning */
+.sidebar {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+}
+
+/* Stories filter bar desktop */
+.stories-filter-bar {
+    padding: 20px 24px;
+}
+
+/* Hero desktop sizing */
+.hero {
+    padding: 120px 60px 80px;
+}
+
+.hero h1 {
+    font-size: 4.5rem;
+}
+
+/* Cities grid desktop - 3 columns */
+.cities-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+/* Topics grid desktop */
+#topicsPage {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+/* Footer desktop */
+.footer {
+    padding: 60px 48px;
+}
+
+.footer-content {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+}
+
+/* Smooth scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+    outline: 2px solid var(--accent-coral);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Selection color */
+::selection {
+    background: rgba(255, 107, 91, 0.3);
+    color: white;
+}

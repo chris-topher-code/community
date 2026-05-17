@@ -194,6 +194,7 @@ function applyTranslations() {
         }
     });
     document.documentElement.lang = currentLang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
 }
 
 /* ===== User State ===== */
@@ -1551,23 +1552,40 @@ function openTopicDetailPage(topicName) {
     
     if (!detailPage || !contentEl) return;
     
-    // 获取图标和标题
+    // Get icon, title, and subtitle from the topic card
     const topicCard = document.querySelector(`.topic-card[data-topic="${topicName}"]`);
+    const headerEl = document.querySelector('.topic-detail-header');
+    
     if (topicCard) {
         const icon = topicCard.querySelector('.topic-icon');
         const title = topicCard.querySelector('.topic-cover h2');
+        const subtitle = topicCard.querySelector('.topic-subtitle');
+        const accentRgb = getComputedStyle(topicCard).getPropertyValue('--accent-rgb').trim();
+        
+        // Set accent color on detail page header
+        if (headerEl && accentRgb) {
+            headerEl.style.setProperty('--accent-rgb', accentRgb);
+        }
+        
         document.getElementById('topicDetailIcon').textContent = icon ? icon.textContent : '';
         document.getElementById('topicDetailTitle').textContent = title ? title.textContent : topicName;
+        
+        // Add subtitle if exists
+        const subtitleEl = document.getElementById('topicDetailSubtitle');
+        if (subtitleEl) {
+            subtitleEl.textContent = subtitle ? subtitle.textContent : '';
+            subtitleEl.style.display = subtitle ? 'block' : 'none';
+        }
     }
     
-    // 复制内容
+    // Copy content
     document.getElementById('topicDetailContent').innerHTML = contentEl.innerHTML;
     
-    // 显示详情页
+    // Show detail page
     detailPage.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // 滚动到顶部
+    // Scroll to top
     detailPage.scrollTop = 0;
 }
 
@@ -1995,15 +2013,21 @@ document.addEventListener('keydown', (e) => {
 
 let lastScrollTop = 0;
 const navbar = document.querySelector('.navbar');
+let navScrollTicking = false;
 
 window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > 50) {
-        navbar.style.background = 'rgba(10, 10, 26, 0.95)';
-    } else {
-        navbar.style.background = 'rgba(10, 10, 26, 0.8)';
-    }
-    lastScrollTop = scrollTop;
+    if (navScrollTicking) return;
+    navScrollTicking = true;
+    requestAnimationFrame(() => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > 50) {
+            navbar.classList.add('nav-scrolled');
+        } else {
+            navbar.classList.remove('nav-scrolled');
+        }
+        lastScrollTop = scrollTop;
+        navScrollTicking = false;
+    });
 });
 
 const searchInput = document.querySelector('.search-container input');
