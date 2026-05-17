@@ -1467,18 +1467,46 @@
     </div>
 
     <section class="new-post-page" id="newPostPage">
-        <div class="new-post-card">
+        <!-- Type Selector -->
+        <div class="post-type-selector" id="postTypeSelector">
+            <div class="post-type-header">
+                <button class="back-btn" onclick="navigateTo('home')">
+                    <i class="fas fa-arrow-left"></i> <span>Back</span>
+                </button>
+                <h2>What do you want to share?</h2>
+                <p>Choose a format for your content</p>
+            </div>
+            <div class="post-type-cards">
+                <div class="post-type-card" onclick="selectPostType('story')">
+                    <div class="post-type-icon">💬</div>
+                    <h3>Story</h3>
+                    <p>Quick thoughts, questions, discussions, or share your daily moments</p>
+                    <span class="post-type-hint">Short & casual</span>
+                </div>
+                <div class="post-type-card" onclick="selectPostType('topics')">
+                    <div class="post-type-icon">📝</div>
+                    <h3>Topics</h3>
+                    <p>In-depth guides, detailed experiences, or long-form articles about China</p>
+                    <span class="post-type-hint">Long & detailed</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post Form (hidden until type selected) -->
+        <div class="new-post-card" id="postFormCard" style="display:none;">
             <div class="new-post-header">
                 <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Avatar" id="newPostAvatar">
                 <div class="new-post-header-info">
-                    <h3 data-i18n="shareYourStory">Share Your Story</h3>
-                    <p data-i18n="tellCommunity">Tell the community about your experience in China</p>
+                    <h3 id="postFormTitle" data-i18n="shareYourStory">Share Your Story</h3>
+                    <p id="postFormSubtitle" data-i18n="tellCommunity">Tell the community about your experience in China</p>
                 </div>
-                <button class="back-btn" onclick="navigateTo('home')" style="margin-left:auto;">
-                    <i class="fas fa-arrow-left"></i> <span data-i18n="backToCities">Back</span>
+                <button class="back-btn" onclick="backToTypeSelector()" style="margin-left:auto;">
+                    <i class="fas fa-arrow-left"></i> <span>Back</span>
                 </button>
             </div>
             <form id="newPostForm">
+                <!-- Title input (Topics mode only) -->
+                <input type="text" class="new-post-title-input" id="postTitle" placeholder="Article title..." style="display:none;" maxlength="200">
                 <textarea class="new-post-textarea" id="postContent" data-i18n-placeholder="postPlaceholder" placeholder="Share your story..." required maxlength="5000" oninput="updateCharCount(this)"></textarea>
                 <div class="char-count" id="charCount">0 / 5000</div>
                 <div class="new-post-preview" id="imagePreview">
@@ -1513,7 +1541,7 @@
                             <option value="nanjing">🦚 Nanjing</option>
                             <option value="tianjin">⚓ Tianjin</option>
                         </select>
-                        <select class="new-post-select" id="postTopic">
+                        <select class="new-post-select" id="postTopic" style="display:none;">
                             <option value="">📌 Select topic...</option>
                             <option value="study">🎓 Student Life</option>
                             <option value="work">👷 Working in China</option>

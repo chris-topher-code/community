@@ -1703,24 +1703,80 @@ function closeModal() {
     document.getElementById('passwordInput').value = '';
 }
 
+let currentPostType = 'story'; // 'story' or 'topics'
+
 function openNewPostModal() {
-    if (!currentUser) { /* showToast(currentLang === 'fr' ? 'Connectez-vous pour publier' : 'Please sign in to post'); */ return; }
+    if (!currentUser) { showToast(t('pleaseLogin') || 'Please sign in to share', 'warning'); return; }
+    currentPostType = 'story';
+    // Reset to type selector view
+    document.getElementById('postTypeSelector').style.display = 'block';
+    document.getElementById('postFormCard').style.display = 'none';
     navigateTo('newpost');
+}
+
+function selectPostType(type) {
+    currentPostType = type;
+    document.getElementById('postTypeSelector').style.display = 'none';
+    document.getElementById('postFormCard').style.display = 'block';
+    
+    const titleInput = document.getElementById('postTitle');
+    const topicSelect = document.getElementById('postTopic');
+    const textarea = document.getElementById('postContent');
+    const formTitle = document.getElementById('postFormTitle');
+    const formSubtitle = document.getElementById('postFormSubtitle');
+    const charCount = document.getElementById('charCount');
+    
+    if (type === 'topics') {
+        titleInput.style.display = 'block';
+        titleInput.required = true;
+        topicSelect.style.display = 'block';
+        textarea.maxLength = 20000;
+        textarea.placeholder = 'Write your detailed article...';
+        formTitle.textContent = 'Write an Article';
+        formSubtitle.textContent = 'Share your in-depth knowledge or experience';
+        charCount.textContent = textarea.value.length + ' / 20000';
+    } else {
+        titleInput.style.display = 'none';
+        titleInput.required = false;
+        titleInput.value = '';
+        topicSelect.style.display = 'none';
+        topicSelect.value = '';
+        textarea.maxLength = 5000;
+        textarea.placeholder = 'Share your story...';
+        formTitle.textContent = 'Share Your Story';
+        formSubtitle.textContent = 'Tell the community about your experience in China';
+        charCount.textContent = textarea.value.length + ' / 5000';
+    }
+    
+    // Focus textarea
+    setTimeout(() => textarea.focus(), 100);
+}
+
+function backToTypeSelector() {
+    document.getElementById('postTypeSelector').style.display = 'block';
+    document.getElementById('postFormCard').style.display = 'none';
+    // Clear form
+    document.getElementById('postContent').value = '';
+    document.getElementById('postTitle').value = '';
+    removeImage();
 }
 
 function closeNewPostModal() {
     navigateTo('home');
     document.getElementById('postContent').value = '';
+    document.getElementById('postTitle').value = '';
+    document.getElementById('postTypeSelector').style.display = 'block';
+    document.getElementById('postFormCard').style.display = 'none';
     removeImage();
     updateCharCount(document.getElementById('postContent'));
 }
 
 function updateCharCount(textarea) {
     const count = textarea.value.length;
+    const max = textarea.maxLength;
     const el = document.getElementById('charCount');
-    if (!el) return;
-    el.textContent = `${count} / 5000`;
-    el.className = 'char-count' + (count > 4500 ? (count > 4900 ? ' danger' : ' warning') : '');
+    el.textContent = count + ' / ' + max;
+    el.className = 'char-count' + (count > max * 0.9 ? ' danger' : count > max * 0.75 ? ' warning' : '');
 }
 
 let selectedImageFile = null;
@@ -1926,7 +1982,9 @@ document.getElementById('newPostForm').addEventListener('submit', async (e) => {
         });
     }
 
-    const insertData = { user_id: currentUser.id, content, category, city };
+    const title = document.getElementById('postTitle')?.value.trim() || null;
+    const insertData = { user_id: currentUser.id, content, category, city, post_type: currentPostType };
+    if (title && currentPostType === 'topics') insertData.title = title;
     if (imageUrl) insertData.image_url = imageUrl;
 
     const { error } = await supabaseClient.from('posts').insert(insertData);

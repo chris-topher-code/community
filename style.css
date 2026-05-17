@@ -3238,6 +3238,122 @@ body.logged-in .welcome-banner {
 }
 
 /* ===== New Post Page ===== */
+/* Post Type Selector */
+.post-type-selector {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    animation: pageIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.post-type-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.post-type-header .back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.post-type-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.post-type-header p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.post-type-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.post-type-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 28px;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.post-type-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-2px);
+}
+
+.post-type-card:active {
+    transform: scale(0.98);
+}
+
+.post-type-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.post-type-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.post-type-card p {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.post-type-hint {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(255, 107, 91, 0.1);
+    border: 1px solid rgba(255, 107, 91, 0.2);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--accent-coral);
+    font-weight: 600;
+}
+
+/* Title input for Topics mode */
+.new-post-title-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    outline: none;
+    transition: all var(--transition-normal);
+    margin-bottom: 12px;
+}
+
+.new-post-title-input::placeholder {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.new-post-title-input:focus {
+    border-color: rgba(255, 107, 91, 0.4);
+    box-shadow: 0 0 0 3px rgba(255, 107, 91, 0.08);
+    background: rgba(255, 255, 255, 0.06);
+}
+
 .new-post-page {
     display: none;
     max-width: 800px;

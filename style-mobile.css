@@ -516,6 +516,32 @@ input, select, textarea {
     width: 100%;
 }
 
+/* Post Type Selector Mobile */
+.post-type-selector {
+    padding: 20px 16px;
+}
+
+.post-type-header h2 {
+    font-size: 1.3rem;
+}
+
+.post-type-card {
+    padding: 22px;
+}
+
+.post-type-icon {
+    font-size: 2rem;
+}
+
+.post-type-card h3 {
+    font-size: 1.1rem;
+}
+
+.new-post-title-input {
+    font-size: 1rem;
+    padding: 12px 14px;
+}
+
 /* expand toggle mobile */
 .expand-toggle {
     min-height: 48px;
