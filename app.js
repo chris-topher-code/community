@@ -58,6 +58,7 @@ const i18n = {
         allCategory: 'All', travelCat: '🧳 Travel', studyCat: '🎓 Study', schoolCat: '🏫 School',
         workCat: '👷 Work', visaCat: '📋 Visa', entertainmentCat: '🎭 Entertainment',
         foodCat: '🍜 Food', lifeCat: '🏙️ Life', businessCat: '💼 Business',
+        rentCat: '🏠 Rent',
         postsIn: 'Posts in', searchPlaceholder: 'Search stories, topics, or people...',
         addPhoto: 'Add Photo', selectCity: 'Select city...', back: 'Back',
         changeBackground: 'Change Background', resetBackground: 'Reset to Default', bgUpdated: 'Background image updated!', bgReset: 'Background reset to default',
@@ -125,6 +126,7 @@ const i18n = {
         allCategory: 'Tout', travelCat: '🧳 Voyage', studyCat: '🎓 Études', schoolCat: '🏫 École',
         workCat: '👷 Travail', visaCat: '📋 Visa', entertainmentCat: '🎭 Divertissement',
         foodCat: '🍜 Nourriture', lifeCat: '🏙️ Vie', businessCat: '💼 Affaires',
+        rentCat: '🏠 Location',
         postsIn: 'Posts à', searchPlaceholder: 'Rechercher des récits, sujets ou personnes...',
         addPhoto: 'Ajouter une photo', selectCity: 'Choisir une ville...', back: 'Retour',
         changeBackground: 'Changer l\'arrière-plan', resetBackground: 'Réinitialiser par défaut', bgUpdated: 'Image d\'arrière-plan mise à jour !', bgReset: 'Arrière-plan réinitialisé',
@@ -592,7 +594,8 @@ const categories = {
     food: { label: '🍜 Food', class: 'food' },
     life: { label: '🏙️ Life', class: 'life' },
     business: { label: '💼 Business', class: 'business' },
-    language: { label: '🗣️ Language', class: 'language' }
+    language: { label: '🗣️ Language', class: 'language' },
+    rent: { label: '🏠 Rent', class: 'rent' }
 };
 
 const cities = [
@@ -653,7 +656,9 @@ async function loadPosts() {
             comments: 0,
             shares: 0,
             liked: false,
-            user_id: p.user_id
+            user_id: p.user_id,
+            post_type: p.post_type || 'story',
+            title: p.title || null
         }));
     }
     console.log('postsData after mapping:', postsData);
@@ -1082,6 +1087,11 @@ function renderPosts() {
         );
     }
 
+    // On stories page, only show story-type posts (not topic articles)
+    if (isStoriesPage) {
+        filteredPosts = filteredPosts.filter(post => !post.post_type || post.post_type === 'story');
+    }
+
     if (currentSortMode === 'popular') {
         filteredPosts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
     } else {
@@ -1103,6 +1113,79 @@ function renderPosts() {
     }
 
     gridToUse.innerHTML = filteredPosts.map((post, i) => getPostHTML(post, i)).join('');
+}
+
+function renderTopicsArticles() {
+    const container = document.getElementById('topicsArticlesList');
+    if (!container) return;
+    
+    // Filter posts that are topic-type articles
+    const topicPosts = postsData.filter(post => post.post_type === 'topics');
+    
+    if (topicPosts.length === 0) {
+        container.innerHTML = `
+            <div class="topics-empty">
+                <i class="fas fa-pen-fancy"></i>
+                <p>No community articles yet. Be the first to write one!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Sort by newest first
+    topicPosts.sort((a, b) => b.createdAt - a.createdAt);
+    
+    container.innerHTML = topicPosts.map(post => {
+        const cat = categories[post.category];
+        const title = post.title || post.content.substring(0, 60) + (post.content.length > 60 ? '...' : '');
+        return `
+        <div class="topics-article-item" onclick="openUserArticle(${post.id})">
+            <img src="${post.avatar}" alt="${post.author}" class="topics-article-avatar" loading="lazy">
+            <div class="topics-article-info">
+                <div class="topics-article-title">${escapeHtml(title)}</div>
+                <div class="topics-article-meta">
+                    <span>${post.author}</span>
+                    <span>·</span>
+                    <span>${post.time}</span>
+                    <span class="topics-article-category">${t(post.category + 'Cat')}</span>
+                </div>
+            </div>
+            <i class="fas fa-chevron-right topics-article-arrow"></i>
+        </div>
+        `;
+    }).join('');
+}
+
+function openUserArticle(postId) {
+    const post = postsData.find(p => p.id === postId);
+    if (!post) return;
+
+    const modal = document.getElementById('articleReaderModal');
+    const titleEl = document.getElementById('articleReaderTitle');
+    const bodyEl = document.getElementById('articleReaderBody');
+    if (!modal || !bodyEl) return;
+
+    const displayTitle = post.title || post.content.substring(0, 80);
+    titleEl.textContent = displayTitle;
+
+    bodyEl.innerHTML = `
+        <h2>${escapeHtml(displayTitle)}</h2>
+        <div class="ar-subtitle">${post.author} · ${post.time}</div>
+        <div class="article-detail-author">
+            <img src="${post.avatar}" alt="${post.author}">
+            <div class="article-detail-author-info">
+                <div class="article-detail-author-name">${post.author} <span class="flag-icon">${getFlagEmoji(post.countryCode)}</span></div>
+                <div class="article-detail-author-time">${post.time}</div>
+            </div>
+        </div>
+        <div class="article-detail-content">
+            ${escapeHtml(post.content).replace(/\n/g, '<br>')}
+        </div>
+        ${post.image_url ? `<div style="margin-top:16px;"><img src="${post.image_url}" style="width:100%;border-radius:12px;" loading="lazy"></div>` : ''}
+    `;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
 }
 
 function getSkeletonHTML() {
@@ -1391,139 +1474,111 @@ function highlightNavLink(pageName) {
 }
 
 function navigateTo(page) {
+    // Hide all page sections
     ['topicsPage', 'aboutPage', 'profilePage', 'newPostPage', 'storiesPage', 'userProfilePage', 'groupChatPage'].forEach(p => {
         const el = document.getElementById(p);
         if (el) el.classList.remove('active');
     });
 
-    // Also hide explore section when switching pages
     const exploreSection = document.getElementById('exploreSection');
     if (exploreSection) exploreSection.classList.remove('active');
 
     const mainContainer = document.getElementById('mainContainer');
     const categoryFilter = document.querySelector('.category-filter');
     const hero = document.querySelector('.hero');
+    const footer = document.querySelector('.footer');
+    const welcomeBanner = document.getElementById('welcomeBanner');
+
+    // Reset body state
+    document.body.classList.remove('groupchat-active');
+    document.body.style.overflow = '';
+
+    // Always hide these by default for non-home pages
+    const hideChrome = () => {
+        if (mainContainer) mainContainer.style.display = 'none';
+        if (categoryFilter) categoryFilter.style.display = 'none';
+        if (hero) hero.style.display = 'none';
+        if (welcomeBanner) welcomeBanner.style.display = 'none';
+        if (footer) footer.style.display = 'none';
+    };
 
     if (page === 'explore') {
+        hideChrome();
         toggleExplore(true);
         highlightNavLink('explore');
         closeMobileNav();
+        window.scrollTo({ top: 0 });
         return;
     }
 
     if (page === 'groupchat') {
+        hideChrome();
         const gcEl = document.getElementById('groupChatPage');
         gcEl.classList.add('active', 'page-transition');
         document.body.classList.add('groupchat-active');
         highlightNavLink('groupchat');
         closeMobileNav();
         loadGroupList();
+        window.scrollTo({ top: 0 });
         return;
     }
 
     toggleExplore(false);
 
     if (page === 'topics') {
+        hideChrome();
         const topicsEl = document.getElementById('topicsPage');
         topicsEl.classList.add('active', 'page-transition');
-        mainContainer.style.display = 'none';
-        categoryFilter.style.display = 'none';
-        hero.style.display = 'none';
-        document.getElementById('welcomeBanner').style.display = 'none';
-        document.querySelector('.footer').style.display = 'none';
-        setTimeout(() => {
-            const el = document.getElementById('topicsHero');
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 50);
     } else if (page === 'stories') {
+        hideChrome();
         const storiesEl = document.getElementById('storiesPage');
         if (storiesEl) {
             storiesEl.classList.add('active', 'page-transition');
-            mainContainer.style.display = 'none';
-            categoryFilter.style.display = 'none';
-            hero.style.display = 'none';
-            document.getElementById('welcomeBanner').style.display = 'none';
-            document.querySelector('.footer').style.display = 'none';
-            const storiesSidebar = storiesEl.querySelector('.sidebar');
-            if (storiesSidebar) storiesSidebar.style.display = 'block';
-            setTimeout(() => {
-                storiesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 50);
             renderPosts();
         }
     } else if (page === 'about') {
+        hideChrome();
         const aboutEl = document.getElementById('aboutPage');
         aboutEl.classList.add('active', 'page-transition');
-        mainContainer.style.display = 'none';
-        categoryFilter.style.display = 'none';
-        hero.style.display = 'none';
-        document.getElementById('welcomeBanner').style.display = 'none';
-        document.querySelector('.footer').style.display = 'none';
-        setTimeout(() => {
-            const el = document.getElementById('aboutHero');
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 50);
     } else if (page === 'profile') {
+        hideChrome();
         const profileEl = document.getElementById('profilePage');
         profileEl.classList.add('active', 'page-transition');
-        mainContainer.style.display = 'none';
-        categoryFilter.style.display = 'none';
-        hero.style.display = 'none';
-        document.getElementById('welcomeBanner').style.display = 'none';
-        document.querySelector('.footer').style.display = 'none';
         loadProfile();
         switchProfileTab('myposts');
-        setTimeout(() => {
-            profileEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 50);
     } else if (page === 'userprofile') {
+        hideChrome();
         const userProfileEl = document.getElementById('userProfilePage');
         userProfileEl.classList.add('active', 'page-transition');
-        mainContainer.style.display = 'none';
-        categoryFilter.style.display = 'none';
-        hero.style.display = 'none';
-        document.getElementById('welcomeBanner').style.display = 'none';
-        document.querySelector('.footer').style.display = 'none';
-        setTimeout(() => {
-            userProfileEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 50);
     } else if (page === 'newpost') {
+        hideChrome();
         const newPostEl = document.getElementById('newPostPage');
         newPostEl.classList.add('active', 'page-transition');
-        mainContainer.style.display = 'none';
-        categoryFilter.style.display = 'none';
-        hero.style.display = 'none';
-        document.getElementById('welcomeBanner').style.display = 'none';
-        document.querySelector('.footer').style.display = 'none';
         if (currentUser) {
             document.getElementById('newPostAvatar').src = currentUser.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest';
         }
-        setTimeout(() => {
-            newPostEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            document.getElementById('postContent').focus();
-        }, 50);
+        setTimeout(() => document.getElementById('postContent').focus(), 100);
     } else {
         // home page
-        document.body.classList.remove('groupchat-active');
         if (groupMessagePollingInterval) { clearInterval(groupMessagePollingInterval); groupMessagePollingInterval = null; }
         if (exploreSection) exploreSection.style.display = '';
-        document.body.style.overflow = '';
-        document.querySelector('.footer').style.display = 'block';
+        if (footer) footer.style.display = 'block';
         if (isLoggedIn) {
-            hero.style.display = 'none';
-            mainContainer.style.display = 'grid';
-            categoryFilter.style.display = 'flex';
-            document.getElementById('welcomeBanner').style.display = 'block';
+            if (hero) hero.style.display = 'none';
+            if (mainContainer) mainContainer.style.display = 'grid';
+            if (categoryFilter) categoryFilter.style.display = 'flex';
+            if (welcomeBanner) welcomeBanner.style.display = 'block';
         } else {
-            hero.style.display = 'block';
-            mainContainer.style.display = 'none';
-            categoryFilter.style.display = 'none';
-            document.getElementById('welcomeBanner').style.display = 'none';
+            if (hero) hero.style.display = 'block';
+            if (mainContainer) mainContainer.style.display = 'none';
+            if (categoryFilter) categoryFilter.style.display = 'none';
+            if (welcomeBanner) welcomeBanner.style.display = 'none';
         }
     }
 
     highlightNavLink(page);
     closeMobileNav();
+    window.scrollTo({ top: 0 });
 }
 
 function toggleInfoSection(section) {
@@ -1545,56 +1600,811 @@ function toggleInfoSection(section) {
     }
 }
 
-// 打开 Topic 详情页面
-function openTopicDetailPage(topicName) {
-    const detailPage = document.getElementById('topicDetailPage');
-    const contentEl = document.getElementById(topicName + 'Content');
-    
-    if (!detailPage || !contentEl) return;
-    
-    // Get icon, title, and subtitle from the topic card
-    const topicCard = document.querySelector(`.topic-card[data-topic="${topicName}"]`);
-    const headerEl = document.querySelector('.topic-detail-header');
-    
-    if (topicCard) {
-        const icon = topicCard.querySelector('.topic-icon');
-        const title = topicCard.querySelector('.topic-cover h2');
-        const subtitle = topicCard.querySelector('.topic-subtitle');
-        const accentRgb = getComputedStyle(topicCard).getPropertyValue('--accent-rgb').trim();
-        
-        // Set accent color on detail page header
-        if (headerEl && accentRgb) {
-            headerEl.style.setProperty('--accent-rgb', accentRgb);
-        }
-        
-        document.getElementById('topicDetailIcon').textContent = icon ? icon.textContent : '';
-        document.getElementById('topicDetailTitle').textContent = title ? title.textContent : topicName;
-        
-        // Add subtitle if exists
-        const subtitleEl = document.getElementById('topicDetailSubtitle');
-        if (subtitleEl) {
-            subtitleEl.textContent = subtitle ? subtitle.textContent : '';
-            subtitleEl.style.display = subtitle ? 'block' : 'none';
-        }
+const topicGuidesData = {
+    study: {
+        icon: '📚', title: 'Study in China', subtitle: 'University experiences, study tips, and academic resources',
+        tag: 'Education', accentRgb: '26, 115, 232',
+        content: `<p>China has emerged as one of the world's most attractive study destinations, with over 200,000 international students enrolled annually across more than 700 universities. The Chinese Government Scholarship (CSC) program offers full tuition coverage, accommodation allowances, and living stipends to qualified international students.</p>
+        <p>The application process typically opens in November for the following academic year. For English-taught programs, undergraduate programs typically require IELTS 6.0 or TOEFL 80+. Chinese language programs require HSK 4 for admission to degree programs.</p>
+        <p><strong>Key Resources:</strong></p>
+        <ul><li><a href="https://www.csc.edu.cn" target="_blank">CSC Scholarship Portal</a></li>
+        <li><a href="http://www.moe.gov.cn" target="_blank">Ministry of Education</a></li></ul>
+        <p>Living costs: Beijing/Shanghai ¥2,000-3,500/month shared housing. Smaller cities ¥1,200-2,000/month. University dorms ¥600-1,500/month.</p>`
+    },
+    school: {
+        icon: '🎒', title: 'School Life in China', subtitle: 'Campus life, K-12 education, and student experiences',
+        tag: 'Education', accentRgb: '156, 39, 176',
+        content: `<p>Campus life in China offers a unique blend of traditional Chinese values and modern academic excellence. Universities typically operate on a semester system with 16-18 weeks of instruction per term.</p>
+        <p>Student life extends beyond academics, with 100+ student organizations. Campus canteens offer subsidized meals averaging ¥15-30 per day. Dormitories cost ¥800-2,500 per year.</p>
+        <p>For K-12 education, international families can choose between public schools, private international schools (¥80,000-300,000/year), or bilingual schools.</p>`
+    },
+    work: {
+        icon: '⚡', title: 'Working in China', subtitle: 'Career opportunities, work culture, and professional development',
+        tag: 'Career', accentRgb: '76, 175, 80',
+        content: `<p>China's job market for foreigners has evolved significantly. Average expat salary ranges from ¥20,000 to 80,000/month depending on industry and experience. Tech and finance roles command the highest compensation.</p>
+        <p>To work legally, foreign nationals require a Z-visa. The Foreign Expert Permit system categorizes workers into Category A (high-end talent), Category B (professional), and Category C (temporary).</p>
+        <p><strong>Key Resources:</strong></p>
+        <ul><li><a href="http://www.mohrss.gov.cn" target="_blank">Ministry of Human Resources</a></li>
+        <li><a href="http://www.safea.gov.cn" target="_blank">State Administration of Foreign Expert Affairs</a></li></ul>`
+    },
+    visa: {
+        icon: '✈️', title: 'Visa & Work Permits', subtitle: 'Visa processes, requirements, and legal information',
+        tag: 'Travel', accentRgb: '255, 152, 0',
+        content: `<p>China offers multiple visa categories: L-visa (Tourist, 30-60 days), M-visa (Business, 90 days), X-visa (Student), Z-visa (Work), and R-visa (Talent).</p>
+        <p>Key documents: valid passport (6+ months), completed application form, passport photos, invitation letter, and proof of financial means. Processing: 4 days standard to same-day express.</p>
+        <p><strong>Key Resources:</strong></p>
+        <ul><li><a href="http://www.visa.gov.cn" target="_blank">China Visa Online</a></li>
+        <li><a href="https://www.mfa.gov.cn" target="_blank">Ministry of Foreign Affairs</a></li></ul>`
+    },
+    travel: {
+        icon: '🗺️', title: 'Travel & Adventure', subtitle: 'Hidden gems, travel tips, and must-visit destinations',
+        tag: 'Travel', accentRgb: '0, 188, 212',
+        content: `<p>China's high-speed rail network spans over 42,000 kilometers — the world's longest. Top UNESCO sites include the Great Wall, the Terracotta Army, the Imperial Palace, and Lijiang.</p>
+        <p>The 144-hour visa-free transit policy is available at major airports in Beijing, Shanghai, Guangzhou, Chengdu, and 20+ other cities for travelers from 54 countries.</p>`
+    },
+    food: {
+        icon: '🥢', title: 'Food & Dining', subtitle: 'Chinese cuisine, restaurant recommendations, cooking tips',
+        tag: 'Food', accentRgb: '244, 67, 54',
+        content: `<p>Chinese cuisine spans eight major regional traditions: Cantonese (dim sum), Sichuan (mala spicy), Beijing (Peking duck), Shanghai (soup dumplings), and more.</p>
+        <p>Budget: street food ¥10-30, casual restaurants ¥40-80/person, mid-range ¥100-200, high-end ¥300-1000+. Look for the green A/B food safety grading stickers.</p>`
+    },
+    life: {
+        icon: '🌆', title: 'Daily Life in China', subtitle: 'Housing, healthcare, transportation, and practical tips',
+        tag: 'Lifestyle', accentRgb: '33, 150, 243',
+        content: `<p>WeChat (1.3B users) is the essential super-app for messaging, payments, transportation, and more. Housing: Shanghai/Beijing ¥3,500-12,000/month, smaller cities ¥1,800-4,500/month.</p>
+        <p>Healthcare: public hospitals ¥50-200 consultation, international clinics ¥300-800. Urban Employee Insurance covers ~70-85% for registered employees.</p>`
+    },
+    entertainment: {
+        icon: '🎬', title: 'Entertainment & Fun', subtitle: 'Movies, nightlife, festivals, and activities',
+        tag: 'Entertainment', accentRgb: '233, 30, 99',
+        content: `<p>Major festivals: Chinese New Year (late Jan-Feb), Mid-Autumn Festival (Sep-Oct), National Day (Oct 1-7). China's nightlife scene is huge — from rooftop cocktail bars on the Bund to hidden hutong speakeasies in Beijing.</p>
+        <p><strong>Beijing — Where Expats Hang Out:</strong></p>
+        <ul>
+            <li>🏯 <strong>Great Leap Brewing #12</strong> — Doujiao Hutong, Dongcheng. Original craft beer in a hutong courtyard.</li>
+            <li>🍺 <strong>Slow Boat Brewery</strong> — 56 Dongsi Shitiao, Dongcheng. Award-winning IPAs.</li>
+            <li>🍸 <strong>Jing-A Brewing Taproom</strong> — Xingfucun Zhonglu, Chaoyang. Best outdoor terrace in town.</li>
+            <li>🥃 <strong>Capital Spirits</strong> — 3 Qianliang Hutong, Dongcheng. China's first baijiu cocktail bar.</li>
+            <li>🎵 <strong>DDC (Dusk Dawn Club)</strong> — 14 Shanlao Hutong, Dongcheng. Live jazz & indie music.</li>
+        </ul>
+        <p><strong>Shanghai — Where Expats Hang Out:</strong></p>
+        <ul>
+            <li>🥂 <strong>Bar Rouge</strong> — Bund 18, 7F, Zhongshan Dong Yi Road. Iconic rooftop with Pudong views.</li>
+            <li>🍸 <strong>The Public</strong> — 101 Maoming Nan Road, Jing'an. Legendary expat cocktail bar.</li>
+            <li>🥃 <strong>Senator Saloon</strong> — 98 Jianguo West Road, Xuhui. American whiskey bar, always packed.</li>
+            <li>🍺 <strong>Daga Brewpub</strong> — 57 Yuyuan Road, Jing'an. 30+ craft beers on tap.</li>
+            <li>🎷 <strong>JZ Club</strong> — 46 Fuxing West Road, Xuhui. Shanghai's best live jazz since 2004.</li>
+        </ul>
+        <p>KTV (karaoke) rooms ¥30-80/hour. Escape rooms, 剧本杀 (murder mystery), and indoor skydiving are popular.</p>`
+    },
+    business: {
+        icon: '🚀', title: 'Business & Entrepreneurship', subtitle: 'Startups, networking, and business culture',
+        tag: 'Business', accentRgb: '255, 193, 7',
+        content: `<p>China ranks #2 globally for VC investment. Startup hubs: Shenzhen (hardware), Beijing (AI), Shanghai (fintech), Hangzhou (e-commerce). Free trade zones offer 15% corporate tax.</p>
+        <p>Business culture emphasizes guanxi (relationships), mianzi (face), and hierarchical respect. Company registration: 3-5 working days for most private limited companies.</p>`
+    },
+    language: {
+        icon: '💬', title: 'Language Learning', subtitle: 'Mandarin tips, resources, and language exchange',
+        tag: 'Language', accentRgb: '0, 188, 212',
+        content: `<p>HSK exam has 6 levels: HSK 1-2 (basic, 300-600 characters), HSK 3-4 (intermediate, 1,200-2,500 characters), HSK 5-6 (advanced, 5,000+ characters).</p>
+        <p>Resources: HelloChinese, Du Chinese, Pleco apps. Language exchange via italki (¥60-200/hour tutors), Tandem, HelloTalk. Confucius Institutes worldwide offer official certification.</p>`
+    },
+    rent: {
+        icon: '🏠', title: 'Rent an Apartment', subtitle: 'Housing market, rental platforms, and tenant rights for expats',
+        tag: 'Housing', accentRgb: '156, 39, 176',
+        content: `<p>Finding the right apartment in China can be one of the biggest challenges for foreigners. The rental market in major cities like Beijing and Shanghai is fast-paced, with quality apartments often being snapped up within hours of listing. Understanding the local rental ecosystem — from popular platforms to lease negotiation — is essential.</p>
+        <p>Most foreigners rent through online platforms. The most popular apps include <a href="https://www.ziroom.com" target="_blank">Ziroom (自如)</a> for furnished apartments with standardized service, <a href="https://www.lianjia.com" target="_blank">Lianjia (链家)</a> for a wide range of listings, and <a href="https://www.ke.com" target="_blank">Beike (贝壳找房)</a> which aggregates listings from multiple agencies. For English-friendly options, check <a href="https://www.thebeijinger.com/classifieds/housing" target="_blank">The Beijinger Housing</a> and <a href="https://www.wellcee.com" target="_blank">Wellcee</a>.</p>
+        <p><strong>Typical Rent Ranges (Monthly):</strong></p>
+        <ul><li>Beijing Chaoyang (1BR): ¥5,000-10,000</li>
+        <li>Beijing Haidian (1BR): ¥4,500-8,000</li>
+        <li>Shanghai Jing'an (1BR): ¥5,500-12,000</li>
+        <li>Shared apartment (any Tier 1 city): ¥2,500-5,000/room</li></ul>
+        <p><strong>Key Resources:</strong></p>
+        <ul><li><a href="https://www.ziroom.com" target="_blank">Ziroom (自如) — Furnished Apartments</a></li>
+        <li><a href="https://www.lianjia.com" target="_blank">Lianjia (链家) — Real Estate Platform</a></li>
+        <li><a href="https://www.ke.com" target="_blank">Beike (贝壳找房) — Housing Aggregator</a></li>
+        <li><a href="https://www.thebeijinger.com/classifieds/housing" target="_blank">The Beijinger — Expat Housing Listings</a></li>
+        <li><a href="https://www.wellcee.com" target="_blank">Wellcee — Foreigner-Friendly Rentals</a></li></ul>`
     }
-    
-    // Copy content
-    document.getElementById('topicDetailContent').innerHTML = contentEl.innerHTML;
-    
-    // Show detail page
-    detailPage.classList.add('active');
+};
+
+// ===== Topic Articles Data =====
+const topicArticles = {
+    study: [
+        {
+            title: 'How to Apply for the CSC Scholarship in 2026',
+            content: `<p>The Chinese Government Scholarship (CSC) remains one of the most prestigious fully-funded scholarship programs for international students. In 2025, over 20,000 scholarships were awarded to students from 180+ countries. Here's a comprehensive guide to help you navigate the application process.</p>
+            <p><strong>Step 1: Choose Your Program</strong></p>
+            <p>Visit the CSC portal at <a href="https://www.csc.edu.cn" target="_blank">csc.edu.cn</a> and browse available programs. You can apply to up to 3 universities. Popular choices include Peking University, Tsinghua University, and Fudan University. Most programs accept applications between December and March.</p>
+            <p><strong>Step 2: Prepare Documents</strong></p>
+            <ul>
+                <li>Notarized highest diploma (bachelor's, master's, or equivalent)</li>
+                <li>Academic transcripts (notarized copies)</li>
+                <li>A study plan or research proposal (800+ words for master's, 1500+ for PhD)</li>
+                <li>Two recommendation letters from professors</li>
+                <li>Physical examination record (within 6 months)</li>
+                <li>Passport copy (valid for 6+ months beyond enrollment)</li>
+                <li>HSK certificate (Level 4+ for Chinese-taught programs)</li>
+                <li>IELTS 6.0+ or TOEFL 80+ for English-taught programs</li>
+            </ul>
+            <p><strong>Step 3: Submit Online Application</strong></p>
+            <p>Complete the online application on the CSC portal. Upload all required documents and select your preferred universities. The system allows you to track your application status in real-time.</p>
+            <p><strong>Step 4: University Review</strong></p>
+            <p>Universities review applications from April to May. Shortlisted candidates may be invited for online interviews. Results are typically announced by July.</p>
+            <p><strong>What's Covered:</strong></p>
+            <ul>
+                <li>Full tuition waiver for the entire program duration</li>
+                <li>Free on-campus accommodation (or accommodation allowance of ¥1,000-1,500/month)</li>
+                <li>Monthly living stipend: ¥2,500 for undergraduates, ¥3,000 for master's, ¥3,500 for PhD students</li>
+                <li>Comprehensive medical insurance</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.csc.edu.cn" target="_blank">China Scholarship Council</a> · <a href="http://www.moe.gov.cn" target="_blank">Ministry of Education of China</a></div>`
+        },
+        {
+            title: 'Top 10 Universities for International Students in China',
+            content: `<p>China is home to some of Asia's highest-ranked universities. Based on QS World University Rankings 2025 and international student enrollment data, here are the top 10 institutions for international students.</p>
+            <p><strong>1. Peking University (北京大学)</strong> — Beijing</p>
+            <p>Ranked #14 globally, PKU hosts 4,000+ international students from 120+ countries. Known for humanities, social sciences, and medicine. The campus features stunning traditional Chinese architecture alongside modern facilities.</p>
+            <p><strong>2. Tsinghua University (清华大学)</strong> — Beijing</p>
+            <p>Ranked #20 globally, Tsinghua is China's top engineering university with 3,500+ international students. Strong programs: engineering, computer science, architecture, and business.</p>
+            <p><strong>3. Fudan University (复旦大学)</strong> — Shanghai</p>
+            <p>Ranked #39 globally, Fudan hosts 4,500+ international students. Located in Shanghai, it excels in journalism, medicine, economics, and management.</p>
+            <p><strong>4. Shanghai Jiao Tong University (上海交通大学)</strong></p>
+            <p>Ranked #45 globally, SJTU has 3,000+ international students. Known for engineering, AI, biomedical sciences, and the prestigious Antai College of Economics.</p>
+            <p><strong>5. Zhejiang University (浙江大学)</strong> — Hangzhou</p>
+            <p>Ranked #44 globally, located in the scenic city of Hangzhou. 6,000+ international students. Strong in engineering, agriculture, and computer science.</p>
+            <p><strong>6. Nanjing University (南京大学)</strong></p>
+            <p>Ranked #120 globally. Known for astronomy, physics, chemistry, and earth sciences. Beautiful Gulou campus with historic buildings.</p>
+            <p><strong>7. University of Science and Technology of China (中国科学技术大学)</strong> — Hefei</p>
+            <p>Ranked #137 globally. China's top research university for physics, mathematics, and quantum computing.</p>
+            <p><strong>8. Wuhan University (武汉大学)</strong></p>
+            <p>Ranked #194 globally. Famous for its cherry blossom campus. Strong in law, remote sensing, and library science.</p>
+            <p><strong>9. Tongji University (同济大学)</strong> — Shanghai</p>
+            <p>Ranked #216 globally. Leading university for architecture, civil engineering, urban planning, and automotive engineering.</p>
+            <p><strong>10. Beijing Normal University (北京师范大学)</strong></p>
+            <p>Ranked #262 globally. China's top education university with 2,800+ international students. Strong in education, Chinese language, and psychology.</p>
+            <div class="ar-source">Sources: <a href="https://www.topuniversities.com" target="_blank">QS World Rankings 2025</a> · <a href="https://www.jsj.edu.cn" target="_blank">Chinese Education Exchange Center</a></div>`
+        },
+        {
+            title: 'Cost of Living Guide for Students in China (2026)',
+            content: `<p>Understanding the cost of living is essential for planning your studies in China. Here's a detailed breakdown by city tier.</p>
+            <p><strong>Tier 1 Cities (Beijing, Shanghai, Guangzhou, Shenzhen)</strong></p>
+            <ul>
+                <li>University dormitory: ¥600-1,500/month</li>
+                <li>Shared apartment: ¥2,000-4,000/month per room</li>
+                <li>Meals (campus canteen): ¥15-30/day</li>
+                <li>Meals (off-campus): ¥40-80/day</li>
+                <li>Metro/Bus: ¥200-400/month</li>
+                <li>Mobile phone plan: ¥50-100/month</li>
+                <li><strong>Total monthly budget: ¥3,000-6,000</strong></li>
+            </ul>
+            <p><strong>Tier 2 Cities (Chengdu, Hangzhou, Wuhan, Xi'an, Nanjing)</strong></p>
+            <ul>
+                <li>University dormitory: ¥500-1,200/month</li>
+                <li>Shared apartment: ¥1,200-2,500/month per room</li>
+                <li>Meals (campus canteen): ¥10-25/day</li>
+                <li>Meals (off-campus): ¥30-60/day</li>
+                <li>Metro/Bus: ¥100-300/month</li>
+                <li>Mobile phone plan: ¥30-80/month</li>
+                <li><strong>Total monthly budget: ¥2,000-4,500</strong></li>
+            </ul>
+            <p><strong>Money-Saving Tips:</strong></p>
+            <ul>
+                <li>Always eat at campus canteens — subsidized and nutritious</li>
+                <li>Use student discounts on metro cards (50% off in many cities)</li>
+                <li>Shop at local wet markets for groceries (30-50% cheaper than supermarkets)</li>
+                <li>Use Taobao/Pinduoduo for online shopping deals</li>
+                <li>Apply for university merit scholarships (¥3,000-10,000/year)</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.numbeo.com" target="_blank">Numbeo Cost of Living Index</a> · <a href="http://www.moe.gov.cn" target="_blank">Ministry of Education</a></div>`
+        }
+    ],
+    work: [
+        {
+            title: 'Complete Guide to Getting a Work Visa (Z-Visa) in China',
+            content: `<p>The Z-visa is the official work visa for foreign nationals employed in China. Here's the complete process from job offer to residence permit.</p>
+            <p><strong>Eligibility Requirements:</strong></p>
+            <ul>
+                <li>Bachelor's degree or higher (notarized and authenticated)</li>
+                <li>2+ years of relevant work experience</li>
+                <li>Clean criminal record (authenticated by your country's authorities)</li>
+                <li>Age: typically 18-60 (exceptions for Category A talent)</li>
+                <li>Job offer from a licensed Chinese employer</li>
+            </ul>
+            <p><strong>Step-by-Step Process:</strong></p>
+            <p><strong>1. Employer applies for Work Permit Notification</strong> — The employer submits your documents to the local Bureau of Human Resources and Social Security. Processing: 5-10 working days.</p>
+            <p><strong>2. Apply for Z-Visa at Chinese Embassy</strong> — With the Work Permit Notification letter, apply at your nearest Chinese embassy/consulate. Required: passport, application form, photo, notification letter. Processing: 4-5 working days.</p>
+            <p><strong>3. Enter China and convert to Residence Permit</strong> — Within 30 days of arrival, your employer helps you apply for a Foreigner's Work Permit and Residence Permit at the local Public Security Bureau.</p>
+            <p><strong>Work Permit Categories:</strong></p>
+            <ul>
+                <li><strong>Category A</strong> (Score 85+): High-end talent. 5-year residence permit, simplified process.</li>
+                <li><strong>Category B</strong> (Score 60-84): Professional talent. 1-2 year permit, standard process.</li>
+                <li><strong>Category C</strong> (Score below 60): Temporary/specialized. Short-term permits, restricted.</li>
+            </ul>
+            <p><strong>Salary Benchmarks (2025-2026):</strong></p>
+            <ul>
+                <li>Tech/IT: ¥25,000-60,000/month</li>
+                <li>Finance: ¥30,000-80,000/month</li>
+                <li>Education (TEFL): ¥15,000-30,000/month</li>
+                <li>Management: ¥35,000-100,000/month</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="http://www.mohrss.gov.cn" target="_blank">Ministry of Human Resources</a> · <a href="http://www.safea.gov.cn" target="_blank">State Administration of Foreign Expert Affairs</a></div>`
+        },
+        {
+            title: 'How to Start a Business in China as a Foreigner',
+            content: `<p>China's startup ecosystem is booming. Here's how to legally establish and run a business as a foreign national.</p>
+            <p><strong>Business Structures Available:</strong></p>
+            <ul>
+                <li><strong>Wholly Foreign-Owned Enterprise (WFOE)</strong> — 100% foreign ownership, most common choice</li>
+                <li><strong>Joint Venture (JV)</strong> — Partnership with Chinese company, required in some sectors</li>
+                <li><strong>Representative Office</strong> — Limited activities, cannot generate revenue directly</li>
+            </ul>
+            <p><strong>WFOE Registration Process:</strong></p>
+            <p><strong>1. Name Pre-approval</strong> — Reserve your company name at the local Administration for Market Registration. Takes 1-3 days.</p>
+            <p><strong>2. Submit Registration Documents</strong> — Articles of association, investor identification, registered capital declaration, office lease agreement. Processing: 3-5 working days via the e-registration platform.</p>
+            <p><strong>3. Obtain Business License</strong> — Once approved, receive your unified social credit code and business license.</p>
+            <p><strong>4. Post-Registration</strong> — Open bank account, register for tax, set up company chops (seals), register with customs if importing/exporting.</p>
+            <p><strong>Tax Benefits in Free Trade Zones:</strong></p>
+            <ul>
+                <li>Corporate income tax: 15% (vs. standard 25%) in qualifying zones</li>
+                <li>Simplified customs procedures</li>
+                <li>Relaxed foreign investment restrictions in many sectors</li>
+                <li>Available in Shanghai, Shenzhen, Hainan, and 21+ other locations</li>
+            </ul>
+            <p><strong>Government Support for Startups:</strong></p>
+            <ul>
+                <li>Innovation grants up to ¥500,000 for qualifying tech startups</li>
+                <li>Rent subsidies for incubator/accelerator spaces</li>
+                <li>High-tech enterprise tax rate: 15% (vs. 25%)</li>
+                <li>Talent attraction programs with housing subsidies</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="http://www.mofcom.gov.cn" target="_blank">Ministry of Commerce</a> · <a href="http://www.chinatax.gov.cn" target="_blank">State Taxation Administration</a></div>`
+        }
+    ],
+    visa: [
+        {
+            title: 'China Visa Types Explained: Which One Do You Need?',
+            content: `<p>China offers multiple visa categories. Choosing the right one depends on your purpose of visit. Here's a comprehensive breakdown.</p>
+            <p><strong>L-Visa (Tourist)</strong></p>
+            <p>For sightseeing, visiting friends/family. Duration: 30-90 days per entry. Single, double, or multiple entry options. Requirements: passport, application form, round-trip tickets, hotel booking or invitation letter.</p>
+            <p><strong>M-Visa (Business/Trade)</strong></p>
+            <p>For commercial activities, trade fairs, business meetings. Duration: 30-90 days. Multiple entry options available for frequent travelers. Requires invitation from Chinese trade partner or company.</p>
+            <p><strong>X-Visa (Student)</strong></p>
+            <p><strong>X1:</strong> For programs longer than 180 days. Must convert to residence permit within 30 days of arrival.</p>
+            <p><strong>X2:</strong> For programs shorter than 180 days. Valid for the enrollment period only.</p>
+            <p><strong>Z-Visa (Work)</strong></p>
+            <p>For employment in China. Requires Work Permit Notification from employer. Must convert to residence permit within 30 days. See our detailed Z-visa guide for the full process.</p>
+            <p><strong>R-Visa (Talent)</strong></p>
+            <p>For high-level foreign talent. Streamlined processing, longer validity (up to 10 years for some nationalities). Requires confirmation of high-level talent status.</p>
+            <p><strong>Q-Visa (Family Reunion)</strong></p>
+            <p><strong>Q1:</strong> Long-term (180+ days) for family of Chinese citizens/foreign residents.</p>
+            <p><strong>Q2:</strong> Short-term (up to 120 days) for visiting family.</p>
+            <p><strong>S-Visa (Family of Foreign Workers)</strong></p>
+            <p>For spouses, parents, and children of Z-visa holders working in China.</p>
+            <p><strong>144-Hour Visa-Free Transit</strong></p>
+            <p>Available at major airports in Beijing, Shanghai, Guangzhou, Chengdu, and 20+ cities. For citizens of 54 countries transiting through China. No visa needed if you have a confirmed onward ticket to a third country.</p>
+            <div class="ar-source">Sources: <a href="http://www.visa.gov.cn" target="_blank">China Visa Online</a> · <a href="https://www.mfa.gov.cn" target="_blank">Ministry of Foreign Affairs</a></div>`
+        },
+        {
+            title: 'How to Extend or Change Your Visa in China',
+            content: `<p>If you need to stay longer or change your visa type while in China, here's what you need to know.</p>
+            <p><strong>Visa Extension:</strong></p>
+            <p>Apply at the local Public Security Bureau (Exit-Entry Administration) at least 7 days before your visa expires. Required documents:</p>
+            <ul>
+                <li>Valid passport with current visa</li>
+                <li>Registration form of temporary residence</li>
+                <li>Passport-sized photos (48x33mm, white background)</li>
+                <li>Supporting documents (invitation letter, hotel booking, etc.)</li>
+                <li>Application fee: ¥160 (single entry), varies by type</li>
+            </ul>
+            <p><strong>Visa Type Change:</strong></p>
+            <p>Changing visa type (e.g., L to Z) typically requires leaving China and re-entering with the new visa. However, some changes can be made within China:</p>
+            <ul>
+                <li>Tourist (L) to Student (X): Possible with university enrollment documents</li>
+                <li>Tourist (L) to Work (Z): Usually requires exit and re-entry</li>
+                <li>Student (X) to Work (Z): Possible with job offer and Work Permit</li>
+            </ul>
+            <p><strong>Overstay Penalties:</strong></p>
+            <ul>
+                <li>Fine: ¥500-1,000 per day of overstay</li>
+                <li>Potential detention and deportation</li>
+                <li>Entry ban: 1-10 years depending on severity</li>
+                <li><strong>Always apply for extension before your visa expires!</strong></li>
+            </ul>
+            <div class="ar-source">Sources: <a href="http://cs.mfa.gov.cn" target="_blank">Chinese Consular Affairs</a> · <a href="https://www.mfa.gov.cn" target="_blank">Ministry of Foreign Affairs</a></div>`
+        }
+    ],
+    travel: [
+        {
+            title: '10 Must-Visit UNESCO World Heritage Sites in China',
+            content: `<p>China has 57 UNESCO World Heritage Sites — the most in the world alongside Italy. Here are the top 10 that every traveler should experience.</p>
+            <p><strong>1. The Great Wall (长城)</strong> — Beijing area</p>
+            <p>Over 21,000 km of ancient fortifications. Best sections: Mutianyu (restored, less crowded), Jinshanling (photography), Badaling (most accessible). Entry: ¥40-65. Open 7:30 AM - 5:30 PM.</p>
+            <p><strong>2. Terracotta Army (兵马俑)</strong> — Xi'an</p>
+            <p>Over 8,000 life-size warrior sculptures from 210 BC, guarding Emperor Qin Shi Huang's mausoleum. Three excavation pits open to visitors. Entry: ¥120. Allow 3-4 hours.</p>
+            <p><strong>3. Forbidden City (故宫)</strong> — Beijing</p>
+            <p>600-year-old imperial palace with 9,999 rooms across 72 hectares. The world's largest palace complex. Entry: ¥60 (Apr-Oct), ¥40 (Nov-Mar). Book tickets online in advance.</p>
+            <p><strong>4. West Lake (西湖)</strong> — Hangzhou</p>
+            <p>Inspired countless poems and paintings. Cycle around the lake, visit Leifeng Pagoda, take a boat to Three Pools Mirroring the Moon. Free entry to the lake area.</p>
+            <p><strong>5. Zhangjiajie National Forest Park</strong> — Hunan</p>
+            <p>The inspiration for Avatar's floating mountains. Glass bridge, cable cars, and stunning sandstone pillars. Entry: ¥225 (4-day pass).</p>
+            <p><strong>6. Jiuzhaigou Valley</strong> — Sichuan</p>
+            <p>Crystal-clear turquoise lakes, multi-tiered waterfalls, and snow-capped peaks. Best in autumn (Oct-Nov) for spectacular foliage. Entry: ¥169-250.</p>
+            <p><strong>7. Mount Huangshan (黄山)</strong> — Anhui</p>
+            <p>Famous for granite peaks, hot springs, and sea-of-clouds formations. Sunrise at Bright Summit Peak is legendary. Cable car: ¥80-90. Entry: ¥190.</p>
+            <p><strong>8. Potala Palace</strong> — Lhasa, Tibet</p>
+            <p>Iconic 7th-century palace at 3,700m altitude. Former residence of the Dalai Lama. Entry: ¥200 (May-Oct), ¥100 (Nov-Apr). Requires Tibet Travel Permit.</p>
+            <p><strong>9. Lijiang Old Town</strong> — Yunnan</p>
+            <p>800-year-old town of the Naxi minority with cobblestone streets, canals, and traditional wooden architecture. Entry: ¥50 (ancient city maintenance fee).</p>
+            <p><strong>10. Chengdu Research Base of Giant Panda Breeding</strong> — Sichuan</p>
+            <p>See giant pandas and red pandas in a natural habitat setting. Best visited early morning (8-10 AM) when pandas are most active. Entry: ¥55.</p>
+            <div class="ar-source">Sources: <a href="http://www.cnta.gov.cn" target="_blank">China National Tourism Administration</a> · <a href="https://whc.unesco.org" target="_blank">UNESCO World Heritage Centre</a></div>`
+        },
+        {
+            title: 'China High-Speed Rail Guide: Routes, Tickets, and Tips',
+            content: `<p>China's high-speed rail (HSR) network is the world's largest at 45,000+ km. It's the most convenient way to travel between major cities.</p>
+            <p><strong>Train Types:</strong></p>
+            <ul>
+                <li><strong>G-trains</strong> (高铁): Fastest, up to 350 km/h. Beijing-Shanghai in 4.5 hours.</li>
+                <li><strong>D-trains</strong> (动车): Up to 250 km/h. More stops, slightly cheaper.</li>
+                <li><strong>C-trains</strong> (城际): Intercity services, 200-300 km/h.</li>
+            </ul>
+            <p><strong>How to Buy Tickets:</strong></p>
+            <ul>
+                <li><strong>12306 App</strong> (铁路12306): Official app, accepts international credit cards. Book up to 15 days in advance.</li>
+                <li><strong>Trip.com</strong>: English-friendly interface, small booking fee.</li>
+                <li><strong>Train station counters</strong>: Bring passport. Available at all stations.</li>
+            </ul>
+            <p><strong>Popular Routes & Prices (Second Class):</strong></p>
+            <ul>
+                <li>Beijing → Shanghai: ¥553, 4.5 hours</li>
+                <li>Shanghai → Hangzhou: ¥73, 1 hour</li>
+                <li>Beijing → Xi'an: ¥515, 4.5 hours</li>
+                <li>Guangzhou → Shenzhen: ¥75, 30 minutes</li>
+                <li>Chengdu → Chongqing: ¥154, 1.5 hours</li>
+            </ul>
+            <p><strong>Tips for HSR Travel:</strong></p>
+            <ul>
+                <li>Arrive 30-45 minutes early for security check and ticket verification</li>
+                <li>Passport required for ticket purchase AND boarding</li>
+                <li>Free luggage: 20kg adult, 10kg child</li>
+                <li>Food carts on board, or bring your own (instant noodles are popular!)</li>
+                <li>Power outlets available at every seat on G-trains</li>
+                <li>Seat classes: Business (商务座), First (一等座), Second (二等座)</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.12306.cn" target="_blank">12306 Official Railway</a> · <a href="http://www.cnta.gov.cn" target="_blank">China National Tourism Administration</a></div>`
+        }
+    ],
+    food: [
+        {
+            title: 'The 8 Great Cuisines of China: A Complete Guide',
+            content: `<p>Chinese cuisine is not monolithic — it encompasses 8 major regional traditions, each with distinct flavors, techniques, and ingredients.</p>
+            <p><strong>1. Cantonese (粤菜) — Guangdong</strong></p>
+            <p>Known for: Fresh ingredients, dim sum, subtle flavors. Signature dishes: Char siu (BBQ pork), har gow (shrimp dumplings), siu mai, roast goose. Best in: Guangzhou, Hong Kong.</p>
+            <p><strong>2. Sichuan (川菜) — Sichuan</strong></p>
+            <p>Known for: Mala (numbing-spicy) flavor from Sichuan peppercorns. Signature dishes: Mapo tofu, kung pao chicken, hot pot, dan dan noodles. Best in: Chengdu.</p>
+            <p><strong>3. Shandong (鲁菜) — Shandong</strong></p>
+            <p>Known for: Seafood, braised dishes, clear broths. Signature dishes: Sweet and sour carp, braised sea cucumber, dezhou braised chicken. Best in: Jinan, Qingdao.</p>
+            <p><strong>4. Jiangsu (苏菜) — Jiangsu</strong></p>
+            <p>Known for: Delicate presentation, slightly sweet flavors. Signature dishes: Squirrel-shaped mandarin fish, lion's head meatballs, Nanjing salted duck. Best in: Nanjing, Suzhou.</p>
+            <p><strong>5. Zhejiang (浙菜) — Zhejiang</strong></p>
+            <p>Known for: Fresh, mellow flavors, seafood. Signature dishes: Dongpo pork, West Lake vinegar fish, Longjing shrimp. Best in: Hangzhou.</p>
+            <p><strong>6. Fujian (闽菜) — Fujian</strong></p>
+            <p>Known for: Umami-rich broths, seafood soups. Signature dishes: Buddha jumps over the wall, oyster omelette, lychee pork. Best in: Fuzhou, Xiamen.</p>
+            <p><strong>7. Hunan (湘菜) — Hunan</strong></p>
+            <p>Known for: Pure hot spiciness (without numbing), smoked meats. Signature dishes: Chairman Mao's red-braised pork, steamed fish head with chili, stir-fried smoked pork. Best in: Changsha.</p>
+            <p><strong>8. Anhui (徽菜) — Anhui</strong></p>
+            <p>Known for: Wild herbs, braised dishes, mountain ingredients. Signature dishes: Li Hongzhang hodgepodge, hairy tofu, bamboo shoots with cured meat. Best in: Huangshan.</p>
+            <div class="ar-source">Sources: <a href="http://www.mofcom.gov.cn" target="_blank">Ministry of Commerce</a> · <a href="http://www.chinadaily.com.cn" target="_blank">China Daily Food & Culture</a></div>`
+        }
+    ],
+    life: [
+        {
+            title: 'Essential Apps Every Foreigner Needs in China (2026)',
+            content: `<p>Living in China requires specific apps that most foreigners aren't familiar with. Here's your essential app guide.</p>
+            <p><strong>Communication & Social:</strong></p>
+            <ul>
+                <li><strong>WeChat (微信)</strong> — The #1 essential app. Messaging, payments, mini-programs, social media, government services. 1.3 billion users. Set up immediately upon arrival.</li>
+                <li><strong>Weibo (微博)</strong> — China's Twitter. Follow news, celebrities, trending topics.</li>
+            </ul>
+            <p><strong>Payments:</strong></p>
+            <ul>
+                <li><strong>Alipay (支付宝)</strong> — Second major payment platform. Also used for utility bills, insurance, investments.</li>
+                <li>Note: International credit cards can now be linked to WeChat Pay and Alipay for tourists.</li>
+            </ul>
+            <p><strong>Transportation:</strong></p>
+            <ul>
+                <li><strong>Didi (滴滴)</strong> — China's Uber. Ride-hailing, taxi, and carpooling.</li>
+                <li><strong>Amap/Gaode (高德地图)</strong> — Best navigation app in China (Google Maps doesn't work well).</li>
+                <li><strong>12306</strong> — Official train ticket booking app.</li>
+                <li><strong>Trip.com (携程)</strong> — Hotels, flights, trains, attractions. English support.</li>
+            </ul>
+            <p><strong>Food & Delivery:</strong></p>
+            <ul>
+                <li><strong>Meituan (美团)</strong> — Food delivery, hotel booking, movie tickets, local services.</li>
+                <li><strong>Ele.me (饿了么)</strong> — Food delivery competitor. Often has different restaurant options.</li>
+                <li><strong>Dianping (大众点评)</strong> — Restaurant reviews and ratings (like Yelp).</li>
+            </ul>
+            <p><strong>Shopping:</strong></p>
+            <ul>
+                <li><strong>Taobao (淘宝)</strong> — China's Amazon. Everything imaginable, often at very low prices.</li>
+                <li><strong>JD.com (京东)</strong> — Quality-focused e-commerce with fast delivery.</li>
+                <li><strong>Pinduoduo (拼多多)</strong> — Group-buying deals, very affordable.</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.gov.cn" target="_blank">Government Services Portal</a> · <a href="http://www.nhc.gov.cn" target="_blank">National Health Commission</a></div>`
+        }
+    ],
+    entertainment: [
+        {
+            title: 'Beijing Expat Bars: Where Foreigners Actually Hang Out (2026)',
+            content: `<p>Tired of tourist traps? Here are the real bars where Beijing's expat community gathers — with actual addresses you can put into your map app. These are the spots locals and long-term foreigners actually go to, not the places listed in generic travel guides.</p>
+            <p><strong>🍺 Craft Beer & Breweries</strong></p>
+            <ul>
+                <li><strong>Great Leap Brewing #12 (大跃啤酒)</strong><br>📍 Doujiao Hutong #6, Dongcheng District (东城区豆角胡同6号)<br>🕐 12:00-24:00 | 💰 ¥40-60/pint<br>Beijing's original craft brewery in a hutong courtyard. The Honey Ma Gold and Pale Ale #6 are legendary. Gets packed on weekends. Outdoor seating in summer is the best vibe in Beijing. <a href="https://www.greatleapbrewing.com" target="_blank">Website</a></li>
+                <li><strong>Slow Boat Brewery (悠航鲜啤)</strong><br>📍 56 Dongsi Shitiao, Dongcheng District (东城区东四十条56号)<br>🕐 16:00-00:00 | 💰 ¥45-65/pint<br>Award-winning IPAs and the best burger in Beijing (seriously). The Monkey Fist IPA won multiple international awards. Cozy interior with exposed brick. <a href="https://www.slowboatbrewing.com" target="_blank">Website</a></li>
+                <li><strong>Jing-A Brewing Taproom (京A)</strong><br>📍 Xingfucun Zhonglu, Building 19, Chaoyang District (朝阳区幸福村中路19号楼)<br>🕐 11:00-00:00 | 💰 ¥45-65/pint<br>Best outdoor terrace in Beijing. Try the Flying Fist IPA and Airpocalypse Double IPA. Great food menu too — the pulled pork sandwich is solid. Multiple locations but this is the OG. <a href="https://www.jingabrewing.com" target="_blank">Website</a></li>
+                <li><strong>Arrow Factory Brewing (箭厂啤酒)</strong><br>📍 9 Jianchang Hutong, Dongcheng District (东城区箭厂胡同9号)<br>🕐 16:00-23:00 | 💰 ¥40-55/pint<br>Hidden gem in a quiet hutong near the Drum Tower. Small but quality-focused. The Stout and Belgian Wit are excellent. Feels like a neighborhood secret. <a href="https://www.arrowfactorybrewing.com" target="_blank">Website</a></li>
+                <li><strong>Panda Brew (熊猫精酿)</strong><br>📍 62 Dongsibei Dajie, Dongcheng District (东城区东四北大街62号)<br>🕐 14:00-00:00 | 💰 ¥35-50/pint<br>Chinese-owned craft brewery with nationwide distribution. The taproom has 20+ beers on rotation. Try the Honey Ale and Tangerine Wheat. Good for groups. <a href="https://www.pandabrew.com" target="_blank">Website</a></li>
+            </ul>
+            <p><strong>🍸 Cocktail Bars & Speakeasies</strong></p>
+            <ul>
+                <li><strong>Capital Spirits (首都烈酒)</strong><br>📍 3 Qianliang Hutong, Dongcheng District (东城区钱粮胡同3号)<br>🕐 19:00-02:00 | 💰 ¥60-90/cocktail<br>China's first baijiu cocktail bar. Don't be scared — the bartenders transform baijiu into incredible cocktails. The "Baijiu Sour" converts skeptics. Tiny space, always buzzing. Reservations recommended. <a href="https://www.capitalspirits.com" target="_blank">Website</a></li>
+                <li><strong>The Bar at The Opposite House (瑜舍)</strong><br>📍 Building 1, Taikoo Li Sanlitun, Chaoyang District (朝阳区三里屯太古里1号楼)<br>🕐 17:00-01:00 | 💰 ¥80-120/cocktail<br>Luxury hotel bar with stunning minimalist design. The cocktails are pricey but exceptional. Great for dates or impressing clients. The lobby bar has live DJ on weekends. <a href="https://www.theoppositehouse.com" target="_blank">Website</a></li>
+                <li><strong>Migas (米家思)</strong><br>📍 6/F, Nali Patio, 81 Sanlitun Road, Chaoyang District (朝阳区三里屯路81号那里花园6层)<br>🕐 18:00-02:00 | 💰 ¥70-100/cocktail<br>Rooftop bar with incredible views of Sanlitun. Spanish-inspired cocktails and tapas. The Sunday brunch is legendary among expats. Summer rooftop parties are unmissable. <a href="https://www.migasrestaurant.com" target="_blank">Website</a></li>
+                <li><strong>Janes & Hooch</strong><br>📍 4 Gongti Beilu, Chaoyang District (朝阳区工体北路4号)<br>🕐 19:00-02:00 | 💰 ¥65-95/cocktail<br>Industrial-chic cocktail bar near Workers' Stadium. Excellent Old Fashioned and Negroni. The bartenders are serious about their craft. Gets lively after 11 PM on weekends. <a href="https://www.amap.com/search?query=Janes%20%26%20Hooch%20%E5%B7%A5%E4%BD%93%E5%8C%97%E8%B7%AF4%E5%8F%B7" target="_blank">Amap</a></li>
+            </ul>
+            <p><strong>🎵 Live Music & Dive Bars</strong></p>
+            <ul>
+                <li><strong>DDC (Dusk Dawn Club 黄昏黎明俱乐部)</strong><br>📍 14 Shanlao Hutong, Dongcheng District (东城区山老胡同14号)<br>🕐 20:00-02:00 | 💰 ¥50-80 (cover varies)<br>Beijing's best live jazz and indie music venue in a renovated hutong. Acts range from local jazz trios to touring international bands. The sound system is excellent for the intimate space. <a href="https://duskdawnclub.com" target="_blank">Website</a></li>
+                <li><strong>Temple Bar (寺庙酒吧)</strong><br>📍 206 Gulou Dong Dajie, Dongcheng District (东城区鼓楼东大街206号)<br>🕐 19:00-02:00 | 💰 ¥30-50/beer<br>Dive bar with character near the Drum Tower. Cheap drinks, loud music, and a crowd of regulars who've been coming for years. The rooftop has a great view of the Drum Tower at night. <a href="https://www.thebeijinger.com/directory/temple-bar" target="_blank">The Beijinger</a></li>
+                <li><strong>The Den</strong><br>📍 4 Gongti Xilu, Chaoyang District (朝阳区工体西路4号)<br>🕐 18:00-02:00 | 💰 ¥40-60/beer<br>Irish pub that's been an expat institution for 20+ years. Sports on multiple screens, decent pub grub, and a reliable crowd. Wednesday quiz night is competitive. <a href="https://www.thebeijinger.com/directory/the-den" target="_blank">The Beijinger</a></li>
+                <li><strong>Paddy O'Shea's</strong><br>📍 28 Dongsi Shitiao, Dongcheng District (东城区东四十条28号)<br>🕐 16:00-02:00 | 💰 ¥40-60/beer<br>The quintessential Irish pub in Beijing. Live sports, Guinness on tap, and a warm atmosphere. The go-to spot for watching Premier League matches with fellow expats. <a href="https://www.paddyosheas.com" target="_blank">Website</a></li>
+            </ul>
+            <p><strong>💡 Insider Tips:</strong></p>
+            <ul>
+                <li>Hutong bars are best found by walking around — many have no sign, just a red door</li>
+                <li>Sanlitun gets touristy after midnight — locals move to Gulou or Wudaokou</li>
+                <li>Happy hour (5-8 PM) at most bars: 2-for-1 cocktails or ¥30 beers</li>
+                <li>Use <a href="https://www.amap.com" target="_blank">Amap (高德地图)</a> to find hidden bars — search "酒吧" + your area</li>
+                <li>WeChat groups: search "Beijing expats" or "Beijing nightlife" for curated event listings</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.thebeijinger.com/blog" target="_blank">The Beijinger</a> · <a href="https://www.greatleapbrewing.com" target="_blank">Great Leap Brewing</a> · <a href="https://www.slowboatbrewing.com" target="_blank">Slow Boat</a> · <a href="https://www.jingabrewing.com" target="_blank">Jing-A</a></div>`
+        },
+        {
+            title: 'Shanghai Expat Bars: Where Foreigners Actually Hang Out (2026)',
+            content: `<p>Shanghai has the best nightlife in mainland China, and the expat bar scene is legendary. Here are the actual bars where Shanghai's foreign community gathers — with real addresses you can Didi or metro to.</p>
+            <p><strong>🥂 Bund & Riverside Bars</strong></p>
+            <ul>
+                <li><strong>Bar Rouge</strong><br>📍 Bund 18, 7F, 18 Zhongshan Dong Yi Road, Huangpu District (黄浦区中山东一路18号7楼)<br>🕐 18:00-04:00 | 💰 ¥80-120/cocktail, ¥200+ cover on weekends<br>The most iconic rooftop bar in Shanghai. Unobstructed views of Pudong skyline. Dress to impress. Gets packed after 11 PM. The terrace is magical at sunset. This is THE expat party spot. <a href="https://www.barrouge-shanghai.com" target="_blank">Website</a></li>
+                <li><strong>The Nest</strong><br>📍 Bund 18, 6F, 18 Zhongshan Dong Yi Road, Huangpu District (黄浦区中山东一路18号6楼)<br>🕐 18:00-02:00 | 💰 ¥90-130/cocktail<br>More upscale than Bar Rouge, same building. Nordic-inspired cocktails and food. The crowd is older, more sophisticated. Great for business entertaining. Reservations essential on weekends. <a href="https://www.thenestshanghai.com" target="_blank">Website</a></li>
+                <li><strong>Hakkasan</strong><br>📍 Bund 18, 5F, 18 Zhongshan Dong Yi Road, Huangpu District (黄浦区中山东一路18号5楼)<br>🕐 18:00-01:00 | 💰 ¥100-150/cocktail<br>World-renowned Cantonese restaurant with an incredible bar. The cocktails are Asian-fusion masterpieces. Expensive but worth it for special occasions. Dress smart. <a href="https://www.hakkasan.com/shanghai" target="_blank">Website</a></li>
+            </ul>
+            <p><strong>🍸 Former French Concession (法租界)</strong></p>
+            <ul>
+                <li><strong>The Public</strong><br>📍 101 Maoming Nan Road, Jing'an District (静安区茂名南路101号)<br>🕐 18:00-02:00 | 💰 ¥60-90/cocktail<br>Legendary expat cocktail bar that's been around forever. The bartenders know everyone's name. Classic cocktails done right — the Martini is perfect. Feels like a neighborhood living room. The crowd is 80% foreign. <a href="https://www.smartshanghai.com/venue/the-public" target="_blank">SmartShanghai</a></li>
+                <li><strong>Senator Saloon</strong><br>📍 98 Jianguo West Road, Xuhui District (徐汇区建国西路98号)<br>🕐 17:00-02:00 | 💰 ¥60-90/cocktail<br>American whiskey bar with the best bourbon selection in Shanghai. Dark wood, leather booths, and country music. The Old Fashioned is legendary. Always packed with Americans and Brits. No reservations — first come, first served. <a href="https://www.smartshanghai.com/venue/senator-saloon" target="_blank">SmartShanghai</a></li>
+                <li><strong>Flask</strong><br>📍 458 Shaanxi South Road, Xuhui District (徐汇区陕西南路458号)<br>🕐 19:00-02:00 | 💰 ¥70-100/cocktail<br>Hidden speakeasy behind a Coca-Cola vending machine door. The cocktails are experimental and Instagram-worthy. Intimate space, max 30 people. Go early or wait in line. The "Tiki Flask" is their signature. <a href="https://www.smartshanghai.com/venue/flask" target="_blank">SmartShanghai</a></li>
+                <li><strong>Epic Cocktail Bar</strong><br>📍 Found 158, 158 Julu Road, Jing'an District (静安区巨鹿路158号Found 158)<br>🕐 19:00-02:00 | 💰 ¥65-90/cocktail<br>Located in the Found 158 complex (a former underground bomb shelter turned bar street). Creative cocktails with Chinese ingredients. The bartenders are award-winning. Try the "Sichuan Negroni." <a href="https://www.smartshanghai.com/venue/epic" target="_blank">SmartShanghai</a></li>
+                <li><strong>Sasha's</strong><br>📍 11 Hengshan Road, Xuhui District (徐汇区衡山路11号)<br>🕐 11:00-02:00 | 💰 ¥50-70/beer, ¥70-90/cocktail<br>Set in a gorgeous 1920s heritage villa. The garden terrace is perfect for Sunday brunch. Western food is solid. The crowd is a mix of expats and Chinese yuppies. Live music on weekends. <a href="https://www.sashasrestaurant.com" target="_blank">Website</a></li>
+            </ul>
+            <p><strong>🍺 Craft Beer & Brewpubs</strong></p>
+            <ul>
+                <li><strong>Daga Brewpub</strong><br>📍 57 Yuyuan Road, Jing'an District (静安区愚园路57号)<br>🕐 11:00-00:00 | 💰 ¥40-60/pint<br>30+ craft beers on tap, mostly Chinese craft breweries. The outdoor seating on Yuyuan Road is great for people-watching. The IPA flight (4 x 150ml for ¥80) is the best way to explore. Food is solid pub grub. <a href="https://www.amap.com/search?query=Daga%20Brewpub%20%E6%84%9A%E5%9B%AD%E8%B7%AF57%E5%8F%B7" target="_blank">Amap</a></li>
+                <li><strong>Boxing Cat Brewery (拳击猫)</strong><br>📍 519 Fuxing Middle Road, Xuhui District (徐汇区复兴中路519号)<br>🕐 11:00-00:00 | 💰 ¥45-65/pint<br>Shanghai's OG craft brewery. The TKO IPA and Sucker Punch Pale Ale are classics. Great American-style food. Multiple locations but this one has the best atmosphere. <a href="https://www.boxingcatbrewery.com" target="_blank">Website</a></li>
+                <li><strong>Tap House</strong><br>📍 398 Jiangsu Road, Changning District (长宁区江苏路398号)<br>🕐 16:00-00:00 | 💰 ¥40-55/pint<br>Neighborhood craft beer bar with a rotating tap list. The owner is a beer nerd who sources unique brews. Chill vibe, good music, and a friendly crowd. Perfect for a weeknight drink. <a href="https://www.smartshanghai.com/venue/tap-house" target="_blank">SmartShanghai</a></li>
+            </ul>
+            <p><strong>🎷 Live Music & Late Night</strong></p>
+            <ul>
+                <li><strong>JZ Club</strong><br>📍 46 Fuxing West Road, Xuhui District (徐汇区复兴西路46号)<br>🕐 20:00-02:00 | 💰 ¥50-100 (cover varies)<br>Shanghai's premier jazz club since 2004. World-class musicians play nightly. The basement venue has incredible acoustics. Reservations recommended for weekends. <a href="https://www.jzclub.cn" target="_blank">Website</a></li>
+                <li><strong>Heyday Jazz Bar</strong><br>📍 Ferguson Lane, 376 Wukang Road, Xuhui District (徐汇区武康路376号武康亭)<br>🕐 19:00-01:00 | 💰 ¥60-80/cocktail<br>Intimate jazz bar in the beautiful Ferguson Lane complex. More upscale than JZ Club. Great cocktails and a sophisticated crowd. Perfect for a date night. <a href="https://www.smartshanghai.com/venue/heyday" target="_blank">SmartShanghai</a></li>
+                <li><strong>Revolucion Cocktail</strong><br>📍 101 Maoming Nan Road, Jing'an District (静安区茂名南路101号)<br>🕐 20:00-04:00 | 💰 ¥60-90/cocktail<br>Cuban-themed cocktail bar with live salsa music. The mojitos are legit. Gets wild after midnight — dancing on tables is not uncommon. Multiple locations but Maoming Road is the original. <a href="https://www.revolucion.com.cn" target="_blank">Website</a></li>
+                <li><strong>Windows Garage</strong><br>📍 101 Maoming Nan Road, Jing'an District (静安区茂名南路101号)<br>🕐 20:00-02:00 | 💰 ¥40-60/beer<br>Dive bar with live rock and indie bands. Sticky floors, cheap beer, and loud music — exactly what you want at 1 AM. The crowd is a mix of expats, musicians, and night owls. <a href="https://www.smartshanghai.com/venue/windows-garage" target="_blank">SmartShanghai</a></li>
+            </ul>
+            <p><strong>💡 Insider Tips:</strong></p>
+            <ul>
+                <li>Former French Concession (Xuhui/Jing'an) has the highest density of expat bars — walk between them</li>
+                <li>Found 158 (巨鹿路158号) is a bar complex in a former bomb shelter — multiple bars in one underground space</li>
+                <li>Bund bars are expensive but worth it for the view — go at sunset, leave before the cover charge kicks in</li>
+                <li>Use <a href="https://www.smartshanghai.com/venue/bars" target="_blank">SmartShanghai</a> for weekly bar events and specials</li>
+                <li>Didi is your friend after midnight — metro closes at 11 PM</li>
+                <li>WeChat: search "Shanghai expats" or "上海外国人" for party invites and event listings</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.smartshanghai.com/venue/bars" target="_blank">SmartShanghai</a> · <a href="https://www.barrouge-shanghai.com" target="_blank">Bar Rouge</a> · <a href="https://www.boxingcatbrewery.com" target="_blank">Boxing Cat</a> · <a href="https://www.jzclub.cn" target="_blank">JZ Club</a></div>`
+        }
+    ],
+    school: [
+        {
+            title: 'Campus Life in China: What to Expect as an International Student',
+            content: `<p>Starting university in China is a unique experience. Here's what daily campus life looks like for international students.</p>
+            <p><strong>Orientation Week</strong></p>
+            <p>Most universities hold a dedicated orientation for international students, typically 1-2 weeks before classes begin. You'll receive your student ID, campus tour, library card, and bank account setup assistance. Many universities assign a Chinese "buddy" student to help you settle in.</p>
+            <p><strong>Daily Schedule</strong></p>
+            <p>Classes typically run from 8:00 AM to 5:00 PM, with a 2-hour lunch break. Morning classes start at 8:00 AM (早八) — this is earlier than most Western universities! Most students eat breakfast at the campus canteen around 7:00-7:30 AM.</p>
+            <p><strong>Campus Canteens (食堂)</strong></p>
+            <p>The heart of campus life. Meals cost ¥8-20 per dish. Most canteens have multiple floors with different cuisine options. Payment via WeChat/Alipay or campus card. International student dining halls in major cities offer more diverse food options.</p>
+            <p><strong>Dormitory Life</strong></p>
+            <p>On-campus dorms cost ¥800-2,500/year. Most rooms are shared (2-4 students). Facilities typically include: shared bathrooms, laundry room, common study area, hot water (often limited hours), and internet access. Some universities offer single rooms for international students at higher rates.</p>
+            <p><strong>Student Organizations</strong></p>
+            <p>Over 100 student clubs at most universities, covering: sports (basketball, football, badminton), arts (calligraphy, traditional music, dance), technology (robotics, AI, coding), language exchange, and cultural activities. Joining clubs is the best way to make Chinese friends.</p>
+            <p><strong>Useful Campus Resources:</strong></p>
+            <ul>
+                <li>International Student Office — visa issues, academic advising, cultural activities</li>
+                <li>Library — extensive digital resources, study rooms, free printing (limited)</li>
+                <li>Career Center — resume workshops, job fairs, internship connections</li>
+                <li>Health Center — basic medical care, ¥5-15 consultation fee</li>
+                <li>Sports facilities — gym, pool, tennis courts (often free or ¥5-20/session)</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="http://www.moe.gov.cn" target="_blank">Ministry of Education</a> · <a href="http://www.ecnu.edu.cn" target="_blank">East China Normal University</a></div>`
+        }
+    ],
+    business: [
+        {
+            title: 'China Startup Hubs: Where to Launch Your Business',
+            content: `<p>China has several world-class startup ecosystems. Here's a breakdown of the major hubs and what each offers.</p>
+            <p><strong>Shenzhen — Hardware Capital of the World</strong></p>
+            <p>Home to Huawei, Tencent, and DJI. Shenzhen is the world's #1 city for hardware prototyping and manufacturing. Huaqiangbei electronics market has every component imaginable. Key sectors: IoT, consumer electronics, drones, EV components. Average startup costs are lower than Beijing/Shanghai.</p>
+            <p><strong>Beijing — AI & Internet Hub</strong></p>
+            <p>Zhongguancun (中关村) is China's Silicon Valley. Home to Baidu, ByteDance, Xiaomi, and Meituan. Strongest VC ecosystem in China. Key sectors: AI, big data, autonomous vehicles, enterprise SaaS. Highest concentration of top universities (PKU, Tsinghua) provides talent pipeline.</p>
+            <p><strong>Shanghai — Fintech & International Business</strong></p>
+            <p>China's financial capital with the most international business environment. Key sectors: fintech, e-commerce, biotech, luxury brands. Free Trade Zone offers preferential policies. Best city for foreign entrepreneurs due to English-friendly infrastructure.</p>
+            <p><strong>Hangzhou — E-commerce & Cloud Computing</strong></p>
+            <p>Alibaba's headquarters city. Thriving e-commerce and cloud computing ecosystem. Lower cost of living than Tier 1 cities. Beautiful environment (West Lake). Key sectors: cross-border e-commerce, live-streaming commerce, cloud services.</p>
+            <p><strong>Chengdu — Rising Tech Star</strong></p>
+            <p>Western China's tech capital with lower costs and high quality of life. Growing gaming and animation industry. Key sectors: gaming, animation, AI, digital entertainment. Known for relaxed work culture compared to east coast cities.</p>
+            <p><strong>Government Support by City:</strong></p>
+            <ul>
+                <li>Shenzhen: Up to ¥1M grants for qualifying tech startups</li>
+                <li>Beijing: Zhongguancun offers 3-year rent subsidies and talent housing</li>
+                <li>Shanghai: FTZ simplified registration, 15% corporate tax</li>
+                <li>Hangzhou: ¥500K grants for overseas returnees starting businesses</li>
+                <li>Chengdu: Free 2-year incubator space for early-stage startups</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="http://www.mofcom.gov.cn" target="_blank">Ministry of Commerce</a> · <a href="http://www.most.gov.cn" target="_blank">Ministry of Science & Technology</a></div>`
+        }
+    ],
+    language: [
+        {
+            title: 'HSK Exam Guide 2026: Levels, Registration, and Study Tips',
+            content: `<p>The HSK (Hanyu Shuiping Kaoshi) is the standardized test for Chinese language proficiency. Here's everything you need to know.</p>
+            <p><strong>HSK Levels:</strong></p>
+            <ul>
+                <li><strong>HSK 1</strong> — 150 characters, basic phrases. Listening + Reading. ~1 hour.</li>
+                <li><strong>HSK 2</strong> — 300 characters, simple conversations. Listening + Reading. ~1.5 hours.</li>
+                <li><strong>HSK 3</strong> — 600 characters, daily communication. Listening + Reading + Writing. ~2 hours.</li>
+                <li><strong>HSK 4</strong> — 1,200 characters, fluent on familiar topics. Required for most university programs.</li>
+                <li><strong>HSK 5</strong> — 2,500 characters, read Chinese newspapers, watch movies. Required for CSC scholarships.</li>
+                <li><strong>HSK 6</strong> — 5,000+ characters, near-native comprehension. Required for advanced programs.</li>
+            </ul>
+            <p><strong>How to Register:</strong></p>
+            <ul>
+                <li>Visit <a href="http://www.chinesetests.cn" target="_blank">chinesetests.cn</a></li>
+                <li>Create account, select test center and date</li>
+                <li>Fee: ¥150-950 depending on level</li>
+                <li>Test dates: monthly at most centers</li>
+                <li>Results available online within 3 weeks</li>
+            </ul>
+            <p><strong>Best Study Resources:</strong></p>
+            <ul>
+                <li><strong>Pleco</strong> — Essential dictionary app with flashcards and OCR</li>
+                <li><strong>HelloChinese</strong> — Best app for beginners (HSK 1-3)</li>
+                <li><strong>Du Chinese</strong> — Graded reading app with pinyin toggle</li>
+                <li><strong>ChinesePod</strong> — Audio lessons for all levels</li>
+                <li><strong>YoyoChinese</strong> — YouTube channel with clear grammar explanations</li>
+                <li><strong>Anki</strong> — Spaced repetition flashcards (use HSK decks)</li>
+            </ul>
+            <p><strong>Study Tips:</strong></p>
+            <ul>
+                <li>Practice writing characters by hand — helps with memory retention</li>
+                <li>Learn radicals first — they help you guess meanings of unfamiliar characters</li>
+                <li>Watch Chinese shows with Chinese subtitles (not English!)</li>
+                <li>Find a language partner on Tandem or HelloTalk</li>
+                <li>Study 30 minutes daily rather than 3 hours once a week</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="http://www.hanban.org" target="_blank">Confucius Institute Headquarters</a> · <a href="http://www.chinesetests.cn" target="_blank">HSK Official Registration</a></div>`
+        }
+    ],
+    rent: [
+        {
+            title: 'Complete Guide to Renting an Apartment in Beijing as a Foreigner (2026)',
+            content: `<p>Moving to Beijing and finding the right apartment can feel overwhelming, especially when you don't speak Chinese fluently. This comprehensive guide covers everything you need to know about renting in Beijing as a foreign tenant — from choosing the right platform to signing your lease.</p>
+            <p><strong>Step 1: Choose the Right Rental Platform</strong></p>
+            <p>The Beijing rental market is dominated by several major platforms. Here are the best options for foreigners:</p>
+            <ul>
+                <li><a href="https://www.ziroom.com" target="_blank"><strong>Ziroom (自如)</strong></a> — China's largest managed apartment platform. Offers fully furnished, standardized apartments with Wi-Fi, cleaning service, and maintenance included. The app has an English interface option. Best for: young professionals who want a hassle-free experience. Price range: ¥3,000-15,000/month.</li>
+                <li><a href="https://www.lianjia.com" target="_blank"><strong>Lianjia (链家)</strong></a> — The most trusted real estate platform in China with verified listings and professional agents. The app is in Chinese, but agents in expat areas often speak English. Best for: families and long-term renters. Commission: typically one month's rent.</li>
+                <li><a href="https://www.ke.com" target="_blank"><strong>Beike (贝壳找房)</strong></a> — A housing aggregator that pulls listings from multiple agencies including Lianjia. Has the largest database of verified properties. Best for: comparing options across agencies.</li>
+                <li><a href="https://www.thebeijinger.com/classifieds/housing" target="_blank"><strong>The Beijinger Housing</strong></a> — The go-to English-language classifieds for the expat community. Listings are posted directly by landlords and agents who work with foreigners. Best for: English speakers who want direct communication.</li>
+                <li><a href="https://www.wellcee.com" target="_blank"><strong>Wellcee</strong></a> — A community-focused platform designed specifically for foreigners in China. Features roommate matching, furnished apartments, and a social community. Best for: newcomers looking for community.</li>
+                <li><a href="https://housinganywhere.com/s/Beijing--China" target="_blank"><strong>HousingAnywhere</strong></a> — International platform popular for medium-term rentals (1-12 months). Verified landlords, secure payments, and flexible lease terms. Best for: students and short-term stays.</li>
+            </ul>
+            <p><strong>Step 2: Understand Beijing's Rental Neighborhoods</strong></p>
+            <p>Beijing is massive — choosing the right neighborhood is crucial. Here are the most popular areas for foreigners:</p>
+            <ul>
+                <li><strong>Chaoyang District (朝阳区)</strong> — The expat hub. Sanlitun, CBD, and Liangmaqiao are popular with young professionals. Rent: ¥5,000-15,000/month for 1BR.</li>
+                <li><strong>Haidian District (海淀区)</strong> — Near major universities (Peking, Tsinghua). Wudaokou is the student hub. Rent: ¥4,000-8,000/month for 1BR.</li>
+                <li><strong>Wangjing (望京)</strong> — Known as "Koreatown" but increasingly popular with all expats. Modern apartments, great food scene. Rent: ¥4,500-9,000/month for 1BR.</li>
+                <li><strong>Shunyi District (顺义)</strong> — Where most international schools are located. Villa communities with gardens. Popular with expat families. Rent: ¥8,000-25,000/month for a villa.</li>
+            </ul>
+            <p><strong>Step 3: Documents You'll Need</strong></p>
+            <ul>
+                <li>Valid passport with current visa</li>
+                <li>Residence permit (临时住宿登记表) — register at your local police station within 24 hours of moving in</li>
+                <li>Proof of income or employment contract (some landlords require this)</li>
+                <li>Security deposit: typically 1-2 months' rent (押一付三 = 1 month deposit, 3 months upfront is standard)</li>
+            </ul>
+            <p><strong>Step 4: The Rental Process</strong></p>
+            <ol>
+                <li>Browse listings on your preferred platform and schedule viewings (看房 kàn fáng)</li>
+                <li>Visit apartments in person — never sign without seeing the place first</li>
+                <li>Negotiate the rent — in Beijing, it's common to negotiate 5-10% off the listed price</li>
+                <li>Review the lease contract carefully. Ask for an English translation if needed</li>
+                <li>Pay the deposit and first month's rent. Get official receipts (收据 shōu jù)</li>
+                <li>Register at the local police station (派出所 pài chū suǒ) within 24 hours</li>
+            </ol>
+            <p><strong>Step 5: Essential Tips for Foreign Renters</strong></p>
+            <ul>
+                <li>Always use a <a href="https://www.ziroom.com" target="_blank">reputable platform</a> — avoid WeChat-only deals without verification</li>
+                <li>Check water pressure, heating system, and internet speed during viewing</li>
+                <li>In Beijing, central heating (暖气 nuǎn qì) is included in rent from Nov 15 - Mar 15</li>
+                <li>Negotiate who pays for utilities (水电费 shuǐ diàn fèi) — usually the tenant</li>
+                <li>Get renter's insurance — available on <a href="https://www.zhongmin.cn" target="_blank">Zhongmin</a> or through your agent</li>
+                <li>Join expat WeChat groups for your neighborhood for real-time advice</li>
+            </ul>
+            <p><strong>Common Scams to Avoid:</strong></p>
+            <ul>
+                <li>Agent asks for deposit before viewing — SCAM. Never pay before seeing the apartment</li>
+                <li>Price is significantly below market rate — likely bait-and-switch</li>
+                <li>Landlord refuses to provide 房产证 (property ownership certificate) — verify ownership</li>
+                <li>No written contract — always insist on a formal lease agreement</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.ziroom.com" target="_blank">Ziroom</a> · <a href="https://www.lianjia.com" target="_blank">Lianjia</a> · <a href="https://www.ke.com" target="_blank">Beike</a> · <a href="https://www.thebeijinger.com/classifieds/housing" target="_blank">The Beijinger</a> · <a href="https://www.wellcee.com" target="_blank">Wellcee</a></div>`
+        },
+        {
+            title: 'Beijing Neighborhood Guide: Where Expats Live in 2026',
+            content: `<p>Choosing the right neighborhood in Beijing can make or break your experience as an expat. This guide breaks down the most popular areas where foreigners live, with real rent prices, transport links, and lifestyle tips for each area.</p>
+            <p><strong>1. Sanlitun (三里屯) — Chaoyang District</strong></p>
+            <p>The beating heart of Beijing's expat scene. Sanlitun offers a cosmopolitan lifestyle with international restaurants, bars, shopping malls (Taikoo Li), and the embassy district nearby. Most young professionals and single expats choose this area for its vibrant nightlife and walkability.</p>
+            <ul>
+                <li>Rent: ¥6,000-12,000/month (1BR apartment)</li>
+                <li>Nearest metro: Tuanjiehu (Line 10), Dongsi Shitiao (Line 2)</li>
+                <li>Best for: Young professionals, nightlife lovers</li>
+                <li>Nearby: Taikoo Li, Nali Patio, The Opposite House, Element Fresh, Great Leap Brewing</li>
+            </ul>
+            <p><strong>2. CBD / Guomao (国贸) — Chaoyang District</strong></p>
+            <p>Beijing's Central Business District is where many multinational companies are headquartered. Modern high-rise apartments with stunning city views, premium shopping at China World Mall, and easy access to Line 1 and Line 10. Popular with corporate expats and finance professionals.</p>
+            <ul>
+                <li>Rent: ¥8,000-20,000/month (1BR luxury apartment)</li>
+                <li>Nearest metro: Guomao (Line 1/10), Jintaixizhao (Line 10)</li>
+                <li>Best for: Corporate expats, finance professionals</li>
+                <li>Nearby: China World Mall, CCTV Headquarters, Kerry Centre</li>
+            </ul>
+            <p><strong>3. Liangmaqiao (亮马桥) — Chaoyang District</strong></p>
+            <p>Known as the "embassy area," Liangmaqiao is home to many foreign embassies, international hotels, and upscale restaurants. The area has a more relaxed, residential feel compared to Sanlitun while still being centrally located. Many expat families choose this area for its safety and international community.</p>
+            <ul>
+                <li>Rent: ¥7,000-15,000/month (1BR apartment)</li>
+                <li>Nearest metro: Liangmaqiao (Line 10)</li>
+                <li>Best for: Embassy staff, expat families</li>
+                <li>Nearby: Lufthansa Center, Kempinski Hotel, Japanese and Korean restaurants</li>
+            </ul>
+            <p><strong>4. Wangjing (望京) — Chaoyang District</strong></p>
+            <p>Wangjing has transformed from a quiet residential area into a bustling expat neighborhood, often called Beijing's "Koreatown." It's home to many tech companies (Alibaba, Meituan offices) and offers excellent Korean and international dining. Modern apartment complexes with good amenities at more affordable prices than central Chaoyang.</p>
+            <ul>
+                <li>Rent: ¥4,500-9,000/month (1BR apartment)</li>
+                <li>Nearest metro: Wangjing (Line 14/15), Wangjing South (Line 14)</li>
+                <li>Best for: Tech workers, Korean food lovers, budget-conscious expats</li>
+                <li>Nearby: Wangjing SOHO, Korean restaurants, Wanda Plaza</li>
+            </ul>
+            <p><strong>5. Wudaokou (五道口) — Haidian District</strong></p>
+            <p>Known as "宇宙中心" (Center of the Universe) among Chinese students, Wudaokou is the student hub of Beijing. Surrounded by Peking University, Tsinghua University, and Beijing Language and Culture University, it's the most affordable expat-friendly area. Great for students and young professionals on a budget.</p>
+            <ul>
+                <li>Rent: ¥3,500-7,000/month (1BR apartment)</li>
+                <li>Nearest metro: Wudaokou (Line 13)</li>
+                <li>Best for: Students, budget-conscious young professionals</li>
+                <li>Nearby: University campuses, Korean and Japanese restaurants, bars, bookstores</li>
+            </ul>
+            <p><strong>6. Shunyi (顺义) — International School Belt</strong></p>
+            <p>Shunyi is where most expat families with school-age children live. Home to major international schools (ISB, WAB, Dulwich), it offers villa communities with gardens, space, and a suburban lifestyle. The trade-off is a longer commute to central Beijing (40-60 minutes).</p>
+            <ul>
+                <li>Rent: ¥10,000-30,000/month (villa with garden)</li>
+                <li>Nearest metro: Shunyi (Line 15), but most residents drive</li>
+                <li>Best for: Expat families with children</li>
+                <li>Nearby: International schools, Europlaza, Pinnacle Plaza, River Garden</li>
+            </ul>
+            <p><strong>How to Choose Your Neighborhood:</strong></p>
+            <ul>
+                <li><strong>Budget under ¥5,000/month:</strong> Wudaokou, Wangjing, or shared apartment in Chaoyang</li>
+                <li><strong>Budget ¥5,000-10,000/month:</strong> Sanlitun, Liangmaqiao, Wangjing (1BR)</li>
+                <li><strong>Budget ¥10,000+/month:</strong> CBD luxury apartments, Shunyi villas</li>
+                <li><strong>With kids:</strong> Shunyi (international schools) or Liangmaqiao (central, safe)</li>
+                <li><strong>Near work:</strong> Use <a href="https://map.baidu.com" target="_blank">Baidu Maps</a> to check commute times</li>
+            </ul>
+            <p><strong>Pro Tip:</strong> Before signing a lease, visit the neighborhood at different times — morning rush hour, evening, and weekend. Check the nearest metro station distance, grocery stores (look for <a href="https://www.womai.com" target="_blank">Womai</a> or <a href="https://www.hema.com" target="_blank">Hema/盒马</a> for delivery), and the general vibe. Join the neighborhood's WeChat group to connect with other expats.</p>
+            <div class="ar-source">Sources: <a href="https://www.thebeijinger.com" target="_blank">The Beijinger</a> · <a href="https://www.ziroom.com" target="_blank">Ziroom</a> · <a href="https://www.lianjia.com" target="_blank">Lianjia</a> · <a href="https://www.beijing-kids.com" target="_blank">Beijing Kids</a></div>`
+        }
+    ]
+};
+
+// ===== Topic Detail Functions =====
+function openTopicDetailPage(topicName) {
+    const modal = document.getElementById('topicArticlesModal');
+    const titleEl = document.getElementById('topicArticlesModalTitle');
+    const bodyEl = document.getElementById('topicArticlesModalBody');
+    if (!modal || !bodyEl) return;
+
+    const articles = topicArticles[topicName] || [];
+    const guideData = topicGuidesData[topicName];
+    const categoryNames = {
+        study: '📚 Study in China', school: '🎒 School Life', work: '⚡ Working in China',
+        visa: '✈️ Visa & Permits', travel: '🗺️ Travel & Adventure', food: '🥢 Food & Dining',
+        life: '🌆 Daily Life', entertainment: '🎬 Entertainment', business: '🚀 Business', language: '💬 Language', rent: '🏠 Rent an Apartment'
+    };
+
+    titleEl.textContent = categoryNames[topicName] || topicName;
+
+    let html = '';
+
+    // Short guide summary
+    if (guideData) {
+        html += `<div class="ta-guide-section">
+            <h3>${guideData.icon} ${guideData.title}</h3>
+            <p>${guideData.subtitle}</p>
+        </div>`;
+    }
+
+    // Article list
+    if (articles.length > 0) {
+        html += '<div class="ta-list">';
+        articles.forEach((article, i) => {
+            html += `<div class="ta-item" onclick="openArticleReader('${topicName}', ${i})">
+                <div class="ta-item-num">${String(i + 1).padStart(2, '0')}</div>
+                <div class="ta-item-info">
+                    <div class="ta-item-title">${article.title}</div>
+                    <div class="ta-item-meta">Tap to read full article</div>
+                </div>
+                <i class="fas fa-chevron-right ta-item-arrow"></i>
+            </div>`;
+        });
+        html += '</div>';
+    } else {
+        html += '<div class="topics-empty" style="padding:40px 0;text-align:center;color:rgba(255,255,255,0.4);"><i class="fas fa-book-open" style="font-size:2rem;display:block;margin-bottom:10px;"></i><p>Articles coming soon...</p></div>';
+    }
+
+    bodyEl.innerHTML = html;
+    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    
-    // Scroll to top
-    detailPage.scrollTop = 0;
 }
 
-// 关闭 Topic 详情页面
-function closeTopicDetail() {
-    const detailPage = document.getElementById('topicDetailPage');
-    if (detailPage) {
-        detailPage.classList.remove('active');
+function closeTopicArticlesModal() {
+    const modal = document.getElementById('topicArticlesModal');
+    if (modal) {
+        modal.classList.remove('active');
         document.body.style.overflow = '';
+    }
+}
+
+function openArticleReader(topicName, articleIndex) {
+    const articles = topicArticles[topicName] || [];
+    const article = articles[articleIndex];
+    if (!article) return;
+
+    const modal = document.getElementById('articleReaderModal');
+    const titleEl = document.getElementById('articleReaderTitle');
+    const bodyEl = document.getElementById('articleReaderBody');
+    if (!modal || !bodyEl) return;
+
+    titleEl.textContent = article.title;
+    bodyEl.innerHTML = `<h2>${article.title}</h2>` + article.content;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeArticleReader() {
+    const modal = document.getElementById('articleReaderModal');
+    if (modal) {
+        modal.classList.remove('active');
+        if (!document.getElementById('topicArticlesModal').classList.contains('active')) {
+            document.body.style.overflow = '';
+        }
     }
 }
 
@@ -1850,7 +2660,7 @@ document.getElementById('authForm').addEventListener('submit', async (e) => {
     await checkSession();
 });
 
-async function checkSession() {
+async function checkSession(resetPage = true) {
     const { data: { session } } = await supabaseClient.auth.getSession();
     if (session) {
         isLoggedIn = true;
@@ -1878,16 +2688,18 @@ async function checkSession() {
             }
         }
         document.body.classList.add('logged-in');
-        const hero = document.querySelector('.hero');
-        if (hero) hero.style.display = 'none';
-        const mainContainer = document.getElementById('mainContainer');
-        if (mainContainer) mainContainer.style.display = 'grid';
-        const categoryFilter = document.querySelector('.category-filter');
-        if (categoryFilter) categoryFilter.style.display = 'flex';
-        const welcomeBanner = document.getElementById('welcomeBanner');
-        if (welcomeBanner) welcomeBanner.style.display = 'block';
-        const footer = document.querySelector('.footer');
-        if (footer) footer.style.display = 'block';
+        if (resetPage) {
+            const hero = document.querySelector('.hero');
+            if (hero) hero.style.display = 'none';
+            const mainContainer = document.getElementById('mainContainer');
+            if (mainContainer) mainContainer.style.display = 'grid';
+            const categoryFilter = document.querySelector('.category-filter');
+            if (categoryFilter) categoryFilter.style.display = 'flex';
+            const welcomeBanner = document.getElementById('welcomeBanner');
+            if (welcomeBanner) welcomeBanner.style.display = 'block';
+            const footer = document.querySelector('.footer');
+            if (footer) footer.style.display = 'block';
+        }
         window.scrollTo({ top: 0 });
         document.getElementById('mobileProfileLink').style.display = 'block';
         const mobileSignOutLink = document.getElementById('mobileSignOutLink');
@@ -1918,7 +2730,9 @@ async function checkSession() {
     }
     applyTranslations();
     document.body.classList.remove('loading');
-    highlightNavLink('home');
+    if (resetPage) {
+        highlightNavLink('home');
+    }
 }
 
 checkSession();
@@ -1927,7 +2741,7 @@ checkSession();
 setTimeout(() => document.body.classList.remove('loading'), 5000);
 
 supabaseClient.auth.onAuthStateChange((event, session) => {
-    checkSession();
+    checkSession(false);
 });
 
 // Handle deep linking: #post-123
@@ -2027,7 +2841,7 @@ function handleNavClick(navTarget) {
         document.querySelectorAll('.stories-cat-pill').forEach(p => p.classList.remove('active'));
         const storiesAllPill = document.querySelector('.stories-cat-pill[data-category="all"]');
         if (storiesAllPill) storiesAllPill.classList.add('active');
-        navigateTo('home');
+        navigateTo('newpost');
         renderPosts();
     } else if (navTarget === 'topics') {
         navigateTo('topics');
@@ -3177,7 +3991,8 @@ function openTopicStories(category) {
         life: 'Daily Life in China',
         entertainment: 'Entertainment & Fun',
         business: 'Business & Entrepreneurship',
-        language: 'Language Learning'
+        language: 'Language Learning',
+        rent: 'Rent an Apartment'
     };
     
     header.innerHTML = `<h2>💬 ${categoryNames[category] || category} Community</h2><p style="color:var(--text-secondary);margin-top:5px;">Join the conversation about this topic</p>`;
