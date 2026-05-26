@@ -1742,7 +1742,7 @@ const topicGuidesData = {
         </ul>`
     },
     cultural: {
-        icon: '🎎', title: 'Cultural Differences', subtitle: 'Understanding Chinese culture, customs, and social norms for foreigners',
+        icon: '🌏', title: 'Cultural Differences', subtitle: 'Understanding Chinese culture, customs, and social norms for foreigners',
         tag: 'Culture', accentRgb: '255, 87, 34',
         content: `<p>Living in China means encountering cultural differences every day — from how people greet you, to shopping habits, to food etiquette. Understanding these differences will make your experience richer and help you avoid misunderstandings. This guide covers the most common cultural surprises foreigners face in China.</p>
         <p>Chinese culture places enormous value on hospitality (好客 hàokè). When Chinese people see foreigners wearing hanfu (traditional clothing), speaking Chinese, or eating with chopsticks, the reaction is almost always one of delight and pride — not mockery. Understanding this context helps decode many "surprising" reactions you may encounter.</p>
@@ -3031,7 +3031,7 @@ function openTopicDetailPage(topicName) {
         life: '🌆 Daily Life', entertainment: '🎬 Entertainment', business: '🚀 Business', language: '💬 Language', rent: '🏠 Rent an Apartment',
         sim: '📱 SIM Card',
         hospital: '🏥 Hospital',
-        cultural: '🎎 Cultural Differences'
+        cultural: '🌏 Cultural Differences'
     };
 
     titleEl.textContent = categoryNames[topicName] || topicName;
