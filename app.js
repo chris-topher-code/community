@@ -59,6 +59,9 @@ const i18n = {
         workCat: '👷 Work', visaCat: '📋 Visa', entertainmentCat: '🎭 Entertainment',
         foodCat: '🍜 Food', lifeCat: '🏙️ Life', businessCat: '💼 Business',
         rentCat: '🏠 Rent',
+        simCat: '📱 SIM Card',
+        hospitalCat: '🏥 Hospital',
+        culturalCat: '🎎 Culture',
         postsIn: 'Posts in', searchPlaceholder: 'Search stories, topics, or people...',
         addPhoto: 'Add Photo', selectCity: 'Select city...', back: 'Back',
         changeBackground: 'Change Background', resetBackground: 'Reset to Default', bgUpdated: 'Background image updated!', bgReset: 'Background reset to default',
@@ -127,6 +130,9 @@ const i18n = {
         workCat: '👷 Travail', visaCat: '📋 Visa', entertainmentCat: '🎭 Divertissement',
         foodCat: '🍜 Nourriture', lifeCat: '🏙️ Vie', businessCat: '💼 Affaires',
         rentCat: '🏠 Location',
+        simCat: '📱 Carte SIM',
+        hospitalCat: '🏥 Hôpital',
+        culturalCat: '🎎 Culture',
         postsIn: 'Posts à', searchPlaceholder: 'Rechercher des récits, sujets ou personnes...',
         addPhoto: 'Ajouter une photo', selectCity: 'Choisir une ville...', back: 'Retour',
         changeBackground: 'Changer l\'arrière-plan', resetBackground: 'Réinitialiser par défaut', bgUpdated: 'Image d\'arrière-plan mise à jour !', bgReset: 'Arrière-plan réinitialisé',
@@ -595,7 +601,10 @@ const categories = {
     life: { label: '🏙️ Life', class: 'life' },
     business: { label: '💼 Business', class: 'business' },
     language: { label: '🗣️ Language', class: 'language' },
-    rent: { label: '🏠 Rent', class: 'rent' }
+    rent: { label: '🏠 Rent', class: 'rent' },
+    sim: { label: '📱 SIM Card', class: 'sim' },
+    hospital: { label: '🏥 Hospital', class: 'hospital' },
+    cultural: { label: '🎎 Culture', class: 'cultural' }
 };
 
 const cities = [
@@ -1660,19 +1669,19 @@ const topicGuidesData = {
         content: `<p>Major festivals: Chinese New Year (late Jan-Feb), Mid-Autumn Festival (Sep-Oct), National Day (Oct 1-7). China's nightlife scene is huge — from rooftop cocktail bars on the Bund to hidden hutong speakeasies in Beijing.</p>
         <p><strong>Beijing — Where Expats Hang Out:</strong></p>
         <ul>
-            <li>🏯 <strong>Great Leap Brewing #12</strong> — Doujiao Hutong, Dongcheng. Original craft beer in a hutong courtyard.</li>
-            <li>🍺 <strong>Slow Boat Brewery</strong> — 56 Dongsi Shitiao, Dongcheng. Award-winning IPAs.</li>
-            <li>🍸 <strong>Jing-A Brewing Taproom</strong> — Xingfucun Zhonglu, Chaoyang. Best outdoor terrace in town.</li>
-            <li>🥃 <strong>Capital Spirits</strong> — 3 Qianliang Hutong, Dongcheng. China's first baijiu cocktail bar.</li>
-            <li>🎵 <strong>DDC (Dusk Dawn Club)</strong> — 14 Shanlao Hutong, Dongcheng. Live jazz & indie music.</li>
+            <li>🏯 <strong>Great Leap Brewing #12</strong> — 东城区豆角胡同6号. Original craft beer in a hutong courtyard.<div class="venue-location"><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=大跃啤酒 豆角胡同" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="station-name">北新桥站</span></div></div></li>
+            <li>🍺 <strong>Slow Boat Brewery</strong> — 东城区东四十条56号. Award-winning IPAs.<div class="venue-location"><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=悠航鲜啤 东四十条" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line2">🚇 2号线</span><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="station-name">东四十条站</span></div></div></li>
+            <li>🍸 <strong>Jing-A Brewing Taproom</strong> — 朝阳区幸福村中路19号楼. Best outdoor terrace in town.<div class="venue-location"><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=京A啤酒 幸福村中路" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="metro-badge metro-bj-line10">🚇 10号线</span><span class="station-name">东大桥站</span></div></div></li>
+            <li>🥃 <strong>Capital Spirits</strong> — 东城区钱粮胡同3号. China's first baijiu cocktail bar.<div class="venue-location"><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=首都烈酒 钱粮胡同" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="station-name">东四站</span></div></div></li>
+            <li>🎵 <strong>DDC (Dusk Dawn Club)</strong> — 东城区山老胡同14号. Live jazz & indie music.<div class="venue-location"><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=黄昏黎明俱乐部 山老胡同" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="station-name">东四站</span></div></div></li>
         </ul>
         <p><strong>Shanghai — Where Expats Hang Out:</strong></p>
         <ul>
-            <li>🥂 <strong>Bar Rouge</strong> — Bund 18, 7F, Zhongshan Dong Yi Road. Iconic rooftop with Pudong views.</li>
-            <li>🍸 <strong>The Public</strong> — 101 Maoming Nan Road, Jing'an. Legendary expat cocktail bar.</li>
-            <li>🥃 <strong>Senator Saloon</strong> — 98 Jianguo West Road, Xuhui. American whiskey bar, always packed.</li>
-            <li>🍺 <strong>Daga Brewpub</strong> — 57 Yuyuan Road, Jing'an. 30+ craft beers on tap.</li>
-            <li>🎷 <strong>JZ Club</strong> — 46 Fuxing West Road, Xuhui. Shanghai's best live jazz since 2004.</li>
+            <li>🥂 <strong>Bar Rouge</strong> — 黄浦区中山东一路18号7楼. Iconic rooftop with Pudong views.<div class="venue-location"><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Bar%20Rouge%20外滩18号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line2">🚇 2号线</span><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="station-name">南京东路站</span></div></div></li>
+            <li>🍸 <strong>The Public</strong> — 静安区茂名南路101号. Legendary expat cocktail bar.<div class="venue-location"><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=The%20Public%20茂名南路101号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line1">🚇 1号线</span><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="metro-badge metro-sh-line12">🚇 12号线</span><span class="station-name">陕西南路站</span></div></div></li>
+            <li>🥃 <strong>Senator Saloon</strong> — 徐汇区建国西路98号. American whiskey bar, always packed.<div class="venue-location"><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Senator%20Saloon%20建国西路98号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line9">🚇 9号线</span><span class="metro-badge metro-sh-line12">🚇 12号线</span><span class="station-name">嘉善路站</span></div></div></li>
+            <li>🍺 <strong>Daga Brewpub</strong> — 静安区愚园路57号. 30+ craft beers on tap.<div class="venue-location"><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Daga%20Brewpub%20愚园路57号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line2">🚇 2号线</span><span class="metro-badge metro-sh-line11">🚇 11号线</span><span class="station-name">江苏路站</span></div></div></li>
+            <li>🎷 <strong>JZ Club</strong> — 徐汇区复兴西路46号. Shanghai's best live jazz since 2004.<div class="venue-location"><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=JZ%20Club%20复兴西路46号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="metro-badge metro-sh-line11">🚇 11号线</span><span class="station-name">交通大学站</span></div></div></li>
         </ul>
         <p>KTV (karaoke) rooms ¥30-80/hour. Escape rooms, 剧本杀 (murder mystery), and indoor skydiving are popular.</p>`
     },
@@ -1692,7 +1701,7 @@ const topicGuidesData = {
         icon: '🏠', title: 'Rent an Apartment', subtitle: 'Housing market, rental platforms, and tenant rights for expats',
         tag: 'Housing', accentRgb: '156, 39, 176',
         content: `<p>Finding the right apartment in China can be one of the biggest challenges for foreigners. The rental market in major cities like Beijing and Shanghai is fast-paced, with quality apartments often being snapped up within hours of listing. Understanding the local rental ecosystem — from popular platforms to lease negotiation — is essential.</p>
-        <p>Most foreigners rent through online platforms. The most popular apps include <a href="https://www.ziroom.com" target="_blank">Ziroom (自如)</a> for furnished apartments with standardized service, <a href="https://www.lianjia.com" target="_blank">Lianjia (链家)</a> for a wide range of listings, and <a href="https://www.ke.com" target="_blank">Beike (贝壳找房)</a> which aggregates listings from multiple agencies. For English-friendly options, check <a href="https://www.thebeijinger.com/classifieds/housing" target="_blank">The Beijinger Housing</a> and <a href="https://www.wellcee.com" target="_blank">Wellcee</a>.</p>
+        <p>Most foreigners rent through online platforms. The most popular apps include <a href="https://www.ziroom.com" target="_blank">Ziroom (自如)</a> for furnished apartments with standardized service, <a href="https://www.lianjia.com" target="_blank">Lianjia (链家)</a> for a wide range of listings, and <a href="https://www.ke.com" target="_blank">Beike (贝壳找房)</a> which aggregates listings from multiple agencies. .</p>
         <p><strong>Typical Rent Ranges (Monthly):</strong></p>
         <ul><li>Beijing Chaoyang (1BR): ¥5,000-10,000</li>
         <li>Beijing Haidian (1BR): ¥4,500-8,000</li>
@@ -1702,8 +1711,48 @@ const topicGuidesData = {
         <ul><li><a href="https://www.ziroom.com" target="_blank">Ziroom (自如) — Furnished Apartments</a></li>
         <li><a href="https://www.lianjia.com" target="_blank">Lianjia (链家) — Real Estate Platform</a></li>
         <li><a href="https://www.ke.com" target="_blank">Beike (贝壳找房) — Housing Aggregator</a></li>
-        <li><a href="https://www.thebeijinger.com/classifieds/housing" target="_blank">The Beijinger — Expat Housing Listings</a></li>
-        <li><a href="https://www.wellcee.com" target="_blank">Wellcee — Foreigner-Friendly Rentals</a></li></ul>`
+</ul>`
+    },
+    sim: {
+        icon: '📱', title: 'SIM Card & Mobile Service', subtitle: 'Getting a phone number, carrier plans, and registration rules',
+        tag: 'Telecom', accentRgb: '0, 150, 136',
+        content: `<p>Getting a Chinese SIM card is one of the first things you need to do when arriving in China. Your phone number is your identity — it's linked to WeChat, Alipay, bank accounts, and almost every app you'll use daily.</p>
+        <p><strong>The Big Three Carriers:</strong></p>
+        <ul>
+            <li>📶 <strong>China Mobile (中国移动)</strong> — Largest network, best coverage. Plans from ¥58/month.</li>
+            <li>📶 <strong>China Unicom (中国联通)</strong> — Best for iPhones, fastest 4G/5G in cities. Plans from ¥56/month.</li>
+            <li>📶 <strong>China Telecom (中国电信)</strong> — Good value, strong in southern China. Plans from ¥49/month.</li>
+        </ul>
+        <p><strong>⚠️ Critical Rule for Foreigners:</strong> Each foreign passport can only register <strong>one SIM card per carrier</strong> at a time. If you previously registered a SIM in another city, you may need to return to the original business hall to cancel it before registering a new one.</p>
+        <p>Legal basis: <a href="https://baike.baidu.com/item/%E7%94%B5%E8%AF%9D%E7%94%A8%E6%88%B7%E7%9C%9F%E5%AE%9E%E8%BA%AB%E4%BB%BD%E4%BF%A1%E6%81%AF%E7%99%BB%E8%AE%B0%E8%A7%84%E5%AE%9A" target="_blank">《电话用户真实身份信息登记规定》(工信部令第25号)</a></p>
+        <p><strong>Key Resources:</strong></p>
+        <ul><li><a href="https://www.10086.cn" target="_blank">China Mobile</a></li>
+        <li><a href="https://www.10010.com" target="_blank">China Unicom</a></li>
+        <li><a href="https://www.189.cn" target="_blank">China Telecom</a></li></ul>`
+    },
+    hospital: {
+        icon: '🏥', title: 'Hospital & Healthcare', subtitle: 'Seeing a doctor, prescriptions, and insurance',
+        tag: 'Healthcare', accentRgb: '0, 150, 136',
+        content: `<p>China's public hospital system is efficient but very different from Western clinics. No family doctor system — you go directly to specialists. Registration, lab work, and medication are all paid upfront; insurance reimbursement comes later.</p>
+        <p>Large hospitals in Beijing, Shanghai, and Guangzhou often have international clinics with English-speaking staff. In smaller cities, bring a Chinese-speaking friend or use a translation app.</p>
+        <p><strong>Emergency numbers:</strong></p>
+        <ul>
+            <li>🚑 <strong>120</strong> — Ambulance</li>
+            <li>🏥 <strong>110</strong> — Police (can help direct you)</li>
+        </ul>`
+    },
+    cultural: {
+        icon: '🎎', title: 'Cultural Differences', subtitle: 'Understanding Chinese culture, customs, and social norms for foreigners',
+        tag: 'Culture', accentRgb: '255, 87, 34',
+        content: `<p>Living in China means encountering cultural differences every day — from how people greet you, to shopping habits, to food etiquette. Understanding these differences will make your experience richer and help you avoid misunderstandings. This guide covers the most common cultural surprises foreigners face in China.</p>
+        <p>Chinese culture places enormous value on hospitality (好客 hàokè). When Chinese people see foreigners wearing hanfu (traditional clothing), speaking Chinese, or eating with chopsticks, the reaction is almost always one of delight and pride — not mockery. Understanding this context helps decode many "surprising" reactions you may encounter.</p>
+        <p><strong>Key Cultural Concepts:</strong></p>
+        <ul>
+            <li>🏮 <strong>面子 (miànzi) — "Face"</strong>: Social reputation and dignity. Avoid publicly embarrassing anyone.</li>
+            <li>🤝 <strong>关系 (guānxi) — "Relationships"</strong>: Personal connections drive business and daily life.</li>
+            <li>🍵 <strong>客气 (kèqi) — "Politeness"</strong>: Modesty and courtesy. Chinese people may refuse a gift 2-3 times before accepting.</li>
+            <li>👥 <strong>老 + surname</strong>: An affectionate, informal way to address someone (老王 = "Old Wang"). Not rude at all.</li>
+        </ul>`
     }
 };
 
@@ -1858,6 +1907,49 @@ const topicArticles = {
                 <li>Talent attraction programs with housing subsidies</li>
             </ul>
             <div class="ar-source">Sources: <a href="http://www.mofcom.gov.cn" target="_blank">Ministry of Commerce</a> · <a href="http://www.chinatax.gov.cn" target="_blank">State Taxation Administration</a></div>`
+        },
+        {
+            title: 'Where to Find Jobs in China: Full-Time & Part-Time Guide (2026)',
+            content: `            <p>LinkedIn在中国被墙，需要VPN。以下是全职和兼职求职平台汇总。</p>
+            <p><strong>🌐 Chinese Job Platforms</strong></p>
+            <ul>
+                <li>🔗 <a href="https://www.zhipin.com" target="_blank">Boss直聘 (BOSS Zhipin)</a></li>
+                <li>🔗 <a href="https://www.lagou.com" target="_blank">拉勾 (Lagou)</a></li>
+                <li>🔗 <a href="https://www.zhaopin.com" target="_blank">智联招聘 (Zhaopin)</a></li>
+                <li>🔗 <a href="https://www.51job.com" target="_blank">前程无忧 (51Job)</a></li>
+                <li>🔗 <a href="https://www.liepin.com" target="_blank">猎聘 (Liepin)</a></li>
+            </ul>
+            <p><strong>🌏 International & English-Friendly Platforms</strong></p>
+            <ul>
+                <li>🔗 <a href="https://www.linkedin.com" target="_blank">LinkedIn (领英)</a> — ⚠️ 需要VPN</li>
+                <li>🔗 <a href="https://www.indeed.com/worldwide" target="_blank">Indeed (China)</a></li>
+                <li>🔗 <a href="https://www.glassdoor.com" target="_blank">Glassdoor</a> — ⚠️ 需要VPN</li>
+                <li>🔗 <a href="https://www.echinacities.com" target="_blank">eChinaCities</a></li>
+                <li>🔗 <a href="https://www.hiredchina.com" target="_blank">HiredChina</a></li>
+                <li>🔗 <a href="https://www.thebeijinger.com/jobs" target="_blank">The Beijinger Jobs</a> / <a href="https://www.smartshanghai.com/jobs" target="_blank">SmartShanghai</a></li>
+                <li>🔗 <a href="https://jobs.echinacities.com" target="_blank">ChinaJob (SAFEEA)</a></li>
+                <li>🔗 <a href="https://www.robertwalters.cn" target="_blank">Robert Walters China</a></li>
+                <li>🔗 <a href="https://www.hays.cn" target="_blank">Hays China</a></li>
+            </ul>
+            <p><strong>⏰ Part-Time & Freelance</strong></p>
+            <ul>
+                <li>📚 <a href="https://www.italki.com" target="_blank">italki</a> / <a href="https://www.preply.com" target="_blank">Preply</a> — 英语教学</li>
+                <li>🎤 WeChat搜 "foreign models [城市]" — 活动主持/模特</li>
+                <li>🌐 <a href="https://www.gengo.com" target="_blank">Gengo</a> — 翻译/口译</li>
+                <li>📱 抖音 / 小红书 / B站 — 内容创作</li>
+                <li>🏢 企业咨询 — 技术/金融/营销</li>
+            </ul>
+            <p><strong>⚠️ Part-Time Legal Warning:</strong> Working part-time on a student visa or tourist visa is <strong>illegal</strong>. You need at minimum a work permit or a "part-time work approval" (兼职批准) from your university (for students) or employer. Penalties include fines ¥5,000-20,000, detention, and deportation.</p>
+            <p><strong>💡 Job Search Tips</strong></p>
+            <ul>
+                <li>📱 Boss直聘 — 中国最火求职App</li>
+                <li>💬 微信搜 "[城市] jobs" 或 "[行业] 招聘"</li>
+                <li>🤝 Meetup.com / Eventbrite — 线下社交活动</li>
+                <li>📄 准备中文简历 (Chinese Resume)</li>
+                <li>🌐 VPN访问 LinkedIn — 外企仍用</li>
+                <li>🏢 优先投外企 — 工签支持率高</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.echinacities.com" target="_blank">eChinaCities</a> · <a href="https://www.zhipin.com" target="_blank">Boss直聘</a> · <a href="http://www.mohrss.gov.cn" target="_blank">Ministry of Human Resources</a> · <a href="https://www.hiredchina.com" target="_blank">HiredChina</a></div>`
         }
     ],
     visa: [
@@ -1911,6 +2003,173 @@ const topicArticles = {
                 <li><strong>Always apply for extension before your visa expires!</strong></li>
             </ul>
             <div class="ar-source">Sources: <a href="http://cs.mfa.gov.cn" target="_blank">Chinese Consular Affairs</a> · <a href="https://www.mfa.gov.cn" target="_blank">Ministry of Foreign Affairs</a></div>`
+        },
+        {
+            title: "A Foreigner's Complete Guide to Work Permits & Visas for China (2025–2026)",
+            content: `<p>Foreigners who wish to work in China must obtain a Foreigner's Work Permit and a work-type residence permit before they can legally begin working. This guide explains the complete process — from who qualifies, to how to apply, what documents you need, and what to do after you arrive.</p>
+
+            <div class="important-update"><strong>🔔 Important Update (2025–2026):</strong> The physical Foreigner's Work Permit card has been discontinued. Work permit information is now integrated into the <strong>Social Security Card (电子社保卡)</strong> for foreign employees.</div>
+
+            <p><strong>1. Who Needs a Work Permit?</strong></p>
+            <blockquote>"Foreigners working in China must obtain a work permit and a work-type residence permit in accordance with regulations. No employer may hire a foreigner who has not obtained a work permit and a work-type residence permit." — Exit and Entry Administration Law of the PRC, Article 41</blockquote>
+            <p>The work permit is required for <strong>any foreign national working in China</strong> (including teaching, business management, technical roles, research, etc.), regardless of the duration or type of employment.</p>
+            <ul>
+                <li>Work permits are handled by the <strong>employer</strong> (the hiring company/institution), not by the foreigner personally. However, you will need to provide all required documents and cooperate throughout the process.</li>
+                <li>The permit is granted to the employer for a specific position — <strong>not to you as an individual</strong>. If you change employers or job roles, you must reapply.</li>
+            </ul>
+
+            <p><strong>2. Three Categories of Foreign Workers (A / B / C)</strong></p>
+            <p>China classifies foreign workers into three categories based on skills, experience, and national needs.</p>
+            <table class="guide-table">
+                <thead><tr><th>Category</th><th>Who it applies to</th><th>Key features</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>A类 – Foreign High-End Talent</strong></td><td>Scientists, tech leaders, top executives, special experts, etc.</td><td>No age/education limits; "green channel" processing; 2–5 years validity; fewer document requirements; no numeric limits.</td></tr>
+                    <tr><td><strong>B类 – Foreign Professionals</strong></td><td>Bachelor's degree + ≥2 years relevant work experience; age ≤60; roles needed for economic development</td><td>Numeric limits based on market demand; standard documentation; some flexibility for startup talent and outstanding foreign graduates.</td></tr>
+                    <tr><td><strong>C类 – Other Foreign Personnel</strong></td><td>Seasonal workers, interns, and other roles defined by policy</td><td>Strict numeric limits; subject to government quota.</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Points-based system:</strong> B-class applicants are assessed via a points system (minimum 60 points) based on factors like salary, Chinese language ability, and work experience.</p>
+
+            <p><strong>3. Basic Eligibility Requirements (All Categories)</strong></p>
+            <ul>
+                <li>Age ≥18 years</li>
+                <li>Good health (no serious infectious diseases)</li>
+                <li>No criminal record</li>
+                <li>A confirmed employer in China</li>
+                <li>Possess the necessary professional skills or qualifications for the job</li>
+                <li>The job must align with China's economic development needs</li>
+            </ul>
+
+            <p><strong>4. Step-by-Step Application Process (for Work Periods >90 Days)</strong></p>
+
+            <p><strong>Step 1 — Employer registers an account online</strong></p>
+            <p>Your employer must first register on the <a href="https://fwp.safea.gov.cn/lhgzweb" target="_blank">Foreigners' Work Management Service System (外国人来华工作管理服务系统)</a>. The employer needs to provide their business license, Unified Social Credit Code certificate, and legal representative details. If your employer does not know how to do this, they can engage a licensed agency to handle it on their behalf.</p>
+
+            <p><strong>Step 2 — Online application for the Work Permit Notification</strong></p>
+            <p>Your employer submits the application and all required documents online to the local Foreign Experts Bureau or relevant government department. Processing time: about <strong>5 working days</strong>. If documents are incomplete, the agency will notify the employer to make corrections.</p>
+
+            <p><strong>Step 3 — Obtain the Work Permit Notification</strong></p>
+            <p>If approved, the system generates a "Notification Letter of Foreigner's Work Permit" (外国人工作许可通知). This document is <strong>valid for 3 months</strong> from the date of issue. ⚠️ The Notification Letter is <em>not</em> a visa and cannot be used in place of one.</p>
+
+            <p><strong>Step 4 — Apply for a Z-visa at a Chinese embassy/consulate</strong></p>
+            <p>Present the following at the nearest Chinese embassy or consulate in your home country:</p>
+            <ul>
+                <li>Notification Letter of Foreigner's Work Permit</li>
+                <li>Valid passport (at least 6 months validity remaining)</li>
+                <li>Passport photo</li>
+                <li>Visa application form</li>
+            </ul>
+            <p>The embassy/consulate will issue a <strong>Z-visa</strong> (for foreign employees). In special cases, <strong>R-visas</strong> (for high-end talent) or <strong>F-visas</strong> may be issued.</p>
+
+            <p><strong>Step 5 — Enter China and apply for the physical Work Permit</strong></p>
+            <p>Within <strong>15 days</strong> of entering China, you (via your employer) must apply to obtain the Foreigner's Work Permit (now integrated into the Social Security Card system). Submit all original documents for verification (original degree certificates, no criminal record certificate, health check report, employment contract). Processing time: about <strong>10 working days</strong> (A-class may be processed faster).</p>
+
+            <p><strong>Step 6 — Apply for a work-type residence permit</strong></p>
+            <p>Within <strong>30 days</strong> of entry, you must go to the local Public Security Bureau's (PSB) Exit-Entry Administration Department to apply for a work-type residence permit.</p>
+            <p>Required documents:</p>
+            <ul>
+                <li>Passport with Z-visa</li>
+                <li>Foreigner's Work Permit</li>
+                <li>Employment contract</li>
+                <li>Completed residence permit application form</li>
+                <li>Passport photo</li>
+            </ul>
+            <p>Processing time: Typically <strong>15 working days</strong> (can be processed together with the work permit at "single window" service counters in many cities).</p>
+            <p>⚠️ <strong>You cannot begin working until you have both the Work Permit and the work-type residence permit in hand.</strong></p>
+
+            <p><strong>5. Required Documents — Complete List</strong></p>
+            <table class="guide-table">
+                <thead><tr><th>Document</th><th>Notes</th></tr></thead>
+                <tbody>
+                    <tr><td>Foreigner's Work Permit Application Form</td><td>Completed online, printed, signed, and stamped with employer's seal. Submitted electronically.</td></tr>
+                    <tr><td>Work Experience Certificate</td><td>Issued by previous employer(s); includes position, dates of employment, and contact details. Must bear the employer's seal or signature.</td></tr>
+                    <tr><td>Highest Academic Degree/Diploma</td><td>Must be notarized and authenticated by Chinese embassy/consulate in the country of issue, or by apostille certification if the issuing country is a party to the Apostille Convention. A-class applicants may submit via letter of commitment.</td></tr>
+                    <tr><td>No Criminal Record Certificate</td><td>Issued by police or judicial authorities of your home country. Must be authenticated by Chinese embassy/consulate and dated within the last 6 months. A-class applicants may submit a letter of commitment.</td></tr>
+                    <tr><td>Health Check Certificate</td><td>Issued by a Chinese quarantine authority or an overseas medical institution recognized by Chinese authorities. Must be dated within 6 months.</td></tr>
+                    <tr><td>Employment Contract</td><td>Must be in Chinese, signed by both parties, and bear the employer's official seal. Must include: job location, job description, salary, start date, and term of employment.</td></tr>
+                    <tr><td>Passport</td><td>Must be valid for at least 6 months.</td></tr>
+                    <tr><td>Passport Photo</td><td>White background, taken within last 6 months; JPG format, 40–120KB.</td></tr>
+                    <tr><td>Chinese Translation of Non-Chinese Documents</td><td>All documents not originally in Chinese must be accompanied by a Chinese translation, stamped with the employer's official seal (except for the passport).</td></tr>
+                </tbody>
+            </table>
+            <p>A-class applicants enjoy reduced documentation requirements (e.g., no criminal record certificate may be submitted via a letter of commitment, no need for physical document verification on arrival).</p>
+
+            <p><strong>6. Special Case — Applying While Already in China (A-class Applicants)</strong></p>
+            <p>If you are already in China legally (e.g., on a business, tourist, or family visa), <strong>A-class applicants</strong> may apply for the work permit directly from inside China without leaving to obtain a Z-visa overseas. This is <strong>not allowed</strong> for B-class or C-class applicants unless you fall under other narrow exceptions (e.g., transferring between employers without changing job duties, family members of Chinese citizens or permanent residents, etc.).</p>
+            <p>⚠️ Even for A-class applicants, the work-type residence permit must still be obtained after the work permit is approved. <strong>You cannot work on a tourist or business visa.</strong></p>
+
+            <p><strong>7. How Long Does It Take?</strong></p>
+            <table class="guide-table">
+                <thead><tr><th>Stage</th><th>Approximate processing time</th></tr></thead>
+                <tbody>
+                    <tr><td>Online pre-approval (Notification Letter)</td><td>5 working days</td></tr>
+                    <tr><td>Decision on work permit application</td><td>20 working days (can be extended by 10 days)</td></tr>
+                    <tr><td>Work permit (after arrival in China)</td><td>10 working days</td></tr>
+                    <tr><td>Work-type residence permit</td><td>15 working days</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Total estimated time</strong> (overseas application to full approval): Approximately <strong>2–3 months</strong>, depending on document preparation and embassy/consulate visa processing times.</p>
+
+            <p><strong>8. Visa Types Explained</strong></p>
+            <table class="guide-table">
+                <thead><tr><th>Visa Code</th><th>Name</th><th>Who it applies to</th><th>When to use</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Z</strong></td><td>Work visa</td><td>Standard work permit holders</td><td>Most foreign employees</td></tr>
+                    <tr><td><strong>R</strong></td><td>Talent visa</td><td>A-class high-end talent with special skills</td><td>High-end talent; faster processing</td></tr>
+                    <tr><td><strong>F</strong></td><td>Non-commercial visit visa</td><td>Short-term work permits (≤90 days)</td><td>Short-term work/project visits</td></tr>
+                </tbody>
+            </table>
+
+            <p><strong>9. Important Legal Notes</strong></p>
+            <ul>
+                <li>The work permit <strong>cannot be transferred</strong> to another employer. If you change companies, you must cancel the existing work permit and apply for a new one.</li>
+                <li>The work permit is <strong>not a visa</strong>. You must still obtain the appropriate visa (Z/R/F) from a Chinese embassy or consulate before traveling to China.</li>
+                <li>You <strong>cannot work</strong> until both the Work Permit and the work-type residence permit have been approved.</li>
+                <li>Failure to obtain both permits before starting work constitutes <strong>illegal employment</strong> and can result in fines, deportation, and a ban on re-entry.</li>
+                <li>Your employer must apply for work permit extension <strong>at least 30 days before</strong> it expires.</li>
+                <li>Changes to personal information (name, passport number, job position, etc.) must be reported and the work permit amended <strong>within 10 working days</strong> of the change.</li>
+                <li>If your employment contract is terminated early, your employer must cancel your work permit <strong>within 10 working days</strong> of termination.</li>
+            </ul>
+
+            <p><strong>10. Official Systems and Contact Points</strong></p>
+            <ul>
+                <li>🌐 <strong>Main online system:</strong> <a href="https://fwp.safea.gov.cn/lhgzweb" target="_blank">Foreigners' Work Management Service System</a></li>
+                <li>📞 <strong>Customer service hotline:</strong> 12333 (National Human Resources and Social Security hotline)</li>
+                <li>🏢 <strong>Local PSB Exit-Entry Administration:</strong> For work-type residence permit inquiries</li>
+                <li>🏛️ <strong>Chinese embassy/consulate:</strong> For Z/R/F visa applications in your home country</li>
+                <li>📄 <strong>Document authentication:</strong> <a href="http://www.cs.mfa.gov.cn" target="_blank">China Consular Service website</a></li>
+                <li>📋 <strong>Official guidelines PDF:</strong> <a href="https://www.safea.gov.cn/r/cms/zwpt/web/pdf/wgrlhzq/20170418182639_469.pdf" target="_blank">State Administration of Foreign Experts Affairs — Work Permit Guidelines (2017)</a></li>
+            </ul>
+
+            <p><strong>11. Summary Checklist — Quick Reference</strong></p>
+            <ol>
+                <li>☐ Secure a job offer from a legally established Chinese employer.</li>
+                <li>☐ Employer registers on the <a href="https://fwp.safea.gov.cn/lhgzweb" target="_blank">Foreigners' Work Management Service System</a>.</li>
+                <li>☐ Employer submits online application with all documents (work experience certificate, diploma, no criminal record certificate, health check, contract, etc.).</li>
+                <li>☐ Receive Notification Letter (valid for 3 months).</li>
+                <li>☐ Apply for Z-visa (or R/F) at Chinese embassy/consulate in your home country.</li>
+                <li>☐ Enter China (within the visa validity period).</li>
+                <li>☐ Within 15 days of entry, employer submits original documents for verification to obtain Work Permit.</li>
+                <li>☐ Within 30 days of entry, apply at local PSB for work-type residence permit.</li>
+                <li>☐ Begin work legally — only after both permits are approved.</li>
+                <li>☐ Ensure permits are extended or amended as required during your stay.</li>
+            </ol>
+
+            <p><strong>12. Frequently Asked Questions (FAQ)</strong></p>
+            <p><strong>Q: Can I apply for a work permit without an employer?</strong></p>
+            <p>A: No. The work permit is tied to a specific employer and position. You must have a confirmed job offer before applying.</p>
+            <p><strong>Q: Can I start working once I receive my Z-visa?</strong></p>
+            <p>A: No. You must also obtain the Foreigner's Work Permit (upon arrival in China) and the work-type residence permit before you can legally work.</p>
+            <p><strong>Q: Do I need a work permit if I am teaching English for just three months?</strong></p>
+            <p>A: Yes. Any work in China — paid or unpaid — requires a work permit and work-type residence permit. Short-term work (≤90 days) can be done under an F-visa with a shorter work permit, but this still requires formal approval.</p>
+            <p><strong>Q: Can I bring my family?</strong></p>
+            <p>A: Yes. Spouses and children may apply for S-visas or dependent residence permits. They are not automatically included in your work permit — separate applications are required.</p>
+            <p><strong>Q: Do I need a Chinese bank account to apply?</strong></p>
+            <p>A: Not directly, but your employer will need to provide proof of your salary (for the points system) and may need a bank account for 社保 contributions.</p>
+            <p><strong>Q: What if I already have a work permit but change jobs?</strong></p>
+            <p>A: Your current work permit must be cancelled, and you (or your new employer) must reapply from scratch — even if you are staying in the same field.</p>
+
+            <div class="ar-source">Sources: <a href="https://fwp.safea.gov.cn/lhgzweb" target="_blank">Foreigners' Work Management Service System</a> · <a href="https://www.safea.gov.cn/r/cms/zwpt/web/pdf/wgrlhzq/20170418182639_469.pdf" target="_blank">SAFEEA Work Permit Guidelines (2017)</a> · <a href="http://www.cs.mfa.gov.cn" target="_blank">China Consular Service</a> · <a href="http://www.mohrss.gov.cn" target="_blank">Ministry of Human Resources</a> · Exit and Entry Administration Law of the PRC, Article 41</div>`
         }
     ],
     travel: [
@@ -2039,25 +2298,25 @@ const topicArticles = {
             content: `<p>Tired of tourist traps? Here are the real bars where Beijing's expat community gathers — with actual addresses you can put into your map app. These are the spots locals and long-term foreigners actually go to, not the places listed in generic travel guides.</p>
             <p><strong>🍺 Craft Beer & Breweries</strong></p>
             <ul>
-                <li><strong>Great Leap Brewing #12 (大跃啤酒)</strong><br>📍 Doujiao Hutong #6, Dongcheng District (东城区豆角胡同6号)<br>🕐 12:00-24:00 | 💰 ¥40-60/pint<br>Beijing's original craft brewery in a hutong courtyard. The Honey Ma Gold and Pale Ale #6 are legendary. Gets packed on weekends. Outdoor seating in summer is the best vibe in Beijing. <a href="https://www.greatleapbrewing.com" target="_blank">Website</a></li>
-                <li><strong>Slow Boat Brewery (悠航鲜啤)</strong><br>📍 56 Dongsi Shitiao, Dongcheng District (东城区东四十条56号)<br>🕐 16:00-00:00 | 💰 ¥45-65/pint<br>Award-winning IPAs and the best burger in Beijing (seriously). The Monkey Fist IPA won multiple international awards. Cozy interior with exposed brick. <a href="https://www.slowboatbrewing.com" target="_blank">Website</a></li>
-                <li><strong>Jing-A Brewing Taproom (京A)</strong><br>📍 Xingfucun Zhonglu, Building 19, Chaoyang District (朝阳区幸福村中路19号楼)<br>🕐 11:00-00:00 | 💰 ¥45-65/pint<br>Best outdoor terrace in Beijing. Try the Flying Fist IPA and Airpocalypse Double IPA. Great food menu too — the pulled pork sandwich is solid. Multiple locations but this is the OG. <a href="https://www.jingabrewing.com" target="_blank">Website</a></li>
-                <li><strong>Arrow Factory Brewing (箭厂啤酒)</strong><br>📍 9 Jianchang Hutong, Dongcheng District (东城区箭厂胡同9号)<br>🕐 16:00-23:00 | 💰 ¥40-55/pint<br>Hidden gem in a quiet hutong near the Drum Tower. Small but quality-focused. The Stout and Belgian Wit are excellent. Feels like a neighborhood secret. <a href="https://www.arrowfactorybrewing.com" target="_blank">Website</a></li>
-                <li><strong>Panda Brew (熊猫精酿)</strong><br>📍 62 Dongsibei Dajie, Dongcheng District (东城区东四北大街62号)<br>🕐 14:00-00:00 | 💰 ¥35-50/pint<br>Chinese-owned craft brewery with nationwide distribution. The taproom has 20+ beers on rotation. Try the Honey Ale and Tangerine Wheat. Good for groups. <a href="https://www.pandabrew.com" target="_blank">Website</a></li>
+                <li><strong>Great Leap Brewing #12 (大跃啤酒)</strong><br>📍 Doujiao Hutong #6, Dongcheng District (东城区豆角胡同6号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区豆角胡同6号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=大跃啤酒 豆角胡同" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="station-name">北新桥站</span></div></div><br>🕐 12:00-24:00 | 💰 ¥40-60/pint<br>Beijing's original craft brewery in a hutong courtyard. The Honey Ma Gold and Pale Ale #6 are legendary. Gets packed on weekends. Outdoor seating in summer is the best vibe in Beijing. <a href="https://www.greatleapbrewing.com" target="_blank">Website</a></li>
+                <li><strong>Slow Boat Brewery (悠航鲜啤)</strong><br>📍 56 Dongsi Shitiao, Dongcheng District (东城区东四十条56号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区东四十条56号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=悠航鲜啤 东四十条" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line2">🚇 2号线</span><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="station-name">东四十条站</span></div></div><br>🕐 16:00-00:00 | 💰 ¥45-65/pint<br>Award-winning IPAs and the best burger in Beijing (seriously). The Monkey Fist IPA won multiple international awards. Cozy interior with exposed brick. <a href="https://www.slowboatbrewing.com" target="_blank">Website</a></li>
+                <li><strong>Jing-A Brewing Taproom (京A)</strong><br>📍 Xingfucun Zhonglu, Building 19, Chaoyang District (朝阳区幸福村中路19号楼)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 朝阳区幸福村中路19号楼</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=京A啤酒 幸福村中路" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="metro-badge metro-bj-line10">🚇 10号线</span><span class="station-name">东大桥站</span></div></div><br>🕐 11:00-00:00 | 💰 ¥45-65/pint<br>Best outdoor terrace in Beijing. Try the Flying Fist IPA and Airpocalypse Double IPA. Great food menu too — the pulled pork sandwich is solid. Multiple locations but this is the OG. <a href="https://www.jingabrewing.com" target="_blank">Website</a></li>
+                <li><strong>Arrow Factory Brewing (箭厂啤酒)</strong><br>📍 9 Jianchang Hutong, Dongcheng District (东城区箭厂胡同9号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区箭厂胡同9号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=箭厂啤酒 箭厂胡同" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line2">🚇 2号线</span><span class="metro-badge metro-bj-line8">🚇 8号线</span><span class="station-name">鼓楼大街站</span></div></div><br>🕐 16:00-23:00 | 💰 ¥40-55/pint<br>Hidden gem in a quiet hutong near the Drum Tower. Small but quality-focused. The Stout and Belgian Wit are excellent. Feels like a neighborhood secret. <a href="https://www.arrowfactorybrewing.com" target="_blank">Website</a></li>
+                <li><strong>Panda Brew (熊猫精酿)</strong><br>📍 62 Dongsibei Dajie, Dongcheng District (东城区东四北大街62号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区东四北大街62号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=熊猫精酿 东四北大街" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="station-name">东四站</span></div></div><br>🕐 14:00-00:00 | 💰 ¥35-50/pint<br>Chinese-owned craft brewery with nationwide distribution. The taproom has 20+ beers on rotation. Try the Honey Ale and Tangerine Wheat. Good for groups. <a href="https://www.pandabrew.com" target="_blank">Website</a></li>
             </ul>
             <p><strong>🍸 Cocktail Bars & Speakeasies</strong></p>
             <ul>
-                <li><strong>Capital Spirits (首都烈酒)</strong><br>📍 3 Qianliang Hutong, Dongcheng District (东城区钱粮胡同3号)<br>🕐 19:00-02:00 | 💰 ¥60-90/cocktail<br>China's first baijiu cocktail bar. Don't be scared — the bartenders transform baijiu into incredible cocktails. The "Baijiu Sour" converts skeptics. Tiny space, always buzzing. Reservations recommended. <a href="https://www.capitalspirits.com" target="_blank">Website</a></li>
-                <li><strong>The Bar at The Opposite House (瑜舍)</strong><br>📍 Building 1, Taikoo Li Sanlitun, Chaoyang District (朝阳区三里屯太古里1号楼)<br>🕐 17:00-01:00 | 💰 ¥80-120/cocktail<br>Luxury hotel bar with stunning minimalist design. The cocktails are pricey but exceptional. Great for dates or impressing clients. The lobby bar has live DJ on weekends. <a href="https://www.theoppositehouse.com" target="_blank">Website</a></li>
-                <li><strong>Migas (米家思)</strong><br>📍 6/F, Nali Patio, 81 Sanlitun Road, Chaoyang District (朝阳区三里屯路81号那里花园6层)<br>🕐 18:00-02:00 | 💰 ¥70-100/cocktail<br>Rooftop bar with incredible views of Sanlitun. Spanish-inspired cocktails and tapas. The Sunday brunch is legendary among expats. Summer rooftop parties are unmissable. <a href="https://www.migasrestaurant.com" target="_blank">Website</a></li>
-                <li><strong>Janes & Hooch</strong><br>📍 4 Gongti Beilu, Chaoyang District (朝阳区工体北路4号)<br>🕐 19:00-02:00 | 💰 ¥65-95/cocktail<br>Industrial-chic cocktail bar near Workers' Stadium. Excellent Old Fashioned and Negroni. The bartenders are serious about their craft. Gets lively after 11 PM on weekends. <a href="https://www.amap.com/search?query=Janes%20%26%20Hooch%20%E5%B7%A5%E4%BD%93%E5%8C%97%E8%B7%AF4%E5%8F%B7" target="_blank">Amap</a></li>
+                <li><strong>Capital Spirits (首都烈酒)</strong><br>📍 3 Qianliang Hutong, Dongcheng District (东城区钱粮胡同3号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区钱粮胡同3号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=首都烈酒 钱粮胡同" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="station-name">东四站</span></div></div><br>🕐 19:00-02:00 | 💰 ¥60-90/cocktail<br>China's first baijiu cocktail bar. Don't be scared — the bartenders transform baijiu into incredible cocktails. The "Baijiu Sour" converts skeptics. Tiny space, always buzzing. Reservations recommended. <a href="https://www.capitalspirits.com" target="_blank">Website</a></li>
+                <li><strong>The Bar at The Opposite House (瑜舍)</strong><br>📍 Building 1, Taikoo Li Sanlitun, Chaoyang District (朝阳区三里屯太古里1号楼)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 朝阳区三里屯太古里1号楼</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=瑜舍 三里屯太古里" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line10">🚇 10号线</span><span class="station-name">团结湖站</span></div></div><br>🕐 17:00-01:00 | 💰 ¥80-120/cocktail<br>Luxury hotel bar with stunning minimalist design. The cocktails are pricey but exceptional. Great for dates or impressing clients. The lobby bar has live DJ on weekends. <a href="https://www.theoppositehouse.com" target="_blank">Website</a></li>
+                <li><strong>Migas (米家思)</strong><br>📍 6/F, Nali Patio, 81 Sanlitun Road, Chaoyang District (朝阳区三里屯路81号那里花园6层)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 朝阳区三里屯路81号那里花园6层</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=米家思 三里屯那里花园" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line10">🚇 10号线</span><span class="station-name">团结湖站</span></div></div><br>🕐 18:00-02:00 | 💰 ¥70-100/cocktail<br>Rooftop bar with incredible views of Sanlitun. Spanish-inspired cocktails and tapas. The Sunday brunch is legendary among expats. Summer rooftop parties are unmissable. <a href="https://www.migasrestaurant.com" target="_blank">Website</a></li>
+                <li><strong>Janes & Hooch</strong><br>📍 4 Gongti Beilu, Chaoyang District (朝阳区工体北路4号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 朝阳区工体北路4号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Janes%20%26%20Hooch%20工体北路" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="metro-badge metro-bj-line10">🚇 10号线</span><span class="station-name">东大桥站/团结湖站</span></div></div><br>🕐 19:00-02:00 | 💰 ¥65-95/cocktail<br>Industrial-chic cocktail bar near Workers' Stadium. Excellent Old Fashioned and Negroni. The bartenders are serious about their craft. Gets lively after 11 PM on weekends. <a href="https://www.amap.com/search?query=Janes%20%26%20Hooch%20%E5%B7%A5%E4%BD%93%E5%8C%97%E8%B7%AF4%E5%8F%B7" target="_blank">Amap</a></li>
             </ul>
             <p><strong>🎵 Live Music & Dive Bars</strong></p>
             <ul>
-                <li><strong>DDC (Dusk Dawn Club 黄昏黎明俱乐部)</strong><br>📍 14 Shanlao Hutong, Dongcheng District (东城区山老胡同14号)<br>🕐 20:00-02:00 | 💰 ¥50-80 (cover varies)<br>Beijing's best live jazz and indie music venue in a renovated hutong. Acts range from local jazz trios to touring international bands. The sound system is excellent for the intimate space. <a href="https://duskdawnclub.com" target="_blank">Website</a></li>
-                <li><strong>Temple Bar (寺庙酒吧)</strong><br>📍 206 Gulou Dong Dajie, Dongcheng District (东城区鼓楼东大街206号)<br>🕐 19:00-02:00 | 💰 ¥30-50/beer<br>Dive bar with character near the Drum Tower. Cheap drinks, loud music, and a crowd of regulars who've been coming for years. The rooftop has a great view of the Drum Tower at night. <a href="https://www.thebeijinger.com/directory/temple-bar" target="_blank">The Beijinger</a></li>
-                <li><strong>The Den</strong><br>📍 4 Gongti Xilu, Chaoyang District (朝阳区工体西路4号)<br>🕐 18:00-02:00 | 💰 ¥40-60/beer<br>Irish pub that's been an expat institution for 20+ years. Sports on multiple screens, decent pub grub, and a reliable crowd. Wednesday quiz night is competitive. <a href="https://www.thebeijinger.com/directory/the-den" target="_blank">The Beijinger</a></li>
-                <li><strong>Paddy O'Shea's</strong><br>📍 28 Dongsi Shitiao, Dongcheng District (东城区东四十条28号)<br>🕐 16:00-02:00 | 💰 ¥40-60/beer<br>The quintessential Irish pub in Beijing. Live sports, Guinness on tap, and a warm atmosphere. The go-to spot for watching Premier League matches with fellow expats. <a href="https://www.paddyosheas.com" target="_blank">Website</a></li>
+                <li><strong>DDC (Dusk Dawn Club 黄昏黎明俱乐部)</strong><br>📍 14 Shanlao Hutong, Dongcheng District (东城区山老胡同14号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区山老胡同14号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=黄昏黎明俱乐部 山老胡同" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="station-name">东四站</span></div></div><br>🕐 20:00-02:00 | 💰 ¥50-80 (cover varies)<br>Beijing's best live jazz and indie music venue in a renovated hutong. Acts range from local jazz trios to touring international bands. The sound system is excellent for the intimate space. <a href="https://duskdawnclub.com" target="_blank">Website</a></li>
+                <li><strong>Temple Bar (寺庙酒吧)</strong><br>📍 206 Gulou Dong Dajie, Dongcheng District (东城区鼓楼东大街206号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区鼓楼东大街206号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Temple%20Bar%20鼓楼东大街" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line2">🚇 2号线</span><span class="metro-badge metro-bj-line8">🚇 8号线</span><span class="station-name">鼓楼大街站</span></div></div><br>🕐 19:00-02:00 | 💰 ¥30-50/beer<br>Dive bar with character near the Drum Tower. Cheap drinks, loud music, and a crowd of regulars who've been coming for years. The rooftop has a great view of the Drum Tower at night. <a href="https://www.thebeijinger.com/directory/temple-bar" target="_blank">The Beijinger</a></li>
+                <li><strong>The Den</strong><br>📍 4 Gongti Xilu, Chaoyang District (朝阳区工体西路4号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 朝阳区工体西路4号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=The%20Den%20工体西路" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="station-name">东大桥站</span></div></div><br>🕐 18:00-02:00 | 💰 ¥40-60/beer<br>Irish pub that's been an expat institution for 20+ years. Sports on multiple screens, decent pub grub, and a reliable crowd. Wednesday quiz night is competitive. <a href="https://www.thebeijinger.com/directory/the-den" target="_blank">The Beijinger</a></li>
+                <li><strong>Paddy O'Shea's</strong><br>📍 28 Dongsi Shitiao, Dongcheng District (东城区东四十条28号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区东四十条28号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Paddy%20O%27Shea%27s%20东四十条" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line2">🚇 2号线</span><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="station-name">东四十条站</span></div></div><br>🕐 16:00-02:00 | 💰 ¥40-60/beer<br>The quintessential Irish pub in Beijing. Live sports, Guinness on tap, and a warm atmosphere. The go-to spot for watching Premier League matches with fellow expats. <a href="https://www.paddyosheas.com" target="_blank">Website</a></li>
             </ul>
             <p><strong>💡 Insider Tips:</strong></p>
             <ul>
@@ -2074,30 +2333,30 @@ const topicArticles = {
             content: `<p>Shanghai has the best nightlife in mainland China, and the expat bar scene is legendary. Here are the actual bars where Shanghai's foreign community gathers — with real addresses you can Didi or metro to.</p>
             <p><strong>🥂 Bund & Riverside Bars</strong></p>
             <ul>
-                <li><strong>Bar Rouge</strong><br>📍 Bund 18, 7F, 18 Zhongshan Dong Yi Road, Huangpu District (黄浦区中山东一路18号7楼)<br>🕐 18:00-04:00 | 💰 ¥80-120/cocktail, ¥200+ cover on weekends<br>The most iconic rooftop bar in Shanghai. Unobstructed views of Pudong skyline. Dress to impress. Gets packed after 11 PM. The terrace is magical at sunset. This is THE expat party spot. <a href="https://www.barrouge-shanghai.com" target="_blank">Website</a></li>
-                <li><strong>The Nest</strong><br>📍 Bund 18, 6F, 18 Zhongshan Dong Yi Road, Huangpu District (黄浦区中山东一路18号6楼)<br>🕐 18:00-02:00 | 💰 ¥90-130/cocktail<br>More upscale than Bar Rouge, same building. Nordic-inspired cocktails and food. The crowd is older, more sophisticated. Great for business entertaining. Reservations essential on weekends. <a href="https://www.thenestshanghai.com" target="_blank">Website</a></li>
-                <li><strong>Hakkasan</strong><br>📍 Bund 18, 5F, 18 Zhongshan Dong Yi Road, Huangpu District (黄浦区中山东一路18号5楼)<br>🕐 18:00-01:00 | 💰 ¥100-150/cocktail<br>World-renowned Cantonese restaurant with an incredible bar. The cocktails are Asian-fusion masterpieces. Expensive but worth it for special occasions. Dress smart. <a href="https://www.hakkasan.com/shanghai" target="_blank">Website</a></li>
+                <li><strong>Bar Rouge</strong><br>📍 Bund 18, 7F, 18 Zhongshan Dong Yi Road, Huangpu District (黄浦区中山东一路18号7楼)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 黄浦区中山东一路18号7楼</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Bar%20Rouge%20外滩18号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line2">🚇 2号线</span><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="station-name">南京东路站</span></div></div><br>🕐 18:00-04:00 | 💰 ¥80-120/cocktail, ¥200+ cover on weekends<br>The most iconic rooftop bar in Shanghai. Unobstructed views of Pudong skyline. Dress to impress. Gets packed after 11 PM. The terrace is magical at sunset. This is THE expat party spot. <a href="https://www.barrouge-shanghai.com" target="_blank">Website</a></li>
+                <li><strong>The Nest</strong><br>📍 Bund 18, 6F, 18 Zhongshan Dong Yi Road, Huangpu District (黄浦区中山东一路18号6楼)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 黄浦区中山东一路18号6楼</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=The%20Nest%20外滩18号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line2">🚇 2号线</span><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="station-name">南京东路站</span></div></div><br>🕐 18:00-02:00 | 💰 ¥90-130/cocktail<br>More upscale than Bar Rouge, same building. Nordic-inspired cocktails and food. The crowd is older, more sophisticated. Great for business entertaining. Reservations essential on weekends. <a href="https://www.thenestshanghai.com" target="_blank">Website</a></li>
+                <li><strong>Hakkasan</strong><br>📍 Bund 18, 5F, 18 Zhongshan Dong Yi Road, Huangpu District (黄浦区中山东一路18号5楼)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 黄浦区中山东一路18号5楼</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Hakkasan%20外滩18号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line2">🚇 2号线</span><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="station-name">南京东路站</span></div></div><br>🕐 18:00-01:00 | 💰 ¥100-150/cocktail<br>World-renowned Cantonese restaurant with an incredible bar. The cocktails are Asian-fusion masterpieces. Expensive but worth it for special occasions. Dress smart. <a href="https://www.hakkasan.com/shanghai" target="_blank">Website</a></li>
             </ul>
             <p><strong>🍸 Former French Concession (法租界)</strong></p>
             <ul>
-                <li><strong>The Public</strong><br>📍 101 Maoming Nan Road, Jing'an District (静安区茂名南路101号)<br>🕐 18:00-02:00 | 💰 ¥60-90/cocktail<br>Legendary expat cocktail bar that's been around forever. The bartenders know everyone's name. Classic cocktails done right — the Martini is perfect. Feels like a neighborhood living room. The crowd is 80% foreign. <a href="https://www.smartshanghai.com/venue/the-public" target="_blank">SmartShanghai</a></li>
-                <li><strong>Senator Saloon</strong><br>📍 98 Jianguo West Road, Xuhui District (徐汇区建国西路98号)<br>🕐 17:00-02:00 | 💰 ¥60-90/cocktail<br>American whiskey bar with the best bourbon selection in Shanghai. Dark wood, leather booths, and country music. The Old Fashioned is legendary. Always packed with Americans and Brits. No reservations — first come, first served. <a href="https://www.smartshanghai.com/venue/senator-saloon" target="_blank">SmartShanghai</a></li>
-                <li><strong>Flask</strong><br>📍 458 Shaanxi South Road, Xuhui District (徐汇区陕西南路458号)<br>🕐 19:00-02:00 | 💰 ¥70-100/cocktail<br>Hidden speakeasy behind a Coca-Cola vending machine door. The cocktails are experimental and Instagram-worthy. Intimate space, max 30 people. Go early or wait in line. The "Tiki Flask" is their signature. <a href="https://www.smartshanghai.com/venue/flask" target="_blank">SmartShanghai</a></li>
-                <li><strong>Epic Cocktail Bar</strong><br>📍 Found 158, 158 Julu Road, Jing'an District (静安区巨鹿路158号Found 158)<br>🕐 19:00-02:00 | 💰 ¥65-90/cocktail<br>Located in the Found 158 complex (a former underground bomb shelter turned bar street). Creative cocktails with Chinese ingredients. The bartenders are award-winning. Try the "Sichuan Negroni." <a href="https://www.smartshanghai.com/venue/epic" target="_blank">SmartShanghai</a></li>
-                <li><strong>Sasha's</strong><br>📍 11 Hengshan Road, Xuhui District (徐汇区衡山路11号)<br>🕐 11:00-02:00 | 💰 ¥50-70/beer, ¥70-90/cocktail<br>Set in a gorgeous 1920s heritage villa. The garden terrace is perfect for Sunday brunch. Western food is solid. The crowd is a mix of expats and Chinese yuppies. Live music on weekends. <a href="https://www.sashasrestaurant.com" target="_blank">Website</a></li>
+                <li><strong>The Public</strong><br>📍 101 Maoming Nan Road, Jing'an District (静安区茂名南路101号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 静安区茂名南路101号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=The%20Public%20茂名南路101号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line1">🚇 1号线</span><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="metro-badge metro-sh-line12">🚇 12号线</span><span class="station-name">陕西南路站</span></div></div><br>🕐 18:00-02:00 | 💰 ¥60-90/cocktail<br>Legendary expat cocktail bar that's been around forever. The bartenders know everyone's name. Classic cocktails done right — the Martini is perfect. Feels like a neighborhood living room. The crowd is 80% foreign. <a href="https://www.smartshanghai.com/venue/the-public" target="_blank">SmartShanghai</a></li>
+                <li><strong>Senator Saloon</strong><br>📍 98 Jianguo West Road, Xuhui District (徐汇区建国西路98号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 徐汇区建国西路98号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Senator%20Saloon%20建国西路98号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line9">🚇 9号线</span><span class="metro-badge metro-sh-line12">🚇 12号线</span><span class="station-name">嘉善路站</span></div></div><br>🕐 17:00-02:00 | 💰 ¥60-90/cocktail<br>American whiskey bar with the best bourbon selection in Shanghai. Dark wood, leather booths, and country music. The Old Fashioned is legendary. Always packed with Americans and Brits. No reservations — first come, first served. <a href="https://www.smartshanghai.com/venue/senator-saloon" target="_blank">SmartShanghai</a></li>
+                <li><strong>Flask</strong><br>📍 458 Shaanxi South Road, Xuhui District (徐汇区陕西南路458号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 徐汇区陕西南路458号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Flask%20陕西南路458号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line1">🚇 1号线</span><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="metro-badge metro-sh-line12">🚇 12号线</span><span class="station-name">陕西南路站</span></div></div><br>🕐 19:00-02:00 | 💰 ¥70-100/cocktail<br>Hidden speakeasy behind a Coca-Cola vending machine door. The cocktails are experimental and Instagram-worthy. Intimate space, max 30 people. Go early or wait in line. The "Tiki Flask" is their signature. <a href="https://www.smartshanghai.com/venue/flask" target="_blank">SmartShanghai</a></li>
+                <li><strong>Epic Cocktail Bar</strong><br>📍 Found 158, 158 Julu Road, Jing'an District (静安区巨鹿路158号Found 158)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 静安区巨鹿路158号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Epic%20Cocktail%20Bar%20巨鹿路158号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line1">🚇 1号线</span><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="metro-badge metro-sh-line12">🚇 12号线</span><span class="station-name">陕西南路站</span></div></div><br>🕐 19:00-02:00 | 💰 ¥65-90/cocktail<br>Located in the Found 158 complex (a former underground bomb shelter turned bar street). Creative cocktails with Chinese ingredients. The bartenders are award-winning. Try the "Sichuan Negroni." <a href="https://www.smartshanghai.com/venue/epic" target="_blank">SmartShanghai</a></li>
+                <li><strong>Sasha's</strong><br>📍 11 Hengshan Road, Xuhui District (徐汇区衡山路11号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 徐汇区衡山路11号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Sasha%27s%20衡山路11号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line1">🚇 1号线</span><span class="station-name">衡山路站</span></div></div><br>🕐 11:00-02:00 | 💰 ¥50-70/beer, ¥70-90/cocktail<br>Set in a gorgeous 1920s heritage villa. The garden terrace is perfect for Sunday brunch. Western food is solid. The crowd is a mix of expats and Chinese yuppies. Live music on weekends. <a href="https://www.sashasrestaurant.com" target="_blank">Website</a></li>
             </ul>
             <p><strong>🍺 Craft Beer & Brewpubs</strong></p>
             <ul>
-                <li><strong>Daga Brewpub</strong><br>📍 57 Yuyuan Road, Jing'an District (静安区愚园路57号)<br>🕐 11:00-00:00 | 💰 ¥40-60/pint<br>30+ craft beers on tap, mostly Chinese craft breweries. The outdoor seating on Yuyuan Road is great for people-watching. The IPA flight (4 x 150ml for ¥80) is the best way to explore. Food is solid pub grub. <a href="https://www.amap.com/search?query=Daga%20Brewpub%20%E6%84%9A%E5%9B%AD%E8%B7%AF57%E5%8F%B7" target="_blank">Amap</a></li>
-                <li><strong>Boxing Cat Brewery (拳击猫)</strong><br>📍 519 Fuxing Middle Road, Xuhui District (徐汇区复兴中路519号)<br>🕐 11:00-00:00 | 💰 ¥45-65/pint<br>Shanghai's OG craft brewery. The TKO IPA and Sucker Punch Pale Ale are classics. Great American-style food. Multiple locations but this one has the best atmosphere. <a href="https://www.boxingcatbrewery.com" target="_blank">Website</a></li>
-                <li><strong>Tap House</strong><br>📍 398 Jiangsu Road, Changning District (长宁区江苏路398号)<br>🕐 16:00-00:00 | 💰 ¥40-55/pint<br>Neighborhood craft beer bar with a rotating tap list. The owner is a beer nerd who sources unique brews. Chill vibe, good music, and a friendly crowd. Perfect for a weeknight drink. <a href="https://www.smartshanghai.com/venue/tap-house" target="_blank">SmartShanghai</a></li>
+                <li><strong>Daga Brewpub</strong><br>📍 57 Yuyuan Road, Jing'an District (静安区愚园路57号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 静安区愚园路57号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Daga%20Brewpub%20愚园路57号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line2">🚇 2号线</span><span class="metro-badge metro-sh-line11">🚇 11号线</span><span class="station-name">江苏路站</span></div></div><br>🕐 11:00-00:00 | 💰 ¥40-60/pint<br>30+ craft beers on tap, mostly Chinese craft breweries. The outdoor seating on Yuyuan Road is great for people-watching. The IPA flight (4 x 150ml for ¥80) is the best way to explore. Food is solid pub grub. <a href="https://www.amap.com/search?query=Daga%20Brewpub%20%E6%84%9A%E5%9B%AD%E8%B7%AF57%E5%8F%B7" target="_blank">Amap</a></li>
+                <li><strong>Boxing Cat Brewery (拳击猫)</strong><br>📍 519 Fuxing Middle Road, Xuhui District (徐汇区复兴中路519号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 徐汇区复兴中路519号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Boxing%20Cat%20Brewery%20复兴中路519号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="station-name">上海图书馆站</span></div></div><br>🕐 11:00-00:00 | 💰 ¥45-65/pint<br>Shanghai's OG craft brewery. The TKO IPA and Sucker Punch Pale Ale are classics. Great American-style food. Multiple locations but this one has the best atmosphere. <a href="https://www.boxingcatbrewery.com" target="_blank">Website</a></li>
+                <li><strong>Tap House</strong><br>📍 398 Jiangsu Road, Changning District (长宁区江苏路398号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 长宁区江苏路398号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Tap%20House%20江苏路398号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line2">🚇 2号线</span><span class="metro-badge metro-sh-line11">🚇 11号线</span><span class="station-name">江苏路站</span></div></div><br>🕐 16:00-00:00 | 💰 ¥40-55/pint<br>Neighborhood craft beer bar with a rotating tap list. The owner is a beer nerd who sources unique brews. Chill vibe, good music, and a friendly crowd. Perfect for a weeknight drink. <a href="https://www.smartshanghai.com/venue/tap-house" target="_blank">SmartShanghai</a></li>
             </ul>
             <p><strong>🎷 Live Music & Late Night</strong></p>
             <ul>
-                <li><strong>JZ Club</strong><br>📍 46 Fuxing West Road, Xuhui District (徐汇区复兴西路46号)<br>🕐 20:00-02:00 | 💰 ¥50-100 (cover varies)<br>Shanghai's premier jazz club since 2004. World-class musicians play nightly. The basement venue has incredible acoustics. Reservations recommended for weekends. <a href="https://www.jzclub.cn" target="_blank">Website</a></li>
-                <li><strong>Heyday Jazz Bar</strong><br>📍 Ferguson Lane, 376 Wukang Road, Xuhui District (徐汇区武康路376号武康亭)<br>🕐 19:00-01:00 | 💰 ¥60-80/cocktail<br>Intimate jazz bar in the beautiful Ferguson Lane complex. More upscale than JZ Club. Great cocktails and a sophisticated crowd. Perfect for a date night. <a href="https://www.smartshanghai.com/venue/heyday" target="_blank">SmartShanghai</a></li>
-                <li><strong>Revolucion Cocktail</strong><br>📍 101 Maoming Nan Road, Jing'an District (静安区茂名南路101号)<br>🕐 20:00-04:00 | 💰 ¥60-90/cocktail<br>Cuban-themed cocktail bar with live salsa music. The mojitos are legit. Gets wild after midnight — dancing on tables is not uncommon. Multiple locations but Maoming Road is the original. <a href="https://www.revolucion.com.cn" target="_blank">Website</a></li>
-                <li><strong>Windows Garage</strong><br>📍 101 Maoming Nan Road, Jing'an District (静安区茂名南路101号)<br>🕐 20:00-02:00 | 💰 ¥40-60/beer<br>Dive bar with live rock and indie bands. Sticky floors, cheap beer, and loud music — exactly what you want at 1 AM. The crowd is a mix of expats, musicians, and night owls. <a href="https://www.smartshanghai.com/venue/windows-garage" target="_blank">SmartShanghai</a></li>
+                <li><strong>JZ Club</strong><br>📍 46 Fuxing West Road, Xuhui District (徐汇区复兴西路46号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 徐汇区复兴西路46号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=JZ%20Club%20复兴西路46号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="metro-badge metro-sh-line11">🚇 11号线</span><span class="station-name">交通大学站</span></div></div><br>🕐 20:00-02:00 | 💰 ¥50-100 (cover varies)<br>Shanghai's premier jazz club since 2004. World-class musicians play nightly. The basement venue has incredible acoustics. Reservations recommended for weekends. <a href="https://www.jzclub.cn" target="_blank">Website</a></li>
+                <li><strong>Heyday Jazz Bar</strong><br>📍 Ferguson Lane, 376 Wukang Road, Xuhui District (徐汇区武康路376号武康亭)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 徐汇区武康路376号武康亭</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Heyday%20Jazz%20Bar%20武康路376号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="metro-badge metro-sh-line11">🚇 11号线</span><span class="station-name">交通大学站</span></div></div><br>🕐 19:00-01:00 | 💰 ¥60-80/cocktail<br>Intimate jazz bar in the beautiful Ferguson Lane complex. More upscale than JZ Club. Great cocktails and a sophisticated crowd. Perfect for a date night. <a href="https://www.smartshanghai.com/venue/heyday" target="_blank">SmartShanghai</a></li>
+                <li><strong>Revolucion Cocktail</strong><br>📍 101 Maoming Nan Road, Jing'an District (静安区茂名南路101号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 静安区茂名南路101号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Revolucion%20Cocktail%20茂名南路101号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line1">🚇 1号线</span><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="metro-badge metro-sh-line12">🚇 12号线</span><span class="station-name">陕西南路站</span></div></div><br>🕐 20:00-04:00 | 💰 ¥60-90/cocktail<br>Cuban-themed cocktail bar with live salsa music. The mojitos are legit. Gets wild after midnight — dancing on tables is not uncommon. Multiple locations but Maoming Road is the original. <a href="https://www.revolucion.com.cn" target="_blank">Website</a></li>
+                <li><strong>Windows Garage</strong><br>📍 101 Maoming Nan Road, Jing'an District (静安区茂名南路101号)<br><div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 静安区茂名南路101号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Windows%20Garage%20茂名南路101号" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-sh-line1">🚇 1号线</span><span class="metro-badge metro-sh-line10">🚇 10号线</span><span class="metro-badge metro-sh-line12">🚇 12号线</span><span class="station-name">陕西南路站</span></div></div><br>🕐 20:00-02:00 | 💰 ¥40-60/beer<br>Dive bar with live rock and indie bands. Sticky floors, cheap beer, and loud music — exactly what you want at 1 AM. The crowd is a mix of expats, musicians, and night owls. <a href="https://www.smartshanghai.com/venue/windows-garage" target="_blank">SmartShanghai</a></li>
             </ul>
             <p><strong>💡 Insider Tips:</strong></p>
             <ul>
@@ -2212,8 +2471,6 @@ const topicArticles = {
                 <li><a href="https://www.ziroom.com" target="_blank"><strong>Ziroom (自如)</strong></a> — China's largest managed apartment platform. Offers fully furnished, standardized apartments with Wi-Fi, cleaning service, and maintenance included. The app has an English interface option. Best for: young professionals who want a hassle-free experience. Price range: ¥3,000-15,000/month.</li>
                 <li><a href="https://www.lianjia.com" target="_blank"><strong>Lianjia (链家)</strong></a> — The most trusted real estate platform in China with verified listings and professional agents. The app is in Chinese, but agents in expat areas often speak English. Best for: families and long-term renters. Commission: typically one month's rent.</li>
                 <li><a href="https://www.ke.com" target="_blank"><strong>Beike (贝壳找房)</strong></a> — A housing aggregator that pulls listings from multiple agencies including Lianjia. Has the largest database of verified properties. Best for: comparing options across agencies.</li>
-                <li><a href="https://www.thebeijinger.com/classifieds/housing" target="_blank"><strong>The Beijinger Housing</strong></a> — The go-to English-language classifieds for the expat community. Listings are posted directly by landlords and agents who work with foreigners. Best for: English speakers who want direct communication.</li>
-                <li><a href="https://www.wellcee.com" target="_blank"><strong>Wellcee</strong></a> — A community-focused platform designed specifically for foreigners in China. Features roommate matching, furnished apartments, and a social community. Best for: newcomers looking for community.</li>
                 <li><a href="https://housinganywhere.com/s/Beijing--China" target="_blank"><strong>HousingAnywhere</strong></a> — International platform popular for medium-term rentals (1-12 months). Verified landlords, secure payments, and flexible lease terms. Best for: students and short-term stays.</li>
             </ul>
             <p><strong>Step 2: Understand Beijing's Rental Neighborhoods</strong></p>
@@ -2256,7 +2513,7 @@ const topicArticles = {
                 <li>Landlord refuses to provide 房产证 (property ownership certificate) — verify ownership</li>
                 <li>No written contract — always insist on a formal lease agreement</li>
             </ul>
-            <div class="ar-source">Sources: <a href="https://www.ziroom.com" target="_blank">Ziroom</a> · <a href="https://www.lianjia.com" target="_blank">Lianjia</a> · <a href="https://www.ke.com" target="_blank">Beike</a> · <a href="https://www.thebeijinger.com/classifieds/housing" target="_blank">The Beijinger</a> · <a href="https://www.wellcee.com" target="_blank">Wellcee</a></div>`
+            <div class="ar-source">Sources: <a href="https://www.ziroom.com" target="_blank">Ziroom</a> · <a href="https://www.lianjia.com" target="_blank">Lianjia</a> · <a href="https://www.ke.com" target="_blank">Beike</a></div>`
         },
         {
             title: 'Beijing Neighborhood Guide: Where Expats Live in 2026',
@@ -2318,12 +2575,448 @@ const topicArticles = {
                 <li><strong>Near work:</strong> Use <a href="https://map.baidu.com" target="_blank">Baidu Maps</a> to check commute times</li>
             </ul>
             <p><strong>Pro Tip:</strong> Before signing a lease, visit the neighborhood at different times — morning rush hour, evening, and weekend. Check the nearest metro station distance, grocery stores (look for <a href="https://www.womai.com" target="_blank">Womai</a> or <a href="https://www.hema.com" target="_blank">Hema/盒马</a> for delivery), and the general vibe. Join the neighborhood's WeChat group to connect with other expats.</p>
-            <div class="ar-source">Sources: <a href="https://www.thebeijinger.com" target="_blank">The Beijinger</a> · <a href="https://www.ziroom.com" target="_blank">Ziroom</a> · <a href="https://www.lianjia.com" target="_blank">Lianjia</a> · <a href="https://www.beijing-kids.com" target="_blank">Beijing Kids</a></div>`
+            <div class="ar-source">Sources: <a href="https://www.ziroom.com" target="_blank">Ziroom</a> · <a href="https://www.lianjia.com" target="_blank">Lianjia</a> · <a href="https://www.ke.com" target="_blank">Beike</a> · <a href="https://www.beijing-kids.com" target="_blank">Beijing Kids</a></div>`
+        },
+        {
+            title: 'How to Find an Apartment in China Using Major Rental Platforms (Step-by-Step)',
+            content: `<p>If you're a foreigner moving to China, the smartest approach is to use established rental platforms rather than dealing with individual landlords directly. Major platforms offer verified listings, standardized contracts, English support, and dispute resolution — things you won't get from a random landlord on WeChat. Here's a detailed walkthrough of how to find your apartment using China's biggest rental platforms.</p>
+            <p><strong>Why Use Big Platforms Instead of Individual Landlords?</strong></p>
+            <ul>
+                <li><strong>Verified listings</strong> — Platforms like <a href="https://www.ziroom.com" target="_blank">Ziroom</a> and <a href="https://www.lianjia.com" target="_blank">Lianjia</a> send agents to photograph and verify every apartment. What you see online is what you get.</li>
+                <li><strong>Standardized contracts</strong> — No surprise clauses. Platform contracts are reviewed by legal teams and follow local regulations.</li>
+                <li><strong>Maintenance support</strong> — Something breaks? Submit a repair ticket in the app. With an individual landlord, you're calling someone who may not answer.</li>
+                <li><strong>Dispute resolution</strong> — If there's a problem with your deposit or lease, the platform mediates. With a private landlord, you're on your own.</li>
+                <li><strong>English support</strong> — Some platforms (especially <a href="https://www.ziroom.com" target="_blank">Ziroom</a>) have English interfaces. Others have English-speaking agents in expat areas.</li>
+            </ul>
+            <p><strong>Platform 1: Ziroom (自如) — Best for Furnished Apartments</strong></p>
+            <p><a href="https://www.ziroom.com" target="_blank">Ziroom</a> is China's largest managed apartment platform. Think of it as the "WeWork of apartments" — everything is standardized, furnished, and move-in ready.</p>
+            <ul>
+                <li><strong>Website:</strong> <a href="https://www.ziroom.com" target="_blank">ziroom.com</a> (app available on iOS/Android)</li>
+                <li><strong>What you get:</strong> Fully furnished apartment with Wi-Fi, washing machine, refrigerator, air conditioning, and basic kitchen. Bi-weekly cleaning service included.</li>
+                <li><strong>Price range:</strong> ¥3,000-15,000/month depending on city and room type</li>
+                <li><strong>Lease terms:</strong> 1 year minimum. "Ziroom Free" option allows shorter stays at higher rates.</li>
+                <li><strong>How to use:</strong> Download the app → select your city → browse listings → schedule viewing → sign contract online → move in</li>
+                <li><strong>Payment:</strong> Monthly via app (WeChat Pay/Alipay/bank card). No cash.</li>
+                <li><strong>Pros:</strong> No agent fees, everything is standardized, 24/7 maintenance hotline</li>
+                <li><strong>Cons:</strong> Slightly more expensive than raw market rate, less personal touch</li>
+            </ul>
+            <p><strong>Platform 2: Lianjia (链家) — Best for Long-Term Rentals</strong></p>
+            <p><a href="https://www.lianjia.com" target="_blank">Lianjia</a> is China's most trusted real estate platform with 200,000+ agents nationwide.</p>
+            <ul>
+                <li><strong>Website:</strong> <a href="https://www.lianjia.com" target="_blank">lianjia.com</a></li>
+                <li><strong>Price range:</strong> ¥2,500-20,000/month — wider range than Ziroom</li>
+                <li><strong>Agent fee:</strong> Typically one month's rent</li>
+                <li><strong>Pros:</strong> Huge inventory, professional agents, verified ownership certificates (房产证)</li>
+                <li><strong>Cons:</strong> Agent fee, app is Chinese-only</li>
+            </ul>
+            <p><strong>Platform 3: Beike (贝壳找房) — Best for Comparing Options</strong></p>
+            <p><a href="https://www.ke.com" target="_blank">Beike</a> is the parent company of Lianjia and acts as a housing aggregator. It pulls listings from Lianjia and dozens of other agencies.</p>
+            <ul>
+                <li><strong>Website:</strong> <a href="https://www.ke.com" target="_blank">ke.com</a></li>
+                <li><strong>Key feature:</strong> "VR看房" (VR house viewing) — tour apartments in 3D from your phone</li>
+                <li><strong>Pros:</strong> Largest database, VR tours, transparent pricing history</li>
+            </ul>
+            <p><strong>Red Flags — Avoid These:</strong></p>
+            <ul>
+                <li>❌ Landlord asks for deposit before viewing — SCAM</li>
+                <li>❌ Price is 30%+ below market rate — bait-and-switch</li>
+                <li>❌ No written contract — always insist on one</li>
+                <li>❌ Landlord refuses to show 房产证 — may not be the real owner</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.ziroom.com" target="_blank">Ziroom</a> · <a href="https://www.lianjia.com" target="_blank">Lianjia</a> · <a href="https://www.ke.com" target="_blank">Beike</a></div>`
+        },
+        {
+            title: 'How to Set Up Home WiFi in China: Step-by-Step Guide (2026)',
+            content: `<p>Unlike some countries where internet is included in the rent, in China you usually need to set up your own home broadband and WiFi. Here's a complete step-by-step guide.</p>
+            <p><strong>First: Check if your apartment already has internet</strong></p>
+            <p>Ask your landlord or rental agent — is there already an active broadband line from a previous tenant? If yes, you may only need a router. If the service is cancelled, start fresh below.</p>
+            <p><strong>Step 1 — Choose an ISP</strong></p>
+            <ul>
+                <li>📶 <strong>China Mobile (中国移动)</strong> — <a href="tel:10086">10086</a> — Largest mobile network, broadband quality varies by building.</li>
+                <li>📶 <strong>China Unicom (中国联通)</strong> — <a href="tel:10010">10010</a> — Good for gaming and international connections.</li>
+                <li>📶 <strong>China Telecom (中国电信)</strong> — <a href="tel:10000">10000</a> — Traditionally strongest for landline broadband, stable.</li>
+            </ul>
+            <p><strong>Step 2 — Check availability</strong></p>
+            <p>Call the hotline and ask: "I want to set up home WiFi. Is your service available in my building? What plans do you have?" If one ISP says no, try another — a building may only work with one or two.</p>
+            <p><strong>Step 3 — Choose a plan and schedule installation</strong></p>
+            <ul>
+                <li>Tell the hotline your address and choose a plan: 100 Mbps (streaming/work), 200-500 Mbps (gaming/multiple devices).</li>
+                <li>Price: approx. ¥600-¥1500/year. Yearly payment is cheaper.</li>
+                <li>The hotline will schedule a time for a technician to visit your apartment.</li>
+            </ul>
+            <p><strong>Step 4 — Installation day: pay on the spot</strong></p>
+            <p>The technician comes to your apartment. They bring the modem/router (光猫), set up everything, and you pay them directly on the spot — no need to visit a service hall (营业厅). Payment: WeChat, Alipay, or cash. Have your passport ready (they may need to take a photo of it for registration).</p>
+            <p><strong>Step 5 — Setup complete</strong></p>
+            <p>The technician connects the fibre optic port, sets up WiFi, and gives you the SSID and password. You don't need a separate router — but you can add one later for better range.</p>
+            <p><strong>Step 6 — Test and keep info</strong></p>
+            <p>Make sure all devices connect. Save your broadband account number and technician's contact. Ask for an invoice (发票) if needed.</p>
+            <p><strong>⚠️ Tips for foreigners:</strong></p>
+            <ul>
+                <li>Hotline and technician rarely speak English — have a Chinese friend or translation app ready.</li>
+                <li>Registration linked to your passport number.</li>
+                <li>Most plans are 12 months. Early cancellation may forfeit remaining months.</li>
+                <li>Moving? Call ISP to apply for "移机" (moving service) — small fee may apply.</li>
+            </ul>
+            <p><strong>Useful phrases:</strong></p>
+            <ul>
+                <li>我要装宽带 — Wǒ yào zhuān kuāndài — I want to install broadband</li>
+                <li>有WiFi吗？ — Yǒu WiFi ma? — Is there WiFi?</li>
+                <li>我要开发票 — Wǒ yào kāi fāpiào — I need an invoice</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.10086.cn" target="_blank">China Mobile</a> · <a href="https://www.10010.com" target="_blank">China Unicom</a> · <a href="https://www.189.cn" target="_blank">China Telecom</a></div>`
+        }
+    ]
+,
+    sim: [
+        {
+            title: 'SIM Card Rules for Foreigners in China: One Passport, One Card, and the Cancellation Trap (2026)',
+            content: `<p>Getting a SIM card in China seems simple — walk into a carrier store, show your passport, get a card. But there's a critical rule that catches many foreigners off guard: <strong>each foreign passport can only register one SIM card per carrier at a time</strong>. And if you registered a card in a different city and want to cancel it, you may have to travel back to that city in person. This article explains the rules, the sources, and how to avoid getting stuck.</p>
+            <p><strong>The Legal Basis: 工信部令第25号</strong></p>
+            <p>The foundation of China's SIM card registration system is the <strong>《电话用户真实身份信息登记规定》</strong> (Provisions on Registration of Real Identity Information of Telephone Users), issued by the <a href="https://www.miit.gov.cn" target="_blank">Ministry of Industry and Information Technology (MIIT/工信部)</a> as <strong>Order No. 25</strong>, effective September 1, 2013.</p>
+            <p>Key provisions:</p>
+            <ul>
+                <li><strong>Article 6:</strong> Telecom operators must require users to present valid ID and provide real identity information when registering.</li>
+                <li><strong>Article 7(4):</strong> <strong>Foreign citizen passports (外国公民护照)</strong> are listed as valid identification documents for SIM card registration.</li>
+                <li><strong>Article 9:</strong> Operators must verify and record the ID type, name, number, and address from the document.</li>
+            </ul>
+            <p>Full text: <a href="https://baike.baidu.com/item/%E7%94%B5%E8%AF%9D%E7%94%A8%E6%88%B7%E7%9C%9F%E5%AE%9E%E8%BA%AB%E4%BB%BD%E4%BF%A1%E6%81%AF%E7%99%BB%E8%AE%B0%E8%A7%84%E5%AE%9A" target="_blank">百度百科 — 电话用户真实身份信息登记规定</a></p>
+            <p><strong>The "One SIM Per Passport" Rule</strong></p>
+            <p>While Order No. 25 establishes real-name registration, the <strong>one-SIM-per-passport-per-carrier</strong> limit comes from additional anti-fraud regulations. In 2016, MIIT issued <strong>工信部网安〔2016〕182号</strong>, which requires carriers to limit the number of SIM cards per identity document to prevent fraud.</p>
+            <p>In practice:</p>
+            <ul>
+                <li><strong>Chinese citizens (身份证):</strong> Can register up to 5 SIM cards per carrier (15 total across all three carriers)</li>
+                <li><strong>Foreigners (护照/Passport):</strong> Typically limited to <strong>1 SIM card per carrier</strong>. Some carriers allow 2-3, but this varies by province and store policy.</li>
+                <li><strong>Why stricter for foreigners?</strong> Anti-fraud measures. Foreign passports are harder to verify in real-time, and the system limits exposure to potential fraud.</li>
+            </ul>
+            <p><strong>The Cancellation Trap: "Must Return to Original Store"</strong></p>
+            <p>This is the policy that frustrates foreigners the most. When you want to cancel (注销) a SIM card, the carrier may tell you that you <strong>must go back to the original business hall (营业厅) where you registered the card</strong> to cancel it in person.</p>
+            <p>Why does this exist?</p>
+            <ul>
+                <li>Each province's carrier system operates semi-independently. Your account data is stored in the provincial system where you registered.</li>
+                <li>Cross-region cancellation requires data transfer between provincial systems, which historically wasn't supported.</li>
+                <li>The policy prevents fraud — someone can't cancel your SIM card at a random store without your original registration data.</li>
+            </ul>
+            <p><strong>Has this been fixed?</strong> Partially. In November 2018, MIIT issued a notice requiring all three carriers to implement <strong>cross-region SIM cancellation (异地销户)</strong> by January 1, 2019. However, implementation has been inconsistent:</p>
+            <ul>
+                <li><strong>China Mobile:</strong> Supports cross-region cancellation at most flagship stores in Tier 1 cities. Call 10086 first to confirm.</li>
+                <li><strong>China Unicom:</strong> Supports cross-region cancellation at designated stores. Call 10010 to find the nearest store that handles it.</li>
+                <li><strong>China Telecom:</strong> Most limited — still often requires return to original city. Call 10000 for guidance.</li>
+            </ul>
+            <p>Reality check: Even with the policy change, many frontline staff still don't know how to process cross-region cancellation. You may need to escalate to a manager or call the carrier's customer service hotline to get it done.</p>
+            <p><strong>How to Avoid the Cancellation Trap:</strong></p>
+            <ul>
+                <li><strong>Register your SIM in the city where you'll stay long-term.</strong> Don't get a SIM in a transit city just because it's convenient at the airport.</li>
+                <li><strong>Keep your SIM active.</strong> If you stop paying, the carrier will eventually reclaim the number, but this takes 3-6 months and may affect your credit record with that carrier.</li>
+                <li><strong>Before leaving a city,</strong> go to the carrier's flagship store and cancel in person. Bring your passport and SIM card.</li>
+                <li><strong>If you're already stuck,</strong> call the carrier's hotline (10086/10010/10000) and ask for cross-region cancellation (异地销户). Be persistent — ask for a supervisor if the frontline agent says it's impossible.</li>
+            </ul>
+            <p><strong>How to Get a SIM Card: Step-by-Step</strong></p>
+            <ol>
+                <li><strong>Choose a carrier.</strong> China Mobile has the best coverage. China Unicom is best for iPhones. China Telecom is cheapest.</li>
+                <li><strong>Find a flagship store (旗舰店).</strong> Don't go to small authorized resellers — they may not handle foreign passports. Use the carrier's website or app to find the nearest flagship store.</li>
+                <li><strong>Bring:</strong> Your passport (original, not copy), and your phone (they'll test the SIM).</li>
+                <li><strong>Choose a plan.</strong> Minimum plans start at ¥49-58/month with 20-30GB data. Ask for a "new user promotion" (新用户优惠) — you'll often get extra data or a discount for the first 6-12 months.</li>
+                <li><strong>Pay.</strong> Monthly plans are auto-deducted via bank card or Alipay/WeChat Pay. You can also prepay at the store.</li>
+                <li><strong>Activate.</strong> The SIM is usually active within 1-2 hours. Some plans activate instantly.</li>
+            </ol>
+            <p><strong>Essential Phone Numbers:</strong></p>
+            <ul>
+                <li>📞 <strong>10086</strong> — China Mobile customer service</li>
+                <li>📞 <strong>10010</strong> — China Unicom customer service</li>
+                <li>📞 <strong>10000</strong> — China Telecom customer service</li>
+                <li>📞 <strong>110</strong> — Police emergency</li>
+                <li>📞 <strong>120</strong> — Ambulance</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.miit.gov.cn" target="_blank">MIIT (工信部)</a> · <a href="https://baike.baidu.com/item/%E7%94%B5%E8%AF%9D%E7%94%A8%E6%88%B7%E7%9C%9F%E5%AE%9E%E8%BA%AB%E4%BB%BD%E4%BF%A1%E6%81%AF%E7%99%BB%E8%AE%B0%E8%A7%84%E5%AE%9A" target="_blank">工信部令第25号 全文</a> · <a href="https://www.10086.cn" target="_blank">China Mobile</a> · <a href="https://www.10010.com" target="_blank">China Unicom</a> · <a href="https://www.189.cn" target="_blank">China Telecom</a></div>`
+        }
+    ],
+    hospital: [
+        {
+            title: "A Foreigner's Guide to Seeing a Doctor at a Chinese Hospital (Non-Emergency)",
+            content: `<p>This guide walks you through a typical outpatient visit at a public hospital in China. The process may feel different from your home country, but once you know the steps, it's straightforward.</p>
+            <p><strong>Before You Go</strong></p>
+            <ul>
+                <li><strong>Make an appointment (预约)</strong> — Use the hospital's WeChat account, app, or platforms like 健康160 / Alipay "Healthcare".</li>
+                <li><strong>Choose the correct department:</strong>
+                    <ul>
+                        <li>内科 (Internal Medicine) — fever, cough, stomach pain</li>
+                        <li>外科 (Surgery) — injuries, lumps, bone issues</li>
+                        <li>耳鼻喉科 (ENT), 眼科 (Ophthalmology), 皮肤科 (Dermatology)</li>
+                    </ul>
+                </li>
+                <li>If unsure, go to the <strong>分诊台 (Triage desk)</strong> — they will help you.</li>
+                <li>Bring your <strong>passport</strong> (or foreign permanent resident ID).</li>
+            </ul>
+            <p><strong>Step 1 — Registration (挂号)</strong></p>
+            <ul>
+                <li>Go to the registration hall or self-service kiosk (many have English option).</li>
+                <li>Pay the registration fee (¥20-100 depending on doctor's seniority).</li>
+                <li>Payment: cash, WeChat, Alipay, bank card.</li>
+                <li>You receive a registration slip or QR code — keep it.</li>
+            </ul>
+            <p><strong>Step 2 — Check in at the department</strong></p>
+            <p>Go to the floor/department on your slip. Check in at the front desk or scan QR code. The screen shows your queue number.</p>
+            <p><strong>Step 3 — See the doctor</strong></p>
+            <p>Wait for your number. The doctor examines you and likely orders lab tests (化验).</p>
+            <p><strong>Step 4 — Lab work (if needed)</strong></p>
+            <ul>
+                <li>Pay first — take the lab order to payment counter/kiosk on the same floor.</li>
+                <li>Go to specimen collection room (抽血处) with payment receipt.</li>
+                <li>Results: 30 min to a few hours. Print from kiosk using QR code.</li>
+            </ul>
+            <p><strong>Step 5 — Return to doctor with results</strong></p>
+            <p>Bring the lab report back. Doctor diagnoses and writes prescription (处方) if needed.</p>
+            <p><strong>Step 6 — Get medicine at pharmacy</strong></p>
+            <ul>
+                <li>收方/缴费 (Drop-off) — hand in prescription, check price.</li>
+                <li>用药咨询 (Consultation) — optional, for dosage questions.</li>
+                <li>取药 (Pick-up) — collect medication after paying.</li>
+            </ul>
+            <p><strong>Step 7 — Collect all documents for insurance</strong></p>
+            <p>Print official receipts (发票) from self-service kiosk for each payment. Print lab report (化验单). Keep everything together for insurance reimbursement.</p>
+            <p><strong>Important notes:</strong></p>
+            <ul>
+                <li>Large cities often have international clinics or English-speaking staff.</li>
+                <li>No family doctor system — go directly to specialists.</li>
+                <li>Payment upfront for each service (except emergency). Insurance reimbursement later.</li>
+            </ul>
+            <p><strong>Useful phrases (Pinyin):</strong></p>
+            <ul>
+                <li>我要挂号 — Wǒ yào guàhào — I need to register</li>
+                <li>药房在哪里？ — Yàofáng zài nǎlǐ? — Where is the pharmacy?</li>
+                <li>我要发票 — Wǒ xūyào fāpiào — I need a receipt</li>
+                <li>我不舒服 — Wǒ bù shūfu — I feel unwell</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="http://www.nhc.gov.cn" target="_blank">National Health Commission</a></div>`
+        }
+    ],
+    cultural: [
+        {
+            title: 'Why China Loves When Foreigners Wear Hanfu and Ethnic Clothing',
+            content: `<p>If you've ever walked through a Chinese city wearing a hanfu (汉服, traditional Chinese clothing) or other ethnic minority garments, you've probably experienced something unexpected: huge smiles, requests for photos, and people telling you "好看!" (hǎokàn — beautiful!). This reaction isn't random — it reflects deep cultural values about hospitality, cultural pride, and the Chinese concept of "天下" (tiānxià — "all under heaven").</p>
+            <p><strong>The Cultural Context: Why Chinese People Are Thrilled</strong></p>
+            <p>In Chinese culture, when a foreigner voluntarily embraces Chinese traditions — wearing hanfu, learning Chinese calligraphy, eating with chopsticks, or celebrating Spring Festival — it's seen as the highest form of cultural respect. The Chinese concept of "有朋自远方来，不亦乐乎" (yǒu péng zì yuǎnfāng lái, bù yì lè hū — "Is it not a joy to have friends come from afar?", from Confucius) is deeply ingrained in the national psyche.</p>
+            <p>Unlike some cultures where wearing traditional clothing of another culture might be viewed as appropriation, Chinese culture generally views it as appreciation. The key difference is the concept of "文化自信" (wénhuà zìxìn — "cultural confidence") — China's growing pride in its 5,000-year heritage. When foreigners participate, it validates that pride.</p>
+            <p><strong>Hanfu: A Living Tradition</strong></p>
+            <p>Hanfu (汉服) has experienced a massive revival in China, especially among Gen Z. The hanfu market exceeded ¥10 billion in 2023. Major cities have hanfu rental shops near tourist areas where you can rent a complete outfit for ¥50-200 for a day. Popular locations include:</p>
+            <ul>
+                <li>🏯 <strong>Xi'an</strong> — The hanfu capital. Near the Terracotta Army and Muslim Quarter, dozens of rental shops offer Tang Dynasty-style outfits. Walking in the Ancient City Wall area in hanfu is a quintessential experience.</li>
+                <li>🏛️ <strong>Beijing</strong> — Near the Forbidden City and Nanluoguxiang. Many visitors rent Ming Dynasty-style hanfu for photos against the palace backdrop.</li>
+                <li>🌸 <strong>Hangzhou</strong> — West Lake area. Song Dynasty-style hanfu in the gardens is incredibly photogenic.</li>
+                <li>🎭 <strong>Luohe / Kaifeng</strong> — Song Dynasty theme parks where hanfu rental is included with entry.</li>
+            </ul>
+            <p><strong>Ethnic Minority Clothing</strong></p>
+            <p>China has 55 officially recognized ethnic minorities, each with distinctive clothing. Popular among tourists:</p>
+            <ul>
+                <li>🌺 <strong>Miao (苗族)</strong> — Elaborate silver headdresses and embroidered garments. Common in Guizhou and Yunnan.</li>
+                <li>🧣 <strong>Tibetan (藏族)</strong> — Chuba robes with colorful sashes. Popular in Lhasa and western China.</li>
+                <li>👗 <strong>Dai (傣族)</strong> — Flowing, Southeast Asian-style garments. Common in Yunnan's Xishuangbanna.</li>
+                <li>🎀 <strong>Korean-Chinese (朝鲜族)</strong> — Chima jeogi dresses. Popular in Yanbian, Jilin province.</li>
+            </ul>
+            <p><strong>What to Expect When Wearing Traditional Clothing</strong></p>
+            <ul>
+                <li>📸 <strong>Photo requests</strong> — Strangers will ask to take photos with you. This is normal and friendly, not creepy.</li>
+                <li>💬 <strong>Compliments</strong> — People will say "好看!" (beautiful), "漂亮!" (pretty), or "你好厉害!" (you're amazing).</li>
+                <li>🛍️ <strong>Discounts</strong> — Some tourist attractions offer free entry or discounts if you're wearing hanfu.</li>
+                <li>📱 <strong>Social media moments</strong> — Don't be surprised if someone films a short video with you for Douyin (TikTok).</li>
+            </ul>
+            <p><strong>Tips for Wearing Hanfu Respectfully</strong></p>
+            <ul>
+                <li>Don't wear it as a joke or costume — treat it with respect</li>
+                <li>Learn the basic wearing method (the lapel wraps left over right for living people, right over left for the deceased)</li>
+                <li>If unsure, ask the rental shop to help you dress</li>
+                <li>Avoid mixing incompatible dynasty styles</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.thepaper.cn/newsDetail_forward_25376489" target="_blank">澎湃新闻 — 汉服产业报告</a> · <a href="http://www.gov.cn" target="_blank">中国政府网 — 民族文化</a></div>`
+        },
+        {
+            title: '"老外" Is Not Rude: Understanding Chinese Nicknames and Terms for Foreigners',
+            content: `<p>One of the first things foreigners in China notice is being called "老外" (lǎowài). Some newcomers feel offended, thinking it means "old foreigner" or is somehow disrespectful. In reality, it's one of the most common and generally neutral-to-friendly terms Chinese people use for foreigners. To understand why, you need to understand how the Chinese prefix "老" (lǎo — "old") works in names.</p>
+            <p><strong>The "老 + Surname" Convention: A Sign of Familiarity</strong></p>
+            <p>In Chinese, adding "老" (lǎo) before someone's surname is a common, affectionate way to address friends, colleagues, and acquaintances. It signals familiarity and warmth — NOT that the person is old:</p>
+            <ul>
+                <li>老王 (Lǎo Wáng) — "Old Wang" = a friendly way to refer to someone named Wang</li>
+                <li>老李 (Lǎo Lǐ) — "Old Li" = same, for someone named Li</li>
+                <li>老张 (Lǎo Zhāng) — "Old Zhang" = same, for someone named Zhang</li>
+                <li>老刘 (Lǎo Liú) — "Old Liu" = same, for someone named Liu</li>
+            </ul>
+            <p>This is used for people of ALL ages — a 25-year-old named Wang can be called 老王 by friends and colleagues. It's equivalent to saying "mate" in British English or "dude" in American English. Nobody is commenting on age.</p>
+            <p><strong>So What Does "老外" Actually Mean?</strong></p>
+            <p>"老外" follows the same pattern — "老" (lǎo) + "外" (wài, short for 外国人 wàiguórén, "foreigner"). It literally means something like "the foreigner" in a casual, familiar way. It's the same linguistic pattern as 老王, 老李, etc.</p>
+            <p>The term became popular in the 1980s-90s as China opened up and more foreigners visited. It's roughly equivalent to:</p>
+            <ul>
+                <li>"Expat" in English (neutral descriptor)</li>
+                <li>"Gaijin" (外人) in Japanese (though gaijin can carry more nuance)</li>
+                <li>"Gringo" in Latin American Spanish (can be neutral or slightly teasing, depending on context)</li>
+            </ul>
+            <p><strong>Tone Matters: When Is It Friendly vs. Slightly Rude?</strong></p>
+            <ul>
+                <li>✅ <strong>Friendly/Neutral:</strong> "那个老外中文说得真好！" (That foreigner's Chinese is really good!) — This is a compliment.</li>
+                <li>✅ <strong>Friendly/Neutral:</strong> "你是老外吧？" (You're a foreigner, right?) — Just a casual observation.</li>
+                <li>⚠️ <strong>Possibly dismissive:</strong> "老外不懂的" (Foreigners don't understand this) — Can be slightly condescending, but usually not hostile.</li>
+                <li>❌ <strong>Rarely rude:</strong> Shouted at someone aggressively — but this is extremely uncommon.</li>
+            </ul>
+            <p><strong>Other Terms for Foreigners You Might Hear</strong></p>
+            <ul>
+                <li>外国人 (wàiguórén) — "Foreign person." Formal, neutral, used in official contexts.</li>
+                <li>外籍人士 (wàijí rénshì) — "Foreign national." Very formal, used in legal/official documents.</li>
+                <li>洋人 (yángrén) — "Ocean person." Older term from the colonial era. Rarely used today, can sound old-fashioned.</li>
+                <li>歪果仁 (wāiguǒrén) — Internet slang/meme pronunciation of 外国人. Playful, not offensive.</li>
+                <li>国际友人 (guójì yǒurén) — "International friend." Used in formal/political contexts. Very polite.</li>
+            </ul>
+            <p><strong>The Flip Side: Chinese Nicknames for Each Other</strong></p>
+            <p>Chinese people use nickname prefixes for everyone, not just foreigners:</p>
+            <ul>
+                <li>小 + surname (xiǎo — "little"): 小王, 小李 — for younger people or juniors</li>
+                <li>老 + surname (lǎo — "old"): 老王, 老李 — for peers or slightly older people</li>
+                <li>大 + surname (dà — "big"): 大刘, 大张 — for someone who's tall or older</li>
+                <li>阿 + surname (ā): 阿明, 阿花 — common in southern China, very affectionate</li>
+            </ul>
+            <p><strong>Bottom Line</strong></p>
+            <p>If someone calls you "老外," smile — they're treating you like a familiar presence in their community, not insulting you. If it bothers you, you can gently say "叫我[你的名字]就好" (jiào wǒ [name] jiù hǎo — "Just call me [name]") and most people will happily switch.</p>
+            <div class="ar-source">Sources: <a href="https://baike.baidu.com/item/%E8%80%81%E5%A4%96" target="_blank">百度百科 — 老外</a> · <a href="http://www.moe.gov.cn" target="_blank">教育部语言文字应用研究所</a></div>`
+        },
+        {
+            title: 'Shopping Culture Shock: Bargaining, Staff Following You, and Why They Seem "Pushy"',
+            content: `<p>If you've just arrived in China and went shopping, you might have experienced some things that felt uncomfortable or confusing: a shop assistant following you around the store, a market vendor physically trying to pull you into their stall, or being expected to haggle over prices. These behaviors are deeply rooted in Chinese shopping culture and understanding them will transform your shopping experience from stressful to fun.</p>
+            <p><strong>Why Staff Follow You Around the Store</strong></p>
+            <p>In Western retail, having an employee follow you often signals suspicion (are you shoplifting?). In China, it's the opposite — it's a form of customer service called "跟客" (gēn kè, "following the customer"). Here's why:</p>
+            <ul>
+                <li>🎯 <strong>Proactive service</strong> — Staff are trained to be immediately available when you need help. In Chinese retail culture, waiting for a customer to ask is considered lazy service.</li>
+                <li>💰 <strong>Commission-based pay</strong> — Many store employees earn commission (提成 tíchéng). Their income depends on making sales, so they want to be near you to answer questions and close deals.</li>
+                <li>🏪 <strong>Cultural expectation</strong> — Chinese customers often expect attentive service. A store where nobody approaches you might be seen as having poor service.</li>
+                <li>📱 <strong>Loss prevention</strong> — Yes, some of it is also anti-theft, especially in cosmetics, electronics, and luxury stores. This is more practical than accusatory.</li>
+            </ul>
+            <p><strong>How to Handle It:</strong></p>
+            <ul>
+                <li>"我随便看看" (wǒ suíbiàn kànkan — "I'm just browsing") — This is the magic phrase. Staff will usually give you some space.</li>
+                <li>"不用了，谢谢" (bú yòng le, xièxiè — "No need, thanks") — Polite but firm.</li>
+                <li>A simple smile and nod acknowledges their presence without engaging further.</li>
+                <li>Don't take it personally — they do this to every customer, not just foreigners.</li>
+            </ul>
+            <p><strong>The Art of Bargaining (砍价 kǎnjià)</strong></p>
+            <p>Bargaining is expected (and fun!) at many types of shops in China, but NOT everywhere:</p>
+            <p><strong>✅ Always bargain:</strong></p>
+            <ul>
+                <li>🛍️ Markets (市场 shìchǎng) — Silk Market (Beijing), Yuyuan Market (Shanghai), Shun Kang Market (various cities)</li>
+                <li>🏪 Small electronics shops</li>
+                <li>👕 Clothing stores in non-mall settings</li>
+                <li>🎨 Souvenir and gift shops near tourist attractions</li>
+                <li>🚗 Car repair shops (non-chain)</li>
+            </ul>
+            <p><strong>❌ Never bargain:</strong></p>
+            <ul>
+                <li>🏬 Shopping malls (商场 shāngchǎng) — Fixed prices, no negotiation</li>
+                <li>🏪 Chain stores (优衣库, H&M, etc.) — Standard retail</li>
+                <li>🍽️ Most restaurants — Fixed menu prices</li>
+                <li>💊 Pharmacies — Government-regulated prices</li>
+                <li>🛒 Supermarkets — Fixed prices</li>
+            </ul>
+            <p><strong>Bargaining Tips:</strong></p>
+            <ul>
+                <li>Start at 30-50% of the asking price at tourist markets. The vendor expects this.</li>
+                <li>Walk away — the most powerful bargaining tool. If the vendor calls you back, you're close to their real price.</li>
+                <li>Buy multiple items from the same vendor for better discounts ("打包价" dǎbāo jià — "bundle price").</li>
+                <li>Use a calculator or phone to show numbers — avoids language barriers.</li>
+                <li>Be friendly and smile — aggressive bargaining makes everyone uncomfortable.</li>
+                <li>"太贵了!" (tài guì le! — "Too expensive!") is the standard opener.</li>
+                <li>"便宜一点" (piányi yīdiǎn — "Make it cheaper") works well as a follow-up.</li>
+            </ul>
+            <p><strong>Street Vendor "Hard Sell" — What's Really Happening</strong></p>
+            <p>In tourist areas (especially in cities like Beijing, Xi'an, Guilin), you may encounter street vendors who are very persistent — grabbing your arm, blocking your path, or following you. This can feel aggressive, but understanding the context helps:</p>
+            <ul>
+                <li>Their livelihood depends on tourist sales. They have seconds to get your attention.</li>
+                <li>In Chinese business culture, persistence is seen as dedication, not rudeness.</li>
+                <li>"不要" (bú yào — "Don't want") with a hand wave is the standard rejection. Repeat if needed.</li>
+                <li>Don't make eye contact or slow down if you're not interested — any engagement is seen as potential interest.</li>
+                <li>If someone puts something in your hand (a bracelet, a fan), just put it down and walk away. You have no obligation to buy.</li>
+            </ul>
+            <p><strong>The "Tea Scam" and Tourist Traps</strong></p>
+            <p>Be aware of a common scam in tourist areas: friendly "students" invite you to a "traditional tea ceremony" or "art exhibition," then present a bill for hundreds or thousands of yuan. Other common scams:</p>
+            <ul>
+                <li>☕ Tea ceremony scam — "Let me show you a traditional tea house!" → ¥500+ bill</li>
+                <li>🎨 Art student scam — "Come see my school's exhibition!" → Pressure to buy paintings</li>
+                <li>📸 Photo scam — Someone in costume takes a photo with you, then demands ¥50-100</li>
+            </ul>
+            <p><strong>Rule of thumb:</strong> If a stranger approaches YOU in a tourist area with an unsolicited invitation, politely decline.</p>
+            <p><strong>Where to Shop for the Best Experience</strong></p>
+            <ul>
+                <li>🏬 <strong>Malls</strong> — Fixed prices, clean, air-conditioned. Mix of Chinese and international brands.</li>
+                <li>🛒 <strong>Taobao/JD.com</strong> — Online shopping paradise. Everything is cheaper than in stores.</li>
+                <li>🏪 <strong>Wet markets (菜市场)</strong> — For fresh produce. Bargaining expected. Authentic local experience.</li>
+                <li>🪡 <strong>Fabric markets</strong> — Get custom-tailored clothes at a fraction of Western prices. Bargaining essential.</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="https://www.amap.com" target="_blank">高德地图</a> · <a href="https://www.taobao.com" target="_blank">淘宝</a> · <a href="https://www.thebeijinger.com/blog" target="_blank">The Beijinger</a></div>`
+        },
+        {
+            title: 'Food Culture in China: Etiquette, Dietary Restrictions, and Navigating Halal & Religious Food',
+            content: `<p>Food is the centerpiece of Chinese social life. Meals are where friendships are forged, business deals are made, and families bond. But for foreigners — especially those with dietary restrictions due to religion, allergies, or personal preference — navigating Chinese food culture can be challenging. This guide covers dining etiquette, how to communicate dietary needs, and the surprisingly robust halal food ecosystem in China.</p>
+            <p><strong>Chinese Dining Etiquette: The Essentials</strong></p>
+            <p>Dining in China follows unwritten rules that foreigners are not expected to know but will earn huge respect for following:</p>
+            <ul>
+                <li>🥢 <strong>Chopstick rules:</strong> Never stick chopsticks upright in rice (resembles incense for the dead). Don't point with chopsticks. Don't tap your bowl with them (associated with beggars).</li>
+                <li>🍵 <strong>Tea pouring etiquette:</strong> When someone pours you tea, tap two fingers on the table as a "thank you" (叩指礼 kòuzhǐ lǐ). This comes from an old legend about an emperor who poured tea for his servant.</li>
+                <li>🪑 <strong>Seating:</strong> The guest of honor sits facing the door. The host sits with their back to the door. Don't sit in the wrong seat — wait for the host to direct you.</li>
+                <li>🍽️ <strong>Lazy Susan:</strong> At round tables, dishes rotate counterclockwise. Take food from the dish closest to you. Don't reach across the table.</li>
+                <li>🍺 <strong>Drinking culture:</strong> At business meals, the host may toast (敬酒 jìngjiǔ) multiple times. "干杯" (gānbēi — "dry glass") means drain your glass. You can substitute tea or juice — just say "我以茶代酒" (wǒ yǐ chá dài jiǔ — "I'll use tea instead of alcohol").</li>
+                <li>🐟 <strong>Fish etiquette:</strong> At formal dinners, the fish head points toward the guest of honor. Don't flip the fish over (superstition: flipping = capsizing a boat, bad luck for fishermen).</li>
+                <li>💰 <strong>Paying the bill:</strong> In China, the inviter always pays. "Going Dutch" (AA制 zhì) is becoming more common among young friends but is still rare in formal contexts. Fighting over the bill is a cultural ritual — offer once, then let the host pay.</li>
+            </ul>
+            <p><strong>Communicating Dietary Restrictions</strong></p>
+            <p>The biggest challenge for foreigners with dietary needs is communication. Here are essential phrases:</p>
+            <ul>
+                <li><strong>Vegetarian:</strong> 我吃素 (wǒ chī sù) — "I eat vegetarian." Note: Chinese vegetarian (素食 sùshí) may still include eggs and dairy. For strict vegan: 我吃纯素 (chún sù).</li>
+                <li><strong>No pork:</strong> 我不吃猪肉 (wǒ bù chī zhūròu) — Critical for Muslim, Jewish, and Hindu visitors.</li>
+                <li><strong>No alcohol:</strong> 我不喝酒 (wǒ bù hē jiǔ).</li>
+                <li><strong>Allergies:</strong> 我对___过敏 (wǒ duì___guòmǐn) — "I'm allergic to ___." Learn the specific allergen in Chinese.</li>
+                <li><strong>Halal:</strong> 这是清真的吗？(zhè shì qīngzhēn de ma?) — "Is this halal?"</li>
+            </ul>
+            <p><strong>⚠️ Important Warning for Religious Dietary Needs</strong></p>
+            <p>Many international students from Muslim, Jewish, Hindu, or other religious backgrounds arrive in China unsure about what they can eat. Here's what you need to know:</p>
+            <p><strong>🕌 Halal (清真 qīngzhēn) Food in China — A Complete Ecosystem</strong></p>
+            <p>China has approximately 20-25 million Muslims (Hui, Uyghur, Kazakh, and other ethnic groups), and the halal food infrastructure is extensive — far more than most foreigners expect:</p>
+            <ul>
+                <li>🏪 <strong>清真餐厅 (qīngzhēn cāntīng)</strong> — Halal restaurants are found in EVERY Chinese city, not just in the northwest. Look for the green "清真" sign, often with Arabic script.</li>
+                <li>🥩 <strong>What's halal:</strong> All beef, lamb, chicken, and fish dishes at certified halal restaurants. These restaurants never use pork or pork-derived products (lard, etc.).</li>
+                <li>🕌 <strong>Hui Muslim restaurants</strong> — The most common type of halal restaurant in China. Hui (回族) people are ethnically Chinese Muslims. Their food is essentially Chinese cuisine made halal — beef noodle soup (牛肉面), lamb skewers (羊肉串), hand-pulled noodles (拉面). The food is delicious and widely loved by non-Muslims too.</li>
+                <li>🥘 <strong>Uyghur restaurants</strong> — Serve Central Asian-influenced cuisine: big plate chicken (大盘鸡), polo (抓饭 pilaf), naan bread (馕), and lamb kebabs. Common in all major cities.</li>
+                <li>📱 <strong>How to find halal restaurants:</strong> Search "清真餐厅" on Dianping (大众点评), Meituan (美团), or Amap (高德地图). You'll find dozens in any city.</li>
+            </ul>
+            <p><strong>What Foreign Muslims Need to Know:</strong></p>
+            <ul>
+                <li>✅ Halal food is widely available in China. You will NOT starve.</li>
+                <li>✅ Many university campuses have halal canteens (清真食堂) specifically for Muslim students.</li>
+                <li>✅ Convenience store snacks are generally safe (packaged foods with ingredient lists). Avoid anything with 猪肉 (pork), 猪油 (lard), or 明胶 (gelatin, which may be pork-derived).</li>
+                <li>⚠️ <strong>Chinese "清真" may differ from your country's halal standards.</strong> Some Hui restaurants follow a more relaxed interpretation. If you require strictly certified halal, look for restaurants with Arabic signage and ask about their certification.</li>
+                <li>⚠️ <strong>Hot pot (火锅) caution:</strong> Even at non-pork restaurants, hot pot broth may contain pork bones. Always ask: 汤底是清真的吗？(tāngdǐ shì qīngzhēn de ma? — "Is the broth halal?")</li>
+                <li>⚠️ <strong>Street food:</strong> Lamb skewers (羊肉串) from Uyghur vendors are almost always halal. Other street food may be cooked in the same oil as pork products.</li>
+            </ul>
+            <p><strong>Other Religious Dietary Notes:</strong></p>
+            <ul>
+                <li>✡️ <strong>Kosher:</strong> Extremely limited in China. No kosher certification system exists nationally. Some Jewish communities in Beijing and Shanghai organize kosher food through import. Best option: cook at home or eat vegetarian at halal restaurants.</li>
+                <li>🕉️ <strong>Hindu vegetarian:</strong> Chinese vegetarian restaurants (素食餐厅) are Buddhist-influenced and may use garlic and onion (which strict Hindu vegetarians avoid). Specify: 不要蒜不要葱 (bú yào suàn, bú yào cōng — "No garlic, no onion").</li>
+                <li>🙏 <strong>Buddhist vegetarian:</strong> Excellent availability. 素食餐厅 (sùshí cāntīng) are found near temples and in most cities. Fully plant-based, often using mock meats (素鸡, 素鸭). Some even mimic seafood textures.</li>
+            </ul>
+            <p><strong>Common Misconceptions About Chinese Food</strong></p>
+            <ul>
+                <li>❌ "All Chinese food is spicy" — Only Sichuan and Hunan cuisine are spicy. Cantonese, Jiangsu, and Fujian food are mild.</li>
+                <li>❌ "Chinese people eat dogs everywhere" — Dog meat consumption is extremely rare, declining rapidly, and illegal in many cities. You will never encounter it unless you specifically seek it out.</li>
+                <li>❌ "You can't find Western food" — Every major city has McDonald's, KFC, Pizza Hut, Starbucks, and many independent Western restaurants.</li>
+                <li>❌ "Street food is unsafe" — China's food safety has improved dramatically. Street food at busy stalls is generally safe (high turnover = fresh ingredients). Look for queues — locals know which stalls are good.</li>
+            </ul>
+            <p><strong>Essential Food Phrases:</strong></p>
+            <ul>
+                <li>菜单 (càidān) — Menu</li>
+                <li>买单 (mǎidān) — "Check, please"</li>
+                <li>打包 (dǎbāo) — "To-go box, please"</li>
+                <li>不要辣 (bú yào là) — "Not spicy"</li>
+                <li>少盐 (shǎo yán) — "Less salt"</li>
+                <li>好吃 (hǎochī) — "Delicious" (the most useful Chinese food word!)</li>
+            </ul>
+            <div class="ar-source">Sources: <a href="http://www.saraa.gov.cn" target="_blank">国家宗教事务局</a> · <a href="https://www.dianping.com" target="_blank">大众点评</a> · <a href="http://www.chinadaily.com.cn" target="_blank">China Daily Food & Culture</a></div>`
         }
     ]
 };
-
-// ===== Topic Detail Functions =====
 function openTopicDetailPage(topicName) {
     const modal = document.getElementById('topicArticlesModal');
     const titleEl = document.getElementById('topicArticlesModalTitle');
@@ -2335,7 +3028,10 @@ function openTopicDetailPage(topicName) {
     const categoryNames = {
         study: '📚 Study in China', school: '🎒 School Life', work: '⚡ Working in China',
         visa: '✈️ Visa & Permits', travel: '🗺️ Travel & Adventure', food: '🥢 Food & Dining',
-        life: '🌆 Daily Life', entertainment: '🎬 Entertainment', business: '🚀 Business', language: '💬 Language', rent: '🏠 Rent an Apartment'
+        life: '🌆 Daily Life', entertainment: '🎬 Entertainment', business: '🚀 Business', language: '💬 Language', rent: '🏠 Rent an Apartment',
+        sim: '📱 SIM Card',
+        hospital: '🏥 Hospital',
+        cultural: '🎎 Cultural Differences'
     };
 
     titleEl.textContent = categoryNames[topicName] || topicName;
@@ -2396,6 +3092,144 @@ function openArticleReader(topicName, articleIndex) {
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    // Store current topic context and load discussion
+    window._currentTopicContext = { topicName, articleIndex };
+    loadTopicComments(topicName, articleIndex);
+}
+
+// ===== Topic Discussion / Comments =====
+async function loadTopicComments(topicName, articleIndex) {
+    const listEl = document.getElementById('topicDiscussionList');
+    const countEl = document.getElementById('topicDiscussionCount');
+    const inputEl = document.getElementById('topicDiscussionInput');
+    if (!listEl) return;
+
+    if (inputEl) {
+        inputEl.style.display = currentUser ? 'flex' : 'none';
+    }
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('topic_comments')
+            .select('*, profiles(name, avatar_url, country_code)')
+            .eq('topic_name', topicName)
+            .eq('article_index', articleIndex)
+            .order('created_at', { ascending: true });
+
+        if (error) throw error;
+
+        const comments = data || [];
+        const topLevel = comments.filter(c => !c.parent_id);
+        const replies = comments.filter(c => c.parent_id);
+        if (countEl) countEl.textContent = comments.length;
+
+        if (comments.length === 0) {
+            listEl.innerHTML = '<div class="topic-discussion-empty">No comments yet. Be the first!</div>';
+        } else {
+            listEl.innerHTML = topLevel.map(c => {
+                const cReplies = replies.filter(r => r.parent_id === c.id);
+                return `
+                <div class="topic-discussion-item">
+                    <img src="${c.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest'}" class="topic-discussion-avatar" loading="lazy" alt="avatar" onclick="openUserProfile('${c.user_id}')">
+                    <div class="topic-discussion-body">
+                        <div class="topic-discussion-meta">
+                            <span class="topic-discussion-name">${c.profiles?.name || 'Guest'} ${getFlagEmoji(c.profiles?.country_code || 'UN')}</span>
+                            <span class="topic-discussion-time">${formatTimeAgo(c.created_at)}</span>
+                        </div>
+                        <div class="topic-discussion-text">${escapeHtml(c.content)}</div>
+                        <button class="topic-reply-btn" onclick="toggleReplyInput(${c.id})"><i class="fas fa-reply"></i> Reply</button>
+                        <div class="topic-reply-input-wrap" id="replyInput-${c.id}" style="display:none">
+                            <input type="text" placeholder="Write a reply..." onkeydown="if(event.key==='Enter') submitReply(${c.id}, this)">
+                            <button onclick="submitReply(${c.id}, this.previousElementSibling)"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                        ${cReplies.length > 0 ? `<div class="topic-replies">${cReplies.map(r => `
+                            <div class="topic-reply-item">
+                                <img src="${r.profiles?.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=Guest'}" class="topic-reply-avatar" loading="lazy" alt="avatar">
+                                <div class="topic-reply-body">
+                                    <span class="topic-reply-name">${r.profiles?.name || 'Guest'} ${getFlagEmoji(r.profiles?.country_code || 'UN')}</span>
+                                    <span class="topic-reply-time">${formatTimeAgo(r.created_at)}</span>
+                                    <div class="topic-reply-text">${escapeHtml(r.content)}</div>
+                                </div>
+                            </div>
+                        `).join('')}</div>` : ''}
+                    </div>
+                </div>`;
+            }).join('');
+            listEl.scrollTop = listEl.scrollHeight;
+        }
+    } catch (err) {
+        console.error('Failed to load topic comments:', err);
+        listEl.innerHTML = '<div class="topic-discussion-empty">Failed to load comments</div>';
+    }
+}
+
+async function submitTopicComment() {
+    const inputEl = document.getElementById('topicCommentInput');
+    if (!inputEl) return;
+    const text = inputEl.value.trim();
+    if (!text || !currentUser || !window._currentTopicContext) return;
+
+    const { topicName, articleIndex } = window._currentTopicContext;
+
+    try {
+        const { error } = await supabaseClient.from('topic_comments').insert({
+            topic_name: topicName,
+            article_index: articleIndex,
+            user_id: currentUser.id,
+            content: text,
+            parent_id: null
+        });
+        if (error) throw error;
+        inputEl.value = '';
+        await loadTopicComments(topicName, articleIndex);
+    } catch (err) {
+        console.error('Failed to submit comment:', err);
+    }
+}
+
+function toggleReplyInput(commentId) {
+    const wrap = document.getElementById(`replyInput-${commentId}`);
+    if (!wrap) return;
+    const isVisible = wrap.style.display !== 'none';
+    document.querySelectorAll('.topic-reply-input-wrap').forEach(el => el.style.display = 'none');
+    if (!isVisible) {
+        wrap.style.display = 'flex';
+        wrap.querySelector('input')?.focus();
+    }
+}
+
+async function submitReply(parentId, inputEl) {
+    const text = inputEl.value.trim();
+    if (!text || !currentUser || !window._currentTopicContext) return;
+
+    const { topicName, articleIndex } = window._currentTopicContext;
+
+    try {
+        const { error } = await supabaseClient.from('topic_comments').insert({
+            topic_name: topicName,
+            article_index: articleIndex,
+            user_id: currentUser.id,
+            content: text,
+            parent_id: parentId
+        });
+        if (error) throw error;
+        inputEl.value = '';
+        await loadTopicComments(topicName, articleIndex);
+    } catch (err) {
+        console.error('Failed to submit reply:', err);
+    }
+}
+
+function formatTimeAgo(dateStr) {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diff = Math.floor((now - date) / 1000);
+    if (diff < 60) return 'just now';
+    if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+    if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+    if (diff < 2592000) return Math.floor(diff / 86400) + 'd ago';
+    return date.toLocaleDateString();
 }
 
 function closeArticleReader() {
@@ -3992,7 +4826,9 @@ function openTopicStories(category) {
         entertainment: 'Entertainment & Fun',
         business: 'Business & Entrepreneurship',
         language: 'Language Learning',
-        rent: 'Rent an Apartment'
+        rent: 'Rent an Apartment',
+        sim: 'SIM Card & Mobile Service',
+        hospital: 'Hospital & Healthcare'
     };
     
     header.innerHTML = `<h2>💬 ${categoryNames[category] || category} Community</h2><p style="color:var(--text-secondary);margin-top:5px;">Join the conversation about this topic</p>`;
