@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expat Bars & Nightlife Map - Beijing & Shanghai</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #e0e0e0; display: flex; height: 100vh; overflow: hidden; }
+#sidebar {
+  width: 360px; min-width: 360px; background: #0f0f25; display: flex; flex-direction: column;
+  border-right: 1px solid #1a1a3a; z-index: 1000; transition: transform 0.3s;
+}
+#sidebar-header { padding: 20px; border-bottom: 1px solid #1a1a3a; }
+#sidebar-header h1 { font-size: 1.3rem; font-weight: 700; color: #ff6b5b; margin-bottom: 4px; }
+#sidebar-header p { font-size: 0.75rem; color: #888; margin-bottom: 14px; }
+.city-switcher { display: flex; gap: 8px; margin-bottom: 12px; }
+.city-btn {
+  flex: 1; padding: 10px; border: 1px solid #2a2a4a; background: #151530; color: #ccc;
+  border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.85rem;
+  font-weight: 600; transition: all 0.2s;
+}
+.city-btn.active { background: #ff6b5b; color: #fff; border-color: #ff6b5b; }
+.city-btn:hover:not(.active) { border-color: #ff6b5b; color: #ff6b5b; }
+.filter-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-btn {
+  padding: 6px 12px; border: 1px solid #2a2a4a; background: #151530; color: #aaa;
+  border-radius: 20px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.75rem;
+  font-weight: 500; transition: all 0.2s;
+}
+.filter-btn.active { background: #ff6b5b22; color: #ff6b5b; border-color: #ff6b5b; }
+.filter-btn:hover:not(.active) { border-color: #ff6b5b88; color: #ff6b5b; }
+#venue-count { padding: 12px 20px; font-size: 0.75rem; color: #666; border-bottom: 1px solid #1a1a3a; }
+#venue-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+#venue-list::-webkit-scrollbar { width: 4px; }
+#venue-list::-webkit-scrollbar-thumb { background: #2a2a4a; border-radius: 4px; }
+.venue-item {
+  padding: 14px 20px; cursor: pointer; transition: all 0.2s; border-bottom: 1px solid #141430;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.venue-item:hover, .venue-item.active { background: #1a1a3a; }
+.venue-item .emoji { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.venue-item .info { flex: 1; min-width: 0; }
+.venue-item .name { font-size: 0.9rem; font-weight: 600; color: #f0f0f0; margin-bottom: 3px; }
+.venue-item .address { font-size: 0.75rem; color: #777; line-height: 1.4; }
+.venue-item .category-tag {
+  display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem;
+  font-weight: 500; margin-top: 5px;
+}
+.cat-beer { background: #f59e0b22; color: #f59e0b; }
+.cat-cocktail { background: #ec489922; color: #ec4899; }
+.cat-music { background: #8b5cf622; color: #8b5cf6; }
+.cat-bund { background: #06b6d422; color: #06b6d4; }
+#sidebar-footer { padding: 14px 20px; border-top: 1px solid #1a1a3a; }
+.print-btn {
+  width: 100%; padding: 10px; background: #1a1a3a; color: #ff6b5b; border: 1px solid #ff6b5b44;
+  border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.85rem;
+  font-weight: 600; transition: all 0.2s;
+}
+.print-btn:hover { background: #ff6b5b22; }
+#map-container { flex: 1; position: relative; }
+#map { width: 100%; height: 100%; background: #0a0a1a; }
+.leaflet-popup-content-wrapper {
+  background: #151530 !important; color: #e0e0e0 !important; border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important; border: 1px solid #2a2a4a !important;
+}
+.leaflet-popup-tip { background: #151530 !important; }
+.leaflet-popup-content { margin: 14px 16px !important; font-family: 'Inter', sans-serif !important; }
+.popup-name { font-size: 1rem; font-weight: 700; color: #ff6b5b; margin-bottom: 4px; }
+.popup-address { font-size: 0.8rem; color: #aaa; margin-bottom: 8px; }
+.popup-link {
+  display: inline-block; padding: 5px 14px; background: #ff6b5b; color: #fff;
+  border-radius: 6px; text-decoration: none; font-size: 0.75rem; font-weight: 600;
+  transition: background 0.2s;
+}
+.popup-link:hover { background: #ff5240; }
+.leaflet-control-zoom a { background: #151530 !important; color: #ff6b5b !important; border-color: #2a2a4a !important; }
+.leaflet-control-zoom a:hover { background: #1a1a3a !important; }
+.custom-marker {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  transition: transform 0.2s;
+}
+.custom-marker:hover { transform: scale(1.2); }
+#toggle-sidebar {
+  display: none; position: absolute; top: 10px; left: 10px; z-index: 1100;
+  background: #151530; border: 1px solid #2a2a4a; color: #ff6b5b; padding: 8px 12px;
+  border-radius: 8px; cursor: pointer; font-size: 1.2rem;
+}
+@media (max-width: 768px) {
+  #sidebar {
+    position: absolute; left: 0; top: 0; bottom: 0; z-index: 1100;
+    transform: translateX(-100%); width: 300px; min-width: 300px;
+  }
+  #sidebar.open { transform: translateX(0); }
+  #toggle-sidebar { display: block; }
+}
+@media print {
+  body { display: block; height: auto; }
+  #sidebar { display: none; }
+  #toggle-sidebar { display: none; }
+  #map-container { width: 100%; height: 100vh; }
+  .leaflet-control-zoom { display: none !important; }
+  @page { margin-bottom: 15mm; }
+  .print-footer { display: block !important; text-align: center; font-size: 11px; color: #999; padding: 8px 0; }
+}
+.print-footer { display: none; }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1>Nightlife Map</h1>
+    <p>Expat bars & venues in Beijing and Shanghai</p>
+    <div class="city-switcher">
+      <button class="city-btn active" data-city="beijing">Beijing</button>
+      <button class="city-btn" data-city="shanghai">Shanghai</button>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="beer">Beer</button>
+      <button class="filter-btn" data-filter="cocktail">Cocktails</button>
+      <button class="filter-btn" data-filter="music">Music</button>
+      <button class="filter-btn" data-filter="bund">Bund</button>
+    </div>
+  </div>
+  <div id="venue-count"></div>
+  <div id="venue-list"></div>
+  <div id="sidebar-footer">
+    <a href="https://cdiscovery-community.netlify.app/" style="display:block;width:100%;padding:10px;text-align:center;background:transparent;color:#ff6b5b;border:1px solid #ff6b5b44;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;text-decoration:none;margin-bottom:8px;transition:all .2s">← Cdiscovery</a>
+    <button class="print-btn" onclick="window.print()">Print as PDF</button>
+    <button class="print-btn" onclick="shareMap()" style="margin-top:8px;background:transparent;color:#ff6b5b;border:1px solid #ff6b5b44">🔗 Share</button>
+  </div>
+</div>
+
+<button id="toggle-sidebar" onclick="document.getElementById('sidebar').classList.toggle('open')">&#9776;</button>
+
+<div id="map-container">
+  <div id="map"></div>
+</div>
+
+<script>
+const venues = [
+  { city:"beijing", cat:"beer", name:"Great Leap Brewing #12", addr:"东城区豆角胡同6号", lat:39.9380, lng:116.4080 },
+  { city:"beijing", cat:"beer", name:"Slow Boat Brewery", addr:"东城区东四十条56号", lat:39.9340, lng:116.4230 },
+  { city:"beijing", cat:"beer", name:"Jing-A Brewing", addr:"朝阳区幸福村中路19号", lat:39.9300, lng:116.4460 },
+  { city:"beijing", cat:"beer", name:"Arrow Factory Brewing", addr:"东城区箭厂胡同9号", lat:39.9430, lng:116.3940 },
+  { city:"beijing", cat:"beer", name:"Panda Brew", addr:"东城区东四北大街62号", lat:39.9290, lng:116.4140 },
+  { city:"beijing", cat:"cocktail", name:"Capital Spirits", addr:"东城区钱粮胡同3号", lat:39.9300, lng:116.4130 },
+  { city:"beijing", cat:"cocktail", name:"The Opposite House Bar", addr:"朝阳区三里屯太古里1号", lat:39.9340, lng:116.4530 },
+  { city:"beijing", cat:"cocktail", name:"Migas", addr:"朝阳区三里屯路81号", lat:39.9340, lng:116.4540 },
+  { city:"beijing", cat:"cocktail", name:"Janes & Hooch", addr:"朝阳区工体北路4号", lat:39.9330, lng:116.4470 },
+  { city:"beijing", cat:"music", name:"DDC", addr:"东城区山老胡同14号", lat:39.9290, lng:116.4150 },
+  { city:"beijing", cat:"music", name:"Temple Bar", addr:"东城区鼓楼东大街206号", lat:39.9420, lng:116.4000 },
+  { city:"beijing", cat:"music", name:"The Den", addr:"朝阳区工体西路4号", lat:39.9320, lng:116.4440 },
+  { city:"beijing", cat:"music", name:"Paddy O'Shea's", addr:"东城区东四十条28号", lat:39.9340, lng:116.4220 },
+  { city:"shanghai", cat:"bund", name:"Bar Rouge", addr:"黄浦区中山东一路18号7F", lat:31.2400, lng:121.4900 },
+  { city:"shanghai", cat:"bund", name:"The Nest", addr:"黄浦区中山东一路18号6F", lat:31.2400, lng:121.4901 },
+  { city:"shanghai", cat:"bund", name:"Hakkasan", addr:"黄浦区中山东一路18号5F", lat:31.2399, lng:121.4900 },
+  { city:"shanghai", cat:"cocktail", name:"The Public", addr:"静安区茂名南路101号", lat:31.2180, lng:121.4600 },
+  { city:"shanghai", cat:"cocktail", name:"Senator Saloon", addr:"徐汇区建国西路98号", lat:31.2100, lng:121.4520 },
+  { city:"shanghai", cat:"cocktail", name:"Flask", addr:"徐汇区陕西南路458号", lat:31.2160, lng:121.4580 },
+  { city:"shanghai", cat:"cocktail", name:"Epic Cocktail Bar", addr:"静安区巨鹿路158号", lat:31.2200, lng:121.4560 },
+  { city:"shanghai", cat:"cocktail", name:"Sasha's", addr:"徐汇区衡山路11号", lat:31.2050, lng:121.4480 },
+  { city:"shanghai", cat:"beer", name:"Daga Brewpub", addr:"静安区愚园路57号", lat:31.2230, lng:121.4400 },
+  { city:"shanghai", cat:"beer", name:"Boxing Cat", addr:"徐汇区复兴中路519号", lat:31.2100, lng:121.4500 },
+  { city:"shanghai", cat:"beer", name:"Tap House", addr:"长宁区江苏路398号", lat:31.2210, lng:121.4380 },
+  { city:"shanghai", cat:"music", name:"JZ Club", addr:"徐汇区复兴西路46号", lat:31.2120, lng:121.4450 },
+  { city:"shanghai", cat:"music", name:"Heyday Jazz Bar", addr:"徐汇区武康路376号", lat:31.2090, lng:121.4420 },
+  { city:"shanghai", cat:"music", name:"Revolucion Cocktail", addr:"静安区茂名南路101号", lat:31.2180, lng:121.4601 },
+  { city:"shanghai", cat:"music", name:"Windows Garage", addr:"静安区茂名南路101号", lat:31.2181, lng:121.4602 }
+];
+
+const catEmoji = { beer:"🍺", cocktail:"🍸", music:"🎵", bund:"🥂" };
+const catLabel = { beer:"Craft Beer", cocktail:"Cocktail Bar", music:"Live Music", bund:"Bund" };
+const catClass = { beer:"cat-beer", cocktail:"cat-cocktail", music:"cat-music", bund:"cat-bund" };
+const cityCenter = { beijing:[39.9300,116.4050], shanghai:[31.2200,121.4700] };
+
+let currentCity = "beijing";
+let currentFilter = "all";
+let markers = [];
+let map;
+
+function initMap() {
+  map = L.map("map", { zoomControl: false }).setView(cityCenter.beijing, 12);
+  L.control.zoom({ position: "topright" }).addTo(map);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: "abcd", maxZoom: 19
+  }).addTo(map);
+  updateMap();
+}
+
+function createMarker(v) {
+  const emoji = catEmoji[v.cat] || "📍";
+  const icon = L.divIcon({
+    className: "",
+    html: '<div class="custom-marker">' + emoji + '</div>',
+    iconSize: [32, 32],
+    iconAnchor: [16, 16],
+    popupAnchor: [0, -18]
+  });
+  const amapLink = "https://uri.amap.com/marker?position=" + v.lng + "," + v.lat + "&name=" + encodeURIComponent(v.name);
+  const popup = '<div class="popup-name">' + emoji + " " + v.name + '</div>'
+    + '<div class="popup-address">' + v.addr + '</div>'
+    + '<a class="popup-link" href="' + amapLink + '" target="_blank">Open in Amap</a>';
+  return L.marker([v.lat, v.lng], { icon }).addTo(map).bindPopup(popup);
+}
+
+function updateMap() {
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+  const filtered = venues.filter(v => {
+    if (v.city !== currentCity) return false;
+    if (currentFilter !== "all" && v.cat !== currentFilter) return false;
+    return true;
+  });
+  filtered.forEach(v => markers.push(createMarker(v)));
+  updateSidebar(filtered);
+  map.setView(cityCenter[currentCity], 12);
+}
+
+function updateSidebar(list) {
+  const el = document.getElementById("venue-list");
+  const countEl = document.getElementById("venue-count");
+  countEl.textContent = list.length + " venue" + (list.length !== 1 ? "s" : "") + " found";
+  el.innerHTML = "";
+  list.forEach((v, i) => {
+    const div = document.createElement("div");
+    div.className = "venue-item";
+    div.innerHTML = '<span class="emoji">' + (catEmoji[v.cat] || "📍") + '</span>'
+      + '<div class="info">'
+      + '<div class="name">' + v.name + '</div>'
+      + '<div class="address">' + v.addr + '</div>'
+      + '<span class="category-tag ' + catClass[v.cat] + '">' + catLabel[v.cat] + '</span>'
+      + '</div>';
+    div.addEventListener("click", () => {
+      document.querySelectorAll(".venue-item").forEach(el => el.classList.remove("active"));
+      div.classList.add("active");
+      map.setView([v.lat, v.lng], 15, { animate: true });
+      if (markers[i]) markers[i].openPopup();
+      if (window.innerWidth <= 768) document.getElementById("sidebar").classList.remove("open");
+    });
+    el.appendChild(div);
+  });
+}
+
+document.querySelectorAll(".city-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".city-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentCity = btn.dataset.city;
+    currentFilter = "all";
+    document.querySelectorAll(".filter-btn").forEach(b => {
+      b.classList.toggle("active", b.dataset.filter === "all");
+    });
+    updateMap();
+  });
+});
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentFilter = btn.dataset.filter;
+    updateMap();
+  });
+});
+
+initMap();
+</script>
+<div class="print-footer">Cdiscovery</div>
+<script>
+function shareMap() {
+    if (navigator.share) {
+        navigator.share({ title: 'Cdiscovery - China Community', url: 'https://cdiscovery-community.netlify.app/' });
+    } else {
+        navigator.clipboard.writeText('https://cdiscovery-community.netlify.app/').then(function() {
+            var btns = document.querySelectorAll('#sidebar-footer .print-btn');
+            var btn = btns[btns.length - 1];
+            var orig = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            setTimeout(function() { btn.textContent = orig; }, 2000);
+        });
+    }
+}
+</script>
+</body>
+</html>

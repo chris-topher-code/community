@@ -5819,6 +5819,34 @@ body.groupchat-active {
     text-decoration: underline;
 }
 
+/* Map link button */
+.ta-map-section {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 8px;
+}
+
+.ta-map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #ff6b5b, #ff8a7a);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(255,107,91,0.3);
+}
+
+.ta-map-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,107,91,0.45);
+    text-decoration: none;
+}
+
 /* Article Reader Modal */
 .article-reader-modal {
     display: none;

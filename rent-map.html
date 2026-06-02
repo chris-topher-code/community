@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beijing Expat Rent Map 北京外国人租房地图</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #06060f;
+            --bg-deep: #0a0a1a;
+            --glass: rgba(255,255,255,0.05);
+            --glass-hover: rgba(255,255,255,0.08);
+            --glass-border: rgba(255,255,255,0.08);
+            --glass-border-hover: rgba(255,255,255,0.14);
+            --accent-coral: #ff6b5b;
+            --accent-orange: #ff9a5c;
+            --accent-blue: #4a9eff;
+            --accent-green: #34d399;
+            --accent-yellow: #fbbf24;
+            --accent-gradient: linear-gradient(135deg, #ff6b5b 0%, #ff9a5c 100%);
+            --text-primary: #f0f0f5;
+            --text-secondary: rgba(255,255,255,0.55);
+            --text-muted: rgba(255,255,255,0.3);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.35);
+            --rent-green: #34d399;
+            --rent-yellow: #fbbf24;
+            --rent-orange: #ff9a5c;
+            --rent-red: #ff6b5b;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .header {
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            flex-shrink: 0;
+        }
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header h1 span {
+            font-size: 13px;
+            font-weight: 400;
+            -webkit-text-fill-color: var(--text-secondary);
+            margin-left: 8px;
+        }
+        .header-actions { display:flex; gap:8px; align-items:center; }
+        .btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background: var(--glass-hover);
+            border-color: var(--glass-border-hover);
+        }
+        .btn-accent {
+            background: rgba(255,107,91,0.15);
+            border-color: rgba(255,107,91,0.3);
+            color: var(--accent-coral);
+        }
+        .btn-accent:hover { background: rgba(255,107,91,0.25); }
+        .main { display:flex; flex:1; overflow:hidden; }
+        .sidebar {
+            width: 360px;
+            background: var(--bg-dark);
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .sidebar-header {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .sidebar-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        .legend { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        .legend-dot { width:10px; height:10px; border-radius:50%; }
+        .legend-dot.green { background: var(--rent-green); }
+        .legend-dot.yellow { background: var(--rent-yellow); }
+        .legend-dot.orange { background: var(--rent-orange); }
+        .legend-dot.red { background: var(--rent-red); }
+        .legend-dot.landmark { background: var(--accent-blue); }
+        .filter-bar { display:flex; gap:6px; flex-wrap:wrap; }
+        .filter-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-family: inherit;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover {
+            background: var(--glass-hover);
+            color: var(--text-primary);
+        }
+        .filter-btn.active {
+            background: rgba(255,107,91,0.2);
+            border-color: var(--accent-coral);
+            color: var(--accent-coral);
+        }
+        .location-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+        .location-list::-webkit-scrollbar { width:4px; }
+        .location-list::-webkit-scrollbar-track { background:transparent; }
+        .location-list::-webkit-scrollbar-thumb { background:var(--glass-border); border-radius:2px; }
+        .location-card {
+            padding: 14px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            margin-bottom: 6px;
+        }
+        .location-card:hover {
+            background: var(--glass);
+            border-color: var(--glass-border);
+        }
+        .location-card.active {
+            background: rgba(255,107,91,0.08);
+            border-color: rgba(255,107,91,0.2);
+        }
+        .location-card.hidden { display:none; }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .card-emoji { font-size:24px; flex-shrink:0; }
+        .card-title h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+        .card-title .cn-name {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .rent-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .rent-badge.green { background:rgba(52,211,153,0.15); color:var(--rent-green); }
+        .rent-badge.yellow { background:rgba(251,191,36,0.15); color:var(--rent-yellow); }
+        .rent-badge.orange { background:rgba(255,154,92,0.15); color:var(--rent-orange); }
+        .rent-badge.red { background:rgba(255,107,91,0.15); color:var(--rent-red); }
+        .card-details {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .card-details .label { color:var(--text-muted); }
+        .map-container { flex:1; position:relative; }
+        #map { width:100%; height:100%; }
+        .leaflet-popup-content-wrapper {
+            background: var(--bg-dark) !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: var(--radius-md) !important;
+            box-shadow: var(--shadow-md) !important;
+            color: var(--text-primary) !important;
+        }
+        .leaflet-popup-tip {
+            background: var(--bg-dark) !important;
+            border: 1px solid var(--glass-border) !important;
+        }
+        .leaflet-popup-content {
+            margin: 14px 16px !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        .popup-name {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        .popup-district {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .popup-rent {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            display: inline-block;
+        }
+        .popup-row {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        .popup-label {
+            color: var(--text-secondary);
+            flex-shrink: 0;
+            min-width: 70px;
+        }
+        .popup-value { color:var(--text-primary); }
+        .popup-highlights {
+            font-size: 12px;
+            color: var(--accent-orange);
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+        .popup-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 12px;
+            background: rgba(255,107,91,0.15);
+            border: 1px solid rgba(255,107,91,0.3);
+            color: var(--accent-coral);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        .popup-link:hover { background:rgba(255,107,91,0.25); }
+        .area-marker {
+            font-size: 28px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+        }
+        .landmark-marker {
+            font-size: 22px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+        }
+        .leaflet-control-zoom a {
+            background: var(--bg-dark) !important;
+            color: var(--text-primary) !important;
+            border-color: var(--glass-border) !important;
+        }
+        .leaflet-control-zoom a:hover { background:var(--glass-hover) !important; }
+        .sidebar-toggle {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: var(--bg-dark);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            font-size: 18px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 768px) {
+            .header h1 { font-size:14px; }
+            .header h1 span { display:none; }
+            .sidebar {
+                position: absolute;
+                top: 0; left: 0;
+                height: 100%;
+                width: 320px;
+                z-index: 1001;
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+            }
+            .sidebar.open { transform:translateX(0); }
+            .sidebar-overlay {
+                display: none;
+                position: absolute;
+                inset: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 1000;
+            }
+            .sidebar-overlay.open { display:block; }
+            .sidebar-toggle { display:flex; }
+        }
+        @media print {
+            body { background:white; height:auto; overflow:visible; }
+            .header { background:white; border-bottom:2px solid #ccc; }
+            .header h1 { -webkit-text-fill-color:#333; background:none; }
+            .header h1 span { -webkit-text-fill-color:#666; }
+            .header-actions, .sidebar, .sidebar-toggle { display:none; }
+            .map-container { position:static; height:90vh; }
+            .leaflet-control-zoom { display:none; }
+            .leaflet-popup-content-wrapper { background:white !important; color:#333 !important; border:1px solid #ccc !important; }
+            .leaflet-popup-tip { background:white !important; border:1px solid #ccc !important; }
+            .popup-name { color:#111; }
+            .popup-district { color:#888; }
+            .popup-label { color:#666; }
+            .popup-value { color:#333; }
+            .popup-highlights { color:#d35400; }
+            .popup-link { color:#c0392b; border-color:#c0392b; }
+            @page { margin-bottom: 15mm; }
+            .print-footer { display: block !important; text-align: center; font-size: 11px; color: #999; padding: 8px 0; }
+        }
+        .print-footer { display: none; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏠 Beijing Expat Rent Map <span>北京外国人租房指南</span></h1>
+        <div class="header-actions">
+            <a href="https://cdiscovery-community.netlify.app/" class="btn" style="text-decoration:none">← Cdiscovery</a>
+            <button class="btn btn-accent" onclick="window.print()">🖨️ Print as PDF</button>
+            <button class="btn" onclick="shareMap()">🔗 Share</button>
+        </div>
+    </div>
+    <div class="main">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>📍 6 Expat Neighborhoods</h2>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-dot green"></div>Under ¥5k</div>
+                    <div class="legend-item"><div class="legend-dot yellow"></div>¥5k–10k</div>
+                    <div class="legend-item"><div class="legend-dot orange"></div>¥10k–20k</div>
+                    <div class="legend-item"><div class="legend-dot red"></div>¥20k+</div>
+                    <div class="legend-item"><div class="legend-dot landmark"></div>Landmarks</div>
+                </div>
+                <div class="filter-bar" id="filterBar">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="under5k">Under ¥5k</button>
+                    <button class="filter-btn" data-filter="5k-10k">¥5k–10k</button>
+                    <button class="filter-btn" data-filter="10k+">¥10k+</button>
+                </div>
+            </div>
+            <div class="location-list" id="locationList"></div>
+        </aside>
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script>
+        const neighborhoods = [
+            {
+                id: 1, emoji: "🏙️", name: "Sanlitun", cn: "三里屯",
+                lat: 39.9340, lng: 116.4530,
+                district: "Chaoyang (朝阳区)",
+                rent: "¥6,000–12,000/month (1BR)",
+                rentMin: 6000, rentMax: 12000, rentTier: "yellow",
+                metro: "Tuanjiehu (Line 10), Dongsi Shitiao (Line 2)",
+                bestFor: "Young professionals, nightlife lovers",
+                highlights: "Taikoo Li, Nali Patio, best bar scene, international restaurants",
+                amap: "https://www.amap.com/search?query=三里屯"
+            },
+            {
+                id: 2, emoji: "🏢", name: "CBD / Guomao", cn: "国贸",
+                lat: 39.9090, lng: 116.4600,
+                district: "Chaoyang (朝阳区)",
+                rent: "¥8,000–20,000/month (luxury 1BR)",
+                rentMin: 8000, rentMax: 20000, rentTier: "orange",
+                metro: "Guomao (Line 1/10), Jintaixizhao (Line 10)",
+                bestFor: "Corporate expats, finance professionals",
+                highlights: "China World Mall, CCTV Headquarters, Kerry Centre, luxury apartments",
+                amap: "https://www.amap.com/search?query=国贸CBD"
+            },
+            {
+                id: 3, emoji: "🌉", name: "Liangmaqiao", cn: "亮马桥",
+                lat: 39.9500, lng: 116.4620,
+                district: "Chaoyang (朝阳区)",
+                rent: "¥7,000–15,000/month (1BR)",
+                rentMin: 7000, rentMax: 15000, rentTier: "orange",
+                metro: "Liangmaqiao (Line 10)",
+                bestFor: "Embassy staff, expat families",
+                highlights: "Lufthansa Center, Kempinski Hotel, Japanese/Korean restaurants, embassies",
+                amap: "https://www.amap.com/search?query=亮马桥"
+            },
+            {
+                id: 4, emoji: "🇰🇷", name: "Wangjing", cn: "望京",
+                lat: 39.9880, lng: 116.4700,
+                district: "Chaoyang (朝阳区)",
+                rent: "¥4,500–9,000/month (1BR)",
+                rentMin: 4500, rentMax: 9000, rentTier: "yellow",
+                metro: "Wangjing (Line 14/15), Wangjing South (Line 14)",
+                bestFor: "Tech workers, Korean food lovers, budget-conscious expats",
+                highlights: "Wangjing SOHO, Korean restaurants, Wanda Plaza, tech companies",
+                amap: "https://www.amap.com/search?query=望京"
+            },
+            {
+                id: 5, emoji: "🎓", name: "Wudaokou", cn: "五道口",
+                lat: 39.9930, lng: 116.3380,
+                district: "Haidian (海淀区)",
+                rent: "¥3,500–7,000/month (1BR)",
+                rentMin: 3500, rentMax: 7000, rentTier: "green",
+                metro: "Wudaokou (Line 13)",
+                bestFor: "Students, budget-conscious young professionals",
+                highlights: "PKU, Tsinghua, BLCU campuses, Korean/Japanese restaurants, bars, bookstores",
+                amap: "https://www.amap.com/search?query=五道口"
+            },
+            {
+                id: 6, emoji: "🏡", name: "Shunyi", cn: "顺义",
+                lat: 40.1300, lng: 116.6550,
+                district: "Shunyi (顺义区)",
+                rent: "¥10,000–30,000/month (villa)",
+                rentMin: 10000, rentMax: 30000, rentTier: "red",
+                metro: "Shunyi (Line 15) — most residents drive",
+                bestFor: "Expat families with children",
+                highlights: "International schools (ISB, WAB, Dulwich), Europlaza, Pinnacle Plaza, villa communities",
+                amap: "https://www.amap.com/search?query=顺义"
+            }
+        ];
+
+        const landmarks = [
+            { name: "Forbidden City", cn: "故宫", lat: 39.9163, lng: 116.3972, emoji: "🏯" },
+            { name: "Wangfujing", cn: "王府井", lat: 39.9140, lng: 116.4100, emoji: "🛍️" }
+        ];
+
+        const rentColors = {
+            green: "#34d399",
+            yellow: "#fbbf24",
+            orange: "#ff9a5c",
+            red: "#ff6b5b"
+        };
+
+        const map = L.map("map", {
+            center: [39.9042, 116.4074],
+            zoom: 11,
+            zoomControl: true
+        });
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            maxZoom: 19
+        }).addTo(map);
+
+        const markers = {};
+        const circles = {};
+
+        neighborhoods.forEach(n => {
+            const color = rentColors[n.rentTier];
+
+            const circle = L.circle([n.lat, n.lng], {
+                radius: 1000,
+                color: color,
+                weight: 2,
+                fillColor: color,
+                fillOpacity: 0.12,
+                dashArray: "6 4"
+            }).addTo(map);
+            circles[n.id] = circle;
+
+            const icon = L.divIcon({
+                html: '<div class="area-marker">' + n.emoji + '</div>',
+                iconSize: [34, 34],
+                iconAnchor: [17, 17],
+                popupAnchor: [0, -20],
+                className: ""
+            });
+
+            const marker = L.marker([n.lat, n.lng], { icon: icon }).addTo(map);
+            marker.bindPopup(
+                '<div class="popup-name">' + n.emoji + ' ' + n.name + ' (' + n.cn + ')</div>' +
+                '<div class="popup-district">' + n.district + '</div>' +
+                '<div class="popup-rent" style="background:' + color + '22;color:' + color + '">' +
+                '💰 ' + n.rent + '</div>' +
+                '<div class="popup-row"><span class="popup-label">🚇 Metro:</span><span class="popup-value">' + n.metro + '</span></div>' +
+                '<div class="popup-row"><span class="popup-label">👥 Best for:</span><span class="popup-value">' + n.bestFor + '</span></div>' +
+                '<div class="popup-highlights">⭐ ' + n.highlights + '</div>' +
+                '<a class="popup-link" href="' + n.amap + '" target="_blank" rel="noopener">🗺️ View on Amap</a>',
+                { maxWidth: 320 }
+            );
+
+            markers[n.id] = marker;
+        });
+
+        landmarks.forEach(function(lm) {
+            var icon = L.divIcon({
+                html: '<div class="landmark-marker">' + lm.emoji + '</div>',
+                iconSize: [28, 28],
+                iconAnchor: [14, 14],
+                className: ""
+            });
+
+            L.marker([lm.lat, lm.lng], { icon: icon }).addTo(map)
+                .bindPopup('<strong>' + lm.emoji + ' ' + lm.name + '</strong><br><span style="color:rgba(255,255,255,0.5)">' + lm.cn + '</span>');
+        });
+
+        function getFilterTier(n) {
+            if (n.rentMin < 5000) return "under5k";
+            if (n.rentMin < 10000) return "5k-10k";
+            return "10k+";
+        }
+
+        var activeFilter = "all";
+
+        function applyFilter(filter) {
+            activeFilter = filter;
+            document.querySelectorAll(".filter-btn").forEach(function(b) {
+                b.classList.toggle("active", b.dataset.filter === filter);
+            });
+
+            neighborhoods.forEach(function(n) {
+                var card = document.getElementById("card-" + n.id);
+                var show = filter === "all" || getFilterTier(n) === filter;
+                card.classList.toggle("hidden", !show);
+                if (show) {
+                    markers[n.id].addTo(map);
+                    circles[n.id].addTo(map);
+                } else {
+                    map.removeLayer(markers[n.id]);
+                    map.removeLayer(circles[n.id]);
+                }
+            });
+        }
+
+        document.getElementById("filterBar").addEventListener("click", function(e) {
+            if (e.target.classList.contains("filter-btn")) {
+                applyFilter(e.target.dataset.filter);
+            }
+        });
+
+        var listEl = document.getElementById("locationList");
+        neighborhoods.forEach(function(n) {
+            var card = document.createElement("div");
+            card.className = "location-card";
+            card.id = "card-" + n.id;
+            card.innerHTML =
+                '<div class="card-header">' +
+                    '<div class="card-emoji">' + n.emoji + '</div>' +
+                    '<div class="card-title">' +
+                        '<h3>' + n.name + '</h3>' +
+                        '<div class="cn-name">' + n.cn + ' · ' + n.district + '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="rent-badge ' + n.rentTier + '">💰 ' + n.rent + '</div>' +
+                '<div class="card-details">' +
+                    '<div><span class="label">🚇 Metro:</span> ' + n.metro + '</div>' +
+                    '<div><span class="label">👥 Best for:</span> ' + n.bestFor + '</div>' +
+                    '<div><span class="label">⭐ Highlights:</span> ' + n.highlights + '</div>' +
+                '</div>';
+            card.addEventListener("click", function() {
+                document.querySelectorAll(".location-card").forEach(function(el) { el.classList.remove("active"); });
+                card.classList.add("active");
+                map.flyTo([n.lat, n.lng], 14, { duration: 0.8 });
+                setTimeout(function() { markers[n.id].openPopup(); }, 400);
+                closeSidebar();
+            });
+            listEl.appendChild(card);
+        });
+
+        var sidebar = document.getElementById("sidebar");
+        var overlay = document.getElementById("sidebarOverlay");
+        var toggle = document.getElementById("sidebarToggle");
+
+        function closeSidebar() {
+            sidebar.classList.remove("open");
+            overlay.classList.remove("open");
+        }
+
+        toggle.addEventListener("click", function() {
+            sidebar.classList.toggle("open");
+            overlay.classList.toggle("open");
+        });
+
+        overlay.addEventListener("click", closeSidebar);
+    </script>
+<div class="print-footer">Cdiscovery</div>
+<script>
+function shareMap() {
+    if (navigator.share) {
+        navigator.share({ title: 'Cdiscovery - China Community', url: 'https://cdiscovery-community.netlify.app/' });
+    } else {
+        navigator.clipboard.writeText('https://cdiscovery-community.netlify.app/').then(function() {
+            var btn = document.querySelector('.header-actions .btn:last-child');
+            var orig = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            setTimeout(function() { btn.textContent = orig; }, 2000);
+        });
+    }
+}
+</script>
+</body>
+</html>

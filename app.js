@@ -2254,6 +2254,88 @@ const topicArticles = {
             <p><strong>8. Anhui (徽菜) — Anhui</strong></p>
             <p>Known for: Wild herbs, braised dishes, mountain ingredients. Signature dishes: Li Hongzhang hodgepodge, hairy tofu, bamboo shoots with cured meat. Best in: Huangshan.</p>
             <div class="ar-source">Sources: <a href="http://www.mofcom.gov.cn" target="_blank">Ministry of Commerce</a> · <a href="http://www.chinadaily.com.cn" target="_blank">China Daily Food & Culture</a></div>`
+        },
+        {
+            title: 'Beijing Traditional Breakfast: 10 Must-Visit Spots Near the Forbidden City & Wangfujing',
+            content: `<p>Beijing's traditional breakfast culture (老北京早点 lǎo Běijīng zǎodiǎn) is one of the city's most authentic culinary experiences. While tourists flock to the Forbidden City and Wangfujing, the real magic happens at dawn in the surrounding hutongs, where locals queue up for steaming bowls of douzhī, crispy jiaoquan, and golden youbings. Here are 10 legendary breakfast spots within walking distance of Beijing's top tourist landmarks.</p>
+
+            <p><strong>🥢 What to Expect: A Beijing Breakfast Primer</strong></p>
+            <p>A traditional Beijing breakfast is hearty, savory, and unlike anything you'll find in southern China. The "holy trinity" of Beijing breakfast is:</p>
+            <ul>
+                <li>🥣 <strong>Douzhī (豆汁)</strong> — Fermented mung bean drink. Sour, slightly funky, and absolutely polarizing. Locals love it; most foreigners need 2-3 tries. It's Beijing's ultimate litmus test.</li>
+                <li>🫓 <strong>Jiaoquan (焦圈)</strong> — Deep-fried dough rings, crispy like a savory donut. Always paired with douzhī.</li>
+                <li>🥞 <strong>Yóutiáo (油条)</strong> — Fried dough sticks. Dip in soy milk or wrap in a jianbing (煎饼). Universal crowd-pleaser.</li>
+            </ul>
+            <p>Other essentials: miàn chá (面茶, millet paste with sesame), zhū gāo (猪糕, steamed pork cake), luóbo sī bǐng (萝卜丝饼, radish cake), and mén dīng ròu bǐng (门钉肉饼, door-knocker meat pies).</p>
+
+            <p><strong>1. Húguósi Xiǎochī (护国寺小吃) — Huguo Temple Snacks</strong></p>
+            <p>The undisputed king of Beijing traditional snacks. Founded in 1956, this state-owned chain preserves recipes that date back centuries. The Huguo Si main branch is the most atmospheric, but the Dianmen branch near the Drum Tower is more convenient for tourists. Order the dòuzhī + jiāoquān combo, àndào cháng (鞍道肠, donkey intestine sausage — better than it sounds), and the táng huǒshāo (糖火烧, sweet sesame flatbread).</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 西城区护国寺街68号（护国寺总店）/ 西城区地安门外大街180号（地安门店）</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=护国寺小吃 护国寺街" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><a class="loc-map-link" href="https://map.baidu.com/search?query=护国寺小吃" target="_blank"><i class="fas fa-map-marker-alt"></i> 百度地图</a><span class="metro-badge metro-bj-line4">🚇 4号线</span><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="station-name">平安里站</span></div></div>
+            <p>🕐 06:00–21:00 | 💰 ¥15–30/person | ⭐ Must-try: 豆汁+焦圈, 糖火烧, 驴打滚</p>
+
+            <p><strong>2. Zēng Shèng Kuí (增盛魁)</strong></p>
+            <p>A tiny, no-frills family-run stall near the Drum Tower that's been serving the same menu for 40+ years. No sign, no menu board — just regulars who know exactly what to order. The mén dīng ròu bǐng (门钉肉饼) here are the best in Beijing: thin, crispy shell bursting with juicy beef and scallion. The táng huǒshāo (糖火烧) is also exceptional. Cash only, no seats — you eat standing on the sidewalk like a true Beijinger.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 西城区鼓楼西大街（鼓楼西侧路北）</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=增盛魁 鼓楼" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><a class="loc-map-link" href="https://map.baidu.com/search?query=增盛魁" target="_blank"><i class="fas fa-map-marker-alt"></i> 百度地图</a><span class="metro-badge metro-bj-line2">🚇 2号线</span><span class="metro-badge metro-bj-line8">🚇 8号线</span><span class="station-name">鼓楼大街站</span></div></div>
+            <p>🕐 06:00–10:00 (早餐时段) | 💰 ¥10–20/person | ⭐ Must-try: 门钉肉饼, 糖火烧</p>
+
+            <p><strong>3. Bái Kuí Lǎo Hào (白魁老号饭庄)</strong></p>
+            <p>Established in 1780 during the Qing Dynasty, Bai Kui is one of Beijing's oldest restaurants. Famous for its shāo yángròu (烧羊肉, roasted lamb) and miàn chá (面茶, millet paste topped with sesame sauce). The Jiaodaokou branch is the most convenient for tourists. The lamb here is slow-roasted for hours until the exterior is caramelized and the interior melts. Their miàn chá is the gold standard — creamy, fragrant, with perfect sesame-to-millet ratio.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区交道口南大街15号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=白魁老号饭庄 交道口" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><a class="loc-map-link" href="https://map.baidu.com/search?query=白魁老号" target="_blank"><i class="fas fa-map-marker-alt"></i> 百度地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="station-name">东四站</span></div></div>
+            <p>🕐 06:00–21:00 | 💰 ¥25–50/person | ⭐ Must-try: 烧羊肉, 面茶, 羊杂汤</p>
+
+            <p><strong>4. Nán Lái Shùn (南来顺)</strong></p>
+            <p>Nan Laishun is Beijing's Hui Muslim breakfast institution. Located near Niujie (Ox Street) Mosque, it specializes in halal Beijing snacks. The zhà sāng dài (炸桑袋) and dòu miàn huáng (豆面黄) are unique to this shop. Their yáng zá tāng (羊杂汤, lamb offal soup) is the best hangover cure in Beijing — rich, peppery, loaded with tender lamb bits. The atmosphere is authentically old Beijing: communal tables, loud conversations, and zero English.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 西城区南菜园街12号（大观园附近）</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=南来顺饭庄" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><a class="loc-map-link" href="https://map.baidu.com/search?query=南来顺" target="_blank"><i class="fas fa-map-marker-alt"></i> 百度地图</a><span class="metro-badge metro-bj-line4">🚇 4号线</span><span class="station-name">陶然亭站</span></div></div>
+            <p>🕐 06:00–14:00 | 💰 ¥20–40/person | ⭐ Must-try: 羊杂汤, 豆面黄, 炸桑袋</p>
+
+            <p><strong>5. Dōnghuāmén Yè Shì (东华门美食坊) — Donghuamen Breakfast Street</strong></p>
+            <p>Right outside the Forbidden City's east gate (Donghuamen), this cluster of food stalls is the most tourist-friendly traditional breakfast spot. While it's more commercialized than hutong shops, the convenience is unbeatable — grab breakfast before entering the Palace Museum at 8:30 AM. Look for the jiānbing guǒzi (煎饼果子) stalls, shuǐjiǎo (水饺) vendors, and fresh dòujiāng (豆浆, soy milk) stands. Prices are slightly higher (¥15–25/person) but the location is prime.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区东华门大街（故宫东门/东华门外）</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=东华门美食" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><a class="loc-map-link" href="https://map.baidu.com/search?query=东华门美食坊" target="_blank"><i class="fas fa-map-marker-alt"></i> 百度地图</a><span class="metro-badge metro-bj-line1">🚇 1号线</span><span class="station-name">天安门东站</span></div></div>
+            <p>🕐 06:00–10:00 (早餐) | 💰 ¥15–25/person | ⭐ Must-try: 煎饼果子, 豆浆, 水饺</p>
+
+            <p><strong>6. Tiānxīngjū (天兴居) — Tianxing Ju</strong></p>
+            <p>Tianxing Ju is famous for one thing: chǎo gān (炒肝, stir-fried liver) — a thick, garlicky stew of pork liver and intestines in starch-thickened broth. It's the most iconic Beijing breakfast dish that tourists rarely try. Founded in 1862, this Qianmen institution serves chǎo gān the traditional way: in a small bowl, eaten by "drinking" it from the edge (never with a spoon — that's the rule). Pair it with bāo zi (包子, steamed buns) for the full experience.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区鲜鱼口街95号（前门大街附近）</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=天兴居 鲜鱼口" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><a class="loc-map-link" href="https://map.baidu.com/search?query=天兴居" target="_blank"><i class="fas fa-map-marker-alt"></i> 百度地图</a><span class="metro-badge metro-bj-line2">🚇 2号线</span><span class="station-name">前门站</span></div></div>
+            <p>🕐 06:30–14:00 | 💰 ¥15–25/person | ⭐ Must-try: 炒肝, 包子, 卤煮火烧</p>
+
+            <p><strong>7. Lóngfǔ Sì Xiǎochī (隆福寺小吃店)</strong></p>
+            <p>Once the heart of old Beijing's snack culture, Longfu Si was devastated by fire in 1993 and never fully recovered its former glory. But the surviving breakfast stalls still serve excellent traditional fare. The dòuzhī (豆汁) here is particularly well-fermented, and the jiāo quān (焦圈) are always fresh. The area around Longfu Si is being redeveloped, so go soon — this piece of old Beijing may not last forever.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区隆福寺街（东四附近）</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=隆福寺小吃" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><a class="loc-map-link" href="https://map.baidu.com/search?query=隆福寺小吃" target="_blank"><i class="fas fa-map-marker-alt"></i> 百度地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="station-name">东四站</span></div></div>
+            <p>🕐 06:00–10:00 | 💰 ¥10–20/person | ⭐ Must-try: 豆汁, 焦圈, 艾窝窝</p>
+
+            <p><strong>8. Dūyī Chù (都一处) — Du Yi Chu</strong></p>
+            <p>Du Yi Chu holds a special place in Beijing history: Emperor Qianlong reportedly visited in 1752 and bestowed the restaurant's name, meaning "The Only One." Famous for its shāomài (烧麦, open-top dumplings), the Qianmen flagship is a must-visit. While known for dinner, their breakfast service offers excellent jiaozi (饺子) and porridge. The building itself is a beautifully restored Qing Dynasty structure — eating here feels like stepping into a period drama.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区前门大街38号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=都一处 前门大街" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><a class="loc-map-link" href="https://map.baidu.com/search?query=都一处" target="_blank"><i class="fas fa-map-marker-alt"></i> 百度地图</a><span class="metro-badge metro-bj-line2">🚇 2号线</span><span class="station-name">前门站</span></div></div>
+            <p>🕐 06:30–21:00 | 💰 ¥30–60/person | ⭐ Must-try: 烧麦, 饺子, 小米粥</p>
+
+            <p><strong>9. Jǐnfāng Yuánxiāo (锦芳元宵) — Jinfang Tangyuan</strong></p>
+            <p>Jinfang is the undisputed champion of yuánxiāo (元宵, sweet glutinous rice balls) — especially during Lantern Festival when the queue stretches for blocks. But their year-round breakfast menu is equally impressive. The lǘ dǎ gǔn (驴打滚, donkey rolling in the mud — actually a sweet bean-powder-coated rice cake) and ài wō wō (艾窝窝, steamed rice balls with sweet filling) are handmade daily. Their jiāngmí pái (江米排, sticky rice strips) are addictive.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区磁器口大都市街南1楼（磁器口地铁站附近）</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=锦芳元宵 磁器口" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><a class="loc-map-link" href="https://map.baidu.com/search?query=锦芳元宵" target="_blank"><i class="fas fa-map-marker-alt"></i> 百度地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="metro-badge metro-bj-line7">🚇 7号线</span><span class="station-name">磁器口站</span></div></div>
+            <p>🕐 06:00–20:00 | 💰 ¥15–30/person | ⭐ Must-try: 驴打滚, 艾窝窝, 元宵(季节性)</p>
+
+            <p><strong>10. Xīsì Bāozi Pù (西四包子铺)</strong></p>
+            <p>Don't let the humble name fool you — Xisi Baozi Pu is a Beijing institution. Their zhūròu dà cōng bāozi (猪肉大葱包子, pork and scallion buns) are legendary: fluffy, juicy, and perfectly seasoned. A plate of 10 buns + a bowl of zhōu (粥, congee) is the quintessential Beijing working-class breakfast, and it'll cost you under ¥15. The Xisi location is a short walk from the Forbidden City's northwest corner. Go before 8 AM or face a 30-minute queue.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 西城区西四南大街18号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=西四包子铺" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><a class="loc-map-link" href="https://map.baidu.com/search?query=西四包子铺" target="_blank"><i class="fas fa-map-marker-alt"></i> 百度地图</a><span class="metro-badge metro-bj-line4">🚇 4号线</span><span class="station-name">西四站</span></div></div>
+            <p>🕐 06:00–13:00 | 💰 ¥10–18/person | ⭐ Must-try: 猪肉大葱包子, 小米粥, 炒肝</p>
+
+            <p><strong>🗺️ Pro Tips for Breakfast Explorers</strong></p>
+            <ul>
+                <li>⏰ <strong>Go early:</strong> Most traditional spots are best before 8:30 AM. Many items sell out by 9 AM. The real regulars eat at 6:30.</li>
+                <li>💵 <strong>Cash helps:</strong> While most places accept WeChat Pay and Alipay, some older stalls (like Zeng Shengkui) are cash-only. Bring small bills.</li>
+                <li>🗣️ <strong>Point and smile:</strong> English menus are rare outside Donghuamen. Learn these phrases: "这个" (zhège — "this one"), "多少钱" (duōshǎo qián — "how much"), "好吃" (hǎo chī — "delicious").</li>
+                <li>🚫 <strong>Skip the Starbucks:</strong> Seriously. You're in Beijing. Drink dòujiāng (豆浆, soy milk) or miàn chá (面茶) like the locals.</li>
+                <li>📱 <strong>Use Dianping:</strong> Download 大众点评 (Dianping) — it's China's Yelp. Search "早点" (zǎodiǎn) or "早餐" (zǎocān) near your hotel for hidden gems.</li>
+            </ul>
+
+            <p><strong>🧭 Walking Routes from Tourist Landmarks</strong></p>
+            <ul>
+                <li>🏯 <strong>From the Forbidden City (故宫):</strong> Exit via Donghuamen → walk to Donghuamen breakfast stalls (5 min) or continue to Longfu Si (15 min walk east).</li>
+                <li>🛍️ <strong>From Wangfujing (王府井):</strong> Walk north to Jiaodaokou for Bai Kui (20 min) or take Line 5 one stop to Dongsi for Longfu Si.</li>
+                <li>⛩️ <strong>From Qianmen (前门):</strong> Walk into Xianyukou hutong for Tianxing Ju (5 min) or stay on Qianmen Dajie for Du Yi Chu (3 min).</li>
+                <li>🥁 <strong>From the Drum Tower (鼓楼):</strong> Walk west for Zeng Shengkui (3 min) or south for Huguo Si Dianmen branch (10 min).</li>
+            </ul>
+
+            <div class="ar-source">Sources: <a href="https://www.dianping.com" target="_blank">大众点评 Dianping</a> · <a href="https://www.thebeijinger.com" target="_blank">The Beijinger</a> · <a href="https://www.timeoutbeijing.com" target="_blank">Time Out Beijing</a> · <a href="https://www.mafengwo.cn" target="_blank">马蜂窝 Mafengwo</a></div>`
         }
     ],
     life: [
@@ -3043,6 +3125,22 @@ function openTopicDetailPage(topicName) {
         html += `<div class="ta-guide-section">
             <h3>${guideData.icon} ${guideData.title}</h3>
             <p>${guideData.subtitle}</p>
+        </div>`;
+    }
+
+    // Map link
+    const mapFiles = {
+        food: 'beijing-breakfast-map.html',
+        travel: 'travel-map.html',
+        hospital: 'hospital-map.html',
+        entertainment: 'entertainment-map.html',
+        rent: 'rent-map.html'
+    };
+    if (mapFiles[topicName]) {
+        html += `<div class="ta-map-section">
+            <a href="${mapFiles[topicName]}" target="_blank" class="ta-map-btn">
+                <i class="fas fa-map-marked-alt"></i> View Interactive Map
+            </a>
         </div>`;
     }
 

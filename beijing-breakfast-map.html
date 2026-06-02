@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北京传统早餐地图 Beijing Traditional Breakfast Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #06060f;
+            --bg-deep: #0a0a1a;
+            --bg-card: rgba(255, 255, 255, 0.025);
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-hover: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-hover: rgba(255, 255, 255, 0.14);
+            --accent-coral: #ff6b5b;
+            --accent-orange: #ff9a5c;
+            --accent-blue: #4a9eff;
+            --accent-purple: #a78bfa;
+            --accent-green: #34d399;
+            --accent-gradient: linear-gradient(135deg, #ff6b5b 0%, #ff9a5c 100%);
+            --text-primary: #f0f0f5;
+            --text-secondary: rgba(255, 255, 255, 0.55);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.35);
+            --shadow-glow: 0 0 40px rgba(255, 107, 91, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header h1 span {
+            font-size: 13px;
+            font-weight: 400;
+            -webkit-text-fill-color: var(--text-secondary);
+            margin-left: 8px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--glass-hover);
+            border-color: var(--glass-border-hover);
+        }
+
+        .btn-accent {
+            background: rgba(255, 107, 91, 0.15);
+            border-color: rgba(255, 107, 91, 0.3);
+            color: var(--accent-coral);
+        }
+
+        .btn-accent:hover {
+            background: rgba(255, 107, 91, 0.25);
+        }
+
+        .main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: var(--bg-dark);
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .sidebar-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .legend {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.breakfast { background: var(--accent-coral); }
+        .legend-dot.forbidden { background: var(--accent-blue); }
+        .legend-dot.wangfujing { background: var(--accent-green); }
+        .legend-dot.drum { background: var(--accent-purple); }
+
+        .location-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .location-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .location-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .location-list::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 2px;
+        }
+
+        .location-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .location-item:hover {
+            background: var(--glass);
+            border-color: var(--glass-border);
+        }
+
+        .location-item.active {
+            background: rgba(255, 107, 91, 0.08);
+            border-color: rgba(255, 107, 91, 0.2);
+        }
+
+        .location-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .location-info h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .location-info .en-name {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .location-info .famous {
+            font-size: 12px;
+            color: var(--accent-orange);
+            margin-top: 3px;
+        }
+
+        .location-info .address {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .map-container {
+            flex: 1;
+            position: relative;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background: var(--bg-dark) !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: var(--radius-md) !important;
+            box-shadow: var(--shadow-md) !important;
+            color: var(--text-primary) !important;
+        }
+
+        .leaflet-popup-tip {
+            background: var(--bg-dark) !important;
+            border: 1px solid var(--glass-border) !important;
+        }
+
+        .leaflet-popup-content {
+            margin: 14px 16px !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        .popup-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .popup-en {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .popup-row {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .popup-label {
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .popup-value {
+            color: var(--text-primary);
+        }
+
+        .popup-famous {
+            color: var(--accent-orange);
+        }
+
+        .popup-link {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 12px;
+            background: rgba(255, 107, 91, 0.15);
+            border: 1px solid rgba(255, 107, 91, 0.3);
+            color: var(--accent-coral);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .popup-link:hover {
+            background: rgba(255, 107, 91, 0.25);
+        }
+
+        .sidebar-toggle {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: var(--bg-dark);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .breakfast-marker {
+            font-size: 26px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+        }
+
+        .landmark-marker {
+            font-size: 22px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+        }
+
+        .leaflet-control-zoom a {
+            background: var(--bg-dark) !important;
+            color: var(--text-primary) !important;
+            border-color: var(--glass-border) !important;
+        }
+
+        .leaflet-control-zoom a:hover {
+            background: var(--glass-hover) !important;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 14px; }
+            .header h1 span { display: none; }
+
+            .sidebar {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                z-index: 1001;
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: absolute;
+                inset: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 1000;
+            }
+
+            .sidebar-overlay.open {
+                display: block;
+            }
+
+            .sidebar-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        @media print {
+            body { background: white; height: auto; overflow: visible; }
+            .header { background: white; border-bottom: 2px solid #ccc; }
+            .header h1 { -webkit-text-fill-color: #333; background: none; }
+            .header h1 span { -webkit-text-fill-color: #666; }
+            .header-actions { display: none; }
+            .sidebar { display: none; }
+            .sidebar-toggle { display: none; }
+            .map-container { position: static; height: 90vh; }
+            .leaflet-control-zoom { display: none; }
+            .leaflet-popup-content-wrapper {
+                background: white !important;
+                color: #333 !important;
+                border: 1px solid #ccc !important;
+            }
+            .leaflet-popup-tip { background: white !important; border: 1px solid #ccc !important; }
+            .popup-name { color: #111; }
+            .popup-en { color: #888; }
+            .popup-label { color: #666; }
+            .popup-value { color: #333; }
+            .popup-famous { color: #d35400; }
+            .popup-link { color: #c0392b; border-color: #c0392b; }
+            @page { margin-bottom: 15mm; }
+            .print-footer { display: block !important; text-align: center; font-size: 11px; color: #999; padding: 8px 0; }
+        }
+        .print-footer { display: none; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>北京传统早餐地图 <span>Beijing Traditional Breakfast Map</span></h1>
+        <div class="header-actions">
+            <a href="https://cdiscovery-community.netlify.app/" class="btn" style="text-decoration:none">← Cdiscovery</a>
+            <button class="btn btn-accent" onclick="window.print()">🖨️ Print as PDF</button>
+            <button class="btn" onclick="shareMap()">🔗 Share</button>
+        </div>
+    </div>
+    <div class="main">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>📍 11家传统早餐店</h2>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-dot breakfast"></div>早餐店</div>
+                    <div class="legend-item"><div class="legend-dot forbidden"></div>故宫</div>
+                    <div class="legend-item"><div class="legend-dot wangfujing"></div>王府井</div>
+                    <div class="legend-item"><div class="legend-dot drum"></div>鼓楼</div>
+                </div>
+            </div>
+            <div class="location-list" id="locationList"></div>
+        </aside>
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script>
+        const locations = [
+            {
+                id: 1,
+                name: "护国寺小吃",
+                en: "Huguo Temple Snacks",
+                address: "西城区护国寺街68号",
+                famous: "豆汁+焦圈, 糖火烧, 驴打滚",
+                lat: 39.9340,
+                lng: 116.3790,
+                amap: "https://www.amap.com/search?query=护国寺小吃 护国寺街"
+            },
+            {
+                id: 2,
+                name: "增盛魁",
+                en: "Zeng Shengkui",
+                address: "西城区鼓楼西大街",
+                famous: "门钉肉饼, 糖火烧",
+                lat: 39.9430,
+                lng: 116.3910,
+                amap: "https://www.amap.com/search?query=增盛魁 鼓楼"
+            },
+            {
+                id: 3,
+                name: "白魁老号饭庄",
+                en: "Bai Kui Lao Hao",
+                address: "东城区交道口南大街15号",
+                famous: "烧羊肉, 面茶, 羊杂汤",
+                lat: 39.9380,
+                lng: 116.4050,
+                amap: "https://www.amap.com/search?query=白魁老号饭庄 交道口"
+            },
+            {
+                id: 4,
+                name: "南来顺",
+                en: "Nan Laishun",
+                address: "西城区南菜园街12号",
+                famous: "羊杂汤, 豆面黄",
+                lat: 39.8770,
+                lng: 116.3560,
+                amap: "https://www.amap.com/search?query=南来顺饭庄"
+            },
+            {
+                id: 5,
+                name: "东华门美食坊",
+                en: "Donghuamen Breakfast",
+                address: "东城区东华门大街（故宫东门外）",
+                famous: "煎饼果子, 豆浆",
+                lat: 39.9160,
+                lng: 116.4040,
+                amap: "https://www.amap.com/search?query=东华门美食"
+            },
+            {
+                id: 6,
+                name: "天兴居",
+                en: "Tianxing Ju",
+                address: "东城区鲜鱼口街95号",
+                famous: "炒肝, 包子",
+                lat: 39.8990,
+                lng: 116.3970,
+                amap: "https://www.amap.com/search?query=天兴居 鲜鱼口"
+            },
+            {
+                id: 7,
+                name: "隆福寺小吃店",
+                en: "Longfu Si Snacks",
+                address: "东城区隆福寺街",
+                famous: "豆汁, 焦圈, 艾窝窝",
+                lat: 39.9290,
+                lng: 116.4100,
+                amap: "https://www.amap.com/search?query=隆福寺小吃"
+            },
+            {
+                id: 8,
+                name: "都一处",
+                en: "Du Yi Chu",
+                address: "东城区前门大街38号",
+                famous: "烧麦, 饺子",
+                lat: 39.8970,
+                lng: 116.3970,
+                amap: "https://www.amap.com/search?query=都一处 前门大街"
+            },
+            {
+                id: 9,
+                name: "锦芳元宵",
+                en: "Jinfang Tangyuan",
+                address: "东城区磁器口大都市街南1楼",
+                famous: "驴打滚, 艾窝窝",
+                lat: 39.8930,
+                lng: 116.4100,
+                amap: "https://www.amap.com/search?query=锦芳元宵 磁器口"
+            },
+            {
+                id: 10,
+                name: "西四包子铺",
+                en: "Xisi Baozi Shop",
+                address: "西城区西四南大街18号",
+                famous: "猪肉大葱包子, 小米粥",
+                lat: 39.9220,
+                lng: 116.3740,
+                amap: "https://www.amap.com/search?query=西四包子铺"
+            },
+            {
+                id: 11,
+                name: "姚记炒肝",
+                en: "Yao Ji Chaogan",
+                address: "东城区鼓楼东大街170号",
+                famous: "炒肝, 包子, 卤煮",
+                lat: 39.9460,
+                lng: 116.3980,
+                amap: "https://www.amap.com/search?query=姚记炒肝 鼓楼"
+            }
+        ];
+
+        const landmarks = [
+            { name: "故宫 Forbidden City", lat: 39.9163, lng: 116.3972, emoji: "🏯", color: "#4a9eff" },
+            { name: "王府井 Wangfujing", lat: 39.9140, lng: 116.4100, emoji: "🏬", color: "#34d399" },
+            { name: "鼓楼 Drum Tower", lat: 39.9480, lng: 116.3970, emoji: "🥁", color: "#a78bfa" }
+        ];
+
+        const map = L.map("map", {
+            center: [39.915, 116.397],
+            zoom: 14,
+            zoomControl: true
+        });
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            maxZoom: 19
+        }).addTo(map);
+
+        const markers = {};
+
+        locations.forEach(loc => {
+            const icon = L.divIcon({
+                html: `<div class="breakfast-marker">🥣</div>`,
+                iconSize: [32, 32],
+                iconAnchor: [16, 16],
+                popupAnchor: [0, -18],
+                className: ""
+            });
+
+            const marker = L.marker([loc.lat, loc.lng], { icon }).addTo(map);
+            marker.bindPopup(`
+                <div class="popup-name">${loc.name}</div>
+                <div class="popup-en">${loc.en}</div>
+                <div class="popup-row">
+                    <span class="popup-label">📍 地址:</span>
+                    <span class="popup-value">${loc.address}</span>
+                </div>
+                <div class="popup-row">
+                    <span class="popup-label">⭐ 招牌:</span>
+                    <span class="popup-famous">${loc.famous}</span>
+                </div>
+                <a class="popup-link" href="${loc.amap}" target="_blank" rel="noopener">🗺️ 在高德地图中查看</a>
+            `, { maxWidth: 280 });
+
+            markers[loc.id] = marker;
+        });
+
+        landmarks.forEach(lm => {
+            const icon = L.divIcon({
+                html: `<div class="landmark-marker">${lm.emoji}</div>`,
+                iconSize: [28, 28],
+                iconAnchor: [14, 14],
+                className: ""
+            });
+
+            L.marker([lm.lat, lm.lng], { icon }).addTo(map)
+                .bindPopup(`<strong>${lm.name}</strong>`);
+        });
+
+        const listEl = document.getElementById("locationList");
+        locations.forEach(loc => {
+            const item = document.createElement("div");
+            item.className = "location-item";
+            item.dataset.id = loc.id;
+            item.innerHTML = `
+                <div class="location-number">${loc.id}</div>
+                <div class="location-info">
+                    <h3>${loc.name} <span class="en-name">${loc.en}</span></h3>
+                    <div class="famous">⭐ ${loc.famous}</div>
+                    <div class="address">📍 ${loc.address}</div>
+                </div>
+            `;
+            item.addEventListener("click", () => {
+                document.querySelectorAll(".location-item").forEach(el => el.classList.remove("active"));
+                item.classList.add("active");
+                map.flyTo([loc.lat, loc.lng], 16, { duration: 0.8 });
+                setTimeout(() => markers[loc.id].openPopup(), 400);
+                closeSidebar();
+            });
+            listEl.appendChild(item);
+        });
+
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebarOverlay");
+        const toggle = document.getElementById("sidebarToggle");
+
+        function closeSidebar() {
+            sidebar.classList.remove("open");
+            overlay.classList.remove("open");
+        }
+
+        toggle.addEventListener("click", () => {
+            sidebar.classList.toggle("open");
+            overlay.classList.toggle("open");
+        });
+
+        overlay.addEventListener("click", closeSidebar);
+    </script>
+<div class="print-footer">Cdiscovery</div>
+<script>
+function shareMap() {
+    if (navigator.share) {
+        navigator.share({ title: 'Cdiscovery - China Community', url: 'https://cdiscovery-community.netlify.app/' });
+    } else {
+        navigator.clipboard.writeText('https://cdiscovery-community.netlify.app/').then(function() {
+            var btn = document.querySelector('.header-actions .btn:last-child');
+            var orig = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            setTimeout(function() { btn.textContent = orig; }, 2000);
+        });
+    }
+}
+</script>
+</body>
+</html>

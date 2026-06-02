@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beijing / Shanghai / Guangzhou Hospital Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a1a;color:#e0e0e0;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.header{background:#111128;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid #1e1e3a;flex-shrink:0}
+.header h1{font-size:18px;font-weight:700;color:#ff6b5b;display:flex;align-items:center;gap:8px}
+.city-buttons{display:flex;gap:8px}
+.city-btn{padding:8px 20px;border:2px solid #2a2a4a;background:transparent;color:#aaa;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.city-btn:hover{border-color:#ff6b5b;color:#ff6b5b}
+.city-btn.active{background:#ff6b5b;border-color:#ff6b5b;color:#fff}
+.main{display:flex;flex:1;overflow:hidden}
+.sidebar{width:340px;background:#0f0f28;border-right:1px solid #1e1e3a;overflow-y:auto;flex-shrink:0;padding:16px}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:#2a2a4a;border-radius:3px}
+.hospital-card{background:#16163a;border:1px solid #2a2a4a;border-radius:10px;padding:14px;margin-bottom:12px;cursor:pointer;transition:all .2s}
+.hospital-card:hover,.hospital-card.highlight{border-color:#ff6b5b;box-shadow:0 0 12px rgba(255,107,91,.15)}
+.hospital-card .name-zh{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.hospital-card .name-en{font-size:12px;color:#888;margin-bottom:6px}
+.hospital-card .address{font-size:12px;color:#666;margin-bottom:6px}
+.hospital-card .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.tag-public{background:rgba(66,133,244,.15);color:#4285f4}
+.tag-private{background:rgba(255,107,91,.15);color:#ff6b5b}
+.hospital-card .desc{font-size:12px;color:#999;margin-top:8px;line-height:1.5}
+.hospital-card .amap-link{display:inline-block;margin-top:8px;font-size:12px;color:#ff6b5b;text-decoration:none;font-weight:600}
+.hospital-card .amap-link:hover{text-decoration:underline}
+#map{flex:1;background:#0a0a1a}
+.legend{position:absolute;bottom:20px;right:20px;background:#111128;border:1px solid #2a2a4a;border-radius:10px;padding:12px 16px;z-index:1000;font-size:13px}
+.legend-title{font-weight:700;margin-bottom:8px;color:#fff;font-size:13px}
+.legend-item{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.legend-dot{width:12px;height:12px;border-radius:50%}
+.legend-dot.public{background:#4285f4}
+.legend-dot.private{background:#ff6b5b}
+.top-actions{position:absolute;top:70px;right:20px;z-index:1000}
+.print-btn{padding:8px 16px;background:#ff6b5b;border:none;color:#fff;border-radius:8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.print-btn:hover{background:#e85a4a}
+.leaflet-popup-content-wrapper{background:#16163a!important;color:#e0e0e0!important;border-radius:10px!important;border:1px solid #2a2a4a!important}
+.leaflet-popup-tip{background:#16163a!important}
+.leaflet-popup-content{font-family:'Inter',sans-serif!important;font-size:13px!important;line-height:1.5!important}
+.popup-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.popup-address{font-size:12px;color:#888;margin-bottom:6px}
+.popup-desc{font-size:12px;color:#bbb;margin-bottom:8px}
+.popup-link{color:#ff6b5b;text-decoration:none;font-weight:600;font-size:12px}
+.popup-link:hover{text-decoration:underline}
+.popup-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;margin-bottom:6px}
+@media(max-width:768px){
+.sidebar{width:100%;max-height:250px;order:2}
+.main{flex-direction:column}
+#map{order:1;min-height:300px}
+.header{padding:10px 12px}
+.header h1{font-size:15px}
+.city-btn{padding:6px 14px;font-size:12px}
+}
+@media print{
+.header,.top-actions,.legend{display:none!important}
+.main{flex-direction:column}
+.sidebar{width:100%;max-height:none;overflow:visible;border:none;background:#fff;color:#000}
+.hospital-card{background:#f5f5f5;border-color:#ccc;color:#000}
+.hospital-card .name-zh{color:#000}
+.hospital-card .name-en,.hospital-card .address,.hospital-card .desc{color:#444}
+#map{min-height:500px}
+@page { margin-bottom: 15mm; }
+.print-footer { display: block !important; text-align: center; font-size: 11px; color: #999; padding: 8px 0; }
+}
+.print-footer { display: none; }
+</style>
+</head>
+<body>
+<div class="header">
+<h1>🏥 Hospital Map — International Services</h1>
+<div class="city-buttons">
+<button class="city-btn active" data-city="beijing">Beijing</button>
+<button class="city-btn" data-city="shanghai">Shanghai</button>
+<button class="city-btn" data-city="guangzhou">Guangzhou</button>
+</div>
+</div>
+<div class="main">
+<div class="sidebar" id="sidebar"></div>
+<div id="map"></div>
+</div>
+
+<script>
+const hospitals={
+beijing:{
+center:[39.9042,116.4074],zoom:11,
+list:[
+{nameZh:"北京协和医院",nameEn:"Peking Union Medical College Hospital",address:"东城区帅府园1号",lat:39.9137,lng:116.4157,type:"public",info:"China's #1 hospital. International department available. Expensive but top-tier care.",amap:"https://www.amap.com/search?query=北京协和医院"},
+{nameZh:"北京大学第一医院",nameEn:"Peking University First Hospital",address:"西城区西什库大街8号",lat:39.9305,lng:116.3770,type:"public",info:"Major public hospital. English-speaking staff in some departments.",amap:"https://www.amap.com/search?query=北京大学第一医院"},
+{nameZh:"中日友好医院",nameEn:"China-Japan Friendship Hospital",address:"朝阳区樱花园东街",lat:39.9720,lng:116.4230,type:"public",info:"Known for international patients. Japanese-speaking staff available.",amap:"https://www.amap.com/search?query=中日友好医院"},
+{nameZh:"北京和睦家医院",nameEn:"United Family Hospital Beijing",address:"朝阳区将台路2号",lat:39.9640,lng:116.4750,type:"private",info:"Private international hospital. English-speaking. Expensive but Western-standard care. Insurance accepted.",amap:"https://www.amap.com/search?query=北京和睦家医院"},
+{nameZh:"北京国际医疗中心",nameEn:"Beijing International Medical Center",address:"朝阳区亮马桥路50号",lat:39.9500,lng:116.4620,type:"private",info:"International clinic in Lufthansa Center area. Popular with embassy staff.",amap:"https://www.amap.com/search?query=北京国际医疗中心"}
+]},
+shanghai:{
+center:[31.2304,121.4737],zoom:11,
+list:[
+{nameZh:"上海瑞金医院",nameEn:"Ruijin Hospital",address:"黄浦区瑞金二路197号",lat:31.2120,lng:121.4620,type:"public",info:"Top public hospital. International department with English service.",amap:"https://www.amap.com/search?query=上海瑞金医院"},
+{nameZh:"上海华山医院",nameEn:"Huashan Hospital",address:"静安区乌鲁木齐中路12号",lat:31.2230,lng:121.4480,type:"public",info:"Famous for neurology and dermatology. International clinic available.",amap:"https://www.amap.com/search?query=上海华山医院"},
+{nameZh:"上海和睦家医院",nameEn:"United Family Hospital Shanghai",address:"长宁区平塘路1138号",lat:31.2080,lng:121.3780,type:"private",info:"Private international hospital. Full English service. Western-standard care.",amap:"https://www.amap.com/search?query=上海和睦家医院"},
+{nameZh:"上海东方医院",nameEn:"Shanghai East Hospital",address:"浦东新区即墨路150号",lat:31.2350,lng:121.5120,type:"public",info:"International medical center in Pudong. Good for Lujiazui workers.",amap:"https://www.amap.com/search?query=上海东方医院"}
+]},
+guangzhou:{
+center:[23.1291,113.2644],zoom:11,
+list:[
+{nameZh:"中山大学附属第一医院",nameEn:"First Affiliated Hospital of Sun Yat-sen University",address:"越秀区中山二路58号",lat:23.1290,lng:113.2830,type:"public",info:"South China's top hospital. International department available.",amap:"https://www.amap.com/search?query=中山大学附属第一医院"},
+{nameZh:"广东省人民医院",nameEn:"Guangdong Provincial People's Hospital",address:"越秀区中山二路106号",lat:23.1270,lng:113.2860,type:"public",info:"Major public hospital. English-speaking staff limited.",amap:"https://www.amap.com/search?query=广东省人民医院"},
+{nameZh:"广州和睦家医院",nameEn:"United Family Hospital Guangzhou",address:"海珠区新港东路2588号",lat:23.0780,lng:113.3520,type:"private",info:"Private international hospital. Full English service.",amap:"https://www.amap.com/search?query=广州和睦家医院"}
+]}
+};
+
+let map,markers=[],currentCity="beijing";
+
+function createIcon(type){
+const color=type==="private"?"#ff6b5b":"#4285f4";
+return L.divIcon({
+className:'',
+html:`<div style="font-size:28px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));line-height:1">🏥</div><div style="width:10px;height:10px;border-radius:50%;background:${color};margin:-4px auto 0;border:2px solid #fff;box-shadow:0 0 4px rgba(0,0,0,.4)"></div>`,
+iconSize:[30,38],
+iconAnchor:[15,38],
+popupAnchor:[0,-32]
+});
+}
+
+function buildPopup(h){
+const tagClass=h.type==="private"?"tag-private":"tag-public";
+const tagLabel=h.type==="private"?"Private/International":"Public";
+return`<div class="popup-name">${h.nameZh}</div><div class="popup-name" style="font-size:12px;color:#aaa;font-weight:400;margin-bottom:4px">${h.nameEn}</div><span class="popup-tag ${tagClass}">${tagLabel}</span><div class="popup-address">📍 ${h.address}</div><div class="popup-desc">${h.info}</div><a class="popup-link" href="${h.amap}" target="_blank" rel="noopener">Open in Amap →</a>`;
+}
+
+function loadCity(city){
+currentCity=city;
+const data=hospitals[city];
+markers.forEach(m=>map.removeLayer(m));
+markers=[];
+map.flyTo(data.center,data.zoom,{duration:1});
+const sidebar=document.getElementById("sidebar");
+sidebar.innerHTML="";
+data.list.forEach((h,i)=>{
+const marker=L.marker([h.lat,h.lng],{icon:createIcon(h.type)}).addTo(map);
+marker.bindPopup(buildPopup(h),{maxWidth:300});
+markers.push(marker);
+const card=document.createElement("div");
+card.className="hospital-card";
+card.innerHTML=`<div class="name-zh">${h.nameZh}</div><div class="name-en">${h.nameEn}</div><div class="address">📍 ${h.address}</div><span class="tag ${h.type==="private"?"tag-private":"tag-public"}">${h.type==="private"?"Private/International":"Public"}</span><div class="desc">${h.info}</div><a class="amap-link" href="${h.amap}" target="_blank" rel="noopener">Open in Amap →</a>`;
+card.addEventListener("click",()=>{
+map.flyTo([h.lat,h.lng],15,{duration:.8});
+marker.openPopup();
+document.querySelectorAll(".hospital-card").forEach(c=>c.classList.remove("highlight"));
+card.classList.add("highlight");
+});
+card.addEventListener("mouseenter",()=>card.classList.add("highlight"));
+card.addEventListener("mouseleave",()=>card.classList.remove("highlight"));
+sidebar.appendChild(card);
+marker.on("click",()=>{
+document.querySelectorAll(".hospital-card").forEach(c=>c.classList.remove("highlight"));
+card.classList.add("highlight");
+card.scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+});
+}
+
+document.querySelectorAll(".city-btn").forEach(btn=>{
+btn.addEventListener("click",()=>{
+document.querySelectorAll(".city-btn").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+loadCity(btn.dataset.city);
+});
+});
+
+map=L.map("map",{zoomControl:false}).setView(hospitals.beijing.center,hospitals.beijing.zoom);
+L.control.zoom({position:"bottomleft"}).addTo(map);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',subdomains:"abcd",maxZoom:19}).addTo(map);
+
+const legend=L.control({position:"bottomright"});
+legend.onAdd=function(){
+const div=L.DomUtil.create("div","legend");
+div.innerHTML=`<div class="legend-title">Legend</div><div class="legend-item"><span class="legend-dot public"></span> Public Hospital</div><div class="legend-item"><span class="legend-dot private"></span> Private / International</div>`;
+return div;
+};
+legend.addTo(map);
+
+const printDiv=document.createElement("div");
+printDiv.className="top-actions";
+printDiv.innerHTML=`<a href="https://cdiscovery-community.netlify.app/" class="print-btn" style="display:block;text-align:center;text-decoration:none;margin-bottom:8px;background:transparent;color:#ff6b5b;border:1px solid #ff6b5b44">← Cdiscovery</a><button class="print-btn" onclick="window.print()">📄 Print PDF</button><button class="print-btn" onclick="shareMap()" style="margin-top:8px;background:transparent;color:#ff6b5b;border:1px solid #ff6b5b44">🔗 Share</button>`;
+document.getElementById("map").appendChild(printDiv);
+
+loadCity("beijing");
+
+function shareMap() {
+    if (navigator.share) {
+        navigator.share({ title: 'Cdiscovery - China Community', url: 'https://cdiscovery-community.netlify.app/' });
+    } else {
+        navigator.clipboard.writeText('https://cdiscovery-community.netlify.app/').then(function() {
+            var btns = document.querySelectorAll('.print-btn');
+            var btn = btns[btns.length - 1];
+            var orig = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            setTimeout(function() { btn.textContent = orig; }, 2000);
+        });
+    }
+}
+</script>
+<div class="print-footer">Cdiscovery</div>
+</body>
+</html>

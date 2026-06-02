@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China UNESCO Heritage & Travel Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a1a;--bg2:#111128;--accent:#ff6b5b;--accent2:#ff8a7a;--text:#e0e0e0;--text2:#a0a0b8;--card:#16163a;--border:#2a2a5a}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex}
+#sidebar{width:320px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;z-index:1000;transition:transform .3s ease}
+#sidebar.hidden{transform:translateX(-100%);position:absolute;height:100%}
+.sidebar-header{padding:20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.sidebar-header h1{font-size:18px;font-weight:700;color:var(--accent)}
+.sidebar-header span{font-size:12px;color:var(--text2)}
+#site-list{flex:1;overflow-y:auto;padding:10px}
+#site-list::-webkit-scrollbar{width:6px}
+#site-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.site-item{padding:12px 14px;border-radius:10px;cursor:pointer;margin-bottom:6px;transition:all .2s;border:1px solid transparent;display:flex;gap:10px;align-items:flex-start}
+.site-item:hover,.site-item.active{background:var(--card);border-color:var(--accent)}
+.site-item .num{background:var(--accent);color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.site-item .info h3{font-size:14px;font-weight:600;margin-bottom:2px}
+.site-item .info p{font-size:11px;color:var(--text2);line-height:1.4}
+.sidebar-footer{padding:15px 20px;border-top:1px solid var(--border)}
+#print-btn{width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
+#print-btn:hover{background:var(--accent2)}
+#map-container{flex:1;position:relative}
+#map{width:100%;height:100%;background:var(--bg)}
+.hamburger{display:none;position:absolute;top:14px;left:14px;z-index:1001;background:var(--bg2);border:1px solid var(--border);border-radius:8px;width:40px;height:40px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.hamburger span{display:block;width:18px;height:2px;background:var(--accent);border-radius:1px;transition:all .3s}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999}
+.custom-marker{background:none;border:none}
+.emoji-icon{font-size:32px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.emoji-icon-sm{font-size:20px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.leaflet-popup-content-wrapper{background:var(--card)!important;color:var(--text)!important;border-radius:12px!important;border:1px solid var(--border)!important;box-shadow:0 8px 32px rgba(0,0,0,.4)!important}
+.leaflet-popup-content{margin:14px 16px!important;font-family:'Inter',sans-serif!important}
+.leaflet-popup-content h3{font-size:16px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.leaflet-popup-content .cn-name{font-size:13px;color:var(--text2);margin-bottom:8px}
+.leaflet-popup-content .desc{font-size:12px;line-height:1.6;margin-bottom:10px}
+.leaflet-popup-content .amap-btn{display:inline-block;padding:6px 14px;background:var(--accent);color:#fff;text-decoration:none;border-radius:6px;font-size:12px;font-weight:600;transition:background .2s}
+.leaflet-popup-content .amap-btn:hover{background:var(--accent2)}
+.leaflet-popup-tip-container .leaflet-popup-tip{background:var(--card)!important;border:1px solid var(--border)!important}
+.leaflet-control-zoom a{background:var(--bg2)!important;color:var(--accent)!important;border-color:var(--border)!important}
+.leaflet-control-attribution{background:rgba(10,10,26,.8)!important;color:var(--text2)!important;font-size:10px!important}
+.leaflet-control-attribution a{color:var(--accent)!important}
+
+@media print{
+  body{overflow:visible}
+  #sidebar,.hamburger,.overlay,.leaflet-control-zoom,.leaflet-control-attribution{display:none!important}
+  #map-container{position:static;width:100%;height:100vh}
+  #map{width:100%;height:100vh}
+  @page { margin-bottom: 15mm; }
+  .print-footer { display: block !important; text-align: center; font-size: 11px; color: #999; padding: 8px 0; }
+}
+
+.print-footer { display: none; }
+
+@media(max-width:768px){
+  body{flex-direction:column}
+  #sidebar{position:fixed;top:0;left:0;height:100%;width:300px;transform:translateX(-100%);z-index:1000}
+  #sidebar.open{transform:translateX(0)}
+  .hamburger{display:flex}
+  .overlay.active{display:block}
+  #map-container{flex:1}
+}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="sidebar-header">
+    <div>
+      <h1>🗺️ China Heritage Map</h1>
+      <span>UNESCO Sites & Destinations</span>
+    </div>
+  </div>
+  <div id="site-list"></div>
+  <div class="sidebar-footer">
+    <a href="https://cdiscovery-community.netlify.app/" style="display:block;width:100%;padding:10px;text-align:center;background:transparent;color:#ff6b5b;border:1px solid #ff6b5b44;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;text-decoration:none;margin-bottom:8px;transition:background .2s">← Cdiscovery</a>
+    <button id="print-btn" onclick="window.print()">📄 Print as PDF</button>
+    <button id="share-btn" onclick="shareMap()" style="width:100%;padding:10px;background:transparent;color:#ff6b5b;border:1px solid #ff6b5b44;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;transition:background .2s">🔗 Share</button>
+  </div>
+</div>
+
+<div id="map-container">
+  <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+  <div id="map"></div>
+</div>
+
+<script>
+const heritageSites = [
+  {
+    id:1, name:"The Great Wall", cn:"长城", lat:40.4319, lng:116.5704,
+    info:"Multiple sections: Badaling (most crowded), Mutianyu (best restored), Jinshanling (best for hiking). Built over 2,000+ years."
+  },
+  {
+    id:2, name:"Forbidden City", cn:"故宫", lat:39.9163, lng:116.3972,
+    info:"World's largest palace complex. 980 buildings, 8,728 rooms. Book tickets online in advance (¥60 Apr-Oct, ¥40 Nov-Mar)."
+  },
+  {
+    id:3, name:"Terracotta Army", cn:"兵马俑", lat:34.3848, lng:109.2734,
+    info:"8,000+ life-size warriors from 210 BC. Three excavation pits. Allow 3-4 hours. Take bus 306 from Xi'an station."
+  },
+  {
+    id:4, name:"West Lake", cn:"西湖", lat:30.2420, lng:120.1480,
+    info:"UNESCO cultural landscape. Famous \"Ten Scenes of West Lake.\" Best explored by bicycle or boat. Free entry."
+  },
+  {
+    id:5, name:"Zhangjiajie National Forest Park", cn:"张家界", lat:29.3249, lng:110.4343,
+    info:"Inspired Avatar's floating mountains. Glass bridge, cable cars, hiking trails. Allow 2-3 days."
+  },
+  {
+    id:6, name:"Jiuzhaigou Valley", cn:"九寨沟", lat:33.2600, lng:103.9170,
+    info:"Turquoise lakes, waterfalls, snow-capped peaks. Altitude 2,000-4,500m. Best in autumn (Oct)."
+  },
+  {
+    id:7, name:"Mount Huangshan", cn:"黄山", lat:30.1375, lng:118.1694,
+    info:"\"No mountain is worth seeing after Huangshan.\" Sunrise at Bright Summit, sea of clouds, hot springs."
+  },
+  {
+    id:8, name:"Potala Palace", cn:"布达拉宫", lat:29.6577, lng:91.1172,
+    info:"Former winter palace of Dalai Lamas. 13 stories, 1,000+ rooms. Altitude 3,700m. Book tickets 7 days ahead."
+  },
+  {
+    id:9, name:"Lijiang Old Town", cn:"丽江古城", lat:26.8726, lng:100.2178,
+    info:"800+ year old Naxi town. UNESCO World Heritage. Canals, cobblestone streets, Jade Dragon Snow Mountain views."
+  },
+  {
+    id:10, name:"Chengdu Panda Base", cn:"成都大熊猫基地", lat:30.7324, lng:104.1429,
+    info:"200+ giant pandas. Best visited 8-10 AM (feeding time). ¥55 entry. Baby panda nursery open Aug-Nov."
+  }
+];
+
+const hsrCities = [
+  { name:"Beijing", lat:39.9042, lng:116.4074 },
+  { name:"Shanghai", lat:31.2304, lng:121.4737 },
+  { name:"Xi'an", lat:34.3416, lng:108.9398 },
+  { name:"Hangzhou", lat:30.2741, lng:120.1551 },
+  { name:"Guangzhou", lat:23.1291, lng:113.2644 },
+  { name:"Chengdu", lat:30.5728, lng:104.0668 }
+];
+
+const hsrRoutes = [
+  ["Beijing","Shanghai"],
+  ["Beijing","Xi'an"],
+  ["Shanghai","Hangzhou"],
+  ["Beijing","Guangzhou"],
+  ["Xi'an","Chengdu"],
+  ["Shanghai","Guangzhou"],
+  ["Hangzhou","Guangzhou"],
+  ["Chengdu","Guangzhou"]
+];
+
+const map = L.map('map',{zoomControl:true}).setView([35.0,105.0],4);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
+  attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+  subdomains:'abcd', maxZoom:19
+}).addTo(map);
+
+function emojiIcon(emoji,size){
+  return L.divIcon({
+    html:`<div class="${size>24?'emoji-icon':'emoji-icon-sm'}">${emoji}</div>`,
+    className:'custom-marker',
+    iconSize:[size,size],
+    iconAnchor:[size/2,size/2],
+    popupAnchor:[0,-size/2]
+  });
+}
+
+const markers = {};
+
+hsrCities.forEach(c=>{
+  const m = L.marker([c.lat,c.lng],{icon:emojiIcon('🚄',20)}).addTo(map);
+  m.bindPopup(`<h3 style="color:#ff6b5b;font-size:14px;margin:0">🚄 ${c.name}</h3><div style="font-size:11px;color:#a0a0b8;margin-top:4px">Major HSR Hub</div>`);
+});
+
+const cityMap = {};
+hsrCities.forEach(c=>cityMap[c.name]=[c.lat,c.lng]);
+
+hsrRoutes.forEach(([a,b])=>{
+  if(cityMap[a]&&cityMap[b]){
+    L.polyline([cityMap[a],cityMap[b]],{
+      color:'#ff6b5b', weight:1.5, opacity:0.35, dashArray:'8,8'
+    }).addTo(map);
+  }
+});
+
+const siteListEl = document.getElementById('site-list');
+
+heritageSites.forEach(site=>{
+  const marker = L.marker([site.lat,site.lng],{icon:emojiIcon('🏯',32)}).addTo(map);
+  const amapUrl = `https://uri.amap.com/search?keyword=${encodeURIComponent(site.cn)}&lat=${site.lat}&lng=${site.lng}`;
+  const popupHtml = `
+    <h3>${site.name}</h3>
+    <div class="cn-name">${site.cn}</div>
+    <div class="desc">${site.info}</div>
+    <a class="amap-btn" href="${amapUrl}" target="_blank" rel="noopener">📍 Open in Amap</a>
+  `;
+  marker.bindPopup(popupHtml,{maxWidth:300});
+  markers[site.id] = marker;
+
+  const item = document.createElement('div');
+  item.className = 'site-item';
+  item.dataset.id = site.id;
+  item.innerHTML = `
+    <div class="num">${site.id}</div>
+    <div class="info">
+      <h3>${site.name}</h3>
+      <p>${site.cn} · ${site.info.substring(0,60)}...</p>
+    </div>
+  `;
+  item.addEventListener('click',()=>{
+    document.querySelectorAll('.site-item').forEach(el=>el.classList.remove('active'));
+    item.classList.add('active');
+    map.flyTo([site.lat,site.lng],10,{duration:1.2});
+    setTimeout(()=>marker.openPopup(),800);
+    if(window.innerWidth<=768) toggleSidebar();
+  });
+  siteListEl.appendChild(item);
+});
+
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const ov=document.getElementById('overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('active');
+}
+</script>
+<div class="print-footer">Cdiscovery</div>
+<script>
+function shareMap() {
+    if (navigator.share) {
+        navigator.share({ title: 'Cdiscovery - China Community', url: 'https://cdiscovery-community.netlify.app/' });
+    } else {
+        navigator.clipboard.writeText('https://cdiscovery-community.netlify.app/').then(function() {
+            var btn = document.getElementById('share-btn');
+            var orig = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            setTimeout(function() { btn.textContent = orig; }, 2000);
+        });
+    }
+}
+</script>
+</body>
+</html>
