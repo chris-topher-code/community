@@ -2231,6 +2231,53 @@ const topicArticles = {
                 <li>Seat classes: Business (商务座), First (一等座), Second (二等座)</li>
             </ul>
             <div class="ar-source">Sources: <a href="https://www.12306.cn" target="_blank">12306 Official Railway</a> · <a href="http://www.cnta.gov.cn" target="_blank">China National Tourism Administration</a></div>`
+        },
+        {
+            title: 'Before You Fly to China: The Ultimate Pre-Trip Checklist',
+            content: `<p>I recently asked people what they were most worried about before traveling to China, and the answers were surprisingly consistent. Here are the most common concerns — and practical solutions for each.</p>
+
+            <p><strong>🔥 Top Concerns First-Time Visitors Have:</strong></p>
+            <ul>
+                <li><strong>Payment:</strong> How to use Alipay / WeChat Pay / international bank cards</li>
+                <li><strong>Apps:</strong> Chinese apps work differently than overseas versions</li>
+                <li><strong>Language barrier:</strong> What to do when things go wrong</li>
+                <li><strong>Booking:</strong> How to book train tickets and attraction tickets</li>
+                <li><strong>Preparation:</strong> What to set up before landing</li>
+            </ul>
+
+            <p><strong>✈️ Before You Fly — Essential Setup:</strong></p>
+            <ul>
+                <li>📱 <strong>Set up Alipay and WeChat Pay</strong> — These are absolutely essential. Cash is rarely accepted in most places. Link your international credit card to both apps before you leave home.</li>
+                <li>💳 <strong>Add your international credit card</strong> to both Alipay and WeChat Pay if possible. Visa, Mastercard, and JCB are now supported.</li>
+                <li>🔤 <strong>Download an offline translation app</strong> — Google Translate doesn't work well in China. Use Apple Translate, Microsoft Translator, or Pleco (best for Chinese).</li>
+                <li>🏨 <strong>Save your hotel address in Chinese</strong> — You'll need to show it to taxi drivers. Screenshot the Chinese address from your booking confirmation.</li>
+                <li>💰 <strong>Prepare a backup payment method</strong> — Bring some cash (¥500-1000) just in case. ATMs at airports accept international cards.</li>
+                <li>📶 <strong>Check if your eSIM/roaming works in China</strong> — Many international SIM cards don't work behind the Great Firewall. Get a China eSIM (Airalo, Holafly) or buy a local SIM at the airport.</li>
+                <li>🚫 <strong>Know what doesn't work in China:</strong> Google, WhatsApp, Instagram, Facebook, YouTube, Twitter/X, Gmail — all blocked. Download a VPN before arrival, or use Chinese alternatives (Baidu, WeChat, Douyin).</li>
+            </ul>
+
+            <p><strong>🛬 After You Land — First Steps:</strong></p>
+            <ul>
+                <li>🧪 <strong>Test payments with a small purchase first</strong> — Buy a drink or snack to make sure Alipay/WeChat Pay works before you rely on it.</li>
+                <li>🚗 <strong>Set up DiDi (滴滴出行) through Alipay or WeChat</strong> — This is China's Uber. It's integrated into both apps, so no separate download needed.</li>
+                <li>🛂 <strong>Always carry your passport</strong> — Required for train travel, hotel check-in, and sometimes SIM card purchase. Keep a photo on your phone as backup.</li>
+                <li>🗺️ <strong>Don't rely only on Google Maps</strong> — It's inaccurate in China. Use Amap (高德地图) or Baidu Maps (百度地图) instead. Apple Maps works okay.</li>
+                <li>🎫 <strong>Book popular attractions earlier than you think</strong> — The Forbidden City, Terracotta Army, and other top sites often sell out days in advance. Book via the official WeChat mini-program or Trip.com.</li>
+                <li>🚄 <strong>Train tickets:</strong> Book via 12306 app or Trip.com. Passport required for purchase AND boarding. Arrive 30-45 min early.</li>
+            </ul>
+
+            <p><strong>💡 Pro Tips From Experienced Travelers:</strong></p>
+            <ul>
+                <li>🔋 Carry a power bank — you'll use your phone for everything (payments, maps, translation)</li>
+                <li>🧻 Carry tissues — many public restrooms don't provide toilet paper</li>
+                <li>🗣️ Learn basic phrases: 你好 (nǐ hǎo = hello), 谢谢 (xièxie = thank you), 多少钱 (duōshao qián = how much), 厕所在哪里 (cèsuǒ zài nǎlǐ = where's the bathroom)</li>
+                <li>💧 Tap water is NOT drinkable — buy bottled water or boil it</li>
+                <li>🕐 China uses one time zone (UTC+8) for the entire country — this means sunrise in western China can be as late as 10 AM</li>
+                <li>🔌 Bring a universal adapter — China uses Type A, C, and I outlets</li>
+            </ul>
+
+            <p>China is one of the safest and most convenient countries to travel in — once you have the right apps set up. The learning curve is steep for the first 24 hours, but after that, everything becomes incredibly smooth.</p>
+            <div class="ar-source">Sources: Community experiences · <a href="https://www.chinahighlights.com" target="_blank">China Highlights</a> · <a href="https://www.trip.com" target="_blank">Trip.com</a></div>`
         }
     ],
     food: [
