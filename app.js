@@ -2278,6 +2278,102 @@ const topicArticles = {
 
             <p>China is one of the safest and most convenient countries to travel in — once you have the right apps set up. The learning curve is steep for the first 24 hours, but after that, everything becomes incredibly smooth.</p>
             <div class="ar-source">Sources: Community experiences · <a href="https://www.chinahighlights.com" target="_blank">China Highlights</a> · <a href="https://www.trip.com" target="_blank">Trip.com</a></div>`
+        },
+        {
+            title: '3 Days in Beijing: The Perfect Couple\'s Itinerary',
+            content: `<p>Beijing is one of the most romantic and exciting cities in China for couples. From ancient palaces to hidden hutong bars, this 3-day itinerary covers the best of Beijing — with real addresses, metro stops, and prices.</p>
+
+            <p><strong>📅 Day 1: Imperial Beijing — History & Romance</strong></p>
+
+            <p><strong>🌅 8:30 AM — Forbidden City (故宫)</strong></p>
+            <p>Arrive right at opening to beat the crowds. Enter through the south gate (Meridian Gate 午门), walk through the golden halls, and exit through the north gate (Gate of Divine Prowess 神武门). Don't miss the Imperial Garden (御花园) at the back — ancient cypresses and rockeries make it the most romantic corner.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区景山前街4号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=故宫博物院" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line1">🚇 1号线</span><span class="station-name">天安门东站A口</span></div></div>
+            <p>🕐 8:30–17:00 (Apr-Oct) / 8:30–16:30 (Nov-Mar) | 💰 ¥60 (Apr-Oct) / ¥40 (Nov-Mar) | ⚠️ Must book online 7 days ahead via WeChat mini-program "故宫博物院"</p>
+
+            <p><strong>🏔️ 11:00 AM — Jingshan Park (景山公园)</strong></p>
+            <p>Walk out the north gate of the Forbidden City and cross the street. Climb the hill (10 minutes) for the best panoramic view of the entire palace complex. The top pavilion is THE photo spot — the golden roofs stretching out below you is unforgettable.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 西城区景山西街44号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=景山公园" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line8">🚇 8号线</span><span class="station-name">中国美术馆站</span></div></div>
+            <p>🕐 6:30–21:00 | 💰 ¥2</p>
+
+            <p><strong>🍜 12:30 PM — Lunch at Guijie Ghost Street (簋街)</strong></p>
+            <p>Take a DiDi 10 minutes east. Guijie is Beijing's most famous food street — 1km of restaurants lit up with red lanterns. The signature dish is spicy crayfish (麻辣小龙虾) — messy, fun, and perfect for couples to share. Recommended: Hu Da (胡大饭馆), the most famous crayfish spot on the street.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区东直门内大街（簋街全线）/ 胡大饭馆：东直门内大街233号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=胡大饭馆 簋街" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="metro-badge metro-bj-line2">🚇 2号线</span><span class="station-name">北新桥站/东直门站</span></div></div>
+            <p>🕐 11:00–次日6:00（簋街很多店24小时营业）| 💰 ¥100-150/两人</p>
+
+            <p><strong>🛍️ 2:30 PM — Nanluoguxiang (南锣鼓巷)</strong></p>
+            <p>A 800-year-old hutong alley turned into Beijing's most charming pedestrian street. Browse quirky shops, grab bubble tea, and explore the side hutongs — Yuer Hutong (雨儿胡同) and Mao'er Hutong (帽儿胡同) are quieter and more authentic. Try the famous 文宇奶店 (Wenyu Dairy) for traditional Beijing yogurt.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区南锣鼓巷</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=南锣鼓巷" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="metro-badge metro-bj-line8">🚇 8号线</span><span class="station-name">南锣鼓巷站</span></div></div>
+            <p>🕐 全天开放，店铺约10:00-22:00 | 💰 免费入场</p>
+
+            <p><strong>🌙 5:30 PM — Houhai Lake (后海) Sunset & Evening</strong></p>
+            <p>Walk west from Nanluoguxiang (15 minutes) to Houhai Lake. Rent a paddle boat (脚踏船) and watch the sunset over the lake — the willow trees, traditional houses, and golden light make it incredibly romantic. After returning the boat, stroll along the bar street (后海酒吧街). Recommended: 望海楼 (Wanghai Lou) for a quiet lakeside drink, or 烤肉季 (Rouji) for famous Beijing lamb BBQ since 1848.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 西城区后海（什刹海西侧）</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=后海" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line8">🚇 8号线</span><span class="station-name">什刹海站</span></div></div>
+            <p>🕐 全天开放 | 🚣 脚踏船 ¥60-80/小时 | 🍺 酒吧 18:00-次日2:00</p>
+
+            <p><strong>📅 Day 2: Great Wall & Date Night</strong></p>
+
+            <p><strong>🧱 8:00 AM — Mutianyu Great Wall (慕田峪长城)</strong></p>
+            <p>The most couple-friendly section of the Great Wall. Less crowded than Badaling, beautifully restored, and has a fun toboggan slide down. Take the cable car up to Tower 14, walk east to Tower 20 (best views, fewer people), then walk back and take the toboggan slide down from Tower 6. Allow 3-4 hours total.</p>
+            <p>🚗 <strong>Getting there:</strong> Book a private car via DiDi (¥200-300 round trip, 1.5 hours) or take bus 916 Express from Dongzhimen Bus Station (东直门公交站) to Huairou, then transfer to bus H23 (total ¥15, 2 hours).</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 怀柔区渤海镇慕田峪村</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=慕田峪长城" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a></div></div>
+            <p>🕐 7:30–18:00 (Apr-Oct) / 8:00–17:00 (Nov-Mar) | 💰 ¥40 entry + ¥120 往返缆车 / ¥100 滑道下山</p>
+
+            <p><strong>🍽️ 6:30 PM — Date Night Dinner</strong></p>
+            <p>Back in the city, dress up for a special dinner. Choose one:</p>
+            <ul>
+                <li>🏯 <strong>Dali Courtyard (大理院子)</strong> — Hidden in a hutong near Nanluoguxiang. Yunnan cuisine in a candlelit courtyard with fairy lights. The grilled fish and wild mushroom hotpot are incredible. Intimate, romantic, and very "Beijing." Reserve 2 days ahead.</li>
+            </ul>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区南锣鼓巷小经厂胡同67号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=大理院子 南锣鼓巷" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line6">🚇 6号线</span><span class="metro-badge metro-bj-line8">🚇 8号线</span><span class="station-name">南锣鼓巷站</span></div></div>
+            <p>🕐 11:30–14:00, 17:30–22:00 | 💰 ¥150-200/两人 | 📞 建议提前2天预约</p>
+            <ul>
+                <li>🍷 <strong>Capital M</strong> — Fine dining at Qianmen with direct Tiananmen views through floor-to-ceiling windows. Western cuisine, excellent wine list. Perfect for anniversaries or proposals.</li>
+            </ul>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区前门大街2号3层</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=Capital M 前门" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line2">🚇 2号线</span><span class="station-name">前门站</span></div></div>
+            <p>🕐 11:30–14:30, 18:00–22:30 | 💰 ¥400-600/两人 | 📞 建议提前预约</p>
+
+            <p><strong>🍸 9:30 PM — Cocktails at Migas (米家思)</strong></p>
+            <p>End the night at Beijing's best rooftop bar. On the 6th floor of Nali Patio in Sanlitun, Migas has an open-air terrace with views over the neon-lit Taikoo Li complex. The sangria and gin cocktails are excellent. On weekends, there's a DJ after 10 PM.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 朝阳区三里屯路81号那里花园6层</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=米家思 三里屯那里花园" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line10">🚇 10号线</span><span class="station-name">团结湖站</span></div></div>
+            <p>🕐 18:00–次日2:00 | 💰 ¥70-100/人/杯</p>
+
+            <p><strong>📅 Day 3: Culture, Food & Hidden Gems</strong></p>
+
+            <p><strong>🏛️ 8:00 AM — Temple of Heaven (天坛)</strong></p>
+            <p>More beautiful and less crowded than the Forbidden City. The Circular Mound Altar (圜丘坛) is designed so sound echoes perfectly — stand in the center and whisper to each other, the acoustics are magical. Watch locals doing tai chi, dancing, and playing cards in the long corridors.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 东城区天坛东里甲1号</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=天坛公园" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line5">🚇 5号线</span><span class="station-name">天坛东门站</span></div></div>
+            <p>🕐 6:00–21:00 | 💰 ¥15 (联票¥34含祈年殿/回音壁/圜丘)</p>
+
+            <p><strong>🥟 11:30 AM — Xiaolongbao at Din Tai Fung (鼎泰丰)</strong></p>
+            <p>World-famous Taiwanese soup dumplings. Order the pork xiaolongbao (鲜肉小笼) and watch the chefs fold each one with 18 folds through the glass kitchen. The trick: bite a small hole, sip the soup, then dip in vinegar-ginger sauce. It's a fun shared experience.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 朝阳区建国路87号北京SKP购物中心B1层（多家分店）</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=鼎泰丰 SKP" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line1">🚇 1号线</span><span class="metro-badge metro-bj-line14">🚇 14号线</span><span class="station-name">大望路站</span></div></div>
+            <p>🕐 11:00–21:30 | 💰 ¥100-150/两人</p>
+
+            <p><strong>🎨 2:00 PM — 798 Art District (798艺术区)</strong></p>
+            <p>A massive former electronics factory complex turned into Beijing's coolest art zone. Wander through contemporary galleries, street art installations, and hipster cafes. Best spots for couples: UCCA Center for Contemporary Art (尤伦斯当代艺术中心), the graffiti walls, and the rooftop cafe at At Cafe. Great for Instagram photos.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 朝阳区酒仙桥路4号798艺术区</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=798艺术区" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line14">🚇 14号线</span><span class="station-name">望京南站 + 步行15分钟</span></div></div>
+            <p>🕐 10:00–17:00（各画廊时间不同）| 💰 免费入场，个别展馆 ¥10-30</p>
+
+            <p><strong>🍵 4:30 PM — Traditional Tea at Wufu Tea House (五福茶艺馆)</strong></p>
+            <p>After walking around 798, sit down for a proper Chinese tea ceremony. The staff will guide you through brewing oolong or pu'er tea in a gaiwan (盖碗). It's a calm, intimate experience — perfect for slowing down together. Learn the "Gongfu" brewing method and taste 3-4 different teas.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 西城区马连道路11号（马连道茶城附近）</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=五福茶艺馆 马连道" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line7">🚇 7号线</span><span class="station-name">湾子站</span></div></div>
+            <p>🕐 9:30–21:00 | 💰 ¥80-150/两人（含茶位费和茶点）</p>
+
+            <p><strong>🌆 7:00 PM — Sunset Cocktails at China World Summit Wing (国贸大酒店80层)</strong></p>
+            <p>End the trip on the 80th floor of Beijing's tallest building. The Atmosphere Bar has floor-to-ceiling windows with a 360° view of the entire city — the CBD skyline, the mountains in the west, and on clear days, the Great Wall in the distance. Arrive before sunset (around 6:30 PM in summer) to watch the city light up.</p>
+            <div class="venue-location"><div class="loc-address"><span class="loc-icon">📍</span> 朝阳区建国门外大街1号国贸三期80层</div><div class="loc-row"><a class="loc-map-link" href="https://www.amap.com/search?query=国贸大酒店 Atmosphere Bar" target="_blank"><i class="fas fa-map-marker-alt"></i> 高德地图</a><span class="metro-badge metro-bj-line1">🚇 1号线</span><span class="metro-badge metro-bj-line10">🚇 10号线</span><span class="station-name">国贸站</span></div></div>
+            <p>🕐 17:00–次日1:00 | 💰 ¥100-150/杯 | 👔 建议穿Smart Casual</p>
+
+            <p><strong>💑 Couple's Tips:</strong></p>
+            <ul>
+                <li>📸 Best photo spots: Jingshan Park (Forbidden City view), Temple of Heaven echo wall, Great Wall Tower 20, Houhai Lake sunset, 798 graffiti walls, 80th floor skyline</li>
+                <li>🌹 Most romantic moments: Paddle boat on Houhai at sunset, whispering at the Temple of Heaven echo wall, rooftop cocktails at Migas</li>
+                <li>💰 Budget: ¥600-800/天/两人 (经济) | ¥1500+/天/两人 (享受)</li>
+                <li>🚇 交通: 地铁 + 滴滴出行 | 办一张一卡通交通卡（地铁站可买）</li>
+                <li>📱 必备App: 大众点评（找餐厅）、小红书（找小众景点）、高德地图（导航）</li>
+                <li>🌸 最佳季节: 春天4-5月 / 秋天9-10月 | 避开暑假（7-8月太热）和冬天（12-2月太冷）</li>
+            </ul>
+
+            <div class="ar-source">Sources: Community experiences · <a href="https://www.thebeijinger.com" target="_blank">The Beijinger</a> · <a href="https://www.trip.com" target="_blank">Trip.com</a> · <a href="https://www.amap.com" target="_blank">高德地图</a></div>`
         }
     ],
     food: [
@@ -3144,6 +3240,86 @@ const topicArticles = {
             </ul>
             <div class="ar-source">Sources: <a href="http://www.saraa.gov.cn" target="_blank">国家宗教事务局</a> · <a href="https://www.dianping.com" target="_blank">大众点评</a> · <a href="http://www.chinadaily.com.cn" target="_blank">China Daily Food & Culture</a></div>`
         }
+    ],
+    apps: [
+        {
+            title: 'Essential China Apps: The Complete Guide by Category',
+            content: `<p>Your phone is your everything in China — payments, transport, food delivery, communication, and more. Here's every app you need, organized by category, with setup tips.</p>
+
+            <p><strong>📱 Download Priority (What to Install First):</strong></p>
+            <ol>
+                <li>🥇 Alipay + WeChat (with payment setup) — BEFORE you fly</li>
+                <li>🥈 Amap (高德地图) — Navigation</li>
+                <li>🥉 DiDi — Transportation</li>
+                <li>4️⃣ Pleco — Dictionary/Translation</li>
+                <li>5️⃣ Meituan — Food delivery</li>
+                <li>6️⃣ Dianping — Restaurant discovery</li>
+                <li>7️⃣ 12306 / Trip.com — Train tickets</li>
+                <li>8️⃣ Xiaohongshu — Local tips and hidden gems</li>
+            </ol>
+
+            <p><strong>💰 Payment Apps (Most Important!)</strong></p>
+            <ul>
+                <li>🟢 <strong>Alipay (支付宝)</strong> — The #1 payment app in China. Used everywhere: restaurants, shops, taxis, vending machines, even street food stalls. International credit cards (Visa/Mastercard) now supported. Download before arrival and link your card.</li>
+                <li>🟢 <strong>WeChat (微信)</strong> — China's "super app" for messaging, payments, mini-programs, and social media. WeChat Pay is the second most popular payment method. You'll need it to pay, chat, and access services. Download and set up WeChat Pay with your international card.</li>
+            </ul>
+            <p><strong>Setup tip:</strong> Both Alipay and WeChat now allow international credit card binding. Do this BEFORE you fly to China. Test with a small payment after landing.</p>
+
+            <p><strong>🗺️ Navigation & Maps</strong></p>
+            <ul>
+                <li>📍 <strong>Amap / Gaode (高德地图)</strong> — The best navigation app in China. Accurate maps, real-time traffic, public transit routes, and walking directions. Google Maps does NOT work well in China. This is essential.</li>
+                <li>📍 <strong>Baidu Maps (百度地图)</strong> — Alternative to Amap. Good for searching restaurants and businesses. Some prefer its interface.</li>
+                <li>📍 <strong>Apple Maps</strong> — Works okay in China if you're an iPhone user. Uses Amap data underneath. Good enough for basic navigation.</li>
+            </ul>
+
+            <p><strong>🚗 Transport & Travel</strong></p>
+            <ul>
+                <li>🚕 <strong>DiDi (滴滴出行)</strong> — China's Uber. Book taxis, private cars, and shared rides. Integrated into Alipay and WeChat (no separate app needed). Supports English interface.</li>
+                <li>🚄 <strong>12306 (铁路12306)</strong> — Official train ticket app. Book high-speed rail and regular train tickets. Accepts international credit cards. Book up to 15 days in advance.</li>
+                <li>✈️ <strong>Trip.com (携程)</strong> — Best English-friendly app for booking flights, trains, hotels, and attraction tickets. Small booking fee but excellent English support.</li>
+                <li>🚲 <strong>Meituan (美团)</strong> — Scan and rent shared bikes (Meituan Bike / Mobike). Also for food delivery and local deals.</li>
+            </ul>
+
+            <p><strong>🍜 Food & Delivery</strong></p>
+            <ul>
+                <li>🥡 <strong>Meituan (美团)</strong> — #1 food delivery app. Order from any restaurant. Also for grocery delivery, hotel booking, and attraction tickets. Chinese only — use camera translation.</li>
+                <li>🥡 <strong>Ele.me (饿了么)</strong> — Second biggest food delivery app. Backed by Alibaba. Similar to Meituan.</li>
+                <li>⭐ <strong>Dianping (大众点评)</strong> — China's Yelp. Restaurant reviews, ratings, photos, and deals. Essential for finding good restaurants. Search by location, cuisine, or price range.</li>
+                <li>☕ <strong>Luckin Coffee (瑞幸咖啡)</strong> — China's biggest coffee chain. Order ahead and skip the line. Cheaper than Starbucks. ¥9.9-15 per cup.</li>
+            </ul>
+
+            <p><strong>💬 Communication & Social</strong></p>
+            <ul>
+                <li>💚 <strong>WeChat (微信)</strong> — Already listed under payments, but it's also THE messaging app. Everyone uses it. Groups, voice messages, video calls, moments (like Facebook). You cannot survive in China without WeChat.</li>
+                <li>📕 <strong>Xiaohongshu / RED (小红书)</strong> — China's Instagram + Pinterest. Discover restaurants, travel tips, hidden gems, and lifestyle content. Very popular with young Chinese. Great for finding trendy spots.</li>
+                <li>🎵 <strong>Douyin (抖音)</strong> — Chinese TikTok. Different from international TikTok — more Chinese content, local trends, and useful life hacks.</li>
+                <li>🐦 <strong>Weibo (微博)</strong> — China's Twitter. Follow news, celebrities, and trending topics.</li>
+            </ul>
+
+            <p><strong>🔤 Translation & Language</strong></p>
+            <ul>
+                <li>📖 <strong>Pleco</strong> — The BEST Chinese dictionary app. Camera translation, handwriting input, and offline dictionary. Free with premium add-ons. Every foreigner in China uses this.</li>
+                <li>📖 <strong>Apple Translate / Microsoft Translator</strong> — Good for offline translation. Download the Chinese language pack before arrival.</li>
+                <li>📖 <strong>DeepL</strong> — Best quality translation for longer texts. Works in China without VPN.</li>
+            </ul>
+
+            <p><strong>🛒 Shopping & Services</strong></p>
+            <ul>
+                <li>🛍️ <strong>Taobao (淘宝)</strong> — China's Amazon. Buy anything from clothes to electronics to furniture. Cheap prices, fast delivery. Use Alipay to pay.</li>
+                <li>🛍️ <strong>JD.com (京东)</strong> — Premium shopping platform. Better quality control than Taobao. Fast same-day/next-day delivery. Great for electronics and branded goods.</li>
+                <li>📦 <strong>Pinduoduo (拼多多)</strong> — Budget shopping. Group-buy deals for ultra-low prices. Quality varies but great for everyday items.</li>
+            </ul>
+
+            <p><strong>🎬 Entertainment</strong></p>
+            <ul>
+                <li>📺 <strong>Bilibili (B站)</strong> — China's YouTube. Anime, gaming, tech reviews, and educational content. Many videos have Chinese subtitles.</li>
+                <li>📺 <strong>iQiyi (爱奇艺)</strong> — China's Netflix. Movies, TV shows, and original content. Some English content available.</li>
+                <li>🎶 <strong>NetEase Music (网易云音乐)</strong> — Best music app in China. Huge library of Chinese and international music. Great music community and playlists.</li>
+                <li>🎮 <strong>Honor of Kings (王者荣耀)</strong> — China's most popular mobile game. Great way to make Chinese friends.</li>
+            </ul>
+
+            <div class="ar-source">Sources: Community experiences · <a href="https://www.chinahighlights.com" target="_blank">China Highlights</a> · <a href="https://www.thebeijinger.com" target="_blank">The Beijinger</a></div>`
+        }
     ]
 };
 function openTopicDetailPage(topicName) {
@@ -3156,7 +3332,7 @@ function openTopicDetailPage(topicName) {
     const guideData = topicGuidesData[topicName];
     const categoryNames = {
         study: '📚 Study in China', school: '🎒 School Life', work: '⚡ Working in China',
-        visa: '✈️ Visa & Permits', travel: '🗺️ Travel & Adventure', food: '🥢 Food & Dining',
+        visa: '✈️ Visa & Permits', travel: '🗺️ Travel & Adventure', apps: '📱 Essential China Apps', food: '🥢 Food & Dining',
         life: '🌆 Daily Life', entertainment: '🎬 Entertainment', business: '🚀 Business', language: '💬 Language', rent: '🏠 Rent an Apartment',
         sim: '📱 SIM Card',
         hospital: '🏥 Hospital',
