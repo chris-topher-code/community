@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #e0e0e0; display: flex; height: 100vh; overflow: hidden; }
@@ -132,7 +134,7 @@ body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #e0e0e0; di
   <div id="venue-list"></div>
   <div id="sidebar-footer">
     <a href="https://cdiscovery-community.netlify.app/" style="display:block;width:100%;padding:10px;text-align:center;background:transparent;color:#ff6b5b;border:1px solid #ff6b5b44;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;text-decoration:none;margin-bottom:8px;transition:all .2s">← Cdiscovery</a>
-    <button class="print-btn" onclick="window.print()">Print as PDF</button>
+    <button class="print-btn" onclick="isMobile()?downloadPDF():window.print()">Print as PDF</button>
     <button class="print-btn" onclick="shareMap()" style="margin-top:8px;background:transparent;color:#ff6b5b;border:1px solid #ff6b5b44">🔗 Share</button>
   </div>
 </div>
@@ -286,6 +288,72 @@ function shareMap() {
             btn.textContent = '✓ Copied!';
             setTimeout(function() { btn.textContent = orig; }, 2000);
         });
+    }
+}
+</script>
+<script>
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+}
+
+async function downloadPDF() {
+    const btn = document.querySelector('#sidebar-footer .print-btn');
+    const origText = btn ? btn.textContent : '';
+    if (btn) { btn.textContent = '⏳ Generating PDF...'; btn.disabled = true; }
+    
+    try {
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('toggle-sidebar');
+        if (sidebar) sidebar.style.display = 'none';
+        if (toggleBtn) toggleBtn.style.display = 'none';
+        
+        const mapContainer = document.getElementById('map-container');
+        if (mapContainer) { mapContainer.style.width = '100%'; mapContainer.style.height = '85vh'; }
+        
+        await new Promise(r => setTimeout(r, 1500));
+        
+        const mapEl = document.getElementById('map');
+        const canvas = await html2canvas(mapEl, {
+            useCORS: true,
+            allowTaint: true,
+            scale: 2,
+            backgroundColor: '#0a0a1a',
+            logging: false
+        });
+        
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const imgRatio = canvas.width / canvas.height;
+        const pageRatio = pageWidth / pageHeight;
+        
+        let imgWidth, imgHeight;
+        if (imgRatio > pageRatio) {
+            imgWidth = pageWidth - 10;
+            imgHeight = imgWidth / imgRatio;
+        } else {
+            imgHeight = pageHeight - 20;
+            imgWidth = imgHeight * imgRatio;
+        }
+        
+        const x = (pageWidth - imgWidth) / 2;
+        pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', x, 10, imgWidth, imgHeight);
+        pdf.setFontSize(8);
+        pdf.setTextColor(150, 150, 150);
+        pdf.text('Cdiscovery - Nightlife Map', pageWidth / 2, pageHeight - 5, { align: 'center' });
+        pdf.save('nightlife-map.pdf');
+        
+        if (sidebar) sidebar.style.display = '';
+        if (toggleBtn) toggleBtn.style.display = '';
+        if (mapContainer) { mapContainer.style.width = ''; mapContainer.style.height = ''; }
+        
+    } catch (err) {
+        console.error('PDF generation failed:', err);
+        window.print();
+    } finally {
+        if (btn) { btn.textContent = origText; btn.disabled = false; }
     }
 }
 </script>
