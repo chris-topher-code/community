@@ -30,10 +30,182 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style-desktop.css" media="(min-width: 769px)">
-    <link rel="stylesheet" href="style-mobile.css" media="(max-width: 768px)">
+    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style-desktop.css?v=7" media="(min-width: 769px)">
+    <link rel="stylesheet" href="style-mobile.css?v=7" media="(max-width: 768px)">
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+    console.log('head script loaded');
+
+    </script>
+    <style>
+        /* PDF Download Button in Topic Detail Modal */
+        .pdf-download-section {
+            margin: 16px 0;
+            text-align: center;
+        }
+        .pdf-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            font-family: 'Inter', sans-serif;
+        }
+        .pdf-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.45);
+        }
+        .pdf-download-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Per-article PDF download button in topic detail modal */
+        .ta-item-pdf {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            margin-right: 4px;
+        }
+        .ta-item-pdf:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        /* Explore post PDF download button */
+        .post-actions .pdf-btn {
+            color: rgba(255, 255, 255, 0.4);
+            transition: all 0.2s ease;
+        }
+        .post-actions .pdf-btn:hover {
+            color: #667eea;
+        }
+
+        /* Article reader PDF button */
+        .article-reader-pdf {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            margin-left: auto;
+        }
+        .article-reader-pdf:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        /* City route PDF icon */
+        .route-pdf-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .route-pdf-icon:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.15);
+        }
+
+        /* City guide PDF icon */
+        .guide-pdf-icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+        }
+        .guide-pdf-icon:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .pdf-download-btn i {
+            font-size: 16px;
+        }
+
+        /* PDF Loading Overlay */
+        .pdf-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        }
+        .pdf-loading-card {
+            background: #1a1a2e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px 50px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .pdf-loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: pdf-spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes pdf-spin {
+            to { transform: rotate(360deg); }
+        }
+        .pdf-loading-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+        }
+        .pdf-loading-sub {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+            margin-top: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 <body class="loading">
     <!-- Global Background Image -->
@@ -259,6 +431,11 @@
                 </div>
             </div>
             <div class="cities-grid" id="citiesGrid"></div>
+            <div class="city-routes-section">
+                <h3 class="city-routes-title"><i class="fas fa-route"></i> City Routes</h3>
+                <p class="city-routes-subtitle">Multi-city itineraries — explore China by train</p>
+                <div class="city-routes-grid" id="cityRoutesGrid"></div>
+            </div>
         </div>
         <div id="cityPostsView" style="display: none;">
             <div class="city-hero-banner" id="cityHeroBanner">
@@ -271,6 +448,7 @@
                     </button>
                     <h2 id="cityPostsTitle"></h2>
                 </div>
+                <div id="cityGuidesContainer"></div>
                 <div class="posts-grid" id="cityPostsGrid"></div>
             </div>
         </div>
@@ -523,24 +701,6 @@
             </div>
         </div>
 
-        <!-- Food Topic -->
-        <div class="info-section topic-card" data-topic="food">
-            <div class="topic-cover" onclick="openTopicDetailPage('food')">
-                <div class="topic-icon">🥢</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Food & Dining</h2>
-                <p class="topic-subtitle">Chinese cuisine, restaurant recommendations, cooking tips</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">Chinese cuisine spans 8 regional traditions—from Cantonese dim sum to Sichuan's mala (numbing-spicy) dishes—with street food at ¥10-30 and fine dining at ¥300-1000+.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('food')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Food</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('food')">💬 View Articles →</span>
-            </div>
-        </div>
-
         <!-- Life Topic -->
         <div class="info-section topic-card" data-topic="life">
             <div class="topic-cover" onclick="openTopicDetailPage('life')">
@@ -559,6 +719,24 @@
             </div>
         </div>
 
+        <!-- Food Topic -->
+        <div class="info-section topic-card" data-topic="food">
+            <div class="topic-cover" onclick="openTopicDetailPage('food')">
+                <div class="topic-icon">🥢</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Food & Dining</h2>
+                <p class="topic-subtitle">Chinese cuisine, restaurant recommendations, cooking tips</p>
+            </div>
+            <div class="topic-body">
+                <p class="topic-teaser">Chinese cuisine spans 8 regional traditions—from Cantonese dim sum to Sichuan's mala (numbing-spicy) dishes—with street food at ¥10-30 and fine dining at ¥300-1000+.</p>
+                <button class="topic-read-btn" onclick="openTopicDetailPage('food')">Read Full Guide →</button>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Food</span>
+                <span class="topic-related-link" onclick="openTopicDetailPage('food')">💬 View Articles →</span>
+            </div>
+        </div>
+
         <!-- Entertainment Topic -->
         <div class="info-section topic-card" data-topic="entertainment">
             <div class="topic-cover" onclick="openTopicDetailPage('entertainment')">
@@ -574,42 +752,6 @@
             <div class="topic-footer">
                 <span class="topic-tag">Entertainment</span>
                 <span class="topic-related-link" onclick="openTopicDetailPage('entertainment')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Business Topic -->
-        <div class="info-section topic-card" data-topic="business">
-            <div class="topic-cover" onclick="openTopicDetailPage('business')">
-                <div class="topic-icon">🚀</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Business & Entrepreneurship</h2>
-                <p class="topic-subtitle">Startups, networking, and business culture</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">China ranks #2 globally for VC investment—with startup hubs in Shenzhen (hardware), Beijing (AI), and Shanghai (fintech). Free trade zones offer 15% corporate tax.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('business')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Business</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('business')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Language Topic -->
-        <div class="info-section topic-card" data-topic="language">
-            <div class="topic-cover" onclick="openTopicDetailPage('language')">
-                <div class="topic-icon">💬</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Language Learning</h2>
-                <p class="topic-subtitle">Mandarin tips, resources, and language exchange</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">HSK exam has 6 levels (basic to advanced). Apps like HelloChinese, Du Chinese, and Pleco supplement textbooks from Beijing Language University. Language exchange via italki (¥60-200/hr).</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('language')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Language</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('language')">💬 View Articles →</span>
             </div>
         </div>
 
@@ -658,12 +800,48 @@
                 <p class="topic-subtitle">Seeing a doctor, prescriptions, and insurance for foreigners</p>
             </div>
             <div class="topic-body">
-                <p class="topic-subtitle">China's public hospital system is efficient but different. Learn the step-by-step process: registration挂号, lab work化验, prescriptions处方, and how to get insurance reimbursement.</p>
+                <p class="topic-teaser">China's public hospital system is efficient but different. Learn the step-by-step process: registration挂号, lab work化验, prescriptions处方, and how to get insurance reimbursement.</p>
                 <button class="topic-read-btn" onclick="openTopicDetailPage('hospital')">Read Full Guide →</button>
             </div>
             <div class="topic-footer">
                 <span class="topic-tag">Healthcare</span>
                 <span class="topic-related-link" onclick="openTopicDetailPage('hospital')">💬 View Articles →</span>
+            </div>
+        </div>
+
+        <!-- Business Topic -->
+        <div class="info-section topic-card" data-topic="business">
+            <div class="topic-cover" onclick="openTopicDetailPage('business')">
+                <div class="topic-icon">🚀</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Business & Entrepreneurship</h2>
+                <p class="topic-subtitle">Startups, networking, and business culture</p>
+            </div>
+            <div class="topic-body">
+                <p class="topic-teaser">China ranks #2 globally for VC investment—with startup hubs in Shenzhen (hardware), Beijing (AI), and Shanghai (fintech). Free trade zones offer 15% corporate tax.</p>
+                <button class="topic-read-btn" onclick="openTopicDetailPage('business')">Read Full Guide →</button>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Business</span>
+                <span class="topic-related-link" onclick="openTopicDetailPage('business')">💬 View Articles →</span>
+            </div>
+        </div>
+
+        <!-- Language Topic -->
+        <div class="info-section topic-card" data-topic="language">
+            <div class="topic-cover" onclick="openTopicDetailPage('language')">
+                <div class="topic-icon">💬</div>
+                <span class="topic-badge">📖 Guide</span>
+                <h2>Language Learning</h2>
+                <p class="topic-subtitle">Mandarin tips, resources, and language exchange</p>
+            </div>
+            <div class="topic-body">
+                <p class="topic-teaser">HSK exam has 6 levels (basic to advanced). Apps like HelloChinese, Du Chinese, and Pleco supplement textbooks from Beijing Language University. Language exchange via italki (¥60-200/hr).</p>
+                <button class="topic-read-btn" onclick="openTopicDetailPage('language')">Read Full Guide →</button>
+            </div>
+            <div class="topic-footer">
+                <span class="topic-tag">Language</span>
+                <span class="topic-related-link" onclick="openTopicDetailPage('language')">💬 View Articles →</span>
             </div>
         </div>
 
@@ -686,6 +864,8 @@
         </div>
 
     </section>
+
+
 
     <!-- Topic Articles Modal -->
     <div id="topicArticlesModal" class="topic-articles-modal">
@@ -710,6 +890,9 @@
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <div class="article-reader-title" id="articleReaderTitle">Article</div>
+                <button class="article-reader-pdf" onclick="if(window._currentTopicContext) generateArticlePDF(window._currentTopicContext.topicName, window._currentTopicContext.articleIndex)" title="Download PDF">
+                    <i class="fas fa-file-pdf"></i>
+                </button>
             </div>
             <div class="article-reader-layout">
                 <div class="article-reader-body" id="articleReaderBody">
@@ -1303,7 +1486,9 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="pdf-generator.js?v=1"></script>
+    <script src="app.js?v=7"></script>
     <!-- Auto-play Sound Effect -->
     <script>
         (function() {

@@ -414,7 +414,7 @@
 
         function parseNodes(htmlStr) {
             const nodes = [];
-            const tagRegex = /<(\/?)(strong|b|em|i|h3|p|ul|li|a)\b([^>]*)>/gi;
+            const tagRegex = /<(\/?)(strong|b|em|i|h3|p|ul|li|a|mark)\b([^>]*)>/gi;
             let lastIndex = 0;
             let match;
 
@@ -455,6 +455,7 @@
 
         let boldCount = 0;
         let italicCount = 0;
+        let markCount = 0;
         let currentHref = null;
         let listDepth = 0;
         let isFirstListItem = false;
@@ -483,6 +484,11 @@
                 _setFont(doc, fontStyle);
                 doc.setFontSize(currentFontSize);
                 doc.setTextColor(51, 51, 51);
+                if (markCount > 0) {
+                    var tw = doc.getTextWidth(line);
+                    doc.setFillColor(255, 243, 205);
+                    doc.rect(MARGIN_LEFT - 1, y - currentFontSize * 0.35, tw + 2, currentFontSize * 0.5, 'F');
+                }
                 if (currentHref) {
                     doc.setTextColor(ac.r, ac.g, ac.b);
                     var linkWidth = doc.getTextWidth(line);
@@ -513,6 +519,11 @@
                 _setFont(doc, fontStyle);
                 doc.setFontSize(currentFontSize);
                 doc.setTextColor(51, 51, 51);
+                if (markCount > 0) {
+                    var tw = doc.getTextWidth(line);
+                    doc.setFillColor(255, 243, 205);
+                    doc.rect(MARGIN_LEFT - 1, y - currentFontSize * 0.35, tw + 2, currentFontSize * 0.5, 'F');
+                }
                 if (currentHref && !prefix) {
                     doc.setTextColor(ac.r, ac.g, ac.b);
                     doc.text(line, MARGIN_LEFT, y);
@@ -537,7 +548,10 @@
                 } else if (node.tag === 'h3') {
                     boldCount++;
                     currentFontSize = FONT_SIZES.h3;
-                    y += HEADING_SPACING;
+                    y += HEADING_SPACING + 3;
+                    ensureSpace(currentFontSize + 4);
+                    doc.setFillColor(ac.r, ac.g, ac.b);
+                    doc.rect(MARGIN_LEFT, y - 2, 3, currentFontSize + 2, 'F');
                 } else if (node.tag === 'p') {
                     y += PARAGRAPH_SPACING;
                 } else if (node.tag === 'ul') {
@@ -550,6 +564,8 @@
                     isFirstListItem = false;
                 } else if (node.tag === 'a') {
                     currentHref = node.href;
+                } else if (node.tag === 'mark') {
+                    markCount++;
                 }
             } else if (node.type === 'closeTag') {
                 if (node.tag === 'strong' || node.tag === 'b') {
@@ -559,7 +575,7 @@
                 } else if (node.tag === 'h3') {
                     boldCount = Math.max(0, boldCount - 1);
                     currentFontSize = opts.fontSize;
-                    y += 2;
+                    y += 4;
                 } else if (node.tag === 'p') {
                     y += 2;
                 } else if (node.tag === 'ul') {
@@ -567,6 +583,8 @@
                     if (listDepth === 0) y += 3;
                 } else if (node.tag === 'a') {
                     currentHref = null;
+                } else if (node.tag === 'mark') {
+                    markCount = Math.max(0, markCount - 1);
                 }
             } else if (node.type === 'text') {
                 if (listDepth > 0) {
@@ -1068,6 +1086,78 @@
             doc.rect(MARGIN_LEFT, y, 40, 1.2, 'F');
             y += 8;
 
+            // Render images before content (if any) — each image gets a full page
+            if (article.pdfImagesBefore && article.pdfImagesBefore.length > 0) {
+                for (const imgInfo of article.pdfImagesBefore) {
+                    const imgData = await loadImageAsBase64(imgInfo.src);
+                    if (!imgData) continue;
+
+                    // Each image gets its own dedicated page
+                    addPageNumber(doc, pageNum, accentRgb);
+                    doc.addPage();
+                    pageNum = doc.internal.getNumberOfPages();
+                    // No header — full page for image
+                    y = 10; // top margin 10mm
+
+                    // Available area for image
+                    const fullPageImgWidth = PAGE_WIDTH - 20; // 10mm left + 10mm right
+                    const fullPageMaxHeight = PAGE_HEIGHT - 40; // 10mm top + 20mm bottom (room for label) + 10mm spacing
+                    let imgWidth = fullPageImgWidth;
+                    let imgHeight = fullPageMaxHeight;
+
+                    try {
+                        const tempImg = new Image();
+                        await new Promise((resolve, reject) => {
+                            tempImg.onload = resolve;
+                            tempImg.onerror = reject;
+                            tempImg.src = imgData.data;
+                        });
+                        const aspect = tempImg.naturalWidth / tempImg.naturalHeight;
+                        // Fill width first, then check height
+                        imgWidth = fullPageImgWidth;
+                        imgHeight = imgWidth / aspect;
+                        // If too tall, constrain by height
+                        if (imgHeight > fullPageMaxHeight) {
+                            imgHeight = fullPageMaxHeight;
+                            imgWidth = imgHeight * aspect;
+                        }
+                    } catch (e) {
+                    }
+
+                    // Center the image on the page
+                    const imgX = (PAGE_WIDTH - imgWidth) / 2;
+                    const imgY = y;
+                    try {
+                        doc.addImage(imgData.data, imgData.format, imgX, imgY, imgWidth, imgHeight);
+                    } catch (e) {
+                        console.warn('Could not add image to PDF:', e.message);
+                        continue;
+                    }
+
+                    // Label below image
+                    const labelY = imgY + imgHeight + 8;
+                    _setFont(doc, 'bold');
+                    doc.setFontSize(FONT_SIZES.articleTitle);
+                    doc.setTextColor(51, 51, 51);
+                    const labelWidth = doc.getTextWidth(imgInfo.label);
+                    doc.text(imgInfo.label, (PAGE_WIDTH - labelWidth) / 2, labelY);
+
+                    // Page number at bottom
+                    addPageNumber(doc, pageNum, accentRgb);
+
+                    // Reset y for next page (content will start on a new page)
+                    y = MARGIN_TOP + HEADER_TOTAL;
+                }
+                // After all images, start a new page for the text content
+                addPageNumber(doc, pageNum, accentRgb);
+                doc.addPage();
+                pageNum = doc.internal.getNumberOfPages();
+                renderPageHeaderSync(doc, _currentTopicKey, accentRgb);
+                y = MARGIN_TOP + HEADER_TOTAL;
+                addPageNumber(doc, pageNum, accentRgb);
+            }
+
+
             _setFont(doc, 'normal');
             doc.setFontSize(FONT_SIZES.body);
             doc.setTextColor(51, 51, 51);
@@ -1117,6 +1207,73 @@
                             doc.text(line, MARGIN_LEFT, sourceY);
                             sourceY += getLineHeight(FONT_SIZES.footnote);
                         }
+                    }
+                }
+
+                // Render article images (if any)
+                if (article.pdfImages && article.pdfImages.length > 0) {
+                    const imgY = newY + 10;
+                    let currentImgY = imgY;
+                    const bottomLimit = PAGE_HEIGHT - MARGIN_BOTTOM - 5;
+
+                    for (const imgInfo of article.pdfImages) {
+                        const imgData = await loadImageAsBase64(imgInfo.src);
+                        if (!imgData) continue;
+
+                        const maxImgWidth = CONTENT_WIDTH - 20;
+                        const maxImgHeight = 80;
+                        let imgWidth = maxImgWidth;
+                        let imgHeight = maxImgHeight;
+
+                        try {
+                            const tempImg = new Image();
+                            await new Promise((resolve, reject) => {
+                                tempImg.onload = resolve;
+                                tempImg.onerror = reject;
+                                tempImg.src = imgData.data;
+                            });
+                            const aspect = tempImg.naturalWidth / tempImg.naturalHeight;
+                            if (aspect > 1) {
+                                imgWidth = Math.min(maxImgWidth, 100);
+                                imgHeight = imgWidth / aspect;
+                            } else {
+                                imgHeight = Math.min(maxImgHeight, 70);
+                                imgWidth = imgHeight * aspect;
+                            }
+                            if (imgWidth > maxImgWidth) {
+                                imgWidth = maxImgWidth;
+                                imgHeight = imgWidth / aspect;
+                            }
+                        } catch (e) {
+                        }
+
+                        const totalNeeded = imgHeight + 16;
+                        if (currentImgY + totalNeeded > bottomLimit) {
+                            addPageNumber(doc, pageNum, accentRgb);
+                            doc.addPage();
+                            pageNum = doc.internal.getNumberOfPages();
+                            renderPageHeaderSync(doc, _currentTopicKey, accentRgb);
+                            currentImgY = MARGIN_TOP + HEADER_TOTAL;
+                            addPageNumber(doc, pageNum, accentRgb);
+                        }
+
+                        const imgX = MARGIN_LEFT + (CONTENT_WIDTH - imgWidth) / 2;
+
+                        try {
+                            doc.addImage(imgData.data, imgData.format, imgX, currentImgY, imgWidth, imgHeight);
+                        } catch (e) {
+                            console.warn('Could not add image to PDF:', e.message);
+                            continue;
+                        }
+
+                        currentImgY += imgHeight + 4;
+
+                        _setFont(doc, 'bold');
+                        doc.setFontSize(FONT_SIZES.h3);
+                        doc.setTextColor(51, 51, 51);
+                        const labelWidth = doc.getTextWidth(imgInfo.label);
+                        doc.text(imgInfo.label, MARGIN_LEFT + (CONTENT_WIDTH - labelWidth) / 2, currentImgY);
+                        currentImgY += 10;
                     }
                 }
             }

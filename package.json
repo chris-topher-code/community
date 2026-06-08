@@ -1,0 +1,13 @@
+{
+  "name": "community-main",
+  "version": "1.0.0",
+  "description": "> 🇬🇧 A community platform connecting foreigners across China through authentic stories and shared experiences.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

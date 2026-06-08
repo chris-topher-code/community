@@ -2003,6 +2003,110 @@ html {
 .city-card[data-city="nanjing"]::before { background: linear-gradient(135deg, #8e44ad, #6c3483); }
 .city-card[data-city="tianjin"]::before { background: linear-gradient(135deg, #16a085, #117a65); }
 
+/* City Routes Section */
+.city-routes-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.city-routes-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.city-routes-title i {
+    color: var(--accent-coral);
+}
+
+.city-routes-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.city-routes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.route-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+.route-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 107, 91, 0.3);
+    transform: translateY(-2px);
+}
+
+.route-chain {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.route-city {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.82rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+.route-city span {
+    color: var(--text-secondary);
+    font-weight: 400;
+    font-size: 0.78rem;
+}
+
+.route-arrow {
+    color: var(--accent-coral);
+    font-size: 0.7rem;
+    margin: 0 1px;
+    opacity: 0.6;
+}
+
+.route-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.route-name {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.route-days {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 8px;
+    border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+    .city-routes-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 .city-posts-header {
     display: flex;
     align-items: center;
@@ -2099,6 +2203,77 @@ html {
 .city-hero-banner .city-stat-label {
     font-size: 0.9rem;
     color: var(--text-muted);
+}
+
+/* City Guides Section */
+.city-guides-section {
+    margin-bottom: 30px;
+}
+
+.city-guides-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.city-guides-title i {
+    color: var(--accent-coral);
+}
+
+.city-guides-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.city-guide-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.city-guide-card:hover {
+    background: rgba(255, 107, 91, 0.08);
+    border-color: rgba(255, 107, 91, 0.3);
+    transform: translateY(-2px);
+}
+
+.city-guide-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.city-guide-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.city-guide-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.city-guide-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+@media (min-width: 768px) {
+    .city-guides-grid {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 @keyframes pulse {
     0%, 100% { transform: scale(1); opacity: 0.5; }
@@ -5910,6 +6085,8 @@ body.groupchat-active {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
 }
 
 .article-reader-body {
