@@ -97,7 +97,7 @@
         overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:99999;display:flex;align-items:center;justify-content:center;';
 
         const card = document.createElement('div');
-        card.style.cssText = 'background:#fff;border-radius:16px;padding:48px 56px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.25);';
+        card.style.cssText = 'background:#fff;border-radius:16px;padding:32px 28px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.25);max-width:85vw;margin:0 16px;';
 
         const spinner = document.createElement('div');
         spinner.style.cssText = 'width:48px;height:48px;border:4px solid #e0e0e0;border-top:4px solid #1a73e8;border-radius:50%;animation:pdf-spin 0.8s linear infinite;margin:0 auto 20px;';
@@ -107,7 +107,7 @@
         document.head.appendChild(style);
 
         const text = document.createElement('div');
-        text.textContent = 'Generating PDF (loading fonts)...';
+        text.textContent = 'Generating PDF...';
         text.style.cssText = 'font-family:helvetica,sans-serif;font-size:16px;color:#333;';
 
         card.appendChild(spinner);
@@ -122,22 +122,91 @@
     }
 
     function downloadPDF(doc, filename) {
+        var ua = navigator.userAgent || '';
+        var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        var isAndroid = /Android/i.test(ua);
+        var isMobile = isIOS || isAndroid || /Mobile|webOS|BlackBerry/i.test(ua);
+
         try {
-            const blob = doc.output('blob');
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(() => {
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }, 200);
+            var blob = doc.output('blob');
+            var url = URL.createObjectURL(blob);
+
+            if (isIOS) {
+                // iOS: open in new tab — user can use Share button → Save to Files
+                var opened = window.open(url, '_blank');
+                if (!opened) {
+                    // popup blocked, try same window
+                    window.location.href = url;
+                }
+                // Keep URL alive longer for iOS to finish loading
+                setTimeout(function() { URL.revokeObjectURL(url); }, 60000);
+                showMobileSaveHint('iOS');
+            } else if (isAndroid) {
+                // Android: try <a download> first (Chrome supports it)
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function() {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 3000);
+            } else {
+                // Desktop: standard approach
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function() {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 1000);
+            }
         } catch (e) {
-            doc.save(filename);
+            try {
+                // Fallback: use data URL
+                var dataUrl = doc.output('dataurlstring', { filename: filename });
+                if (isIOS) {
+                    window.open(dataUrl, '_blank');
+                    showMobileSaveHint('iOS');
+                } else {
+                    var a2 = document.createElement('a');
+                    a2.href = dataUrl;
+                    a2.download = filename;
+                    a2.style.display = 'none';
+                    document.body.appendChild(a2);
+                    a2.click();
+                    setTimeout(function() { document.body.removeChild(a2); }, 3000);
+                }
+            } catch (e2) {
+                // Last resort: jsPDF built-in save
+                doc.save(filename);
+            }
         }
+    }
+
+    function showMobileSaveHint(platform) {
+        var existing = document.getElementById('pdf-save-hint');
+        if (existing) existing.remove();
+
+        var hint = document.createElement('div');
+        hint.id = 'pdf-save-hint';
+        hint.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.85);color:#fff;padding:14px 24px;border-radius:12px;font-size:14px;z-index:100000;text-align:center;max-width:90%;line-height:1.5;box-shadow:0 4px 20px rgba(0,0,0,0.3);';
+
+        if (platform === 'iOS') {
+            hint.innerHTML = '📄 PDF 已打开<br><small>点击浏览器底部 <b>分享按钮</b> → <b>"存储到文件"</b> 即可保存<br>PDF opened — tap <b>Share</b> → <b>Save to Files</b> to download</small>';
+        } else {
+            hint.innerHTML = '📄 PDF download started<br><small>Check your downloads folder</small>';
+        }
+
+        document.body.appendChild(hint);
+        setTimeout(function() {
+            if (hint.parentNode) hint.remove();
+        }, 8000);
     }
 
     function sanitizeForPDF(text) {

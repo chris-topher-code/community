@@ -340,7 +340,7 @@ function loadProfile() {
         bgPreview.src = currentUser.background_url;
         bgResetBtnEl.style.display = 'flex';
     } else {
-        bgPreview.src = '1.png';
+        bgPreview.src = '222222.png';
         bgResetBtnEl.style.display = 'none';
     }
     const savedOpacity = currentUser.background_opacity != null ? currentUser.background_opacity : 30;
@@ -487,7 +487,7 @@ async function resetBgImage() {
         return;
     }
     currentUser.background_url = null;
-    document.getElementById('bgPreviewImg').src = '1.png';
+    document.getElementById('bgPreviewImg').src = '222222.png';
     document.getElementById('bgResetBtn').style.display = 'none';
     applyGlobalBg();
     // showToast(t('bgReset') || 'Background reset to default');
@@ -498,7 +498,7 @@ function applyGlobalBg() {
     if (currentUser && currentUser.background_url) {
         globalBgImg.src = currentUser.background_url;
     } else {
-        globalBgImg.src = '1.png';
+        globalBgImg.src = '222222.png';
     }
     const opacity = (currentUser && currentUser.background_opacity != null) ? currentUser.background_opacity : 30;
     globalBgImg.style.opacity = opacity / 100;
