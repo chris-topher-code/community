@@ -4,10 +4,14 @@
   "description": "> 🇬🇧 A community platform connecting foreigners across China through authentic stories and shared experiences.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-pdfs": "node generate-pdfs.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "module",
+  "dependencies": {
+    "jspdf": "^2.5.2"
+  }
 }

@@ -1387,7 +1387,7 @@ function renderCityRoutes() {
                 <span class="route-name">${route.titleZh}</span>
                 <span class="route-days">${route.days}</span>
             </div>
-            <span class="route-pdf-icon" onclick="event.stopPropagation(); generateArticlePDF('${route.topicKey}', ${route.articleIndex})" title="Download PDF"><i class="fas fa-file-pdf"></i></span>
+            <span class="route-pdf-icon" onclick="event.stopPropagation(); downloadArticlePDF('${route.topicKey}', ${route.articleIndex})" title="Download PDF"><i class="fas fa-file-pdf"></i></span>
         </div>
     `).join('');
 }
@@ -1455,7 +1455,7 @@ function renderCityGuides(cityId) {
                             <div class="city-guide-title">${article.title}</div>
                             <div class="city-guide-meta">Tap to read full guide →</div>
                         </div>
-                        <span class="guide-pdf-icon" onclick="event.stopPropagation(); generateArticlePDF('${guide.topicKey}', ${guide.articleIndex})" title="Download PDF"><i class="fas fa-file-pdf"></i></span>
+                        <span class="guide-pdf-icon" onclick="event.stopPropagation(); downloadArticlePDF('${guide.topicKey}', ${guide.articleIndex})" title="Download PDF"><i class="fas fa-file-pdf"></i></span>
                     </div>`;
                 }).join('')}
             </div>
@@ -4621,7 +4621,7 @@ function openTopicDetailPage(topicName) {
 
     // PDF Download button
     html += `<div class="pdf-download-section">
-        <button class="pdf-download-btn" onclick="generateTopicPDF('${topicName}')">
+        <button class="pdf-download-btn" onclick="downloadTopicPDF('${topicName}')">
             <i class="fas fa-file-pdf"></i> Download PDF Guide
         </button>
     </div>`;
@@ -4652,7 +4652,7 @@ function openTopicDetailPage(topicName) {
                     <div class="ta-item-title">${article.title}</div>
                     <div class="ta-item-meta">Tap to read full article</div>
                 </div>
-                <span class="ta-item-pdf" onclick="event.stopPropagation(); generateArticlePDF('${topicName}', ${i})" title="Download PDF"><i class="fas fa-file-pdf"></i></span>
+                <span class="ta-item-pdf" onclick="event.stopPropagation(); downloadArticlePDF('${topicName}', ${i})" title="Download PDF"><i class="fas fa-file-pdf"></i></span>
                 <i class="fas fa-chevron-right ta-item-arrow"></i>
             </div>`;
         });

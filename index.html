@@ -890,7 +890,7 @@
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <div class="article-reader-title" id="articleReaderTitle">Article</div>
-                <button class="article-reader-pdf" onclick="if(window._currentTopicContext) generateArticlePDF(window._currentTopicContext.topicName, window._currentTopicContext.articleIndex)" title="Download PDF">
+                <button class="article-reader-pdf" onclick="if(window._currentTopicContext) downloadArticlePDF(window._currentTopicContext.topicName, window._currentTopicContext.articleIndex)" title="Download PDF">
                     <i class="fas fa-file-pdf"></i>
                 </button>
             </div>
@@ -1487,7 +1487,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="pdf-generator.js?v=2"></script>
+    <script src="pdf-generator.js?v=3"></script>
     <script src="app.js?v=7"></script>
     <!-- Auto-play Sound Effect -->
     <script>

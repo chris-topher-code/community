@@ -1620,7 +1620,34 @@
         }
     }
 
+    // ─── Pre-generated PDF Download (works in WeChat & all browsers) ───
+    function downloadTopicPDF(topicName) {
+        var filename = 'topic-' + topicName + '.pdf';
+        var url = 'pdfs/' + filename;
+        _directDownload(url, filename);
+    }
+
+    function downloadArticlePDF(topicName, articleIndex) {
+        var safeTopicName = topicName.replace(/[^a-zA-Z0-9-]/g, '_');
+        var filename = 'article-' + safeTopicName + '-' + (articleIndex + 1) + '.pdf';
+        var url = 'pdfs/' + filename;
+        _directDownload(url, filename);
+    }
+
+    function _directDownload(url, filename) {
+        // Works in ALL browsers including WeChat WebView
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename || '';
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() { document.body.removeChild(a); }, 1000);
+    }
+
     window.generateTopicPDF = generateTopicPDF;
     window.generateArticlePDF = generateArticlePDF;
     window.generateExplorePostPDF = generateExplorePostPDF;
+    window.downloadTopicPDF = downloadTopicPDF;
+    window.downloadArticlePDF = downloadArticlePDF;
 })();
