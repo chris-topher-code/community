@@ -1,1694 +1,1860 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cdiscovery - Share Your Story</title>
-    <meta name="description" content="A community platform connecting foreigners across China through authentic stories and shared experiences. Join thousands of expats sharing their China journey.">
-    <meta name="keywords" content="China, expat, foreigner, stories, community, Shanghai, Beijing, life in China">
-    <meta name="author" content="Cdiscovery">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Social Sharing -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://chris-topher-code.github.io/community/">
-    <meta property="og:title" content="Cdiscovery - Share Your Story">
-    <meta property="og:description" content="Connect with foreigners across China. Share your experiences, discover authentic stories, and join a vibrant community of expats.">
-    <meta property="og:image" content="https://api.dicebear.com/7.x/identicon/svg?seed=Cdiscovery&backgroundColor=0a0a1a">
-    <meta property="og:site_name" content="Cdiscovery">
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@Cdiscovery">
-    <meta name="twitter:title" content="Cdiscovery - Share Your Story">
-    <meta name="twitter:description" content="Connect with foreigners across China. Share your experiences and discover authentic stories.">
-    <meta name="twitter:image" content="https://api.dicebear.com/7.x/identicon/svg?seed=Cdiscovery&backgroundColor=0a0a1a">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=7">
-    <link rel="stylesheet" href="style-desktop.css?v=7" media="(min-width: 769px)">
-    <link rel="stylesheet" href="style-mobile.css?v=7" media="(max-width: 768px)">
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <script>
-    console.log('head script loaded');
+<meta charset="UTF-8">
+<title>Cool UI Redesign — Preview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+    /* Deep, almost-black backgrounds with a blue undertone */
+    --bg-dark: #03060d;
+    --bg-deep: #050a14;
+    --bg-card: rgba(0, 229, 255, 0.03);
+    --glass: rgba(0, 229, 255, 0.04);
+    --glass-hover: rgba(0, 229, 255, 0.08);
+    --glass-border: rgba(0, 229, 255, 0.10);
+    --glass-border-hover: rgba(0, 229, 255, 0.25);
+    --glass-highlight: rgba(255, 255, 255, 0.04);
 
-    </script>
-    <style>
-        /* PDF Download Button in Topic Detail Modal */
-        .pdf-download-section {
-            margin: 16px 0;
-            text-align: center;
-        }
-        .pdf-download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 28px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-            font-family: 'Inter', sans-serif;
-        }
-        .pdf-download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.45);
-        }
-        .pdf-download-btn:active {
-            transform: translateY(0);
-        }
+    /* Cool electric accents */
+    --accent-cyan: #00e5ff;
+    --accent-violet: #7c4dff;
+    --accent-blue: #00b4ff;
+    --accent-purple: #b388ff;
+    --accent-green: #00ffa3;
+    --accent-rgb: 0, 229, 255;
+    --accent-gradient: linear-gradient(135deg, #00e5ff 0%, #7c4dff 100%);
+    --accent-gradient-soft: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(124,77,255,0.12));
 
-        /* Per-article PDF download button in topic detail modal */
-        .ta-item-pdf {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            flex-shrink: 0;
-            color: rgba(255, 255, 255, 0.35);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-radius: 8px;
-            margin-right: 4px;
-        }
-        .ta-item-pdf:hover {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-        }
+    /* Text — slight blue tint */
+    --text-primary: #e6f4ff;
+    --text-secondary: rgba(180, 220, 255, 0.65);
+    --text-muted: rgba(160, 200, 240, 0.4);
+    --text-ghost: rgba(140, 180, 220, 0.18);
 
-        /* Explore post PDF download button */
-        .post-actions .pdf-btn {
-            color: rgba(255, 255, 255, 0.4);
-            transition: all 0.2s ease;
-        }
-        .post-actions .pdf-btn:hover {
-            color: #667eea;
-        }
+    /* Sharper, more technical corners */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 18px;
 
-        /* Article reader PDF button */
-        .article-reader-pdf {
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 16px;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            margin-left: auto;
-        }
-        .article-reader-pdf:hover {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-        }
+    --shadow-glow: 0 0 30px rgba(0, 229, 255, 0.18);
+    --shadow-glow-lg: 0 0 60px rgba(124, 77, 255, 0.18);
+}
 
-        /* City route PDF icon */
-        .route-pdf-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .route-pdf-icon:hover {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.15);
-        }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* City guide PDF icon */
-        .guide-pdf-icon {
-            flex-shrink: 0;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.35);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-radius: 8px;
-        }
-        .guide-pdf-icon:hover {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-        }
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* Cool grid background */
+    background-image:
+        linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124, 77, 255, 0.18), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 50%, rgba(0, 229, 255, 0.08), transparent);
+    background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
+    background-attachment: fixed;
+}
 
-        .pdf-download-btn i {
-            font-size: 16px;
-        }
+.container { max-width: 1280px; margin: 0 auto; padding: 40px 32px; }
 
-        /* PDF Loading Overlay */
-        .pdf-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-        }
-        .pdf-loading-card {
-            background: #1a1a2e;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 40px 50px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-        .pdf-loading-spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top-color: #667eea;
-            border-radius: 50%;
-            animation: pdf-spin 0.8s linear infinite;
-            margin: 0 auto 20px;
-        }
-        @keyframes pdf-spin {
-            to { transform: rotate(360deg); }
-        }
-        .pdf-loading-text {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 16px;
-            font-weight: 500;
-            font-family: 'Inter', sans-serif;
-        }
-        .pdf-loading-sub {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 13px;
-            margin-top: 8px;
-            font-family: 'Inter', sans-serif;
-        }
-        /* Print styles */
-        @media print {
-            .article-reader-header,
-            .article-reader-sidebar,
-            .ta-item-pdf,
-            .pdf-download-section,
-            .article-reader-pdf {
-                display: none !important;
-            }
-            .article-reader-body {
-                padding: 0 !important;
-            }
-        }
-    /* Hero cursor blink */
-    .hero-cursor {
-        display: inline-block;
-        color: var(--neon-cyan, #ff2d55);
-        animation: cursorBlink 1s step-end infinite;
-        font-weight: 300;
-        margin-left: 2px;
+/* ===== Demo Banner ===== */
+.demo-banner {
+    background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(124,77,255,0.12));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 12px 18px;
+    margin-bottom: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent-cyan);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.demo-banner i { color: var(--accent-cyan); }
+
+/* ===== Section header ===== */
+.section { margin-bottom: 56px; }
+.section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--glass-border);
+}
+.section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+.section-head h2 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--accent-cyan);
+    margin-right: 12px;
+    letter-spacing: 0.1em;
+}
+.section-head .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+
+/* ===== Nav ===== */
+.cool-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(20px);
+    width: fit-content;
+    margin-bottom: 32px;
+}
+.cool-nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+}
+.cool-nav a:hover { color: var(--text-primary); background: var(--glass-hover); }
+.cool-nav a.active {
+    color: var(--bg-dark);
+    background: var(--accent-gradient);
+    font-weight: 600;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+}
+
+/* ===== Hero ===== */
+.hero {
+    background: linear-gradient(135deg,
+        rgba(0, 229, 255, 0.06) 0%,
+        rgba(124, 77, 255, 0.06) 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 48px 40px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-violet), transparent);
+}
+.hero::after {
+    content: 'TOPICS_GUIDE';
+    position: absolute;
+    top: 24px; right: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent-cyan);
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+}
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+.hero p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 540px;
+    margin-bottom: 28px;
+}
+
+/* ===== Search bar ===== */
+.cool-search {
+    position: relative;
+    max-width: 560px;
+}
+.cool-search i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent-cyan);
+    font-size: 0.95rem;
+    pointer-events: none;
+}
+.cool-search input {
+    width: 100%;
+    padding: 16px 50px 16px 50px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: all 0.25s ease;
+}
+.cool-search input::placeholder { color: var(--text-muted); }
+.cool-search input:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 1px var(--accent-cyan), 0 0 30px rgba(0, 229, 255, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+}
+.cool-search .badge {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent-cyan);
+    padding: 3px 8px;
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    background: rgba(0, 229, 255, 0.06);
+}
+
+/* ===== Featured Topics grid ===== */
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+.ft-card {
+    position: relative;
+    padding: 24px 22px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ft-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,229,255,0.12), rgba(124,77,255,0.06));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.ft-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 24px; height: 1px;
+    background: var(--accent-cyan);
+    transition: width 0.4s ease;
+}
+.ft-card:hover {
+    border-color: var(--glass-border-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--glass-border-hover);
+}
+.ft-card:hover::before { opacity: 1; }
+.ft-card:hover::after { width: 100%; }
+.ft-icon {
+    font-size: 1.9rem;
+    margin-bottom: 14px;
+    display: inline-block;
+    transition: transform 0.4s ease;
+}
+.ft-card:hover .ft-icon { transform: rotate(-8deg) scale(1.1); }
+.ft-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.08rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+.ft-subtitle {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.ft-tag {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: rgba(0, 229, 255, 0.08);
+    color: var(--accent-cyan);
+    border: 1px solid var(--glass-border);
+}
+
+/* ===== Article list (ta-item) ===== */
+.ta-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.ta-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-left: 2px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ta-item:hover {
+    background: rgba(0, 229, 255, 0.04);
+    border-color: var(--glass-border-hover);
+    border-left-color: var(--accent-cyan);
+    transform: translateX(4px);
+    box-shadow: -4px 0 24px rgba(0, 229, 255, 0.1);
+}
+.ta-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    width: 36px;
+    opacity: 0.7;
+}
+.ta-info { flex: 1; }
+.ta-title {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.ta-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.ta-arrow {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.ta-item:hover .ta-arrow {
+    color: var(--accent-cyan);
+    transform: translateX(4px);
+}
+
+/* ===== Article reader preview ===== */
+.reader {
+    background: var(--bg-deep);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 32px 36px;
+    position: relative;
+    overflow: hidden;
+}
+.reader-progress {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: rgba(0, 229, 255, 0.08);
+}
+.reader-progress::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 100%;
+    background: var(--accent-gradient);
+    box-shadow: 0 0 12px var(--accent-cyan);
+}
+.reader h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 18px;
+    letter-spacing: -0.4px;
+}
+.reader .ar-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--glass-border);
+    margin-bottom: 24px;
+}
+.reader p {
+    font-size: 0.98rem;
+    color: var(--text-primary);
+    line-height: 1.85;
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+}
+.reader p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.6rem;
+    font-weight: 800;
+    line-height: 1;
+    float: left;
+    margin: 4px 12px 0 0;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.reader strong { color: var(--accent-cyan); font-weight: 600; }
+.reader .ar-chip {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: rgba(0, 229, 255, 0.1);
+    color: var(--accent-cyan);
+    border: 1px solid var(--glass-border);
+    margin: 0 3px;
+}
+.reader .ar-cn {
+    color: var(--accent-violet);
+    font-weight: 500;
+    margin-left: 4px;
+}
+.reader h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin: 28px 0 12px;
+    padding-left: 14px;
+    border-left: 3px solid;
+    border-image: linear-gradient(180deg, var(--accent-cyan), var(--accent-violet)) 1;
+}
+.reader ul {
+    list-style: none;
+    margin: 14px 0;
+}
+.reader ul li {
+    position: relative;
+    padding: 8px 0 8px 26px;
+    color: var(--text-primary);
+    line-height: 1.7;
+}
+.reader ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    color: var(--accent-cyan);
+    font-size: 0.85rem;
+}
+.reader blockquote {
+    margin: 20px 0;
+    padding: 14px 18px;
+    background: rgba(0, 229, 255, 0.05);
+    border-left: 3px solid var(--accent-cyan);
+    border-radius: 0 6px 6px 0;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* ===== Button styles ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+.btn-primary {
+    background: var(--accent-gradient);
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+}
+.btn-ghost {
+    background: transparent;
+    color: var(--accent-cyan);
+    border: 1px solid var(--glass-border);
+}
+.btn-ghost:hover {
+    background: rgba(0, 229, 255, 0.08);
+    border-color: var(--accent-cyan);
+}
+
+/* ===== Two-col layout for demo ===== */
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 880px) { .row-2 { grid-template-columns: 1fr; } }
+
+/* ===== Sidebar card ===== */
+.side-card {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 20px 22px;
+}
+.side-card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--glass-border);
+}
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 0.88rem;
+}
+.stat-row .label { color: var(--text-secondary); }
+.stat-row .val { color: var(--accent-cyan); font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+
+/* ============================================================
+   ANIMATIONS — page flip, entrance, ambient
+   ============================================================ */
+
+/* ----- Section entrance (page flip + slide) ----- */
+@keyframes pageFlipIn {
+    0%   { opacity: 0; transform: perspective(1400px) rotateY(-8deg) translateZ(-200px) translateX(40px); filter: brightness(1.4); }
+    60%  { opacity: 1; }
+    100% { opacity: 1; transform: perspective(1400px) rotateY(0) translateZ(0) translateX(0); filter: brightness(1); }
+}
+@keyframes pageFlipInRight {
+    0%   { opacity: 0; transform: perspective(1400px) rotateY(10deg) translateZ(-200px) translateX(-40px); }
+    100% { opacity: 1; transform: perspective(1400px) rotateY(0) translateZ(0) translateX(0); }
+}
+.section {
+    animation: pageFlipIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+}
+.section:nth-of-type(1) { animation-delay: 0.05s; }
+.section:nth-of-type(2) { animation-delay: 0.20s; }
+.section:nth-of-type(3) { animation-delay: 0.35s; }
+.section:nth-of-type(4) { animation-delay: 0.50s; }
+
+/* Page-flip corner accent on each section */
+.section {
+    position: relative;
+}
+.section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(225deg, var(--accent-cyan) 0%, transparent 50%);
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+    opacity: 0.18;
+    pointer-events: none;
+    animation: cornerPulse 4s ease-in-out infinite;
+}
+@keyframes cornerPulse {
+    0%, 100% { opacity: 0.10; }
+    50%      { opacity: 0.28; }
+}
+
+/* ----- Hero entrance + ambient scan ----- */
+@keyframes heroReveal {
+    0%   { opacity: 0; clip-path: inset(0 0 100% 0); filter: blur(8px); }
+    100% { opacity: 1; clip-path: inset(0 0 0 0);   filter: blur(0); }
+}
+.hero { animation: heroReveal 1.0s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes heroScan {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(800px); opacity: 0; }
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    box-shadow: 0 0 16px var(--accent-cyan);
+    pointer-events: none;
+    animation: heroScan 5s ease-in-out infinite;
+    animation-delay: 1.2s;
+}
+
+/* ----- Glitch flicker on title ----- */
+@keyframes glitchFlicker {
+    0%, 92%, 100% { transform: translate(0, 0); filter: none; }
+    93%   { transform: translate(-2px, 1px); filter: hue-rotate(20deg); }
+    94%   { transform: translate(2px, -1px); filter: hue-rotate(-20deg); }
+    95%   { transform: translate(0, 0); filter: none; }
+    96%   { transform: translate(-1px, 0); filter: hue-rotate(15deg); }
+    97%   { transform: translate(0, 0); filter: none; }
+}
+.hero h1 { animation: glitchFlicker 6s ease-in-out infinite 1.5s; }
+
+/* ----- Cool nav indicator slide ----- */
+@keyframes navIndicatorSlide {
+    0%   { transform: scaleX(0); transform-origin: left; }
+    100% { transform: scaleX(1); transform-origin: left; }
+}
+.cool-nav a.active::after {
+    content: '';
+    position: absolute;
+    left: 18px; right: 18px; bottom: 4px;
+    height: 2px;
+    background: var(--bg-dark);
+    animation: navIndicatorSlide 0.4s ease;
+}
+
+/* ----- Featured topic cards: 3D flip-in entrance ----- */
+@keyframes ftFlipIn {
+    0%   { opacity: 0; transform: perspective(800px) rotateX(25deg) translateY(30px); }
+    100% { opacity: 1; transform: perspective(800px) rotateX(0) translateY(0); }
+}
+.ft-card {
+    animation: ftFlipIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-style: preserve-3d;
+}
+.ft-card:nth-child(1) { animation-delay: 0.30s; }
+.ft-card:nth-child(2) { animation-delay: 0.38s; }
+.ft-card:nth-child(3) { animation-delay: 0.46s; }
+.ft-card:nth-child(4) { animation-delay: 0.54s; }
+.ft-card:nth-child(5) { animation-delay: 0.62s; }
+.ft-card:nth-child(6) { animation-delay: 0.70s; }
+.ft-card:nth-child(7) { animation-delay: 0.78s; }
+.ft-card:nth-child(8) { animation-delay: 0.86s; }
+
+/* Click ripple */
+@keyframes ripple {
+    0%   { transform: scale(0); opacity: 0.5; }
+    100% { transform: scale(4); opacity: 0; }
+}
+.ft-card .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    pointer-events: none;
+    animation: ripple 0.6s ease-out forwards;
+}
+
+/* ----- Article list: slide in from left with stagger ----- */
+@keyframes taSlideIn {
+    0%   { opacity: 0; transform: translateX(-40px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+.ta-item {
+    animation: taSlideIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.ta-item:nth-child(1) { animation-delay: 0.55s; }
+.ta-item:nth-child(2) { animation-delay: 0.62s; }
+.ta-item:nth-child(3) { animation-delay: 0.69s; }
+.ta-item:nth-child(4) { animation-delay: 0.76s; }
+.ta-item:nth-child(5) { animation-delay: 0.83s; }
+
+/* Reveal-on-scroll: handled by JS via .in-view class */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ----- Side cards ----- */
+@keyframes sideIn {
+    0%   { opacity: 0; transform: translateX(40px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+.side-card {
+    animation: sideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.side-card:nth-of-type(1) { animation-delay: 0.70s; }
+.side-card:nth-of-type(2) { animation-delay: 0.80s; }
+
+/* ----- Reader: text reveal + progress bar grow ----- */
+@keyframes readerRise {
+    0%   { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+    100% { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+.reader { animation: readerRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.5s; }
+
+.reader-progress::after {
+    animation: progressGrow 2.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation-delay: 1.0s;
+    transform-origin: left;
+}
+@keyframes progressGrow {
+    0%   { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+}
+
+/* ----- HUD data-counter for stats ----- */
+@keyframes countUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.stat-row .val { animation: countUp 0.5s ease both; }
+.stat-row:nth-child(1) .val { animation-delay: 0.9s; }
+.stat-row:nth-child(2) .val { animation-delay: 1.0s; }
+.stat-row:nth-child(3) .val { animation-delay: 1.1s; }
+.stat-row:nth-child(4) .val { animation-delay: 1.2s; }
+
+/* ----- Marquee tag strip in nav (subtle ambient) ----- */
+@keyframes tagDrift {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ----- Reduced-motion respect ----- */
+@media (max-width: 768px) {
+    .container { padding: 20px 14px 40px; }
+    .hero { padding: 28px 20px 26px; border-radius: var(--radius-lg); }
+    .hero h1 { font-size: 1.85rem; }
+    .hero p {
+        font-size: 0.85rem;
+        white-space: normal;
+        width: auto !important;
+        border-right: none;
+        animation: none;
     }
-    @keyframes cursorBlink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
+    .cool-search input { font-size: 0.9rem; padding: 13px 44px; }
+    .cool-search .badge { display: none; }
+    .section { margin-bottom: 36px; }
+    .section-head h2 { font-size: 1.15rem; }
+    .section-head .meta { display: none; }
+    .featured-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .ft-card { padding: 16px 14px 14px; }
+    .ft-icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .ft-title { font-size: 0.92rem; }
+    .ft-subtitle { font-size: 0.72rem; -webkit-line-clamp: 2; }
+    .ft-tag { font-size: 0.6rem; margin-top: 8px; }
+    .terminal { font-size: 0.7rem; margin-bottom: 22px; }
+    .terminal-body { padding: 10px 12px; line-height: 1.7; max-height: 140px; overflow-y: auto; }
+    .terminal-input { padding: 8px 12px 10px; }
+    .terminal-head .eq { display: none; }
+    .terminal-head .label { font-size: 0.6rem; letter-spacing: 0.05em; }
+    .marquee { font-size: 0.6rem; padding: 6px 0; margin-bottom: 18px; }
+    .marquee-track { gap: 40px; animation-duration: 50s; }
+    .cool-nav { overflow-x: auto; max-width: 100%; flex-wrap: nowrap; }
+    .cool-nav a { padding: 8px 14px; font-size: 0.82rem; white-space: nowrap; }
+    .ta-item { padding: 14px; gap: 12px; }
+    .ta-num { width: 28px; font-size: 0.78rem; }
+    .ta-title { font-size: 0.88rem; }
+    .ta-meta { font-size: 0.62rem; }
+    .reader { padding: 22px 18px 30px; }
+    .reader h2 { font-size: 1.35rem; }
+    .reader p { font-size: 0.92rem; line-height: 1.7; }
+    .reader p:first-of-type::first-letter { font-size: 2.6rem; }
+    .reader h3 { font-size: 1.05rem; margin: 22px 0 10px; }
+    .side-card { padding: 16px; }
+    .side-card h3 { font-size: 0.65rem; }
+    .stat-row { font-size: 0.8rem; padding: 6px 0; }
+    #scanlines { display: none; }
+    .marquee, .terminal { display: none; }
+    .hero::after,
+    .hero h1,
+    .section-head h2::before,
+    .ft-card,
+    .ta-item,
+    .reader,
+    .reader p:first-of-type::first-letter {
+        animation: none !important;
     }
+    .ft-card:hover, .ta-item:hover { transform: none; box-shadow: none; }
+    .demo-banner { font-size: 0.7rem; padding: 10px 14px; margin-bottom: 20px; }
+}
 
-    /* Hero highlight glow */
-    .hero-highlight {
-        background: linear-gradient(135deg, #ff2d55, #ff6b35);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        position: relative;
-    }
-    .hero-highlight::after {
-        content: '';
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #ff2d55, #ff6b35);
-        border-radius: 2px;
-        box-shadow: 0 0 10px rgba(255, 45, 85, 0.5);
-    }
+@media (max-width: 380px) {
+    .featured-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.5rem; }
+}
 
-    /* Tech line decoration */
-    .hero-tech-line {
-        width: 120px;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #ff2d55, transparent);
-        margin: 16px auto 0;
-        position: relative;
-        opacity: 0.6;
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
     }
-    .hero-tech-line::before {
-        content: '';
-        position: absolute;
-        top: -3px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 8px;
-        height: 8px;
-        background: #ff2d55;
-        border-radius: 50%;
-        box-shadow: 0 0 10px rgba(255, 45, 85, 0.6);
-    }
+}
 
-    /* Particle canvas */
-    #heroParticles {
-        opacity: 0.4;
-    }
-    </style>
+/* ============================================================
+   COOL++ — glitch, holo, neon pulse, scan, particles
+   ============================================================ */
+
+/* ----- Constellation / particle field background ----- */
+#constellation {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ----- System boot overlay ----- */
+#boot {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-cyan);
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+#boot.hidden { opacity: 0; visibility: hidden; }
+#boot .boot-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 18px;
+    letter-spacing: -1px;
+}
+#boot .boot-bar {
+    width: 240px;
+    height: 2px;
+    background: rgba(0, 229, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+#boot .boot-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent-gradient);
+    transform: translateX(-100%);
+    animation: bootFill 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes bootFill {
+    to { transform: translateX(0); }
+}
+#boot .boot-msg {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+#boot .boot-msg::after {
+    content: '_';
+    animation: cursorBlink 0.8s steps(2) infinite;
+    margin-left: 2px;
+}
+@keyframes cursorBlink {
+    50% { opacity: 0; }
+}
+
+/* ----- Holographic shimmer on hero title ----- */
+@keyframes holoShimmer {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+.hero h1 {
+    background: linear-gradient(110deg,
+        #00e5ff 0%, #b388ff 25%, #00ffa3 50%, #7c4dff 75%, #00e5ff 100%) !important;
+    background-size: 200% 100% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    /* hover-loop shimmer removed */
+}
+
+/* ----- Neon border pulse on hover for cards ----- */
+@keyframes neonPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0), 0 0 0 0 rgba(124, 77, 255, 0); }
+    50%      { box-shadow: 0 0 0 1px rgba(0, 229, 255, 0.4), 0 0 24px 0 rgba(124, 77, 255, 0.3); }
+}
+.ft-card:hover {
+    animation: neonPulse 1.4s ease-in-out infinite;
+}
+.ta-item:hover {
+    animation: neonPulse 1.4s ease-in-out infinite;
+}
+
+/* ----- Card hover: 3D tilt removed (causes motion sickness) ----- */
+/* ft-card and ta-item keep simple hover transitions but no perspective tilt */
+
+/* ----- Animated grid sweep over the page background ----- */
+@keyframes gridSweep {
+    0%   { background-position: 0 0, 0 0, 0 0, 0 0; }
+    100% { background-position: 48px 48px, 48px 48px, 0 0, 0 0; }
+}
+body {
+    animation: gridSweep 8s linear infinite;
+}
+
+/* ----- Holographic iridescent border on reader ----- */
+@keyframes holoBorder {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+.reader {
+    position: relative;
+    background: var(--bg-deep) !important;
+    border: 1px solid transparent !important;
+    background-clip: padding-box !important;
+}
+.reader::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    padding: 1px;
+    background: linear-gradient(110deg,
+        #00e5ff, #7c4dff, #00ffa3, #00e5ff);
+    background-size: 200% 100%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: holoBorder 6s linear infinite;
+    pointer-events: none;
+}
+
+/* ----- Stronger drop cap glitch ----- */
+@keyframes dropCapGlitch {
+    0%, 100% { transform: translate(0, 0) rotate(0); }
+    20%      { transform: translate(-1px, 1px) rotate(-1deg); }
+    40%      { transform: translate(1px, -1px) rotate(1deg); }
+    60%      { transform: translate(-1px, 0) rotate(0); }
+    80%      { transform: translate(0, 1px) rotate(-1deg); }
+}
+.reader p:first-of-type::first-letter {
+    animation: dropCapGlitch 5s ease-in-out infinite 2s;
+}
+
+/* ----- Stat bar: animated fill on load ----- */
+.stat-row {
+    position: relative;
+    overflow: hidden;
+}
+.stat-row::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent-gradient);
+    animation: statBarFill 1.2s ease-out forwards;
+    animation-delay: 1.0s;
+}
+@keyframes statBarFill {
+    to { width: 100%; }
+}
+
+/* ----- Topic-card border trace (animated SVG-style line) ----- */
+.ft-card::before {
+    transition: opacity 0.3s ease;
+}
+
+/* ----- Subtle floating motion on hero ----- */
+@keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+}
+.hero { animation: heroReveal 1.0s cubic-bezier(0.16, 1, 0.3, 1) both, floatY 8s ease-in-out infinite 2s; }
+
+/* ----- Magnify search bar on focus ----- */
+.cool-search input:focus {
+    transform: scale(1.01);
+    box-shadow: 0 0 0 1px var(--accent-cyan), 0 0 40px rgba(0, 229, 255, 0.35);
+}
+
+/* ----- Nav active indicator: animated corner bracket ----- */
+.cool-nav a.active {
+    position: relative;
+}
+.cool-nav a.active::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    background: var(--accent-gradient);
+    z-index: -1;
+}
+
+/* ----- Subtitle typing effect on hero ----- */
+.hero p {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--accent-cyan);
+    width: 0;
+    animation: typing 2.2s steps(60) 0.8s forwards, blink 0.7s steps(2) 3s 2;
+}
+@keyframes typing {
+    from { width: 0; }
+    to   { width: 100%; max-width: 540px; }
+}
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* ----- Section number badge with corner ticks ----- */
+.section-head h2 {
+    position: relative;
+    padding-left: 6px;
+}
+.section-head h2::before {
+    content: '◤';
+    color: var(--accent-cyan);
+    margin-right: 4px;
+    opacity: 0.6;
+    font-size: 0.85em;
+}
+
+/* ============================================================
+   COOL+++ — magnetic cursor, terminal, hex, marquee, parallax
+   ============================================================ */
+
+/* ----- Custom cursor ----- */
+#cursor-dot, #cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: screen;
+    will-change: transform;
+}
+#cursor-dot {
+    width: 6px; height: 6px;
+    background: var(--accent-cyan);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 12px var(--accent-cyan);
+    transition: width 0.15s ease, height 0.15s ease;
+}
+#cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent-cyan);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+}
+#cursor-ring.hot {
+    width: 60px; height: 60px;
+    border-color: var(--accent-violet);
+    opacity: 0.9;
+}
+@media (hover: none) { #cursor-dot, #cursor-ring { display: none; } }
+
+/* ----- Terminal bar ----- */
+.terminal {
+    margin-bottom: 32px;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    overflow: hidden;
+}
+.terminal-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: rgba(0, 229, 255, 0.04);
+    border-bottom: 1px solid var(--glass-border);
+}
+.terminal-head .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #ff5f56;
+}
+.terminal-head .dot:nth-child(2) { background: #ffbd2e; }
+.terminal-head .dot:nth-child(3) { background: #27c93f; }
+.terminal-head .label {
+    color: var(--text-muted);
+    margin-left: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+}
+.terminal-body {
+    padding: 14px 18px;
+    color: var(--text-secondary);
+    line-height: 1.9;
+}
+.terminal-body .prompt { color: var(--accent-cyan); }
+.terminal-body .ok { color: var(--accent-green); }
+.terminal-body .warn { color: #ffbd2e; }
+.terminal-body .err { color: #ff5f7a; }
+.terminal-body .cmd { color: var(--accent-violet); }
+.terminal-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px 14px;
+    border-top: 1px solid var(--glass-border);
+}
+.terminal-input span { color: var(--accent-cyan); }
+.terminal-input input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+}
+.terminal-input input::placeholder { color: var(--text-muted); }
+
+/* ----- Sound-wave equalizer (cool ambient indicator) ----- */
+.eq {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 18px;
+    margin-left: auto;
+}
+.eq span {
+    width: 3px;
+    background: var(--accent-cyan);
+    border-radius: 2px;
+    animation: eq 1.2s ease-in-out infinite;
+}
+.eq span:nth-child(1) { animation-delay: 0.0s; height: 40%; }
+.eq span:nth-child(2) { animation-delay: 0.2s; height: 80%; }
+.eq span:nth-child(3) { animation-delay: 0.4s; height: 60%; }
+.eq span:nth-child(4) { animation-delay: 0.1s; height: 90%; }
+.eq span:nth-child(5) { animation-delay: 0.3s; height: 50%; }
+@keyframes eq {
+    0%, 100% { transform: scaleY(0.3); }
+    50%      { transform: scaleY(1); }
+}
+
+/* ----- Hex coordinate readouts ----- */
+.hex {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent-cyan);
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+}
+
+/* ----- Data-stream marquee (under nav) ----- */
+.marquee {
+    overflow: hidden;
+    background: linear-gradient(90deg,
+        rgba(0,229,255,0.04), rgba(124,77,255,0.04), rgba(0,229,255,0.04));
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 8px 0;
+    margin-bottom: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    position: relative;
+}
+.marquee-track {
+    display: flex;
+    gap: 60px;
+    white-space: nowrap;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+}
+.marquee-track span { display: inline-flex; align-items: center; gap: 8px; }
+.marquee-track span::before {
+    content: '◆';
+    color: var(--accent-cyan);
+    font-size: 0.5em;
+}
+@keyframes marquee {
+    to { transform: translateX(-50%); }
+}
+
+/* ----- 3D parallax wrap on the whole content ----- */
+#parallax {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+/* ----- Glitch decode on text (one-shot on view) ----- */
+.decode {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-cyan);
+}
+
+/* ----- Stat: live ticker (flashing caret) ----- */
+.ticker {
+    display: inline-block;
+    width: 6px; height: 14px;
+    background: var(--accent-cyan);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: cursorBlink 0.8s steps(2) infinite;
+}
+
+/* ----- Tag pill: scan effect on hover ----- */
+.ft-tag {
+    position: relative;
+    overflow: hidden;
+}
+.ft-tag::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+.ft-card:hover .ft-tag::after { left: 100%; }
+
+/* ----- "LIVE" pulsing badge ----- */
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent-cyan);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    background: rgba(0, 229, 255, 0.05);
+}
+.live-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 8px var(--accent-cyan);
+    animation: livePulse 1.2s ease-in-out infinite;
+}
+@keyframes livePulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.3; }
+}
+
+/* ----- Scanlines overlay (subtle CRT effect) ----- */
+#scanlines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 229, 255, 0.025) 0px,
+        rgba(0, 229, 255, 0.025) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    mix-blend-mode: screen;
+    opacity: 0.4;
+}
+
+/* ----- Reader: animated underlines on links ----- */
+.reader a, .reader strong { position: relative; }
+
+/* ----- Smooth color-shift on section-head h2 (cool hue cycle) ----- */
+@keyframes hueShift {
+    0%   { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+.section-head h2::before {
+    /* hueShift removed — keep static cyan */
+}
+</style>
 </head>
-<body class="loading">
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-logo">
-                <i class="fas fa-comments"></i>
-                <span>Cdiscovery</span>
-            </div>
-            <div class="loading-spinner"></div>
-            <p class="loading-text">Loading your community...</p>
-        </div>
-    </div>
-    <!-- Global Background Image -->
-    <div class="global-bg" id="globalBg">
-        <img src="222222.png" alt="" class="global-bg-img" id="globalBgImg">
-    </div>
-    <nav class="navbar">
-        <div class="nav-logo">
-            <i class="fas fa-comments"></i>
-            Cdiscovery
-        </div>
-        <ul class="nav-links">
-            <li><a href="#" data-nav="home" data-i18n="home">Home</a></li>
-            <li><a href="#" data-nav="stories" data-i18n="stories">Stories</a></li>
-            <li><a href="#" data-nav="explore" data-i18n="explore">Explore</a></li>
-            <li><a href="#" data-nav="topics" data-i18n="topics">Topics</a></li>
-            <li><a href="#" data-nav="about" data-i18n="about">About</a></li>
-            <li><a href="#" onclick="openNewPostModal(); return false;" class="share-story-btn" data-i18n="shareStory" title="Share your China experience">
-                <i class="fas fa-pen-to-square"></i> Share Your Story
-            </a></li>
-            <li><a href="#" onclick="navigateTo('groupchat'); return false;" class="share-story-btn group-chat-btn" data-i18n="groupChat" title="Join your group chat">
-                <i class="fas fa-users"></i> <span data-i18n="groupChat" class="nav-text-full">Group Chat</span><span class="nav-text-short">Group</span>
-            </a></li>
-            <div class="nav-indicator" id="navIndicator"></div>
-        </ul>
-        <div class="nav-actions">
-            <div class="lang-switch">
-                <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
-                <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
-            </div>
-            <button class="notification-btn" id="notificationBtn" onclick="toggleNotificationPanel()" style="display: none;">
-                <i class="fas fa-bell"></i>
-                <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
-            </button>
-                <button class="btn btn-outline" id="loginBtn" data-i18n="signIn">Sign In</button>
-                <button class="btn btn-primary" id="registerBtn" data-i18n="joinNow">Join Now</button>
-            <button class="profile-btn" id="profileBtn" onclick="navigateTo('profile')">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile" id="headerAvatar">
-                <span data-i18n="profile">Profile</span>
-            </button>
+<body>
+<div id="boot">
+    <div class="boot-logo">C<span style="color: var(--accent-cyan); -webkit-text-fill-color: var(--accent-cyan);">/</span>DISCOVERY</div>
+    <div class="boot-bar"></div>
+    <div class="boot-msg" id="bootMsg">initializing system</div>
+</div>
+<canvas id="constellation"></canvas>
+<div id="scanlines"></div>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
 
-            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
-        </div>
-    </nav>
+<div id="parallax">
+<div class="container">
 
-    <div class="mobile-nav" id="mobileNav">
-        <a href="#" data-nav="home" data-i18n="home">Home</a>
-        <a href="#" data-nav="stories" data-i18n="stories">Stories</a>
-        <a href="#" data-nav="explore" data-i18n="explore">Explore</a>
-        <a href="#" data-nav="topics" data-i18n="topics">Topics</a>
-        <a href="#" data-nav="about" data-i18n="about">About</a>
-        <a href="#" id="mobileProfileLink" data-nav="profile" style="display: none;">Profile</a>
+    <div class="demo-banner">
+        <i class="fas fa-flask"></i>
+        <span>DESIGN PREVIEW — Cool UI proposal. Not yet applied to the live project.</span>
     </div>
 
-    <div class="mobile-bottom-nav" id="mobileBottomNav">
-        <a href="#" data-nav="home" class="bottom-nav-item" data-i18n="home">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </a>
-        <a href="#" data-nav="stories" class="bottom-nav-item" data-i18n="stories">
-            <i class="fas fa-book-open"></i>
-            <span>Stories</span>
-        </a>
-        <a href="#" onclick="openNewPostModal(); return false;" class="bottom-nav-item share-story-bottom">
-            <i class="fas fa-pen-to-square"></i>
-        </a>
-        <a href="#" data-nav="explore" class="bottom-nav-item" data-i18n="explore">
-            <i class="fas fa-compass"></i>
-            <span>Explore</span>
-        </a>
-        <a href="#" data-nav="topics" class="bottom-nav-item" data-i18n="topics">
-            <i class="fas fa-hashtag"></i>
-            <span>Topics</span>
-        </a>
-    </div>
-
-    <div class="welcome-banner" id="welcomeBanner">
-        <div class="welcome-inner">
-            <div class="welcome-content">
-                <div class="welcome-greeting" data-i18n="welcomeBack">Welcome back, Guest! 👋</div>
-                <div class="welcome-sub" data-i18n="readyToShare">Ready to share your next story?</div>
-                <div class="welcome-actions">
-                    <button class="welcome-action-btn" onclick="openNewPostModal()">
-                        <i class="fas fa-pen"></i> <span data-i18n="shareAStory">Share a Story</span>
-                    </button>
-                    <button class="welcome-action-btn" onclick="navigateTo('explore')">
-                        <i class="fas fa-compass"></i> <span data-i18n="exploreCities">Explore Cities</span>
-                    </button>
-                    <button class="welcome-action-btn" onclick="navigateTo('topics')">
-                        <i class="fas fa-hashtag"></i> <span data-i18n="browseTopics">Browse Topics</span>
-                    </button>
-                    <button class="welcome-action-btn" onclick="window.open('https://chris-topher-code.github.io/-chinese-apps-guide/', '_blank')">
-                        <i class="fas fa-external-link-alt"></i> <span data-i18n="chineseAppsGuide">Chinese Apps Guide</span>
-                    </button>
-                </div>
-            </div>
+    <!-- Data marquee -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span>0x4F · LIVE · 16 TOPICS · 240+ ARTICLES</span>
+            <span>0x8A · EN / FR · MULTI-LANG</span>
+            <span>0xC1 · CONSTELLATION ONLINE</span>
+            <span>0xE7 · SHANGHAI · BEIJING · SHENZHEN</span>
+            <span>0x2D · RSS FEED ACTIVE</span>
+            <span>0x4F · LIVE · 16 TOPICS · 240+ ARTICLES</span>
+            <span>0x8A · EN / FR · MULTI-LANG</span>
+            <span>0xC1 · CONSTELLATION ONLINE</span>
+            <span>0xE7 · SHANGHAI · BEIJING · SHENZHEN</span>
+            <span>0x2D · RSS FEED ACTIVE</span>
         </div>
     </div>
 
-    <div class="notification-panel" id="notificationPanel" style="display: none;">
-        <div class="notification-header">
-            <h4>Notifications</h4>
-            <button class="notification-close" onclick="toggleNotificationPanel()"><i class="fas fa-times"></i></button>
+    <!-- Terminal -->
+    <div class="terminal" aria-label="System terminal">
+        <div class="terminal-head">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="label">~/cdiscovery · zsh</span>
+            <span class="eq"><span></span><span></span><span></span><span></span><span></span></span>
         </div>
-        <div class="notification-list" id="notificationList">
-            <div class="notification-empty">No new notifications</div>
+        <div class="terminal-body" id="terminalBody">
+            <div><span class="prompt">user@cdiscovery</span>:<span class="cmd">~</span>$ <span>./discover --mode=interactive</span></div>
+            <div><span class="ok">✓</span> topics index loaded <span class="hex">[0x4F]</span></div>
+            <div><span class="ok">✓</span> constellation renderer attached <span class="hex">[0x8A]</span></div>
+            <div><span class="ok">✓</span> live search online <span class="hex">[0xC1]</span></div>
+            <div><span class="ok">✓</span> 240+ articles ready <span class="hex">[0xE7]</span></div>
+            <div><span class="warn">!</span> type <span class="cmd">help</span> to view available commands.</div>
+        </div>
+        <div class="terminal-input">
+            <span>›</span>
+            <input type="text" id="terminalInput" placeholder="type a command..." autocomplete="off" spellcheck="false">
         </div>
     </div>
 
+    <!-- Hero -->
     <section class="hero">
-        <canvas id="heroParticles" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;"></canvas>
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-sparkles"></i>
-                Join <span id="heroMembersBadge">0</span>+ foreigners sharing China experiences
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+            <span class="live-badge">LIVE</span>
+            <span class="hex">LAT 31.2304° N · LON 121.4737° E</span>
+        </div>
+        <h1>📚 Topics Guide</h1>
+        <p>Your comprehensive resource for living and exploring in China</p>
+        <div class="cool-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search topics, guides, articles...">
+            <span class="badge">⌘K</span>
+        </div>
+    </section>
+
+    <!-- Featured Topics -->
+    <section class="section">
+        <div class="section-head">
+            <h2><span class="num">01 /</span>Featured Topics</h2>
+            <span class="meta">8 ITEMS</span>
+        </div>
+        <div class="featured-grid">
+            <div class="ft-card">
+                <div class="ft-icon">📱</div>
+                <div class="ft-title">Essential China Apps</div>
+                <div class="ft-subtitle">Must-have apps for payments, transport, food, and daily life</div>
+                <span class="ft-tag">Apps & Tech</span>
             </div>
-            <div class="hero-tech-line"></div>
-            <h1>Share Your <span class="hero-highlight">Story</span><span class="hero-cursor">|</span></h1>
-            <p>Help others discover the real China. Your experience matters — share it with our growing community of expats from <span id="heroCountriesBadge">0</span> countries.</p>
-            <div class="search-container">
-                <i class="fas fa-search"></i>
-                <input type="text" data-i18n-placeholder="searchPlaceholder" placeholder="Search stories, topics, or people...">
+            <div class="ft-card">
+                <div class="ft-icon">🌆</div>
+                <div class="ft-title">Daily Life in China</div>
+                <div class="ft-subtitle">Housing, healthcare, transportation, and practical tips</div>
+                <span class="ft-tag">Lifestyle</span>
             </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number" id="heroMembersCount" data-suffix="">0</div>
-                    <div class="stat-label">Community Members</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="heroStoriesCount" data-suffix="">0</div>
-                    <div class="stat-label">Stories Shared</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="heroCitiesCount" data-suffix="">0</div>
-                    <div class="stat-label">Cities Covered</div>
-                </div>
-                <a class="stat-item hero-apps-guide-btn" href="https://chris-topher-code.github.io/-chinese-apps-guide/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;cursor:pointer;">
-                    <div class="stat-number"><i class="fas fa-external-link-alt" style="font-size:1.4rem;"></i></div>
-                    <div class="stat-label">Chinese Apps Guide</div>
-                </a>
+            <div class="ft-card">
+                <div class="ft-icon">🏠</div>
+                <div class="ft-title">Rent an Apartment</div>
+                <div class="ft-subtitle">Housing market, rental platforms, and tenant rights for expats</div>
+                <span class="ft-tag">Housing</span>
+            </div>
+            <div class="ft-card">
+                <div class="ft-icon">⚡</div>
+                <div class="ft-title">Working in China</div>
+                <div class="ft-subtitle">Career opportunities, work culture, professional development</div>
+                <span class="ft-tag">Career</span>
+            </div>
+            <div class="ft-card">
+                <div class="ft-icon">🥢</div>
+                <div class="ft-title">Food & Dining</div>
+                <div class="ft-subtitle">Chinese cuisine, restaurant recommendations, cooking tips</div>
+                <span class="ft-tag">Food</span>
+            </div>
+            <div class="ft-card">
+                <div class="ft-icon">🗺️</div>
+                <div class="ft-title">Travel & Adventure</div>
+                <div class="ft-subtitle">Hidden gems, travel tips, and must-visit destinations</div>
+                <span class="ft-tag">Travel</span>
+            </div>
+            <div class="ft-card">
+                <div class="ft-icon">💬</div>
+                <div class="ft-title">Language Learning</div>
+                <div class="ft-subtitle">Mandarin tips, resources, and language exchange</div>
+                <span class="ft-tag">Language</span>
+            </div>
+            <div class="ft-card">
+                <div class="ft-icon">🏥</div>
+                <div class="ft-title">Hospital & Healthcare</div>
+                <div class="ft-subtitle">Seeing a doctor, prescriptions, and insurance for foreigners</div>
+                <span class="ft-tag">Healthcare</span>
             </div>
         </div>
     </section>
 
-    <div class="category-filter category-scroll-hint" style="display: none;">
-        <div class="category-pill active" data-category="all" data-i18n="allCategory">All</div>
-        <div class="category-pill" data-category="travel" data-i18n="travelCat">🧳 Travel</div>
-        <div class="category-pill" data-category="study" data-i18n="studyCat">🎓 Study</div>
-        <div class="category-pill" data-category="school" data-i18n="schoolCat">🏫 School</div>
-        <div class="category-pill" data-category="work" data-i18n="workCat">👷 Work</div>
-        <div class="category-pill" data-category="visa" data-i18n="visaCat">📋 Visa</div>
-        <div class="category-pill" data-category="entertainment" data-i18n="entertainmentCat">🎭 Entertainment</div>
-        <div class="category-pill" data-category="food" data-i18n="foodCat">🍜 Food</div>
-        <div class="category-pill" data-category="life" data-i18n="lifeCat">🏙️ Life</div>
-        <div class="category-pill" data-category="business" data-i18n="businessCat">💼 Business</div>
-        <div class="category-pill" data-category="rent" data-i18n="rentCat">🏠 Rent</div>
-        <div class="category-pill" data-category="sim" data-i18n="simCat">📱 SIM Card</div>
-        <div class="category-pill" data-category="hospital" data-i18n="hospitalCat">🏥 Hospital</div>
-        <div class="category-pill" data-category="cultural" data-i18n="culturalCat">🎎 Culture</div>
+    <!-- Article list + sidebar -->
+    <section class="section">
+        <div class="section-head">
+            <h2><span class="num">02 /</span>Article List (Topic Modal)</h2>
+            <span class="meta">5 ITEMS</span>
+        </div>
+        <div class="row-2">
+            <div class="ta-list">
+                <div class="ta-item">
+                    <div class="ta-num">01</div>
+                    <div class="ta-info">
+                        <div class="ta-title">WeChat Pay Setup Guide</div>
+                        <div class="ta-meta">8 MIN READ · ESSENTIAL</div>
+                    </div>
+                    <i class="fas fa-chevron-right ta-arrow"></i>
+                </div>
+                <div class="ta-item">
+                    <div class="ta-num">02</div>
+                    <div class="ta-info">
+                        <div class="ta-title">Alipay Foreign Card Binding</div>
+                        <div class="ta-meta">5 MIN READ · PAYMENTS</div>
+                    </div>
+                    <i class="fas fa-chevron-right ta-arrow"></i>
+                </div>
+                <div class="ta-item">
+                    <div class="ta-num">03</div>
+                    <div class="ta-info">
+                        <div class="ta-title">Didi: China Uber Alternative</div>
+                        <div class="ta-meta">6 MIN READ · TRANSPORT</div>
+                    </div>
+                    <i class="fas fa-chevron-right ta-arrow"></i>
+                </div>
+                <div class="ta-item">
+                    <div class="ta-num">04</div>
+                    <div class="ta-info">
+                        <div class="ta-title">Baidu Maps vs Amap</div>
+                        <div class="ta-meta">4 MIN READ · NAVIGATION</div>
+                    </div>
+                    <i class="fas fa-chevron-right ta-arrow"></i>
+                </div>
+                <div class="ta-item">
+                    <div class="ta-num">05</div>
+                    <div class="ta-info">
+                        <div class="ta-title">VPN: Do You Need One?</div>
+                        <div class="ta-meta">7 MIN READ · CONNECTIVITY</div>
+                    </div>
+                    <i class="fas fa-chevron-right ta-arrow"></i>
+                </div>
+            </div>
+
+            <div>
+                <div class="side-card">
+                    <h3>▸ SYSTEM STATUS</h3>
+                    <div class="stat-row"><span class="label">Topics</span><span class="val">16</span></div>
+                    <div class="stat-row"><span class="label">Articles</span><span class="val">240+</span></div>
+                    <div class="stat-row"><span class="label">Active readers</span><span class="val">1.2K</span></div>
+                    <div class="stat-row"><span class="label">Last updated</span><span class="val">2h ago</span></div>
+                </div>
+                <div class="side-card" style="margin-top: 16px;">
+                    <h3>▸ QUICK ACTIONS</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="btn btn-primary" style="justify-content: center;">
+                            <i class="fas fa-search"></i> Search Topics
+                        </button>
+                        <button class="btn btn-ghost" style="justify-content: center;">
+                            <i class="fas fa-bookmark"></i> Saved
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article reader -->
+    <section class="section">
+        <div class="section-head">
+            <h2><span class="num">03 /</span>Article Reader</h2>
+            <span class="meta">SAMPLE PREVIEW</span>
+        </div>
+        <div class="reader">
+            <div class="reader-progress"></div>
+            <h2>Hospital & Healthcare in China</h2>
+            <div class="ar-subtitle">GUIDE · 12 MIN READ · UPDATED 2026</div>
+
+            <p>China's public hospital system is efficient but different. Learn the step-by-step process: <strong>registration</strong>挂号, <strong>lab work</strong>化验, <strong>prescriptions</strong>处方, and how to get insurance reimbursement. Public hospitals cost <span class="ar-chip">¥50-200</span>, while international clinics run <span class="ar-chip">¥300-800</span> per visit.</p>
+
+            <h3>Step 1 — Registration</h3>
+            <p>Walk in, find the registration desk (挂号台), bring your passport. Most hospitals now have self-service kiosks with English options. Cost is typically <span class="ar-chip">¥10-50</span> depending on the specialist tier.</p>
+
+            <h3>Step 2 — See the Doctor</h3>
+            <ul>
+                <li>Bring any previous medical records and medication names</li>
+                <li>Use a translation app or bring a Chinese-speaking friend</li>
+                <li>Most major hospitals in tier-1 cities have English-speaking staff on the international floor</li>
+            </ul>
+
+            <blockquote>Tip: Public hospitals are 4-6× cheaper than international clinics and often have shorter wait times than you'd expect.</blockquote>
+
+            <p>Once prescribed, take your prescription to the in-house pharmacy (药房). Most common medications are available over the counter. For prescriptions requiring controlled substances, the pharmacy may ask for your passport.</p>
+        </div>
+    </section>
+
+    <div style="text-align: center; padding: 40px 0 20px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em;">
+        END OF PREVIEW — review and let me know what to adjust
     </div>
+</div>
+</div><!-- /#parallax -->
 
-    <section class="page-section" id="storiesPage">
-        <div class="stories-filter-bar">
-            <div class="stories-sort-row">
-                <button class="sort-btn active" data-sort="latest" onclick="sortByLatest()">
-                    <i class="fas fa-clock"></i> <span>Latest</span>
-                </button>
-                <button class="sort-btn" data-sort="popular" onclick="sortByPopular()">
-                    <i class="fas fa-fire"></i> <span>Popular</span>
-                </button>
-            </div>
-            <div class="stories-categories-row" id="storiesCategoriesRow">
-                <button class="stories-cat-pill active" data-category="all" onclick="selectCategory('all')">
-                    <span class="cat-icon">✨</span> All
-                </button>
-                <button class="stories-cat-pill" data-category="travel" onclick="selectCategory('travel')">
-                    <span class="cat-icon">🧳</span> Travel
-                </button>
-                <button class="stories-cat-pill" data-category="study" onclick="selectCategory('study')">
-                    <span class="cat-icon">🎓</span> Study
-                </button>
-                <button class="stories-cat-pill" data-category="school" onclick="selectCategory('school')">
-                    <span class="cat-icon">🏫</span> School
-                </button>
-                <button class="stories-cat-pill" data-category="work" onclick="selectCategory('work')">
-                    <span class="cat-icon">👷</span> Work
-                </button>
-                <button class="stories-cat-pill" data-category="visa" onclick="selectCategory('visa')">
-                    <span class="cat-icon">📋</span> Visa
-                </button>
-                <button class="stories-cat-pill" data-category="entertainment" onclick="selectCategory('entertainment')">
-                    <span class="cat-icon">🎭</span> Entertainment
-                </button>
-                <button class="stories-cat-pill" data-category="food" onclick="selectCategory('food')">
-                    <span class="cat-icon">🍜</span> Food
-                </button>
-                <button class="stories-cat-pill" data-category="life" onclick="selectCategory('life')">
-                    <span class="cat-icon">🏙️</span> Life
-                </button>
-                <button class="stories-cat-pill" data-category="business" onclick="selectCategory('business')">
-                    <span class="cat-icon">💼</span> Business
-                </button>
-                <button class="stories-cat-pill" data-category="cultural" onclick="selectCategory('cultural')">
-                    <span class="cat-icon">🎎</span> Culture
-                </button>
-            </div>
-        </div>
-        <div class="posts-grid" id="storiesGrid">
-        </div>
-        <div id="storiesEmpty" class="empty-state" style="display: none;">
-            <div class="empty-state-icon">📖</div>
-            <h3>No stories yet</h3>
-            <p>Be the first to share your China experience!</p>
-            <button class="btn btn-primary" onclick="navigateTo('newpost')">
-                <i class="fas fa-pen"></i> Share Your Story
-            </button>
-        </div>
-    </section>
-
-    <section class="explore-section" id="exploreSection">
-        <div id="citiesView">
-            <div class="cities-hero-banner">
-                <div class="cities-hero-blob cities-hero-blob-1"></div>
-                <div class="cities-hero-blob cities-hero-blob-2"></div>
-                <div class="cities-hero-blob cities-hero-blob-3"></div>
-                <div class="cities-hero-content">
-                    <div class="cities-hero-icon">🌏</div>
-                    <h1 class="cities-hero-title">Explore Cities</h1>
-                    <p class="cities-hero-subtitle">Discover authentic stories from every corner of China</p>
-                </div>
-            </div>
-            <div class="cities-grid" id="citiesGrid"></div>
-            <div id="citiesEmpty" class="empty-state" style="display: none;">
-                <div class="empty-state-icon">🏙️</div>
-                <h3>No cities available</h3>
-                <p>Check back later for city guides!</p>
-            </div>
-            <div class="city-routes-section">
-                <h3 class="city-routes-title"><i class="fas fa-route"></i> City Routes</h3>
-                <p class="city-routes-subtitle">Multi-city itineraries — explore China by train</p>
-                <div class="city-routes-grid" id="cityRoutesGrid"></div>
-            </div>
-        </div>
-        <div id="cityPostsView" style="display: none;">
-            <div class="city-hero-banner" id="cityHeroBanner">
-                <!-- Will be populated by JS -->
-            </div>
-            <div class="city-posts-container">
-                <div class="city-posts-header">
-                    <button class="back-btn" onclick="backToCities()">
-                        <i class="fas fa-arrow-left"></i> Back to Cities
-                    </button>
-                    <h2 id="cityPostsTitle"></h2>
-                </div>
-                <div id="cityGuidesContainer"></div>
-                <div class="posts-grid" id="cityPostsGrid"></div>
-            </div>
-        </div>
-    </section>
-
-    <main class="main-container" id="mainContainer">
-        <section class="posts-section" id="postsSection">
-            <div class="stories-title-row">
-                <h2><i class="fas fa-fire"></i> <span data-i18n="communityStories">Community Stories</span></h2>
-                <div class="sort-buttons-row">
-                    <button class="btn btn-secondary btn-sm sort-btn active" data-sort="latest" onclick="sortByLatest()">
-                        <i class="fas fa-clock"></i> <span>Latest</span>
-                    </button>
-                    <button class="btn btn-secondary btn-sm sort-btn" data-sort="popular" onclick="sortByPopular()">
-                        <i class="fas fa-fire"></i> <span>Popular</span>
-                    </button>
-                </div>
-            </div>
-            <div class="posts-grid" id="postsGrid">
-            </div>
-            <div id="postsEmpty" class="empty-state" style="display: none;">
-                <div class="empty-state-icon">📝</div>
-                <h3>No posts found</h3>
-                <p>Try a different category or be the first to post!</p>
-                <button class="btn btn-primary" onclick="navigateTo('newpost')">
-                    <i class="fas fa-pen"></i> Create Post
-                </button>
-            </div>
-        </section>
-
-        <aside class="sidebar">
-            <div class="sidebar-card">
-                <h3><i class="fas fa-chart-line"></i> <span data-i18n="trendingTopics">Trending Topics</span></h3>
-                <ul class="trending-list" id="trendingList2">
-                    <li class="trending-item loading"><i class="fas fa-spinner fa-spin"></i> Loading...</li>
-                </ul>
-            </div>
-
-            <div class="sidebar-card">
-                <h3><i class="fas fa-globe"></i> <span data-i18n="communityStats">Community Stats</span></h3>
-                <div class="community-stats">
-                    <div class="community-stat">
-                        <i class="fas fa-users"></i>
-                        <div class="community-stat-value" id="sidebarMembersCount2">0</div>
-                        <div class="community-stat-label" data-i18n="members">Members</div>
-                    </div>
-                    <div class="community-stat">
-                        <i class="fas fa-comments"></i>
-                        <div class="community-stat-value" id="sidebarCommentsCount2">0</div>
-                        <div class="community-stat-label" data-i18n="comments">Comments</div>
-                    </div>
-                    <div class="community-stat">
-                        <i class="fas fa-share"></i>
-                        <div class="community-stat-value" id="sidebarStoriesCount2">0</div>
-                        <div class="community-stat-label" data-i18n="storiesLabel">Stories</div>
-                    </div>
-                    <div class="community-stat">
-                        <i class="fas fa-flag"></i>
-                        <div class="community-stat-value" id="sidebarCountriesCount2">0</div>
-                        <div class="community-stat-label" data-i18n="countries">Countries</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="sidebar-card">
-                <h3><i class="fas fa-bolt"></i> <span data-i18n="quickLinks">Quick Links</span></h3>
-                <ul class="trending-list">
-                    <li class="trending-item" onclick="navigateTo('about')">
-                        <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
-                        <div class="trending-info">
-                            <div class="trending-title" data-i18n="newcomerGuide">Newcomer Guide</div>
-                            <div class="trending-posts" data-i18n="essentialTips">Essential tips for China</div>
-                        </div>
-                    </li>
-                    <li class="trending-item" onclick="navigateTo('explore')">
-                        <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
-                        <div class="trending-info">
-                            <div class="trending-title" data-i18n="exploreCities">Explore Cities</div>
-                            <div class="trending-posts" data-i18n="discoverStories">Discover stories by city</div>
-                        </div>
-                    </li>
-                    <li class="trending-item" onclick="navigateTo('topics')">
-                        <i class="fas fa-chevron-right" style="color: var(--accent-coral);"></i>
-                        <div class="trending-info">
-                            <div class="trending-title" data-i18n="browseTopicsLink">Browse Topics</div>
-                            <div class="trending-posts" data-i18n="allTopics">All topic categories</div>
-                        </div>
-                    </li>
-                    <li class="trending-item" onclick="window.open('https://chris-topher-code.github.io/-chinese-apps-guide/', '_blank')">
-                        <i class="fas fa-external-link-alt" style="color: var(--accent-coral);"></i>
-                        <div class="trending-info">
-                            <div class="trending-title" data-i18n="chineseAppsGuide">Chinese Apps Guide</div>
-                            <div class="trending-posts" data-i18n="chineseAppsGuideDesc">Essential guide to Chinese apps</div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </aside>
-    </main>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3>Cdiscovery</h3>
-                <p>A vibrant community connecting foreigners across China. Share your experiences, make friends, and discover the real China together.</p>
-            </div>
-            <div class="footer-links">
-                <h4 data-i18n="community">Community</h4>
-                <ul>
-                    <li><a href="#" onclick="handleNavClick('Stories'); return false;">Stories</a></li>
-                    <li><a href="#" onclick="navigateTo('explore'); return false;">Explore Cities</a></li>
-                    <li><a href="#" onclick="navigateTo('topics'); return false;">Topics</a></li>
-                    <li><a href="#" onclick="openNewPostModal(); return false;">New Post</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4 data-i18n="resources">Resources</h4>
-                <ul>
-                    <li><a href="#" onclick="navigateTo('about'); return false;">Newcomer Guide</a></li>
-                    <li><a href="#" onclick="filterByTopic('work'); return false;">Visa Information</a></li>
-                    <li><a href="#" onclick="filterByTopic('life'); return false;">Healthcare</a></li>
-                    <li><a href="#" onclick="navigateTo('topics'); return false;">Language Tips</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4 data-i18n="company">Company</h4>
-                <ul>
-                    <li><a href="#" onclick="navigateTo('about'); return false;" data-i18n="aboutUs">About Us</a></li>
-                    <li><a href="#" onclick="navigateTo('about'); return false;" data-i18n="contact">Contact</a></li>
-                    <li><a href="#" onclick="return false;">Privacy Policy</a></li>
-                    <li><a href="#" onclick="return false;">Terms of Service</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; 2026 Cdiscovery. All rights reserved.</span>
-            <div class="footer-social">
-                <a href="#" onclick="shareWebsite(); return false;" title="Share and invite friends"><i class="fas fa-user-plus"></i></a>
-                <a href="#" onclick="shareWebsite(); return false;"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-weibo"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <section class="page-section" id="topicsPage">
-        <div class="page-hero" id="topicsHero">
-            <h1>📚 Topics Guide</h1>
-            <p>Your comprehensive resource for living and exploring in China</p>
-        </div>
-
-        <!-- Apps Topic -->
-        <div class="info-section topic-card" data-topic="apps">
-            <div class="topic-cover" onclick="openTopicDetailPage('apps')">
-                <div class="topic-icon">📱</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Essential China Apps</h2>
-                <p class="topic-subtitle">Must-have apps for payments, transport, food, and daily life</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">Your phone is your lifeline in China. From payments to navigation, these apps will make your daily life 10x easier. Organized by category with setup guides.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('apps')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Apps & Tech</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('apps')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Life Topic -->
-        <div class="info-section topic-card" data-topic="life">
-            <div class="topic-cover" onclick="openTopicDetailPage('life')">
-                <div class="topic-icon">🌆</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Daily Life in China</h2>
-                <p class="topic-subtitle">Housing, healthcare, transportation, and practical tips</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">WeChat and Alipay handle everything from payments to metro cards. Housing costs ¥1,800-12,000/month by city. Public hospitals (¥50-200) vs international clinics (¥300-800).</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('life')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Lifestyle</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('life')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Hospital Topic -->
-        <div class="info-section topic-card" data-topic="hospital">
-            <div class="topic-cover" onclick="openTopicDetailPage('hospital')">
-                <div class="topic-icon">🏥</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Hospital & Healthcare</h2>
-                <p class="topic-subtitle">Seeing a doctor, prescriptions, and insurance for foreigners</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">China's public hospital system is efficient but different. Learn the step-by-step process: registration挂号, lab work化验, prescriptions处方, and how to get insurance reimbursement.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('hospital')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Healthcare</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('hospital')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Rent Topic -->
-        <div class="info-section topic-card" data-topic="rent">
-            <div class="topic-cover" onclick="openTopicDetailPage('rent')">
-                <div class="topic-icon">🏠</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Rent an Apartment</h2>
-                <p class="topic-subtitle">Housing market, rental platforms, and tenant rights for expats</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">Navigate Beijing's rental market with confidence. Compare top platforms like Ziroom, Lianjia, and Beike — plus English-friendly options like The Beijinger and Wellcee. Rent ranges from ¥3,500 in Wudaokou to ¥20,000+ in CBD.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('rent')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Housing</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('rent')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- SIM Card Topic -->
-        <div class="info-section topic-card" data-topic="sim">
-            <div class="topic-cover" onclick="openTopicDetailPage('sim')">
-                <div class="topic-icon">📱</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>SIM Card & Mobile Service</h2>
-                <p class="topic-subtitle">Getting a phone number, carrier plans, and registration rules</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">Your phone number is your identity in China — linked to WeChat, Alipay, and bank accounts. Learn about the one-SIM-per-passport rule, cross-region cancellation trap, and how to get set up with China Mobile, Unicom, or Telecom.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('sim')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Telecom</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('sim')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Cultural Differences Topic -->
-        <div class="info-section topic-card" data-topic="cultural">
-            <div class="topic-cover" onclick="openTopicDetailPage('cultural')">
-                <div class="topic-icon">🌏</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Cultural Differences</h2>
-                <p class="topic-subtitle">Understanding Chinese culture, customs, and social norms</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">Why do Chinese people love when foreigners wear hanfu? Why is "老外" not an insult? Decode shopping culture, dining etiquette, and halal food availability for religious visitors.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('cultural')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Culture</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('cultural')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Travel Topic -->
-        <div class="info-section topic-card" data-topic="travel">
-            <div class="topic-cover" onclick="openTopicDetailPage('travel')">
-                <div class="topic-icon">🗺️</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Travel & Adventure</h2>
-                <p class="topic-subtitle">Hidden gems, travel tips, and must-visit destinations</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">China spans 42,000+ km of high-speed rail—world's longest—connecting UNESCO sites from the Great Wall to the Terracotta Army. 144-hour visa-free transit available.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('travel')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Travel</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('travel')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Study Topic -->
-        <div class="info-section topic-card" data-topic="study">
-            <div class="topic-cover" onclick="openTopicDetailPage('study')">
-                <div class="topic-icon">📚</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Study in China</h2>
-                <p class="topic-subtitle">University experiences, study tips, and academic resources</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">China welcomes 200,000+ international students annually. Explore scholarships, application processes, and campus life at top universities.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('study')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Education</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('study')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- School Topic -->
-        <div class="info-section topic-card" data-topic="school">
-            <div class="topic-cover" onclick="openTopicDetailPage('school')">
-                <div class="topic-icon">🎒</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>School Life in China</h2>
-                <p class="topic-subtitle">Campus life, K-12 education, and student experiences</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">Campus life blends traditional Chinese values with modern academic excellence—100+ student organizations, subsidized meals (¥15-30/day), and dorms from ¥800/year.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('school')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Education</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('school')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Work Topic -->
-        <div class="info-section topic-card" data-topic="work">
-            <div class="topic-cover" onclick="openTopicDetailPage('work')">
-                <div class="topic-icon">⚡</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Working in China</h2>
-                <p class="topic-subtitle">Career opportunities, work culture, and professional development</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">China's job market offers expat salaries of ¥20,000-80,000/month in tech, finance, and education—with Z-visa processing taking 5-10 working days.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('work')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Career</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('work')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Visa Topic -->
-        <div class="info-section topic-card" data-topic="visa">
-            <div class="topic-cover" onclick="openTopicDetailPage('visa')">
-                <div class="topic-icon">✈️</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Visa & Work Permits</h2>
-                <p class="topic-subtitle">Visa processes, requirements, and legal information</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">China offers L (tourist), M (business), X (student), Z (work), and R (talent) visas—with standard processing taking 4-5 days and 144-hour transit at major airports.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('visa')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Travel</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('visa')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Food Topic -->
-        <div class="info-section topic-card" data-topic="food">
-            <div class="topic-cover" onclick="openTopicDetailPage('food')">
-                <div class="topic-icon">🥢</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Food & Dining</h2>
-                <p class="topic-subtitle">Chinese cuisine, restaurant recommendations, cooking tips</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">Chinese cuisine spans 8 regional traditions—from Cantonese dim sum to Sichuan's mala (numbing-spicy) dishes—with street food at ¥10-30 and fine dining at ¥300-1000+.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('food')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Food</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('food')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Entertainment Topic -->
-        <div class="info-section topic-card" data-topic="entertainment">
-            <div class="topic-cover" onclick="openTopicDetailPage('entertainment')">
-                <div class="topic-icon">🎬</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Entertainment & Fun</h2>
-                <p class="topic-subtitle">Movies, nightlife, festivals, and activities</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">Major festivals (Chinese New Year, Mid-Autumn) and nightlife districts (Shanghai Bund, Beijing Sanlitun) offer entertainment—from KTV (¥30-80/hr) to traditional opera.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('entertainment')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Entertainment</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('entertainment')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Business Topic -->
-        <div class="info-section topic-card" data-topic="business">
-            <div class="topic-cover" onclick="openTopicDetailPage('business')">
-                <div class="topic-icon">🚀</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Business & Entrepreneurship</h2>
-                <p class="topic-subtitle">Startups, networking, and business culture</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">China ranks #2 globally for VC investment—with startup hubs in Shenzhen (hardware), Beijing (AI), and Shanghai (fintech). Free trade zones offer 15% corporate tax.</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('business')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Business</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('business')">💬 View Articles →</span>
-            </div>
-        </div>
-
-        <!-- Language Topic -->
-        <div class="info-section topic-card" data-topic="language">
-            <div class="topic-cover" onclick="openTopicDetailPage('language')">
-                <div class="topic-icon">💬</div>
-                <span class="topic-badge">📖 Guide</span>
-                <h2>Language Learning</h2>
-                <p class="topic-subtitle">Mandarin tips, resources, and language exchange</p>
-            </div>
-            <div class="topic-body">
-                <p class="topic-teaser">HSK exam has 6 levels (basic to advanced). Apps like HelloChinese, Du Chinese, and Pleco supplement textbooks from Beijing Language University. Language exchange via italki (¥60-200/hr).</p>
-                <button class="topic-read-btn" onclick="openTopicDetailPage('language')">Read Full Guide →</button>
-            </div>
-            <div class="topic-footer">
-                <span class="topic-tag">Language</span>
-                <span class="topic-related-link" onclick="openTopicDetailPage('language')">💬 View Articles →</span>
-            </div>
-        </div>
-
-    </section>
-
-
-
-    <!-- Topic Articles Modal -->
-    <div id="topicArticlesModal" class="topic-articles-modal">
-        <div class="topic-articles-modal-inner">
-            <div class="topic-articles-modal-header">
-                <button class="topic-articles-back" onclick="closeTopicArticlesModal()">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <div class="topic-articles-modal-title" id="topicArticlesModalTitle">Topic</div>
-            </div>
-            <div class="topic-articles-modal-body" id="topicArticlesModalBody">
-                <!-- Will be populated by JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Article Reader Modal -->
-    <div id="articleReaderModal" class="article-reader-modal">
-        <div class="article-reader-inner">
-            <div class="article-reader-header">
-                <button class="article-reader-back" onclick="closeArticleReader()">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <div class="article-reader-title" id="articleReaderTitle">Article</div>
-                <button class="article-reader-pdf" onclick="if(window._currentTopicContext) downloadArticlePDF(window._currentTopicContext.topicName, window._currentTopicContext.articleIndex)" title="Download PDF">
-                    <i class="fas fa-file-pdf"></i>
-                </button>
-            </div>
-            <div class="article-reader-layout">
-                <div class="article-reader-body" id="articleReaderBody">
-                    <!-- Will be populated by JS -->
-                </div>
-                <div class="article-reader-sidebar" id="articleReaderSidebar">
-                    <div class="topic-discussion-header">
-                        <h3><i class="fas fa-comments"></i> Discussion</h3>
-                        <span class="topic-discussion-count" id="topicDiscussionCount">0</span>
-                    </div>
-                    <div class="topic-discussion-list" id="topicDiscussionList">
-                        <div class="topic-discussion-empty">No comments yet</div>
-                    </div>
-                    <div class="topic-discussion-input" id="topicDiscussionInput">
-                        <input type="text" id="topicCommentInput" placeholder="Join the discussion..." onkeydown="if(event.key==='Enter') submitTopicComment()">
-                        <button onclick="submitTopicComment()"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <section class="page-section" id="aboutPage">
-        <div class="page-hero" id="aboutHero">
-            <h1>About Cdiscovery</h1>
-            <p>Connecting foreigners across China through authentic stories and shared experiences</p>
-        </div>
-        <div class="about-grid">
-            <div class="about-card">
-                <h3><i class="fas fa-heart"></i> Our Mission</h3>
-                <p>Cdiscovery is a vibrant community platform designed to connect foreigners living, working, studying, and traveling across China. We believe in the power of authentic storytelling to bridge cultures, foster understanding, and create lasting connections.</p>
-                <p style="margin-top: 12px;">Founded in 2024, we've grown into a thriving community spanning 156 cities with members from over 89 countries.</p>
-            </div>
-            <div class="about-card">
-                <h3><i class="fas fa-star"></i> What We Offer</h3>
-                <ul>
-                    <li><i class="fas fa-check"></i> Share your China experiences and stories</li>
-                    <li><i class="fas fa-check"></i> Connect with foreigners in your city</li>
-                    <li><i class="fas fa-check"></i> Discover local tips and hidden gems</li>
-                    <li><i class="fas fa-check"></i> Get answers to your China questions</li>
-                    <li><i class="fas fa-check"></i> Join topic-based discussions</li>
-                    <li><i class="fas fa-check"></i> Access curated resources and guides</li>
-                </ul>
-            </div>
-            <div class="about-card">
-                <h3><i class="fas fa-users"></i> Community Guidelines</h3>
-                <ul>
-                    <li><i class="fas fa-hand-holding-heart"></i> Be respectful and inclusive</li>
-                    <li><i class="fas fa-shield-alt"></i> Share authentic experiences</li>
-                    <li><i class="fas fa-lock"></i> Protect privacy and personal info</li>
-                    <li><i class="fas fa-ban"></i> No spam or self-promotion</li>
-                    <li><i class="fas fa-flag"></i> Report inappropriate content</li>
-                    <li><i class="fas fa-lightbulb"></i> Help newcomers feel welcome</li>
-                </ul>
-            </div>
-            <div class="about-card">
-                <h3><i class="fas fa-envelope"></i> Get Involved</h3>
-                <p>Want to contribute to Cdiscovery? We're always looking for community ambassadors, content creators, and volunteers to help grow our platform.</p>
-                <div class="about-stats-row">
-                    <div class="about-stat">
-                        <div class="about-stat-num">12.8K</div>
-                        <div class="about-stat-label">Members</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="about-stat-num">8.2K</div>
-                        <div class="about-stat-label">Stories</div>
-                    </div>
-                    <div class="about-stat">
-                        <div class="about-stat-num">89</div>
-                        <div class="about-stat-label">Countries</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="profile-page" id="profilePage">
-        <div class="profile-header-card" id="profileHeaderCard">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Profile" class="profile-avatar-lg profile-avatar-upload" id="profileAvatar" onclick="triggerAvatarUpload()" title="Click to upload avatar" loading="lazy">
-            <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;" onchange="handleAvatarUpload(this)">
-            <div class="profile-info">
-                <div class="profile-name" id="profileDisplayName">Guest User</div>
-                <div class="profile-meta">
-                    <span><i class="fas fa-globe"></i> <span id="profileCountry">Unknown</span></span>
-                    <span><i class="fas fa-user-tag"></i> <span id="profileIdentity">Member</span></span>
-                    <span><i class="fas fa-calendar"></i> <span data-i18n="joinedRecently">Joined recently</span></span>
-                </div>
-                <div class="profile-stats-row">
-                    <div class="profile-stat">
-                        <div class="profile-stat-num" id="profilePostsCount">0</div>
-                        <div class="profile-stat-label" data-i18n="posts">Posts</div>
-                    </div>
-                    <div class="profile-stat">
-                        <div class="profile-stat-num" id="profileLikesCount">0</div>
-                        <div class="profile-stat-label" data-i18n="likesReceived">Likes Received</div>
-                    </div>
-                    <div class="profile-stat">
-                        <div class="profile-stat-num" id="profileCommentsCount">0</div>
-                        <div class="profile-stat-label" data-i18n="commentsMade">Comments</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="profile-tabs">
-            <button class="profile-tab active" data-ptab="myposts" onclick="switchProfileTab('myposts')">
-                <i class="fas fa-file-alt"></i> <span data-i18n="myPosts">My Posts</span>
-            </button>
-            <button class="profile-tab" data-ptab="mygroups" onclick="switchProfileTab('mygroups'); loadUserGroups();">
-                <i class="fas fa-users"></i> <span>My Groups</span>
-            </button>
-            <button class="profile-tab" data-ptab="edit" onclick="switchProfileTab('edit')">
-                <i class="fas fa-cog"></i> <span data-i18n="editProfile">Edit Profile</span>
-            </button>
-            <button class="profile-tab" data-ptab="settings" onclick="switchProfileTab('settings')">
-                <i class="fas fa-sliders-h"></i> <span data-i18n="settings">Settings</span>
-            </button>
-        </div>
-
-        <div id="profileTabMyposts" class="profile-tab-content">
-            <div class="my-posts-list" id="myPostsList">
-                <div class="empty-profile">
-                    <i class="fas fa-pen-nib"></i>
-                    <h3 data-i18n="noPostsYet">No posts yet</h3>
-                    <p data-i18n="startSharing">Start sharing your story!</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="profileTabMygroups" class="profile-tab-content">
-            <h3 class="profile-section-title"><i class="fas fa-users"></i> My Group Chats</h3>
-            <div class="my-groups-list" id="myGroupsList">
-                <div class="empty-profile">
-                    <i class="fas fa-comments"></i>
-                    <h3>No groups yet</h3>
-                    <p>Join group chats based on your country and identity!</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="profileTabEdit" class="profile-tab-content edit-form">
-            <h3 class="profile-section-title"><i class="fas fa-user-edit"></i> <span data-i18n="editProfile">Edit Profile</span></h3>
-            <form id="editProfileForm">
-                <div class="form-group">
-                    <label data-i18n="displayName">Display Name</label>
-                    <input type="text" id="editName" placeholder="Your name">
-                </div>
-                <div class="form-group">
-                    <label data-i18n="countryOrigin">Country of Origin</label>
-                    <select id="editCountry">
-                        <option value="">Select your country...</option>
-                        <option value="US">United States</option>
-                        <option value="UK">United Kingdom</option>
-                        <option value="CA">Canada</option>
-                        <option value="AU">Australia</option>
-                        <option value="DE">Germany</option>
-                        <option value="FR">France</option>
-                        <option value="JP">Japan</option>
-                        <option value="KR">South Korea</option>
-                        <option value="IN">India</option>
-                        <option value="BR">Brazil</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label data-i18n="identity">Identity</label>
-                    <select id="editIdentity">
-                        <option value="">Select your identity...</option>
-                        <option value="student">Student</option>
-                        <option value="worker">Worker</option>
-                        <option value="tourist">Tourist</option>
-                        <option value="business">Business</option>
-                        <option value="researcher">Researcher</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label data-i18n="bio">Bio</label>
-                    <textarea class="composer-textarea" id="editBio" placeholder="Tell us about yourself..." style="min-height: 80px;"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="margin-top: 10px;" data-i18n="saveChanges">Save Changes</button>
-            </form>
-        </div>
-
-        <div id="profileTabSettings" class="profile-tab-content edit-form">
-            <h3 class="profile-section-title"><i class="fas fa-image"></i> <span data-i18n="backgroundSettings">Background Image</span></h3>
-            <div class="bg-settings-panel">
-                <div class="bg-preview-box">
-                    <img src="222222.png" alt="" class="bg-preview-img" id="bgPreviewImg">
-                </div>
-                <div class="bg-controls">
-                    <button class="btn btn-outline bg-upload-btn" onclick="triggerBgUpload()" style="justify-content: center; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-upload"></i> <span data-i18n="uploadBackground">Upload Background</span>
-                    </button>
-                    <button class="btn btn-outline bg-reset-btn" id="bgResetBtn" onclick="resetBgImage()" style="justify-content: center; display: flex; align-items: center; gap: 8px; display: none;">
-                        <i class="fas fa-undo"></i> <span data-i18n="resetBackground">Reset to Default</span>
-                    </button>
-                    <input type="file" id="bgUploadInput" accept="image/*" style="display: none;" onchange="handleBgUpload(this)">
-                    <div class="bg-opacity-control">
-                        <label><i class="fas fa-adjust"></i> <span data-i18n="opacity">Opacity</span>: <span id="opacityValue">30</span>%</label>
-                        <input type="range" id="bgOpacitySlider" min="5" max="80" value="30" oninput="updateBgOpacity(this.value)">
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="profile-section-title" style="margin-top: 24px;"><i class="fas fa-globe"></i> <span>Language</span></h3>
-            <div class="profile-lang-switch">
-                <button class="lang-btn active" data-lang="en" onclick="setLang('en')">English</button>
-                <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">Français</button>
-            </div>
-
-            <h3 class="profile-section-title" style="margin-top: 24px;"><i class="fas fa-shield-alt"></i> <span data-i18n="accountSettings">Account Settings</span></h3>
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-                <!-- <!-- <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px;" onclick="showToast(t('passwordChanged'))">
-                    <i class="fas fa-key"></i> <span data-i18n="changePassword">Change Password</span>
-                </button> --> -->
-                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; background: var(--accent-gradient); border: none; color: white;" onclick="copyReferralLink()">
-                    <i class="fas fa-user-plus"></i> <span>Invite Friends</span>
-                </button>
-                <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="handleLogout()">
-                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="logOut">Log Out</span>
-                </button>
-                <!-- <button class="btn btn-outline" style="justify-content: flex-start; display: flex; align-items: center; gap: 10px; color: #e74c3c; border-color: rgba(231,76,60,0.3);" onclick="showToast(t('accountDeleted'))">
-                    <i class="fas fa-trash-alt"></i> <span data-i18n="deleteAccount">Delete Account</span>
-                </button> -->
-            </div>
-        </div>
-    </section>
-
-    <!-- User Profile Page (Other Users) -->
-    <section class="user-profile-page" id="userProfilePage">
-        <div class="user-profile-header">
-            <img src="" alt="" class="user-profile-avatar" id="userProfileAvatar">
-            <div class="user-profile-info">
-                <div class="user-profile-name" id="userProfileName"></div>
-                <div class="user-profile-meta">
-                    <span><i class="fas fa-globe"></i> <span id="userProfileCountry"></span></span>
-                    <span><i class="fas fa-user-tag"></i> <span id="userProfileIdentity"></span></span>
-                </div>
-                <div class="user-profile-bio" id="userProfileBio"></div>
-                <div class="user-profile-stats">
-                    <div class="user-profile-stat">
-                        <div class="user-profile-stat-num" id="userProfilePostsCount">0</div>
-                        <div class="user-profile-stat-label" data-i18n="posts">Posts</div>
-                    </div>
-                    <div class="user-profile-stat">
-                        <div class="user-profile-stat-num" id="userProfileLikesCount">0</div>
-                        <div class="user-profile-stat-label" data-i18n="likesReceived">Likes Received</div>
-                    </div>
-                </div>
-            </div>
-            <div class="user-profile-actions">
-                <button class="btn-message" id="btnSendMessage" onclick="openMessageModal()">
-                    <i class="fas fa-envelope"></i> <span data-i18n="sendMessage">Send Message</span>
-                </button>
-                <button class="btn-back-profile" onclick="navigateBackFromUser()">
-                    <i class="fas fa-arrow-left"></i> <span data-i18n="back">Back</span>
-                </button>
-            </div>
-        </div>
-        <div class="user-profile-posts-title"><i class="fas fa-file-alt"></i> <span data-i18n="userPosts">Posts</span></div>
-        <div class="user-posts-grid" id="userPostsGrid"></div>
-    </section>
-
-    <!-- Message Modal -->
-    <div class="msg-modal-overlay" id="msgModalOverlay">
-        <div class="msg-modal">
-            <div class="msg-modal-header">
-                <img src="" alt="" class="msg-modal-header-avatar" id="msgModalAvatar">
-                <div class="msg-modal-header-info">
-                    <div class="msg-modal-header-name" id="msgModalName"></div>
-                    <div class="msg-modal-header-status" data-i18n="directMessage">Direct Message</div>
-                </div>
-                <button class="msg-modal-close" onclick="closeMessageModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="msg-body" id="msgBody">
-                <div class="msg-empty" id="msgEmpty">
-                    <div>
-                        <i class="fas fa-paper-plane"></i>
-                        <span data-i18n="noMessages">No messages yet. Say hello!</span>
-                    </div>
-                </div>
-            </div>
-            <div class="msg-input-area">
-                <input type="file" id="msgImageInput" accept="image/*" style="display:none" onchange="handleMsgImageSelect(this)">
-                <button class="msg-img-btn" id="msgImgBtn" onclick="document.getElementById('msgImageInput').click()" title="Send Image">
-                    <i class="fas fa-image"></i>
-                </button>
-                <input type="text" class="msg-input" id="msgInput" data-i18n-placeholder="typeMessage" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMessage()">
-                <button class="msg-send-btn" id="msgSendBtn" onclick="sendMessage()">
-                    <i class="fas fa-paper-plane"></i> <span data-i18n="send">Send</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Group Chat Page -->
-    <section class="group-chat-page" id="groupChatPage">
-        <div class="gc-layout">
-            <!-- Overlay for sidebar -->
-            <div class="gc-sidebar-overlay" id="gcSidebarOverlay" onclick="toggleGcSidebar()"></div>
-            <!-- Left Sidebar: Group List -->
-            <aside class="gc-sidebar" id="gcSidebar">
-                <div class="gc-sidebar-header">
-                    <i class="fas fa-users"></i>
-                    <span data-i18n="groupChat">Group Chat</span>
-                </div>
-                <div class="gc-sidebar-search">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="gcSearchInput" data-i18n-placeholder="searchGroups" placeholder="Search groups..." oninput="filterGroupList(this.value)">
-                </div>
-                <div class="gc-group-list" id="gcGroupList">
-                    <!-- Group items populated by JS -->
-                </div>
-            </aside>
-            <!-- Right: Chat Area -->
-            <div class="gc-main">
-                <div class="gc-chat-header" id="gcChatHeader">
-                    <div class="gc-chat-header-info">
-                        <div class="gc-chat-title" id="gcChatTitle"><i class="fas fa-comments"></i> <span data-i18n="selectGroup">Select a group chat</span></div>
-                        <div class="gc-chat-subtitle" id="gcChatSubtitle"></div>
-                    </div>
-                    <button class="gc-toggle-btn" id="gcToggleBtn" onclick="toggleGcSidebar()">
-                        <i class="fas fa-users"></i> <span>Select Group</span>
-                    </button>
-                </div>
-                <div class="gc-chat-body" id="gcChatBody">
-                    <div class="gc-placeholder" id="gcPlaceholder">
-                        <i class="fas fa-hand-pointer"></i>
-                        <p data-i18n="selectGroup">Select a group chat from the left to start chatting</p>
-                    </div>
-                </div>
-                <div class="gc-input-area" id="gcInputArea" style="display:none;">
-                    <input type="file" id="groupChatImageInput" accept="image/*" style="display:none" onchange="handleGroupImageSelect(this)">
-                    <button class="msg-img-btn" onclick="document.getElementById('groupChatImageInput').click()" title="Send Image">
-                        <i class="fas fa-image"></i>
-                    </button>
-                    <input type="text" class="msg-input" id="groupChatInput" data-i18n-placeholder="typeMessage" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendGroupMessage()">
-                    <button class="msg-send-btn" onclick="sendGroupMessage()">
-                        <i class="fas fa-paper-plane"></i> <span data-i18n="send">Send</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Group Members Modal -->
-    <div class="gm-overlay" id="gmOverlay">
-        <div class="gm-modal">
-            <div class="gm-header">
-                <h4 id="gmTitle">Group Members</h4>
-                <button class="gm-close" onclick="closeGroupMembers()"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="gm-list" id="gmList">
-                <div style="text-align:center;padding:20px;color:var(--text-muted)"><i class="fas fa-spinner fa-spin"></i></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="authModal">
-        <div class="modal">
-            <button class="modal-close" id="modalClose">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-header">
-                <h2 id="modalTitle">Welcome Back</h2>
-                <p id="modalSubtitle">Log in to continue your China journey</p>
-            </div>
-            <div class="modal-tabs">
-                <div class="modal-tab active" data-tab="login" data-i18n="logIn">Log In</div>
-                <div class="modal-tab" data-tab="register" data-i18n="createAccount">Register</div>
-            </div>
-            <div class="modal-body">
-                <form id="authForm">
-                    <div class="form-group">
-                        <label data-i18n="emailAddress">Email Address</label>
-                        <input type="email" id="emailInput" placeholder="you@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="password">Password</label>
-                        <input type="password" id="passwordInput" placeholder="Enter your password" required>
-                    </div>
-                    <div class="form-group" id="confirmPasswordGroup" style="display: none;">
-                        <label data-i18n="confirmPassword">Confirm Password</label>
-                        <input type="password" placeholder="Confirm your password">
-                    </div>
-                    <div class="form-group" id="countryGroup" style="display: none;">
-                        <label data-i18n="countryOrigin">Country of Origin</label>
-                        <select id="countrySelect">
-                            <option value="" data-i18n="selectCountry">Select your country...</option>
-                            <option value="US">United States</option>
-                            <option value="UK">United Kingdom</option>
-                            <option value="CA">Canada</option>
-                            <option value="AU">Australia</option>
-                            <option value="DE">Germany</option>
-                            <option value="FR">France</option>
-                            <option value="ES">Spain</option>
-                            <option value="IT">Italy</option>
-                            <option value="NL">Netherlands</option>
-                            <option value="BE">Belgium</option>
-                            <option value="CH">Switzerland</option>
-                            <option value="AT">Austria</option>
-                            <option value="SE">Sweden</option>
-                            <option value="NO">Norway</option>
-                            <option value="DK">Denmark</option>
-                            <option value="FI">Finland</option>
-                            <option value="PL">Poland</option>
-                            <option value="CZ">Czech Republic</option>
-                            <option value="HU">Hungary</option>
-                            <option value="RO">Romania</option>
-                            <option value="RU">Russia</option>
-                            <option value="UA">Ukraine</option>
-                            <option value="TR">Turkey</option>
-                            <option value="JP">Japan</option>
-                            <option value="KR">South Korea</option>
-                            <option value="IN">India</option>
-                            <option value="SG">Singapore</option>
-                            <option value="MY">Malaysia</option>
-                            <option value="TH">Thailand</option>
-                            <option value="VN">Vietnam</option>
-                            <option value="PH">Philippines</option>
-                            <option value="ID">Indonesia</option>
-                            <option value="BR">Brazil</option>
-                            <option value="MX">Mexico</option>
-                            <option value="AR">Argentina</option>
-                            <option value="CL">Chile</option>
-                            <option value="CO">Colombia</option>
-                            <option value="ZA">South Africa</option>
-                            <option value="NG">Nigeria</option>
-                            <option value="EG">Egypt</option>
-                            <option value="AE">United Arab Emirates</option>
-                            <option value="SA">Saudi Arabia</option>
-                            <option value="IL">Israel</option>
-                            <option value="NZ">New Zealand</option>
-                            <option value="IE">Ireland</option>
-                            <option value="PT">Portugal</option>
-                            <option value="GR">Greece</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group" id="identityGroup" style="display: none;">
-                        <label data-i18n="whatDescribes">What best describes you?</label>
-                        <div class="identity-options">
-                            <div class="identity-card" data-identity="student">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span data-i18n="student">Student</span>
-                            </div>
-                            <div class="identity-card" data-identity="worker">
-                                <i class="fas fa-briefcase"></i>
-                                <span data-i18n="worker">Worker</span>
-                            </div>
-                            <div class="identity-card" data-identity="tourist">
-                                <i class="fas fa-camera"></i>
-                                <span data-i18n="tourist">Tourist</span>
-                            </div>
-                            <div class="identity-card" data-identity="business">
-                                <i class="fas fa-chart-line"></i>
-                                <span data-i18n="business">Business</span>
-                            </div>
-                            <div class="identity-card" data-identity="researcher">
-                                <i class="fas fa-microscope"></i>
-                                <span data-i18n="researcher">Researcher</span>
-                            </div>
-                            <div class="identity-card" data-identity="other">
-                                <i class="fas fa-ellipsis-h"></i>
-                                <span data-i18n="other">Other</span>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary modal-btn" id="submitBtn">Log In</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <section class="new-post-page" id="newPostPage">
-        <!-- Type Selector -->
-        <div class="post-type-selector" id="postTypeSelector">
-            <div class="post-type-header">
-                <button class="back-btn" onclick="navigateTo('home')">
-                    <i class="fas fa-arrow-left"></i> <span>Back</span>
-                </button>
-                <h2>What do you want to share?</h2>
-                <p>Choose a format for your content</p>
-            </div>
-            <div class="post-type-cards">
-                <div class="post-type-card" onclick="selectPostType('story')">
-                    <div class="post-type-icon">💬</div>
-                    <h3>Story</h3>
-                    <p>Quick thoughts, questions, discussions, or share your daily moments</p>
-                    <span class="post-type-hint">Short & casual</span>
-                </div>
-                <div class="post-type-card" onclick="selectPostType('topics')">
-                    <div class="post-type-icon">📝</div>
-                    <h3>Topics</h3>
-                    <p>In-depth guides, detailed experiences, or long-form articles about China</p>
-                    <span class="post-type-hint">Long & detailed</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Post Form (hidden until type selected) -->
-        <div class="new-post-card" id="postFormCard" style="display:none;">
-            <div class="new-post-header">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Guest" alt="Avatar" id="newPostAvatar">
-                <div class="new-post-header-info">
-                    <h3 id="postFormTitle" data-i18n="shareYourStory">Share Your Story</h3>
-                    <p id="postFormSubtitle" data-i18n="tellCommunity">Tell the community about your experience in China</p>
-                </div>
-                <button class="back-btn" onclick="backToTypeSelector()" style="margin-left:auto;">
-                    <i class="fas fa-arrow-left"></i> <span>Back</span>
-                </button>
-            </div>
-            <form id="newPostForm">
-                <!-- Title input (Topics mode only) -->
-                <input type="text" class="new-post-title-input" id="postTitle" placeholder="Article title..." style="display:none;" maxlength="200">
-                <textarea class="new-post-textarea" id="postContent" data-i18n-placeholder="postPlaceholder" placeholder="Share your story..." required maxlength="5000" oninput="updateCharCount(this)"></textarea>
-                <div class="char-count" id="charCount">0 / 5000</div>
-                <div class="new-post-preview" id="imagePreview">
-                    <img src="" alt="Preview" id="previewImg">
-                    <button type="button" class="remove-img" onclick="removeImage()"><i class="fas fa-times"></i></button>
-                </div>
-                <div class="new-post-bottom">
-                    <div class="new-post-options">
-                        <select class="new-post-select" id="postCategory">
-                            <option value="travel">🧳 Travel</option>
-                            <option value="study">🎓 Study</option>
-                            <option value="school">🏫 School</option>
-                            <option value="work">👷 Work</option>
-                            <option value="visa">📋 Visa</option>
-                            <option value="entertainment">🎭 Entertainment</option>
-                            <option value="food">🍜 Food</option>
-                            <option value="life">🏙️ Life</option>
-                            <option value="business">💼 Business</option>
-                            <option value="rent">🏠 Rent</option>
-                            <option value="sim">📱 SIM Card</option>
-                        </select>
-                        <select class="new-post-select" id="postCity">
-                            <option value="unknown">📍 Select city...</option>
-                            <option value="beijing">🏯 Beijing</option>
-                            <option value="shanghai">🌆 Shanghai</option>
-                            <option value="guangzhou">🏙️ Guangzhou</option>
-                            <option value="shenzhen">🚀 Shenzhen</option>
-                            <option value="chengdu">🐼 Chengdu</option>
-                            <option value="hangzhou">🏝️ Hangzhou</option>
-                            <option value="xian">🏺 Xi'an</option>
-                            <option value="suzhou">🌸 Suzhou</option>
-                            <option value="wuhan">🌉 Wuhan</option>
-                            <option value="chongqing">🌶️ Chongqing</option>
-                            <option value="nanjing">🦚 Nanjing</option>
-                            <option value="tianjin">⚓ Tianjin</option>
-                        </select>
-                        <select class="new-post-select" id="postTopic" style="display:none;">
-                            <option value="">📌 Select topic...</option>
-                            <option value="study">🎓 Student Life</option>
-                            <option value="work">👷 Working in China</option>
-                            <option value="visa">📋 Visa & Work Permits</option>
-                            <option value="travel">🧳 Travel & Adventure</option>
-                            <option value="food">🍜 Food & Dining</option>
-                            <option value="life">🏙️ Daily Life</option>
-                            <option value="entertainment">🎭 Entertainment</option>
-                            <option value="business">💼 Business & Entrepreneurship</option>
-                            <option value="language">🗣️ Language Learning</option>
-                            <option value="rent">🏠 Rent an Apartment</option>
-                            <option value="sim">📱 SIM Card</option>
-                        </select>
-                        <label class="new-post-img-btn" for="imageUpload">
-                            <i class="fas fa-image"></i> <span data-i18n="addPhoto">Add Photo</span>
-                        </label>
-                        <input type="file" id="imageUpload" accept="image/*" style="display:none" onchange="previewImage(this)">
-                    </div>
-                    <button type="submit" class="btn btn-primary new-post-submit" data-i18n="postBtn">Post</button>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <div class="toast-container" id="toastContainer"></div>
-
-    <div id="topicDetailModal" class="modal-overlay" onclick="closeTopicModal()">
-        <div class="topic-modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close-btn" onclick="closeTopicModal()"><i class="fas fa-times"></i></button>
-            <div id="topicModalHeader"></div>
-            <div id="topicModalGuide"></div>
-            <div id="topicModalStories">
-                <h3>💬 Community Q&A</h3>
-                <div id="topicStoriesList" class="topic-stories-grid"></div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="pdf-generator.js?v=3"></script>
-    <script src="app.js?v=7"></script>
-    <!-- Auto-play Sound Effect -->
-    <script>
-        (function() {
-            var clickAudio = new Audio('click-sound.mp3');
-            clickAudio.preload = 'auto';
-            clickAudio.volume = 1.0;
-
-            function tryPlay() {
-                clickAudio.play().catch(function() {});
-            }
-
-            if (document.readyState === 'complete') {
-                tryPlay();
-            } else {
-                window.addEventListener('load', tryPlay);
-            }
-
-            document.addEventListener('click', function onFirstClick() {
-                tryPlay();
-                document.removeEventListener('click', onFirstClick);
-            });
-        })();
-    </script>
 <script>
-// Hero particles effect
-(function() {
-    const canvas = document.getElementById('heroParticles');
+(function () {
+    document.querySelectorAll('.ft-card').forEach(card => {
+        card.addEventListener('click', e => {
+            const rect = card.getBoundingClientRect();
+            const r = document.createElement('span');
+            const size = Math.max(rect.width, rect.height);
+            r.className = 'ripple';
+            r.style.width = r.style.height = size + 'px';
+            r.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            r.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
+            card.appendChild(r);
+            setTimeout(() => r.remove(), 650);
+        });
+    });
+
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+            if (en.isIntersecting) {
+                en.target.classList.add('in-view');
+                io.unobserve(en.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    document.querySelectorAll('.stat-row .val').forEach(el => {
+        const raw = el.textContent.trim();
+        const m = raw.match(/^(\d+(\.\d+)?)(.*)$/);
+        if (!m) return;
+        const target = parseFloat(m[1]);
+        const suffix = m[3] || '';
+        const decimals = (m[1].split('.')[1] || '').length;
+        const dur = 1100;
+        const start = performance.now() + 900;
+        function tick(now) {
+            const t = Math.min(1, Math.max(0, (now - start) / dur));
+            const eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = (target * eased).toFixed(decimals) + suffix;
+            if (t < 1) requestAnimationFrame(tick);
+            else el.textContent = raw;
+        }
+        el.textContent = '0' + suffix;
+        requestAnimationFrame(tick);
+    });
+})();
+
+/* ============================================================
+   COOL++ JS — constellation canvas, boot sequence, glitch text
+   ============================================================ */
+
+/* ----- Constellation / particle network ----- */
+(function () {
+    const canvas = document.getElementById('constellation');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    let w = 0, h = 0;
     let particles = [];
-    let animId;
-    
+    let mouse = { x: -1000, y: -1000 };
+
     function resize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seed();
     }
-    
-    function createParticles() {
-        particles = [];
-        const count = Math.floor((canvas.width * canvas.height) / 15000);
-        for (let i = 0; i < count; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: (Math.random() - 0.5) * 0.3,
-                size: Math.random() * 1.5 + 0.5,
-                opacity: Math.random() * 0.5 + 0.1
-            });
-        }
+
+    function seed() {
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const count = isMobile
+            ? Math.min(35, Math.floor((w * h) / 32000))
+            : Math.min(110, Math.floor((w * h) / 14000));
+        particles = Array.from({ length: count }, () => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            r: Math.random() * 1.4 + 0.4
+        }));
     }
-    
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 45, 85, ${p.opacity})`;
-            ctx.fill();
-            
+
+    function step() {
+        ctx.clearRect(0, 0, w, h);
+
+        for (const p of particles) {
             p.x += p.vx;
             p.y += p.vy;
-            
-            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-        });
-        
-        // Draw connections
+            if (p.x < 0 || p.x > w) p.vx *= -1;
+            if (p.y < 0 || p.y > h) p.vy *= -1;
+
+            /* mouse repulsion */
+            const dx = p.x - mouse.x, dy = p.y - mouse.y;
+            const d2 = dx*dx + dy*dy;
+            if (d2 < 14400) {
+                const d = Math.sqrt(d2) || 1;
+                p.x += (dx / d) * 0.8;
+                p.y += (dy / d) * 0.8;
+            }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0, 229, 255, 0.65)';
+            ctx.fill();
+        }
+
+        /* connect nearby */
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 120) {
+                const a = particles[i], b = particles[j];
+                const dx = a.x - b.x, dy = a.y - b.y;
+                const d2 = dx*dx + dy*dy;
+                if (d2 < 11000) {
+                    const t = 1 - d2 / 11000;
                     ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(255, 45, 85, ${0.08 * (1 - dist / 120)})`;
-                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.strokeStyle = `rgba(124, 77, 255, ${t * 0.35})`;
+                    ctx.lineWidth = 0.6;
                     ctx.stroke();
                 }
             }
         }
-        animId = requestAnimationFrame(draw);
+
+        /* mouse crosshair */
+        if (mouse.x > 0) {
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, 22, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(0, 229, 255, 0.25)';
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+        }
+
+        requestAnimationFrame(step);
     }
-    
-    resize();
-    createParticles();
-    draw();
-    
-    window.addEventListener('resize', () => {
-        resize();
-        createParticles();
+
+    window.addEventListener('mousemove', e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
     });
+    window.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
+    window.addEventListener('resize', resize);
+
+    resize();
+    step();
+})();
+
+/* ----- 3D tilt on cards (removed — causes motion sickness) ----- */
+/* Keeping the simple CSS hover transitions only. */
+
+/* ----- Boot sequence ----- */
+(function () {
+    const boot = document.getElementById('boot');
+    const msg = document.getElementById('bootMsg');
+    if (!boot) return;
+    const lines = [
+        'initializing system',
+        'loading topics.index',
+        'connecting to constellation',
+        'ready.'
+    ];
+    let i = 0;
+    function cycle() {
+        msg.textContent = lines[i++ % lines.length];
+    }
+    cycle();
+    const iv = setInterval(cycle, 380);
+    setTimeout(() => {
+        clearInterval(iv);
+        boot.classList.add('hidden');
+        setTimeout(() => boot.remove(), 700);
+    }, 1700);
+})();
+
+/* ----- Glitch text-scramble on section numbers ----- */
+(function () {
+    const chars = '01<>{}[]#$%&*+/=?@^_~';
+    document.querySelectorAll('.section-head h2 .num').forEach(el => {
+        const final = el.textContent;
+        let frame = 0;
+        const total = 14;
+        function tick() {
+            const t = frame++ / total;
+            const out = final.split('').map((c, idx) => {
+                if (c === ' ' || c === '/') return c;
+                if (Math.random() < 1 - t) return chars[Math.floor(Math.random() * chars.length)];
+                return final[idx];
+            }).join('');
+            el.textContent = out;
+            if (frame < total) requestAnimationFrame(tick);
+            else el.textContent = final;
+        }
+        setTimeout(tick, 800);
+    });
+})();
+
+/* ============================================================
+   COOL+++ JS
+   ============================================================ */
+
+/* ----- Custom cursor (dot + ring) ----- */
+(function () {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
+    let dx = 0, dy = 0, rx = 0, ry = 0;
+    let tx = 0, ty = 0;
+    document.addEventListener('mousemove', e => {
+        tx = e.clientX; ty = e.clientY;
+    });
+    function loop() {
+        dx += (tx - dx) * 0.6;
+        dy += (ty - dy) * 0.6;
+        rx += (tx - rx) * 0.18;
+        ry += (ty - ry) * 0.18;
+        dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%, -50%)`;
+        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+        requestAnimationFrame(loop);
+    }
+    loop();
+    document.querySelectorAll('a, button, .ft-card, .ta-item, input').forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('hot'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('hot'));
+    });
+})();
+
+/* ----- Whole-page 3D parallax (removed — causes motion sickness) ----- */
+
+/* ----- Terminal command handler ----- */
+(function () {
+    const input = document.getElementById('terminalInput');
+    const body  = document.getElementById('terminalBody');
+    if (!input || !body) return;
+
+    const help = [
+        'available commands:',
+        '  <span class="cmd">help</span>      show this message',
+        '  <span class="cmd">topics</span>    list 16 topic keys',
+        '  <span class="cmd">stats</span>     show live stats',
+        '  <span class="cmd">ping</span>      test network latency',
+        '  <span class="cmd">clear</span>     clear terminal',
+        '  <span class="cmd">open [topic]</span> jump to a topic (e.g. open rent)',
+    ];
+
+    const stats = () => [
+        `topics indexed   : <span class="ok">16</span>`,
+        `articles cached  : <span class="ok">240+</span>`,
+        `active readers   : <span class="ok">1,247</span>`,
+        `session time     : <span class="cmd">${Math.floor(performance.now()/1000)}s</span>`,
+        `constellation    : <span class="ok">online</span>`,
+    ];
+
+    const topics = [
+        'apps life rent work food travel language hospital',
+        'study school work visa cultural entertainment business',
+        'sim cultural ... <span class="hex">[16 total]</span>'
+    ];
+
+    function echo(prompt, value) {
+        const div = document.createElement('div');
+        div.innerHTML = `<span class="prompt">user@cdiscovery</span>:<span class="cmd">~</span>$ ${value}`;
+        body.appendChild(div);
+    }
+    function print(html, cls) {
+        const div = document.createElement('div');
+        if (cls) div.className = cls;
+        div.innerHTML = html;
+        body.appendChild(div);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    input.addEventListener('keydown', e => {
+        if (e.key !== 'Enter') return;
+        const raw = input.value.trim();
+        if (!raw) return;
+        echo(null, escapeHtml(raw));
+        input.value = '';
+        const [cmd, ...rest] = raw.split(/\s+/);
+        switch (cmd.toLowerCase()) {
+            case 'help': help.forEach(l => print(l)); break;
+            case 'topics': topics.forEach(l => print(l)); break;
+            case 'stats': stats().forEach(l => print(l)); break;
+            case 'ping': print('PING constellation.cdiscovery (0.0.0.0): 56 bytes — <span class="ok">12.3ms</span>'); break;
+            case 'clear': body.innerHTML = ''; break;
+            case 'open': print(`opening topic <span class="cmd">${escapeHtml(rest.join(' ') || '?')}</span> ... <span class="ok">ok</span>`); break;
+            case 'whoami': print('<span class="cmd">guest</span> · session-id <span class="hex">0x' + Math.random().toString(16).slice(2,10) + '</span>'); break;
+            default: print(`<span class="err">command not found:</span> ${escapeHtml(cmd)}. type <span class="cmd">help</span>`);
+        }
+    });
+
+    function escapeHtml(s) {
+        return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+})();
+
+/* ----- Hex coordinate ticker ----- */
+(function () {
+    const el = document.querySelector('.hero .hex');
+    if (!el) return;
+    const base = { lat: 31.2304, lon: 121.4737 };
+    setInterval(() => {
+        const lat = (base.lat + (Math.random() - 0.5) * 0.01).toFixed(4);
+        const lon = (base.lon + (Math.random() - 0.5) * 0.01).toFixed(4);
+        el.textContent = `LAT ${lat}° N · LON ${lon}° E`;
+    }, 1800);
 })();
 </script>
 </body>
