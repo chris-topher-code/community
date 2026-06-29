@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mobile Preview Frame</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: -apple-system, 'Inter', sans-serif;
+        background: #1a1a25;
+        color: #e0e0e8;
+        min-height: 100vh;
+        padding: 24px;
+    }
+    .header {
+        max-width: 1400px;
+        margin: 0 auto 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    .header h1 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #00e5ff;
+    }
+    .header .meta {
+        font-size: 0.78rem;
+        color: #888;
+        font-family: 'JetBrains Mono', monospace;
+    }
+    .controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .controls label {
+        font-size: 0.78rem;
+        color: #aaa;
+    }
+    .controls select, .controls button {
+        background: rgba(0,229,255,0.06);
+        color: #00e5ff;
+        border: 1px solid rgba(0,229,255,0.25);
+        border-radius: 6px;
+        padding: 6px 12px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.78rem;
+        cursor: pointer;
+    }
+    .controls button:hover { background: rgba(0,229,255,0.14); }
+    .controls button.active {
+        background: linear-gradient(135deg, #00e5ff, #7c4dff);
+        color: #0a0a14;
+        border-color: transparent;
+        font-weight: 600;
+    }
+    .stage {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .phone {
+        background: #050510;
+        border-radius: 36px;
+        padding: 12px;
+        box-shadow:
+            0 0 0 2px #2a2a3a,
+            0 30px 80px rgba(0, 0, 0, 0.6),
+            0 0 60px rgba(0, 229, 255, 0.08);
+        position: relative;
+    }
+    .phone::before {
+        content: '';
+        position: absolute;
+        top: 18px; left: 50%;
+        transform: translateX(-50%);
+        width: 90px; height: 22px;
+        background: #0a0a14;
+        border-radius: 14px;
+        z-index: 10;
+    }
+    .frame {
+        background: #050510;
+        border-radius: 28px;
+        overflow: hidden;
+        width: 375px;
+        height: 812px;
+        position: relative;
+    }
+    .frame iframe {
+        width: 100%;
+        height: calc(100% - 56px);
+        border: 0;
+        display: block;
+    }
+    .mobile-tabbar {
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 56px;
+        display: flex;
+        background: rgba(5, 8, 18, 0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid rgba(0, 229, 255, 0.18);
+        z-index: 20;
+        padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+    .mobile-tabbar a {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        color: rgba(180, 220, 255, 0.55);
+        text-decoration: none;
+        font-size: 0.62rem;
+        font-family: 'Inter', sans-serif;
+        letter-spacing: 0.05em;
+        transition: color 0.2s ease, transform 0.15s ease;
+    }
+    .mobile-tabbar a i { font-size: 1.05rem; }
+    .mobile-tabbar a.active {
+        color: #00e5ff;
+    }
+    .mobile-tabbar a.active::after {
+        content: '';
+        position: absolute;
+        bottom: 6px;
+        width: 22px; height: 2px;
+        background: linear-gradient(90deg, #00e5ff, #7c4dff);
+        border-radius: 2px;
+    }
+    .mobile-tabbar a:hover { color: #00e5ff; transform: translateY(-1px); }
+    /* sizes */
+    .frame.size-320 { width: 320px; height: 700px; }
+    .frame.size-375 { width: 375px; height: 812px; }
+    .frame.size-414 { width: 414px; height: 896px; }
+    .frame.size-768 { width: 768px; height: 1024px; }
+    .frame.size-1024 { width: 1024px; height: 768px; }
+    /* hide notch on tablet/desktop sizes */
+    .frame.size-768 ~ * .phone::before,
+    .frame.size-1024 ~ * .phone::before,
+    .phone.no-notch::before { display: none; }
+    .phone.no-notch { border-radius: 14px; padding: 4px; box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 1px #2a2a3a; }
+    .phone.no-notch .frame { border-radius: 10px; }
+    .legend {
+        max-width: 1400px;
+        margin: 20px auto 0;
+        text-align: center;
+        font-size: 0.78rem;
+        color: #888;
+        font-family: 'JetBrains Mono', monospace;
+        letter-spacing: 0.05em;
+    }
+</style>
+</head>
+<body>
+    <div class="header">
+        <h1>◤ Mobile Preview · cool-demo.html</h1>
+        <div class="controls">
+            <label>Device:</label>
+            <button data-size="320" class="active">320×700</button>
+            <button data-size="375">375×812 iPhone</button>
+            <button data-size="414">414×896 Plus</button>
+            <button data-size="768">768 iPad</button>
+            <button data-size="1024">1024 Desktop</button>
+        </div>
+    </div>
+
+    <div class="stage">
+        <div class="phone" id="phone">
+            <div class="frame size-320">
+                <iframe src="cool-demo.html" id="frame"></iframe>
+                <nav class="mobile-tabbar" id="mobileTabbar">
+                    <a href="#" class="active" data-page="home"><i class="fas fa-home"></i><span>Home</span></a>
+                    <a href="#" data-page="topics"><i class="fas fa-hashtag"></i><span>Topics</span></a>
+                    <a href="#" data-page="stories"><i class="fas fa-book-open"></i><span>Stories</span></a>
+                    <a href="#" data-page="explore"><i class="fas fa-compass"></i><span>Explore</span></a>
+                    <a href="#" data-page="about"><i class="fas fa-circle-info"></i><span>About</span></a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="legend">Click a device size to swap the frame. The demo inside is the real <code>cool-demo.html</code>.</div>
+
+<script>
+    const buttons = document.querySelectorAll('.controls button');
+    const frame = document.getElementById('frame');
+    const phone = document.getElementById('phone');
+    const tabbar = document.getElementById('mobileTabbar');
+    const sizes = {
+        '320': { w: 320, h: 700, notch: true },
+        '375': { w: 375, h: 812, notch: true },
+        '414': { w: 414, h: 896, notch: true },
+        '768': { w: 768, h: 1024, notch: true },
+        '1024': { w: 1024, h: 768, notch: false }
+    };
+    function apply(size) {
+        const s = sizes[size];
+        const wrap = frame.parentElement;
+        wrap.className = 'frame size-' + size;
+        if (s.notch) phone.classList.remove('no-notch');
+        else phone.classList.add('no-notch');
+        buttons.forEach(b => b.classList.toggle('active', b.dataset.size === size));
+    }
+    buttons.forEach(b => b.addEventListener('click', () => apply(b.dataset.size)));
+    tabbar.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            tabbar.querySelectorAll('a').forEach(x => x.classList.remove('active'));
+            a.classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>
